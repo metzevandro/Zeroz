@@ -58,7 +58,7 @@ const Template: Story<DefaultProps> = (args) => {
               </BreadcrumbRoot>
             </>
           }
-          onClick={() => {}}
+          onClick={toggleSideBar}
         >
           <HeaderProfile name="Username">
             <DropDownMenu dropDownMenu>

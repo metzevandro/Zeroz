@@ -26,7 +26,7 @@ const Aside: React.FC<AsideProps> = ({
         className={`aside-overlay ${isOpen ? "aside-overlay-open" : "hidden"}`}
         onClick={toggleSidebar}
       />
-      <div className={`sidebar ${isOpen ? "aside-open" : ""}`}>
+      <div className={`aside-root ${isOpen ? "aside-open" : ""}`}>
         <div className="aside">
           <header className="aside-header">
             <div>

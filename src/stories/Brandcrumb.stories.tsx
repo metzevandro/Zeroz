@@ -8,8 +8,9 @@ const meta: Meta = {
   title: "Components/Breadcrumb",
   component: Breadcrumb,
   parameters: {
-    layout: "padded",
+    layout: "centered",
   },
+  tags: ["autodocs"],
 };
 
 export default meta;
