@@ -61,7 +61,7 @@ const InputSelect: React.FC<InputSelectProps> = ({
         >
           <select
             className={`${error && "select-error"}`}
-            placeholder="Escolha"
+            value="Escolha"
             onChange={handleOptionChange}
             disabled={disabled || error}
           >
