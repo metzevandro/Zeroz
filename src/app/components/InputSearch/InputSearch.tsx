@@ -4,7 +4,7 @@ import "./InputSearch.scss";
 import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 
 interface InputSearchProps {
-  disabled?: boolean;
+  disabled: boolean;
   onChange?: (value: string) => void;
 }
 
