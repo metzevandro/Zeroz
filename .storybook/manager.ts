@@ -34,14 +34,14 @@ addons.setConfig({
   
     // Form colors
     inputBg: '#f6f7f9',
-    inputBorder: '#945df5',
-    inputTextColor: '#945df5',
+    inputBorder: '#585C6D',
+    inputTextColor: '#585C6D',
     inputBorderRadius: 4,
 
     barHoverColor: '#945df5',
     booleanSelectedBg: '#945df5',
-    booleanBg: '#945df5',
+    booleanBg: '#f6f7f9',
     buttonBg: '#945df5',
-    buttonBorder: '#945df5',
+    buttonBorder: '#585C6D',
   }),
 })
