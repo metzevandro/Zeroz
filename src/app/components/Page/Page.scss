@@ -1,0 +1,52 @@
+.page-root {
+  margin: var(--s-spacing-medium);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-spacing-medium);
+  max-width: 1280px;
+
+  .page-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    height: 40px;
+
+    .page-header-title {
+      display: flex;
+      align-items: center;
+      gap: var(--s-spacing-small);
+
+      & h1 {
+        font: var(--s-typography-heading-large);
+        color: var(--s-color-content-default);
+      }
+    }
+
+    .page-header-actions {
+      display: flex;
+
+      gap: var(--s-spacing-xx-small);
+
+      .button-icon-actions {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 490px) {
+  .page-root {
+    .page-header {
+      .page-header-actions {
+        .button-actions {
+          display: none;
+        }
+        .button-icon-actions {
+          display: flex;
+        }
+      }
+    }
+  }
+}

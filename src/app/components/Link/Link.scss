@@ -1,0 +1,31 @@
+.link {
+  background-color: var(--s-color-fill-default);
+  text-decoration: underline;
+  color: var(--s-color-content-highlight);
+  font: var(--s-typography-label-medium);
+  border-radius: var(--s-border-radius-small);
+  padding: 0px var(--s-spacing-quarck);
+
+  &:hover {
+    background-color: var(--s-color-fill-highlight-light);
+  }
+  &:focus-visible {
+    outline-width: var(--s-border-width-thin);
+    outline-color: var(--s-color-fill-highlight);
+    outline-offset: var(--s-border-width-thin);
+    outline-style: solid;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    color: var(--s-color-content-disable);
+    &:hover {
+      background-color: var(--s-color-fill-default);
+    }
+    &:focus-visible {
+      outline-width: none;
+      outline-color: none;
+      outline-style: none;
+    }
+  }
+}

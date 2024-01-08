@@ -1,0 +1,69 @@
+.switch-root {
+  display: flex;
+  align-items: center;
+
+  .switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 22px;
+    height: 22px;
+    border-radius: var(--s-border-radius-small);
+    color: var(--s-color-content-default);
+    user-select: none;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--s-color-content-highlight);
+    }
+
+    &:focus-visible {
+      outline-width: var(--s-border-width-thin);
+      outline-color: var(--s-color-fill-highlight);
+      outline-style: solid;
+    }
+
+    &.checked {
+      color: var(--s-color-content-highlight);
+      background-color: transparent;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: var(--s-color-content-highlight);
+      }
+    }
+    &.unchecked {
+      transition: all 0.3s ease;
+    }
+  }
+
+  .label {
+    padding-left: var(--s-spacing-xx-small);
+    font: var(--s-typography-paragraph-regular);
+    color: var(--s-color-content-default);
+    cursor: pointer;
+    user-select: none;
+
+    &.disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  .disabled {
+    color: var(--s-color-content-disable);
+    cursor: not-allowed;
+
+    .checked,
+    .unchecked,
+    &:hover {
+      color: var(--s-color-content-disable);
+    }
+
+    &:focus {
+      outline-width: none;
+      outline-color: none;
+      outline-style: none;
+    }
+  }
+}

@@ -1,0 +1,62 @@
+/* TableList.scss */
+.table-list {
+  overflow: auto;
+
+  table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    th {
+      padding: var(--s-spacing-xx-small) var(--s-spacing-small);
+      text-align: left;
+      background-color: var(--s-color-fill-default);
+      text-transform: uppercase;
+      color: var(--s-color-content-light);
+      font: var(--s-typography-caption-strong);
+    }
+
+    td {
+      white-space: nowrap;
+      background-color: var(--s-color-fill-default);
+      color: var(--s-color-content-default);
+      font: var(--s-typography-paragraph-regular);
+      height: 40px;
+      border: none;
+
+      &.sm {
+        padding: var(--s-spacing-xx-small) var(--s-spacing-small);
+        height: 40px;
+      }
+
+      &.md {
+        padding: var(--s-spacing-small);
+        height: 56px;
+      }
+      &.border {
+        border-top: var(--s-border-width-hairline) solid
+          var(--s-color-border-default);
+      }
+    }
+
+    td:first-of-type,
+    th:first-of-type {
+      position: sticky;
+      left: 0;
+      z-index: 1;
+    }
+  }
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &.overflow-ativo {
+    td:first-of-type,
+    th:first-of-type {
+      box-sizing: border-box;
+      border-right: var(--s-border-width-hairline) solid
+        var(--s-color-border-default);
+    }
+  }
+}

@@ -1,0 +1,77 @@
+.check-box-root {
+  width: fit-content;
+  display: flex;
+  user-select: none;
+  cursor: pointer;
+  gap: var(--s-spacing-xx-small);
+
+  &.disabled {
+    cursor: auto;
+  }
+
+  span {
+    width: 24px;
+    height: 24px;
+  }
+
+  .checkbox {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 22px;
+    height: 22px;
+    border-radius: var(--s-border-radius-small);
+
+    &:focus-visible {
+      outline-width: var(--s-border-width-thin);
+      outline-color: var(--s-color-fill-highlight);
+      outline-style: solid;
+    }
+
+    &.disabled {
+      color: var(--s-color-content-disable);
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &.disabled .unchecked {
+      cursor: auto;
+      color: var(--s-color-content-disable);
+
+      &:hover {
+        color: var(--s-color-content-disable);
+      }
+    }
+
+    .unchecked {
+      color: var(--s-color-content-default);
+    }
+
+    .unchecked:hover {
+      color: var(--s-color-content-highlight);
+    }
+
+    .checked,
+    .indeterminate {
+      user-select: none;
+      cursor: pointer;
+      color: var(--s-color-content-highlight);
+      background-color: transparent;
+    }
+  }
+
+  .check-box-label {
+    font: var(--s-typography-label-medium);
+    color: var(--s-color-content-default);
+    cursor: pointer;
+    &.disabled {
+      cursor: auto;
+    }
+  }
+}

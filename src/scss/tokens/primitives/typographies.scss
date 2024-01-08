@@ -1,0 +1,24 @@
+$primitive-typographies: (
+  font-family-system: (
+    "Inter",
+    sans-serif,
+  ),
+
+  font-size-base: 0.875rem,
+
+  font-weight: (
+    thin: 100,
+    light: 300,
+    regular: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700,
+  ),
+
+  line-height: (
+    16: 1rem,
+    20: 1.25rem,
+    24: 1.5rem,
+    32: 2rem,
+  ),
+);

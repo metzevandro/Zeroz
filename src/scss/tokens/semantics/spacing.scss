@@ -1,0 +1,15 @@
+@use "../../mixins/tokens" as tokens;
+@use "../primitives/spacing.scss" as *;
+
+$semantic-spacing: (
+  quarck: $primitive-spacing-2px,
+  nano: $primitive-spacing-4px,
+  xx-small: $primitive-spacing-8px,
+  x-small: $primitive-spacing-12px,
+  small: $primitive-spacing-16px,
+  medium: $primitive-spacing-24px,
+  large: $primitive-spacing-32px,
+  x-large: $primitive-spacing-40px,
+  xx-large: $primitive-spacing-48px,
+  huge: $primitive-spacing-56px,
+);

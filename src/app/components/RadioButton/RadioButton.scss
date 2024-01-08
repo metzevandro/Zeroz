@@ -1,0 +1,69 @@
+.radio-button-root {
+  display: flex;
+  align-items: center;
+  gap: var(--s-spacing-xx-small);
+
+  .radio-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 22px;
+    height: 22px;
+    border-radius: var(--s-border-radius-large);
+    user-select: none;
+    cursor: pointer;
+    color: var(--s-color-content-default);
+
+    &:focus-visible {
+      outline-width: var(--s-border-width-thin);
+      outline-color: var(--s-color-fill-highlight);
+      outline-style: solid;
+    }
+
+    &.disabled {
+      color: var(--s-color-content-disable);
+      cursor: auto;
+
+      .checked,
+      .unchecked {
+        color: var(--s-color-content-disable);
+      }
+
+      .checked,
+      .unchecked:hover {
+        color: var(--s-color-content-disable);
+      }
+
+      &:focus-visible {
+        outline-width: none;
+        outline-color: none;
+        outline-style: none;
+      }
+    }
+
+    .unchecked {
+      &:hover {
+        color: var(--s-color-content-highlight);
+      }
+    }
+
+    .checked {
+      cursor: pointer;
+      color: var(--s-color-content-highlight);
+      background-color: transparent;
+    }
+  }
+
+  .radio-button-label {
+    font: var(--s-typography-paragraph-regular);
+    color: var(--s-color-content-default);
+    cursor: pointer;
+    user-select: none;
+
+    &.disabled {
+      color: var(--s-color-content-disable);
+      cursor: auto;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+.description-list-root {
+  width: 100%;
+  display: flex;
+  padding: var(--s-spacing-small) 0;
+  justify-content: space-between;
+  border-bottom: var(--s-border-width-hairline) solid
+    var(--s-color-border-default);
+
+  &.row {
+    flex-direction: row;
+  }
+
+  &.column {
+    gap: var(--s-spacing-xx-small);
+    flex-direction: column;
+  }
+
+  h1 {
+    font: var(--s-typography-paragraph-strong);
+    color: var(--s-color-content-default);
+  }
+
+  p {
+    font: var(--s-typography-paragraph-regular);
+    color: var(--s-color-content-light);
+  }
+}

@@ -1,0 +1,18 @@
+.form-register-root {
+  position: relative;
+}
+
+.form-register-save-bar {
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+.form-register-progress {
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}

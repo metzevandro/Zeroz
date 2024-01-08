@@ -1,0 +1,118 @@
+.profile-ghost {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.header-root {
+  background-color: var(--s-color-fill-default);
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  padding: var(--s-spacing-nano) var(--s-spacing-medium);
+  justify-content: space-between;
+  border-bottom: var(--s-border-width-hairline) solid
+    var(--s-color-border-default);
+  box-sizing: border-box;
+  height: 64px;
+
+  .header-action {
+    display: none;
+  }
+
+  .profile {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: var(--s-spacing-xx-small);
+    gap: var(--s-spacing-xx-small);
+    font: var(--s-typography-paragraph-strong);
+    color: var(--s-color-content-default);
+    background-color: var(--s-color-fill-default);
+    border-radius: var(--s-border-radius-small);
+    user-select: none;
+
+    &:hover {
+      background-color: var(--s-color-fill-default-hover);
+    }
+
+    &:focus-visible {
+      outline-width: var(--s-border-width-thin);
+      outline-color: var(--s-color-fill-highlight);
+      outline-offset: var(--s-border-width-thin);
+      outline-style: solid;
+    }
+
+    .atavar {
+      cursor: pointer;
+    }
+
+    .icon {
+      &.open {
+        transform: rotate(-180deg);
+        transition: 0.3s ease-out;
+      }
+      &.close {
+        transition: 0.3s ease-out;
+      }
+    }
+
+    .name {
+      display: flex;
+      font: var(--s-typography-paragraph-strong);
+      color: var(--s-color-content-default);
+    }
+  }
+
+  .dropdown {
+    &.open {
+    }
+
+    &.close {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header-root {
+    padding: var(--s-spacing-x-small) var(--s-spacing-small);
+    .header-breadcrumb {
+      display: none;
+    }
+    .header-action {
+      display: flex;
+    }
+
+    .dropdown.open {
+      width: 150px;
+    }
+
+    .profile-root {
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+
+      .profile {
+        padding: 0;
+        border-radius: var(--border-radius-pill);
+        &:hover {
+          background-color: transparent;
+        }
+
+        .name {
+          display: none;
+        }
+
+        .icon {
+          display: none;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@use "../../mixins/tokens" as tokens;
+@use "../primitives/shadows.scss" as *;
+
+$semantic-shadows: (
+  level: (
+    1: tokens.getPrimitiveVar($primitive-shadows, level, 1),
+    2: tokens.getPrimitiveVar($primitive-shadows, level, 2),
+    3: tokens.getPrimitiveVar($primitive-shadows, level, 3),
+    4: tokens.getPrimitiveVar($primitive-shadows, level, 4),
+  ),
+);

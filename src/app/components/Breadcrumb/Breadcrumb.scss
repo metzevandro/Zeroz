@@ -1,0 +1,11 @@
+.breadcrumb {
+  display: flex;
+  gap: var(--s-spacing-xx-small);
+  align-items: center;
+  color: var(--s-color-content-default);
+}
+@media screen and (max-width: 768px) {
+  .breadcrumb {
+    display: none;
+  }
+}

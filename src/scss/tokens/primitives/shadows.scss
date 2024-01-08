@@ -1,0 +1,12 @@
+@function multiplyShadow($multiplier) {
+  @return 0 calc(4px * $multiplier) calc(8px * $multiplier) 0 #00000014;
+}
+
+$primitive-shadows: (
+  level: (
+    1: multiplyShadow(1),
+    2: multiplyShadow(2),
+    3: multiplyShadow(3),
+    4: multiplyShadow(4),
+  ),
+);

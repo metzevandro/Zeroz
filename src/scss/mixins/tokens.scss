@@ -1,0 +1,33 @@
+@use "sass:list";
+@use "sass:meta";
+@use "sass:map";
+@use "../constants/opacity" as *;
+
+@mixin generateVars($list, $type) {
+  @each $groupName, $groupValues in $list {
+    @if meta.type-of($groupValues) == map {
+      @each $name, $value in $groupValues {
+        --s-#{$type}-#{$groupName}-#{$name}: #{$value};
+      }
+    } @else {
+      --s-#{$type}-#{$groupName}: #{$groupValues};
+    }
+  }
+}
+
+@function getOpacity($valor) {
+  @return map-get($opacity, $valor);
+}
+
+@function getPrimitiveVar($primitiveVar, $type, $value: null, $opacity: null) {
+  $variableVariations: map.get($primitiveVar, $type);
+
+  @if not $value {
+    @if $opacity {
+      @return #{$variableVariations}#{getOpacity($opacity)};
+    }
+    @return $variableVariations;
+  }
+
+  @return map.get($variableVariations, $value);
+}

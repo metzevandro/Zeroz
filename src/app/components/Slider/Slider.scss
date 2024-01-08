@@ -1,0 +1,81 @@
+.slider {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-spacing-nano);
+  min-width: 250px;
+
+  .slider-label {
+    font: var(--s-typography-label-medium);
+    color: var(--s-color-content-default);
+  }
+
+  .slider-container {
+    display: flex;
+    gap: var(--s-spacing-x-small);
+    align-items: center;
+
+    .slider-max-min {
+      color: var(--s-color-content-default);
+      font: var(--s-typography-paragraph-regular);
+    }
+
+    .slider-background {
+      width: 100%;
+      height: 4px;
+      position: relative;
+      border-radius: 150px;
+      cursor: pointer;
+      background-color: var(--s-color-fill-default-light);
+    }
+
+    .slider-progress-bar {
+      border-radius: 150px;
+      height: 100%;
+      transition: width 0.3s ease;
+      background-color: var(--s-color-fill-highlight);
+    }
+
+    .slider-button {
+      background-color: var(--s-color-fill-highlight);
+      width: 16px;
+      height: 16px;
+      border-radius: var(--s-border-radius-pill);
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      transition: left 0.3s ease;
+      z-index: 2;
+    }
+
+    .slider-button:hover {
+      width: 20px;
+      height: 20px;
+    }
+
+    .slider-button:focus-visible {
+      outline-width: var(--s-border-width-thin);
+      outline-color: var(--s-color-fill-highlight);
+      outline-offset: var(--s-border-width-thin);
+      outline-style: solid;
+    }
+
+    .slider-input {
+      min-width: 64px;
+      max-height: min-content;
+      padding: var(--s-spacing-xx-small) var(--s-spacing-x-small);
+      text-align: left;
+      border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+      border-radius: var(--s-border-radius-small);
+      font: var(--s-typography-paragraph-regular);
+      color: var(--s-color-content-default);
+    }
+
+    .slider-input:focus-visible {
+      outline-width: var(--s-border-width-thin);
+      outline-color: var(--s-color-fill-highlight);
+      outline-offset: var(--s-border-width-thin);
+      outline-style: solid;
+    }
+  }
+}

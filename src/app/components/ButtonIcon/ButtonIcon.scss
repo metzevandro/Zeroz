@@ -1,0 +1,113 @@
+.button-icon {
+  display: flex;
+  align-items: center;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  &.md.plain {
+    height: 24px;
+  }
+
+  &.lg.plain {
+    height: 32px;
+  }
+
+  &.plain {
+    width: min-content;
+    height: min-content;
+    border-radius: var(--s-border-radius-small);
+    color: var(--s-color-content-default);
+    background-color: transparent;
+
+    &:hover {
+      background-color: var(--s-color-fill-default-hover);
+    }
+
+    &.on-color {
+      color: var(--s-color-content-on-color);
+
+      &:hover {
+        background-color: rgba(white, 0.16);
+      }
+    }
+
+    &:focus-visible {
+      outline-width: var(--s-border-width-thin);
+      outline-color: var(--s-color-fill-highlight);
+      outline-offset: var(--s-border-width-thin);
+      outline-style: solid;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: var(--s-color-fill-disable);
+      color: var(--s-color-content-disable);
+    }
+  }
+
+  &.sm.default > * {
+    padding: var(--s-spacing-nano);
+  }
+
+  &.md.default > * {
+    padding: var(--s-spacing-xx-small);
+    font-size: 24px;
+  }
+
+  &.default {
+    border-radius: 4px;
+    width: min-content;
+    height: min-content;
+
+    &:focus-visible {
+      outline-width: var(--s-border-width-thin);
+      outline-color: var(--s-color-fill-highlight);
+      outline-offset: var(--s-border-width-thin);
+      outline-style: solid;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: var(--s-color-fill-disable);
+      color: var(--s-color-content-disable);
+    }
+
+    &.primary {
+      background-color: var(--s-color-fill-highlight);
+      color: var(--s-color-content-on-color);
+
+      &:hover {
+        background-color: var(--s-color-fill-highlight-hover);
+      }
+    }
+
+    &.secondary {
+      border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+      background-color: var(--s-color-fill-default);
+      color: var(--s-color-content-default);
+
+      &:hover {
+        background-color: var(--s-color-fill-default-hover);
+      }
+    }
+
+    &.success {
+      background-color: var(--s-color-fill-success);
+      color: var(--s-color-content-on-color);
+
+      &:hover {
+        background-color: var(--s-color-fill-success-hover);
+      }
+    }
+
+    &.warning {
+      background-color: var(--s-color-fill-warning);
+      color: var(--s-color-content-on-color);
+
+      &:hover {
+        background-color: var(--s-color-fill-warning-hover);
+      }
+    }
+  }
+}

@@ -1,0 +1,129 @@
+.input-number-root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-spacing-nano);
+  height: min-content;
+}
+
+.input-number-label {
+  font: var(--s-typography-label-medium);
+  color: var(--s-color-content-default);
+}
+
+.input-number-root input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.input-number-root input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.input-number-root input {
+  box-sizing: border-box;
+  text-align: center;
+  color: var(--s-color-content-default);
+  font: var(--s-typography-paragraph-regular);
+  width: 100%;
+  padding: var(--s-spacing-xx-small);
+  border-right: var(--s-border-width-hairline) solid
+    var(--s-color-border-default);
+  border-left: var(--s-border-width-hairline) solid
+    var(--s-color-border-default);
+  background-color: var(--s-color-fill-default);
+}
+
+.input-number-root input:hover {
+  background-color: var(--s-color-fill-default-hover);
+}
+
+.input-number-root input:focus-visible {
+  outline: none;
+  background-color: var(--s-color-fill-default-hover);
+}
+
+.input-number-root input::placeholder {
+  text-align: center;
+  color: var(--s-color-content-placeholder);
+  font: var(--s-typography-paragraph-regular);
+}
+
+.input-number-root button {
+  display: flex;
+  align-items: center;
+  padding: var(--s-spacing-xx-small);
+  margin: 0;
+  background-color: var(--s-color-fill-default);
+  cursor: pointer;
+  color: var(--s-color-content-default);
+}
+
+.input-number-root button:hover {
+  background-color: var(--s-color-fill-default-hover);
+}
+
+.input-number-root button:focus-visible {
+  outline: none;
+}
+
+.input-number-root button:disabled {
+  background-color: var(--s-color-fill-disable);
+  color: var(--s-color-content-disable);
+  cursor: auto;
+}
+
+.input-number .add {
+  border-radius: 0 var(--s-border-radius-small) var(--s-border-radius-small) 0;
+}
+
+.input-number .add:active {
+  outline-width: var(--s-border-width-thin);
+  outline-color: var(--s-color-fill-highlight);
+  outline-offset: -1px;
+  outline-style: solid;
+}
+
+.input-number .subtract {
+  z-index: 2;
+  border-radius: var(--s-border-radius-small) 0 0 var(--s-border-radius-small);
+}
+
+.input-number .subtract:active {
+  outline-width: var(--s-border-width-thin);
+  outline-color: var(--s-color-fill-highlight);
+  outline-offset: -1px;
+  outline-style: solid;
+}
+
+.input-number {
+  border-radius: var(--s-border-radius-small);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+  color: var(--s-color-content-default);
+}
+
+.input-number:focus-within {
+  outline-width: var(--s-border-width-thin);
+  outline-color: var(--s-color-fill-highlight);
+  outline-offset: var(--s-border-width-thin);
+  outline-style: solid;
+}
+
+.input-number.disabled {
+  border-color: var(--s-color-border-default);
+  background-color: var(--s-color-fill-disable);
+}
+
+.input-number.disabled input {
+  background-color: var(--s-color-fill-disable);
+}
+
+.input-number.disabled button:hover {
+  background-color: transparent;
+}
+
+.input-number.disabled button:active {
+  outline: none;
+}

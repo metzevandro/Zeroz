@@ -1,0 +1,69 @@
+.PaginationItem {
+  .arrow_back,
+  .arrow_forward {
+    cursor: pointer;
+    background-color: var(--s-color-fill-default);
+    color: var(--s-color-content-default);
+    border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+    padding: var(--s-spacing-xx-small);
+    &:hover {
+      background-color: var(--s-color-fill-default-hover);
+    }
+  }
+
+  .arrow_back {
+    border-radius: var(--s-border-radius-small) 0 0 var(--s-border-radius-small);
+  }
+
+  .arrow_forward {
+    border-radius: 0 var(--s-border-radius-small) var(--s-border-radius-small) 0;
+  }
+
+  .arrow_back:focus-visible,
+  .arrow_forward:focus-visible {
+    outline-width: var(--s-border-width-thin);
+    outline-color: var(--s-color-fill-highlight);
+    outline-offset: var(--s-border-width-hairline);
+    outline-style: solid;
+  }
+
+  .arrow_back:disabled,
+  .arrow_forward:disabled {
+    background-color: var(--s-color-fill-disable);
+    color: var(--s-color-content-disable);
+  }
+}
+
+.Pagination {
+  .noLabel,
+  .leftLabel,
+  .centerLabel {
+    display: flex;
+  }
+
+  .leftLabel {
+    padding: var(--s-spacing-small);
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+      font: var(--s-typography-paragraph-regular);
+      color: var(--s-color-content-default);
+    }
+
+    div {
+      display: flex;
+    }
+  }
+
+  .centerLabel {
+    justify-content: space-between;
+    padding: var(--s-spacing-small);
+    align-items: center;
+
+    p {
+      font: var(--s-typography-paragraph-regular);
+      color: var(--s-color-content-default);
+    }
+  }
+}

@@ -1,0 +1,177 @@
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 256px;
+  grid-area: aside;
+  background-color: var(--s-color-fill-default);
+  border-right: var(--s-border-width-hairline) solid
+    var(--s-color-border-default);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-spacing-large);
+  padding: var(--s-spacing-medium) var(--s-spacing-xx-small);
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: 0.3s;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 12px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--s-fill-default-light);
+    border-radius: 12px;
+  }
+
+  .brand {
+    padding: 0 var(--s-spacing-xx-small);
+  }
+
+  .sidebar-list {
+    display: flex;
+    flex-direction: column;
+
+    .sidebar-list-title {
+      text-transform: uppercase;
+      font: var(--s-typography-caption-strong);
+      color: var(--s-color-content-light);
+      padding: 0 var(--s-spacing-xx-small);
+    }
+
+    .sidebar-item {
+      transition: 0.1s ease-out;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--s-spacing-xx-small);
+      border-radius: var(--s-border-radius-small);
+      background-color: var(--s-color-fill-default);
+    }
+
+    .sidebar-item:hover {
+      background-color: var(--s-color-fill-default-hover);
+    }
+
+    .sidebar-item:focus-visible {
+      z-index: 2;
+      outline-width: var(--s-border-width-thin);
+      outline-color: var(--s-color-fill-highlight);
+      outline-offset: -2px;
+      outline-style: solid;
+    }
+
+    .sidebar-item.active {
+      background-color: var(--s-color-fill-highlight-light);
+      color: var(--s-color-content-highlight);
+      .sidebar-item-header {
+        color: var(--s-color-content-highlight);
+      }
+    }
+
+    .sidebar-item-header {
+      font: var(--s-typography-paragraph-strong);
+      color: var(--s-color-content-default);
+      display: flex;
+      align-items: center;
+      gap: var(--s-spacing-xx-small);
+    }
+
+    .sidebar-sub-item {
+      cursor: pointer;
+      padding: var(--s-spacing-xx-small);
+      display: flex;
+      gap: var(--s-spacing-xx-small);
+      align-items: center;
+      padding: var(--s-spacing-xx-small);
+      border-radius: var(--s-border-radius-small);
+      font: var(--s-typography-paragraph-regular);
+      color: var(--s-color-content-default);
+      background-color: var(--s-color-fill-default);
+    }
+
+    .sidebar-sub-item:hover {
+      background-color: var(--s-color-fill-default-hover);
+    }
+
+    .sidebar-sub-item:focus-visible {
+      z-index: 2;
+      outline-width: var(--s-border-width-thin);
+      outline-color: var(--s-color-fill-highlight);
+      outline-offset: -2px;
+      outline-style: solid;
+    }
+
+    .sidebar-sub-item:active {
+      background-color: var(--s-color-fill-highlight-light);
+      color: var(--s-color-content-highlight);
+    }
+
+    .sidebar-item-with-action-open {
+      transform: rotate(-180deg);
+      transition: 0.3s ease-out;
+    }
+
+    .sidebar-item-with-action-close {
+      transition: 0.3s ease-out;
+    }
+  }
+}
+
+.sidebar-overlay {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar.close {
+    border: none;
+    left: -100vw;
+    top: 0;
+    z-index: 999;
+    position: fixed;
+    display: flex;
+    transition: 0.5s;
+  }
+
+  .sidebar.open {
+    width: 256px;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    transition: 0.5s;
+    position: fixed;
+    display: flex;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+  }
+
+  .sidebar-overlay {
+    top: 0;
+    right: 0;
+    z-index: 998;
+    position: fixed;
+    background-color: var(--s-color-background-overlay);
+    height: 100vh;
+    width: 100%;
+    justify-content: end;
+    padding: 24px;
+  }
+
+  .sidebar-overlay.close {
+    transition: 0.3s;
+    opacity: 0;
+  }
+
+  .sidebar-overlay.open {
+    top: 0;
+    right: 0;
+    display: flex;
+    transition: 0.3s;
+    opacity: 1;
+  }
+}

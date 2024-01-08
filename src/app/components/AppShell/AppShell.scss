@@ -1,0 +1,25 @@
+@import "../../../scss/mixins/tokens.scss";
+
+.app-shell {
+  display: grid;
+  background-color: var(--s-color-background-default);
+  justify-content: center;
+  align-items: start;
+  grid-template-columns: auto 4fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "aside header"
+    "aside main";
+}
+
+@media screen and (max-width: 768px) {
+  .app-shell {
+    height: 100%;
+    align-items: start;
+    justify-content: normal;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "main";
+  }
+}

@@ -1,0 +1,29 @@
+.tag-root {
+  display: flex;
+  padding: 0 var(--s-spacing-xx-small);
+  gap: var(--s-spacing-nano);
+  border-radius: var(--s-border-radius-pill);
+  font: var(--s-typography-caption-regular);
+  align-items: center;
+  width: fit-content;
+
+  &.secondary {
+    background-color: var(--s-color-fill-default-light);
+    color: var(--s-color-content-default);
+  }
+
+  &.primary {
+    background-color: var(--s-color-fill-highlight);
+    color: var(--s-color-content-on-color);
+  }
+
+  &.success {
+    background-color: var(--s-color-fill-success);
+    color: var(--s-color-content-on-color);
+  }
+
+  &.warning {
+    background-color: var(--s-color-fill-warning);
+    color: var(--s-color-content-on-color);
+  }
+}

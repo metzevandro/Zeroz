@@ -1,0 +1,53 @@
+@use "../../mixins/tokens" as tokens;
+@use "../primitives/typographies.scss" as *;
+
+@function baseFont($font-weight: regular, $font-size: 1, $line-height: 24) {
+  @return tokens.getPrimitiveVar(
+      $primitive-typographies,
+      font-weight,
+      $font-weight
+    )
+    calc(
+      tokens.getPrimitiveVar($primitive-typographies, font-size-base) *
+        $font-size
+    )
+    "/"
+    tokens.getPrimitiveVar($primitive-typographies, line-height, $line-height)
+    tokens.getPrimitiveVar($primitive-typographies, font-family-system);
+}
+
+$semantic-font-size: (
+  base: tokens.getPrimitiveVar($primitive-typographies, font-size-base),
+);
+
+$semantic-font-weight: (
+  thin: tokens.getPrimitiveVar($primitive-typographies, font-weight, thin),
+  light: tokens.getPrimitiveVar($primitive-typographies, font-weight, light),
+  regular: tokens.getPrimitiveVar($primitive-typographies, font-weight, regular),
+  medium: tokens.getPrimitiveVar($primitive-typographies, font-weight, medium),
+  semibold:
+    tokens.getPrimitiveVar($primitive-typographies, font-weight, semibold),
+  bold: tokens.getPrimitiveVar($primitive-typographies, font-weight, bold),
+);
+
+$semantic-line-height: (
+  16: tokens.getPrimitiveVar($primitive-typographies, line-height, 16),
+  20: tokens.getPrimitiveVar($primitive-typographies, line-height, 20),
+  24: tokens.getPrimitiveVar($primitive-typographies, line-height, 24),
+  32: tokens.getPrimitiveVar($primitive-typographies, line-height, 32),
+);
+
+$semantic-typographies: (
+  heading-x-large: baseFont(semibold, 2.3, 16),
+  heading-large: baseFont(semibold, 1.7),
+  heading-medium: baseFont(semibold, 1.4),
+  heading-small: baseFont(semibold, 1.1),
+  heading-x-small: baseFont(semibold, 1),
+  label-small: baseFont(medium, 0.9),
+  label-medium: baseFont(medium, 1),
+  label-large: baseFont(medium, 1.1),
+  paragraph-regular: baseFont(regular),
+  paragraph-strong: baseFont(semibold),
+  caption-regular: baseFont(regular, 0.8),
+  caption-strong: baseFont(bold, 0.8),
+);

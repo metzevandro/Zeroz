@@ -1,0 +1,48 @@
+.input-time {
+  position: relative;
+  z-index: 1;
+
+  .input-time-modal {
+    z-index: 99;
+    padding: var(--s-spacing-nano);
+    border-radius: var(--s-border-radius-small);
+    margin-top: var(--s-spacing-xx-small);
+    background-color: var(--s-color-fill-default);
+    position: absolute;
+    display: flex;
+    height: 232px;
+    box-shadow: var(--s-shadow-level-1);
+    border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+
+    .modal-section {
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-spacing-xx-small);
+      scroll-behavior: smooth;
+
+      &::-webkit-scrollbar {
+        width: 0px;
+      }
+
+      .input-time-buttons {
+        background-color: transparent;
+        border-radius: var(--s-border-radius-small);
+        padding: var(--s-spacing-xx-small);
+        cursor: pointer;
+        z-index: 999;
+      }
+
+      .input-time-buttons:hover {
+        background-color: var(--s-color-fill-default-hover);
+      }
+
+      .input-time-buttons:focus-visible {
+        outline-width: var(--s-border-width-thin);
+        outline-color: var(--s-color-fill-highlight);
+        outline-offset: -2px;
+        outline-style: solid;
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &.row {
+    display: flex;
+    flex-direction: row;
+    gap: var(--s-spacing-x-small);
+  }
+
+  &.column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-spacing-x-small);
+  }
+}

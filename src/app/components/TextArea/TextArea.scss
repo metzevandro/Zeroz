@@ -1,0 +1,97 @@
+.text-area-root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-spacing-nano);
+
+  .text-area-label {
+    color: var(--s-color-content-default);
+    font: var(--s-typography-label-medium);
+  }
+
+  .text-area {
+    cursor: text;
+    display: flex;
+    align-items: center;
+    border-radius: var(--s-border-radius-small);
+    border: solid var(--s-border-width-hairline) var(--s-color-border-default);
+    background-color: var(--s-color-fill-default);
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: var(--s-spacing-xx-small) var(--s-spacing-x-small);
+      color: var(--s-color-content-default);
+      font: var(--s-typography-paragraph-regular);
+      background-color: transparent;
+      border: none;
+      height: 100%;
+      resize: vertical;
+
+      &:focus-visible {
+        outline: none;
+      }
+
+      &::placeholder {
+        font: var(--s-typography-paragraph-regular);
+        color: var(--s-color-content-placeholder);
+      }
+    }
+
+    &:hover {
+      background-color: var(--s-color-fill-default-hover);
+    }
+
+    &:focus-within {
+      outline-width: var(--s-border-width-thin);
+      outline-color: var(--s-color-border-highlight);
+      outline-offset: var(--s-border-width-hairline);
+      outline-style: solid;
+      background-color: var(--s-color-fill-default);
+    }
+
+    &:active {
+      color: var(--s-color-content-default);
+      font: var(--s-typography-paragraph-regular);
+    }
+
+    &.disabled {
+      opacity: 0.64;
+      color: var(--s-color-content-disable);
+      background-color: var(--s-color-fill-disable);
+      border-color: var(--s-color-border-default);
+    }
+
+    &.disabled:focus-within {
+      outline-style: none;
+    }
+
+    &.error {
+      color: var(--s-color-content-warning);
+      background-color: var(--s-color-fill-warning-light);
+      cursor: not-allowed;
+      border: solid var(--s-border-width-hairline) var(--s-color-border-warning);
+
+      textarea::placeholder {
+        color: var(--s-color-content-warning);
+      }
+
+      &:hover {
+        background-color: var(--s-color-fill-warning-light);
+      }
+
+      &:focus-within {
+        outline: none;
+        background-color: none;
+      }
+
+      &:active {
+        color: var(--s-color-content-on-color);
+      }
+    }
+  }
+  .description {
+    font: var(--s-typography-caption-regular);
+    color: var(--s-color-content-warning);
+    margin: 0;
+  }
+}
