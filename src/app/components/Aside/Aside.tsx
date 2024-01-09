@@ -7,7 +7,7 @@ interface AsideProps {
   title: string;
   description?: string;
   footer?: React.ReactNode;
-  children?: React.ReactNode;
+  content?: React.ReactNode;
   toggleSidebar: () => void;
   isOpen: boolean;
 }
@@ -18,7 +18,7 @@ const Aside: React.FC<AsideProps> = ({
   description,
   toggleSidebar,
   footer,
-  children,
+  content,
 }) => {
   return (
     <>
@@ -41,8 +41,8 @@ const Aside: React.FC<AsideProps> = ({
               onClick={toggleSidebar}
             />
           </header>
-          <div className="aside-children">{children}</div>
-          {footer}
+          <main className="aside-children">{content}</main>
+          <footer className="aside-footer">{footer}</footer>
         </div>
       </div>
     </>
@@ -56,7 +56,7 @@ interface AsideContentProps {
 }
 
 export const AsideContent: React.FC<AsideContentProps> = ({ children }) => {
-  return <main className="aside-content">{children}</main>;
+  return <div className="aside-content">{children}</div>;
 };
 
 interface AsideFooterProps {
@@ -64,5 +64,5 @@ interface AsideFooterProps {
 }
 
 export const AsideFooter: React.FC<AsideFooterProps> = ({ children }) => {
-  return <footer className="aside-footer">{children}</footer>;
+  return <div>{children}</div>;
 };

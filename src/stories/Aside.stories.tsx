@@ -4,9 +4,10 @@ import Aside, {
   AsideContent,
   AsideFooter,
 } from "../app/components/Aside/Aside";
-import Button from "../app/components/Button/Button";
 import Icon from "../app/components/Icon/Icon";
 import "./css/slot.scss";
+import ButtonGroup from "../app/components/ButtonGroup/ButtonGroup";
+import Button from "../app/components/Button/Button";
 
 const meta: Meta = {
   title: "Components/Aside",
@@ -45,30 +46,34 @@ const Template: Story<Args> = (args) => {
         toggleSidebar={toggleSideBar}
         title={args.title}
         description={args.description}
-      >
-        <AsideContent>
-          <div className="slot">
-            <Icon icon="refresh" size="md" />
-            Slot Content
-          </div>
-        </AsideContent>
-        <AsideFooter>
-          <div style={{ width: "min-content" }}>
-            <Button
-              size="md"
-              variant="warning"
-              label="Close"
-              onClick={toggleSideBar}
-            />
-          </div>
-        </AsideFooter>
-      </Aside>
+        content={
+          <AsideContent>
+            <div className="slot">
+              <Icon icon="refresh" size="md" />
+              Slot Content
+            </div>
+          </AsideContent>
+        }
+        footer={
+          <AsideFooter>
+            <div style={{ width: "min-content" }}>
+              <ButtonGroup
+                direction="row"
+                variantFirstButton="primary"
+                variantSecondButton="secondary"
+                contentFirstButton="Button"
+                contentSecondButton="Button"
+              />
+            </div>
+          </AsideFooter>
+        }
+      />
     </>
   );
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  title: "Title",
-  description: "Description",
+  title: "Title aside here!",
+  description: "Aside description",
 };
