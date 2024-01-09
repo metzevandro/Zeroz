@@ -13,7 +13,6 @@ addons.setConfig({
     brandTarget: '_self',
   
     //
-    colorPrimary: '#945df5',
     colorSecondary: '#945df5',
   
     // UI
@@ -27,8 +26,8 @@ addons.setConfig({
     textInverseColor: '#f6f7f9',
   
     // Toolbar default and active colors
-    barTextColor: '#945df5',
-    barSelectedColor: '#945df5',
+    barTextColor: '#585C6D',
+    barSelectedColor: '#585C6D',
     barBg: '#f6f7f9',
   
     // Form colors
@@ -37,7 +36,7 @@ addons.setConfig({
     inputTextColor: '#585C6D',
     inputBorderRadius: 4,
 
-    barHoverColor: '#945df5',
+    barHoverColor: '#585C6D',
     booleanBg: '#f6f7f9',
     buttonBg: '#f6f7f9',
     buttonBorder: '#585C6D',
