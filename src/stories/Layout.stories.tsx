@@ -37,8 +37,34 @@ const Template: Story<Args> = (args) => {
         <Icon icon="refresh" size="md" />
         4th Content
       </div>
+      <div className="slot">
+        <Icon icon="refresh" size="md" />
+        5th Content
+      </div>
+      <div className="slot">
+        <Icon icon="refresh" size="md" />
+        6th Content
+      </div>
     </Layout>
   );
 };
 
-export const Default = Template.bind({});
+export const OneColumn = Template.bind({});
+OneColumn.args = {
+  columns: "1",
+};
+
+export const TwoSymmetricColumn = Template.bind({});
+TwoSymmetricColumn.args = {
+  columns: "2 - Symmetric",
+};
+
+export const TwoAsymmetricColumn = Template.bind({});
+TwoAsymmetricColumn.args = {
+  columns: "2 - Asymmetric",
+};
+
+export const ThreeSymmetricColumn = Template.bind({});
+ThreeSymmetricColumn.args = {
+  columns: "3 - Symmetric",
+};
