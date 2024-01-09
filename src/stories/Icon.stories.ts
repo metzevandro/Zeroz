@@ -7,7 +7,7 @@ const meta = {
   title: "Components/Icon",
   component: Icon,
   parameters: {
-    layout: "padded",
+    layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: {},
