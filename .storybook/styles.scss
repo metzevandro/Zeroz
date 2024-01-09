@@ -22,7 +22,6 @@
   @include tokens.generateVars($semantic-typographies, typography);
 
   @include tokens.generateVars($semantic-shadows, shadow);
-  
 }
 
 @layer theme {

@@ -41,7 +41,7 @@ addons.setConfig({
     barHoverColor: '#945df5',
     booleanSelectedBg: '#945df5',
     booleanBg: '#f6f7f9',
-    buttonBg: '#945df5',
+    buttonBg: '#f6f7f9',
     buttonBorder: '#585C6D',
   }),
 })
