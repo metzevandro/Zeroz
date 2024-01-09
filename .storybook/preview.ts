@@ -13,6 +13,7 @@ const preview: Preview = {
     docs: {
       autodocs: true,
     },
+    backgrounds: { disable: true },
   },
   decorators: [
     SchemeMode,
