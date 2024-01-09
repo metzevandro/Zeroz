@@ -5,9 +5,9 @@
   display: flex;
   gap: var(--s-spacing-xx-small);
   border-radius: var(--s-border-radius-small);
+  box-shadow: var(--s-shadow-level-2);
 
   &.float {
-    box-shadow: var(--s-shadow-level-2);
     max-width: 368px;
     position: fixed;
     right: 24px;
