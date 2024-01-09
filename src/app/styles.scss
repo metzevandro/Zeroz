@@ -1,0 +1,34 @@
+@use "../scss/tokens/semantics/colors.scss" as *;
+@use "../scss/mixins/tokens" as tokens;
+@use "../scss/tokens/semantics/borders.scss" as *;
+@use "../scss/tokens/semantics/colors.scss" as *;
+@use "../scss/tokens/semantics/shadows.scss" as *;
+@use "../scss/tokens/semantics/typographies.scss" as *;
+@use "../scss/tokens/semantics/spacing.scss" as *;
+
+:root {
+  @include tokens.generateVars($semantic-spacing, spacing);
+
+  @include tokens.generateVars($semantic-borders-width, border-width);
+
+  @include tokens.generateVars($semantic-borders-radius, border-radius);
+
+  @include tokens.generateVars($semantic-font-size, font-size);
+
+  @include tokens.generateVars($semantic-font-weight, font-weight);
+
+  @include tokens.generateVars($semantic-line-height, line-height);
+
+  @include tokens.generateVars($semantic-typographies, typography);
+
+  @include tokens.generateVars($semantic-shadows, shadow);
+}
+
+@layer theme {
+  :root {
+    @include tokens.generateVars($semantic-color-light, color);
+    &[data-theme="dark"] {
+      @include tokens.generateVars($semantic-color-dark, color);
+    }
+  }
+}

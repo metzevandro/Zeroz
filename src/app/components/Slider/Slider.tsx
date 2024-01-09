@@ -16,6 +16,7 @@ const Slider: React.FC<SliderProps> = ({ step, min, max, value, label }) => {
   const [editingValue, setEditingValue] = useState("");
   const [currentValue, setCurrentValue] = useState(value);
   const buttonRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
 
   useEffect(() => {
     if (buttonRef.current) {
@@ -50,29 +51,49 @@ const Slider: React.FC<SliderProps> = ({ step, min, max, value, label }) => {
   };
 
   const handleSliderClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const slider = document.getElementById("slider-background");
-    if (slider) {
-      const rect = slider.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      let rawPercentage = (clickX / rect.width) * 100;
+    handleDragStart(e);
+  };
 
-      if (rawPercentage > 100) {
-        rawPercentage = 100;
-      } else if (rawPercentage < 0) {
-        rawPercentage = 0;
-      }
+  const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
+    isDragging.current = true;
+    window.addEventListener("mousemove", handleDragMove);
+    window.addEventListener("mouseup", handleDragEnd);
 
-      const calculatedStep = Math.round(rawPercentage / step) * step;
+    handleDragMove(e);
+  };
 
-      if (calculatedStep >= 0 && calculatedStep <= 100) {
-        const calculatedValue = (calculatedStep / 100) * (max - min) + min;
+  const handleDragMove = (e: MouseEvent) => {
+    if (isDragging.current) {
+      const slider = document.getElementById("slider-background");
+      if (slider) {
+        const rect = slider.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        let rawPercentage = (mouseX / rect.width) * 100;
 
-        const steps = Math.round((calculatedValue - min) / step);
-        const newValue = steps * step + min;
+        if (rawPercentage > 100) {
+          rawPercentage = 100;
+        } else if (rawPercentage < 0) {
+          rawPercentage = 0;
+        }
 
-        updateProgress(newValue);
+        const calculatedStep = Math.round(rawPercentage / step) * step;
+
+        if (calculatedStep >= 0 && calculatedStep <= 100) {
+          const calculatedValue = (calculatedStep / 100) * (max - min) + min;
+
+          const steps = Math.round((calculatedValue - min) / step);
+          const newValue = steps * step + min;
+
+          updateProgress(newValue);
+        }
       }
     }
+  };
+
+  const handleDragEnd = () => {
+    isDragging.current = false;
+    window.removeEventListener("mousemove", handleDragMove);
+    window.removeEventListener("mouseup", handleDragEnd);
   };
 
   const handleNumberInput = () => {
@@ -113,7 +134,7 @@ const Slider: React.FC<SliderProps> = ({ step, min, max, value, label }) => {
         <div
           id="slider-background"
           className="slider-background"
-          onClick={(e) => handleSliderClick(e)}
+          onMouseDown={(e) => handleSliderClick(e)}
         >
           <div
             className="slider-progress-bar"
