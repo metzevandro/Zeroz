@@ -14,20 +14,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    direction: "row",
-    contentFirstButton: "Button",
-    variantFirstButton: "primary",
-    typeIconFirstButton: "",
-    disableFirstButton: false,
-    contentSecondButton: "Button",
-    variantSecondButton: "secondary",
-    disableSecondButton: false,
-    typeIconSecondButton: "",
-  },
-};
-
 export const Row: Story = {
   args: {
     direction: "row",

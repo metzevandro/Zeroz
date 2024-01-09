@@ -14,8 +14,8 @@ const DescriptionList: React.FC<DescriptionListProps> = ({
   return (
     <>
       <div className={`description-list-root ${direction}`}>
-        <h1>{title}</h1>
-        <p>{description}</p>
+        <div className="title">{title}</div>
+        <div className="description">{description}</div>
       </div>
     </>
   );

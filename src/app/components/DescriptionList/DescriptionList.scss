@@ -5,9 +5,17 @@
   justify-content: space-between;
   border-bottom: var(--s-border-width-hairline) solid
     var(--s-color-border-default);
+  align-items: start;
+  margin: 0;
+  margin-block-end: 0;
+  margin-block-start: 0;
 
   &.row {
     flex-direction: row;
+
+    * {
+      width: 50%;
+    }
   }
 
   &.column {
@@ -15,12 +23,12 @@
     flex-direction: column;
   }
 
-  h1 {
+  .title {
     font: var(--s-typography-paragraph-strong);
     color: var(--s-color-content-default);
   }
 
-  p {
+  .description {
     font: var(--s-typography-paragraph-regular);
     color: var(--s-color-content-light);
   }
