@@ -27,6 +27,16 @@ export const Default: Story = {
   },
 };
 
+export const Multiple: Story = {
+  args: {
+    title: "Title",
+    description: "Description",
+    proportion: "1/1",
+    disable: false,
+    multiple: true,
+  },
+};
+
 export const Disable: Story = {
   args: {
     title: "Title",

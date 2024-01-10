@@ -28,7 +28,7 @@ const Template: Story<DefaultProps> = (args) => {
   };
   return (
     <>
-      <div style={{width: '288px'}}>
+      <div style={{ width: "288px" }}>
         <Button
           size="md"
           variant="primary"
