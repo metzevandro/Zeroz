@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import RadioButton from "../app/components/RadioButton/RadioButton";
+import InputRadioButton from "../app/components/InputRadioButton/InputRadioButton";
 
 const meta = {
-  title: "Components/RadioButton",
-  component: RadioButton,
+  title: "Components/Input Radio Button",
+  component: InputRadioButton,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: {},
-} satisfies Meta<typeof RadioButton>;
+} satisfies Meta<typeof InputRadioButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

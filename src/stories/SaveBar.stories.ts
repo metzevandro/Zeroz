@@ -4,7 +4,7 @@ import SaveBar from "../app/components/SaveBar/SaveBar";
 import Story from "@storybook/react";
 
 const meta = {
-  title: "Components/SaveBar",
+  title: "Components/Save Bar",
   component: SaveBar,
 
   tags: ["autodocs"],

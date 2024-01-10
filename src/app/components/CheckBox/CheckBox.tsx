@@ -1,8 +1,8 @@
 import React from "react";
 import Icon from "../Icon/Icon";
-import "./CheckBox.scss";
+import "./Checkbox.scss";
 
-interface CheckBoxProps {
+interface CheckboxProps {
   label?: string;
   disabled?: boolean;
   checked: boolean;
@@ -10,7 +10,7 @@ interface CheckBoxProps {
   indeterminate?: boolean;
 }
 
-export function CheckBox(props: CheckBoxProps) {
+export function Checkbox(props: CheckboxProps) {
   const { checked, onChange, disabled, indeterminate, label } = props;
 
   const toggleCheckbox = () => {

@@ -4,7 +4,7 @@ import ProgressIndicator from "../app/components/ProgressIndicator/ProgressIndic
 import Story from "@storybook/react";
 
 const meta = {
-  title: "Components/ProgressIndicator",
+  title: "Components/Progress Indicator",
   component: ProgressIndicator,
 
   tags: ["autodocs"],

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import TableList from "../app/components/TableList/TableList";
 
 const meta = {
-  title: "Components/TableList",
+  title: "Components/Table List",
   component: TableList,
   tags: ["autodocs"],
   argTypes: {},

@@ -4,7 +4,7 @@ import { ButtonIcon } from "../app/components/ButtonIcon/ButtonIcon";
 import Story from "@storybook/react";
 
 const meta = {
-  title: "Components/ButtonIcon",
+  title: "Components/Button Icon",
   component: ButtonIcon,
   parameters: {
     layout: "centered",
@@ -22,9 +22,6 @@ export const OnColor: Story = {
     variant: "on-color",
     type: "plain",
     typeIcon: "check_circle",
-  },
-  parameters: {
-    backgrounds: { value: "black" },
   },
 };
 

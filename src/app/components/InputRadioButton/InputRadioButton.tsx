@@ -1,14 +1,17 @@
 "use client";
 import React, { useState } from "react";
 import Icon from "../Icon/Icon";
-import "./RadioButton.scss";
+import "./InputRadioButton.scss";
 
-interface RadioButtonProps {
+interface InputRadioButtonProps {
   label: string;
   disabled?: boolean;
 }
 
-const RadioButton: React.FC<RadioButtonProps> = ({ disabled, label }) => {
+const InputRadioButton: React.FC<InputRadioButtonProps> = ({
+  disabled,
+  label,
+}) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const isDisabled = disabled;
@@ -56,4 +59,4 @@ const RadioButton: React.FC<RadioButtonProps> = ({ disabled, label }) => {
   );
 };
 
-export default RadioButton;
+export default InputRadioButton;

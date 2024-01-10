@@ -15,7 +15,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Inline: Story = {
   args: {
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     icon: "ac_unit",
     title: "Title",
     type: "inline",
@@ -26,7 +27,8 @@ export const Inline: Story = {
 
 export const Float: Story = {
   args: {
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     icon: "ac_unit",
     title: "Title",
     type: "float",
@@ -37,7 +39,8 @@ export const Float: Story = {
 
 export const Primary: Story = {
   args: {
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     icon: "ac_unit",
     title: "Title",
     type: "inline",
@@ -47,7 +50,8 @@ export const Primary: Story = {
 
 export const Success: Story = {
   args: {
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     icon: "ac_unit",
     title: "Title",
     type: "inline",
@@ -57,7 +61,8 @@ export const Success: Story = {
 
 export const Warning: Story = {
   args: {
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     icon: "ac_unit",
     title: "Title",
     type: "inline",
@@ -67,7 +72,8 @@ export const Warning: Story = {
 
 export const Dismissible: Story = {
   args: {
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     icon: "ac_unit",
     title: "Title",
     type: "inline",

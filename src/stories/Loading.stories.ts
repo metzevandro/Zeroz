@@ -17,27 +17,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    variant: "icon-small",
-    message: "",
+    variant: "default",
+    message: "Loading",
   },
 };
 
 export const Large: Story = {
   args: {
-    variant: "icon-large",
+    variant: "large",
   },
 };
 
 export const Success: Story = {
   args: {
-    variant: "icon-success",
+    variant: "success",
     message: "Success",
   },
 };
 
 export const Warning: Story = {
   args: {
-    variant: "icon-warning",
+    variant: "warning",
     message: "Warning",
   },
 };

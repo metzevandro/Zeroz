@@ -5,7 +5,7 @@ import { CardDropdown } from "../app/components/CardDropdown/CardDropdown";
 import Icon from "../app/components/Icon/Icon";
 
 const meta = {
-  title: "Components/CardDropdown",
+  title: "Components/Card Dropdown",
   component: CardDropdown,
   parameters: {
     layout: "padded",

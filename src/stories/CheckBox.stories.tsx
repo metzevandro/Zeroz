@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import type { Meta, Story } from "@storybook/react";
-import { CheckBox } from "../app/components/CheckBox/CheckBox";
+import { Checkbox } from "../app/components/Checkbox/Checkbox";
 
 const meta: Meta = {
-  title: "Components/CheckBox",
-  component: CheckBox,
+  title: "Components/Checkbox",
+  component: Checkbox,
   parameters: {
     layout: "centered",
   },
@@ -28,7 +28,7 @@ const Template: Story<DefaultProps> = (props) => {
 
   return (
     <>
-      <CheckBox
+      <Checkbox
         onChange={handleCheckBoxChange}
         checked={isChecked}
         label={props.label}
@@ -60,7 +60,7 @@ const DisabledCheckBoxTemplate: Story<DisabledCheckBoxProps> = (props) => {
 
   return (
     <>
-      <CheckBox
+      <Checkbox
         onChange={handleCheckBoxChange}
         checked={isChecked}
         label={props.label}

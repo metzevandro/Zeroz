@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./DataTable.scss";
-import { CheckBox } from "../CheckBox/CheckBox";
+import { Checkbox } from "../Checkbox/Checkbox";
 import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 import InputSearch from "../InputSearch/InputSearch";
 import { Pagination } from "../Pagination/Pagination";
@@ -206,7 +206,7 @@ const DataTable: React.FC<DataTableProps> = ({
                     expandable ? "header-cell" : ""
                   }`}
                 >
-                  <CheckBox
+                  <Checkbox
                     checked={selectAll}
                     onChange={toggleSelectAll}
                     indeterminate={isIndeterminate}
@@ -245,7 +245,7 @@ const DataTable: React.FC<DataTableProps> = ({
                   )}
                   {selectable && (
                     <td className="data-table-selectable">
-                      <CheckBox
+                      <Checkbox
                         checked={selectedRows.includes(item.id)}
                         onChange={() => toggleSelectRow(item.id)}
                       />

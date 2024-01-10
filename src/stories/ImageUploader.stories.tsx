@@ -4,7 +4,7 @@ import ImageUploader from "../app/components/ImageUploader/ImageUploader";
 import Story from "@storybook/react";
 
 const meta = {
-  title: "Components/ImageUploader",
+  title: "Components/Image Uploader",
   component: ImageUploader,
   parameters: {
     layout: "padded",
