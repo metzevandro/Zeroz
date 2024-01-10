@@ -11,29 +11,32 @@
     background-color: var(--s-color-fill-default-light);
   }
 
-  &.primary {
+  &.default.primary {
+    color: var(--s-color-content-on-color);
     background-color: var(--s-color-fill-highlight);
   }
 
-  &.warning {
+  &.default.warning {
+    color: var(--s-color-content-on-color);
     background-color: var(--s-color-fill-warning);
   }
 
-  &.success {
+  &.default.success {
+    color: var(--s-color-content-on-color);
     background-color: var(--s-color-fill-success);
   }
 
-  &.primary-light {
+  &.primary.light {
     background-color: var(--s-color-fill-highlight-light);
     color: var(--s-color-content-highlight);
   }
 
-  &.warning-light {
+  &.warning.light {
     background-color: var(--s-color-fill-warning-light);
     color: var(--s-color-content-warning);
   }
 
-  &.success-light {
+  &.success.light {
     background-color: var(--s-color-fill-success-light);
     color: var(--s-color-content-success);
   }

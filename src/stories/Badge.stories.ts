@@ -19,5 +19,30 @@ export const Default: Story = {
   args: {
     label: "Badge",
     type: "default",
+    variant: "default",
+  },
+};
+
+export const Primary: Story = {
+  args: {
+    label: "Badge",
+    type: "default",
+    variant: "primary",
+  },
+};
+
+export const Success: Story = {
+  args: {
+    label: "Badge",
+    type: "default",
+    variant: "success",
+  },
+};
+
+export const Warning: Story = {
+  args: {
+    label: "Badge",
+    type: "default",
+    variant: "warning",
   },
 };

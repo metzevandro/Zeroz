@@ -3,18 +3,12 @@ import "./Badge.scss";
 
 interface BadgeProps {
   label: string;
-  type:
-    | "default"
-    | "primary"
-    | "warning"
-    | "success"
-    | "primary-light"
-    | "warning-light"
-    | "success-light";
+  type: "default" | "light";
+  variant: "default" | "primary" | "success" | "warning";
 }
 
-const Badge: React.FC<BadgeProps> = ({ label, type }) => (
-  <div className={`badge ${type}`}>
+const Badge: React.FC<BadgeProps> = ({ label, type, variant }) => (
+  <div className={`badge ${type} ${variant}`}>
     <p>{label}</p>
   </div>
 );
