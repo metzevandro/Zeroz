@@ -10,7 +10,7 @@ addons.setConfig({
   
     brandTitle: 'ZeroZ',
     brandImage: '/logo-sm.svg',
-    brandTarget: '_self',
+    brandTarget: '_blank',
     brandUrl: 'https://github.com/metzevandro/Zeroz',
   
     //

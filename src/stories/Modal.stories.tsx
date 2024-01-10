@@ -7,6 +7,7 @@ import Button from "../app/components/Button/Button";
 import { useState } from "react";
 import Icon from "../app/components/Icon/Icon";
 import "./css/slot.scss";
+import ButtonGroup from "../app/components/ButtonGroup/ButtonGroup";
 
 const meta: Meta = {
   title: "Components/Modal",
@@ -22,6 +23,7 @@ export default meta;
 type Args = {
   title: string;
   description: string;
+  dismissible: boolean;
 };
 
 const Template: Story<Args> = (args) => {
@@ -43,24 +45,33 @@ const Template: Story<Args> = (args) => {
       </div>
 
       <Modal
+        dismissible={args.dismissible}
         description={args.description}
         hideModal={toggleModal}
         title={args.title}
         isOpen={isOpen}
-      >
-        <ContentModal>
-          <div className="slot">
-            <Icon icon="refresh" size="md" />
-            Slot Content
-          </div>
-        </ContentModal>
-        <FooterModal>
-          <div className="slot">
-            <Icon icon="refresh" size="md" />
-            Slot Content
-          </div>
-        </FooterModal>
-      </Modal>
+        content={
+          <ContentModal>
+            <div className="slot">
+              <Icon icon="refresh" size="md" />
+              Slot Content
+            </div>
+          </ContentModal>
+        }
+        footer={
+          <FooterModal>
+            <div style={{ width: "min-content" }}>
+              <ButtonGroup
+                direction="row"
+                variantFirstButton="primary"
+                variantSecondButton="secondary"
+                contentFirstButton="Button"
+                contentSecondButton="Button"
+              />
+            </div>
+          </FooterModal>
+        }
+      />
     </>
   );
 };
@@ -69,4 +80,12 @@ export const Default = Template.bind({});
 Default.args = {
   title: "Title",
   description: "Description",
+  dismissible: false,
+};
+
+export const dismissible = Template.bind({});
+dismissible.args = {
+  title: "Title",
+  description: "Description",
+  dismissible: true,
 };

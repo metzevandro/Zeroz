@@ -1,46 +1,60 @@
 import "./Modal.scss";
 import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import { MouseEventHandler } from "react";
 
 export interface ModalProps {
   title: string;
   description: string;
-  children?: React.ReactNode;
+  content?: React.ReactNode;
+  dismissible?: boolean;
   hideModal: () => void;
   isOpen: boolean;
+  footer?: React.ReactNode;
 }
 
 const Modal: React.FC<ModalProps> = ({
   title,
   description,
-  children,
+  content,
   hideModal,
   isOpen,
+  footer,
+  dismissible,
 }) => {
+  const modalClass = isOpen ? "modal-root visible" : "modal-root";
+  const ghostClass = isOpen ? "modal-ghost visible" : "modal-ghost";
+
   return (
     <>
-      {isOpen && (
-        <>
-          <div className="modal-ghost" onClick={hideModal} />
-          <div className="modal-root">
-            <div className="modal-header">
-              <div className="modal-title">
-                <h1>{title}</h1>
-                <p>{description}</p>
-              </div>
-              <div>
-                <ButtonIcon
-                  variant=""
-                  size="md"
-                  typeIcon="close"
-                  type="plain"
-                  onClick={hideModal}
-                />
-              </div>
-            </div>
-            {children}
+      <div className={modalClass}>
+        <div className="modal-header">
+          <div className="modal-title">
+            <h1>{title}</h1>
+            <p>{description}</p>
           </div>
-        </>
-      )}
+          <div>
+            {dismissible && (
+              <ButtonIcon
+                variant=""
+                size="md"
+                typeIcon="close"
+                type="plain"
+                onClick={hideModal}
+              />
+            )}
+          </div>
+        </div>
+        {content}
+        {footer}
+      </div>
+      <div
+        className={ghostClass}
+        onClick={
+          (dismissible
+            ? hideModal
+            : undefined) as MouseEventHandler<HTMLDivElement>
+        }
+      />
     </>
   );
 };
