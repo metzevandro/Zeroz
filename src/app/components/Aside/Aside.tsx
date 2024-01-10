@@ -23,10 +23,10 @@ const Aside: React.FC<AsideProps> = ({
   return (
     <>
       <div
-        className={`aside-overlay ${isOpen ? "aside-overlay-open" : "hidden"}`}
+        className={`aside-overlay ${isOpen ? "open" : "hidden"}`}
         onClick={toggleSidebar}
       />
-      <div className={`aside-root ${isOpen ? "aside-open" : ""}`}>
+      <div className={`aside-root ${isOpen ? "open" : ""}`}>
         <div className="aside">
           <header className="aside-header">
             <div>
