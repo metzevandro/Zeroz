@@ -121,13 +121,13 @@ interface SidebarSubItemProps {
   title: string;
 }
 
-export const SidebarSubItem: React.FC<SidebarSubItemProps> = ({
-  title,
-}) => {
+export const SidebarSubItem: React.FC<SidebarSubItemProps> = ({ title }) => {
   return (
     <>
       <div className="sidebar-sub-item" tabIndex={0}>
-        <div><Icon size="sm" icon='subdirectory_arrow_right' fill={1} /></div>
+        <div>
+          <Icon size="sm" icon="subdirectory_arrow_right" fill={1} />
+        </div>
         <div>{title}</div>
       </div>
     </>
