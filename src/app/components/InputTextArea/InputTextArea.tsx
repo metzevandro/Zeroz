@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import "./TextArea.scss";
+import "./InputTextArea.scss";
 
 interface TextAreaProps {
   placeholder: string;

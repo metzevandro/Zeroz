@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import TextArea from "../app/components/TextArea/TextArea";
+import TextArea from "../app/components/InputTextArea/InputTextArea";
 
 const meta = {
-  title: "Components/TextArea",
+  title: "Components/Input TextArea",
   component: TextArea,
 
   tags: ["autodocs"],
@@ -19,7 +19,7 @@ export const Default: Story = {
     placeholder: "Placeholder",
     disabled: false,
     error: false,
-    errorText: "error",
+    errorText: "Error",
   },
 };
 
@@ -36,6 +36,6 @@ export const withError: Story = {
     label: "Label",
     placeholder: "Placeholder",
     error: true,
-    errorText: "error",
+    errorText: "Error",
   },
 };

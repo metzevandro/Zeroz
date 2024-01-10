@@ -4,7 +4,7 @@ import InputNumber from "../app/components/InputNumber/InputNumber";
 import Story from "@storybook/react";
 
 const meta = {
-  title: "Components/InputNumber",
+  title: "Components/Input Number",
   component: InputNumber,
 
   tags: ["autodocs"],

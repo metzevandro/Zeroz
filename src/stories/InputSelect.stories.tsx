@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import InputSelect from "../app/components/InputSelect/InputSelect";
 
 const meta = {
-  title: "Components/InputSelect",
+  title: "Components/Input Select",
   component: InputSelect,
   tags: ["autodocs"],
   parameters: {
@@ -33,5 +33,6 @@ export const Disable: Story = {
     label: "Label",
     options: options,
     disabled: true,
+    error: false,
   },
 };

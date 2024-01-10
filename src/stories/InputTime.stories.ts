@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import InputTime from "../app/components/InputTime/InputTime";
 
 const meta = {
-  title: "Components/InputTimer",
+  title: "Components/Input Time",
   component: InputTime,
   tags: ["autodocs"],
   parameters: {

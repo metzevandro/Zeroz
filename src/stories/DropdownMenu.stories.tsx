@@ -28,7 +28,7 @@ const Template: Story<DefaultProps> = (args) => {
   };
   return (
     <>
-      <div>
+      <div style={{width: '288px'}}>
         <Button
           size="md"
           variant="primary"
@@ -37,7 +37,7 @@ const Template: Story<DefaultProps> = (args) => {
         />
         <div>
           <DropDownMenu dropDownMenu={isDropDownOpen}>
-            <DropDownMenuTitle content="Settings" />
+            <DropDownMenuTitle content="Title" />
             <DropDownMenuItem content="Item 1" />
             <DropDownMenuItem content="Item 2" />
             <DropDownMenuItem content="Item 3" typeIcon="ac_unit" />
