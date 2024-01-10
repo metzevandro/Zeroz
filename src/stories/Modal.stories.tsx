@@ -83,8 +83,8 @@ Default.args = {
   dismissible: false,
 };
 
-export const dismissible = Template.bind({});
-dismissible.args = {
+export const Dismissible = Template.bind({});
+Dismissible.args = {
   title: "Title",
   description: "Description",
   dismissible: true,

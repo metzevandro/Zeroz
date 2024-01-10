@@ -5,13 +5,16 @@
   display: flex;
   gap: var(--s-spacing-xx-small);
   border-radius: var(--s-border-radius-small);
-  box-shadow: var(--s-shadow-level-2);
+  border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+  overflow: hidden;
 
   &.float {
     max-width: 368px;
     position: fixed;
     right: 24px;
-    bottom: -10vw;
+    bottom: -100vw;
+    border: none;
+    box-shadow: var(--s-shadow-level-2);
     &.open {
       animation: float 5s ease-in-out;
     }
@@ -39,14 +42,16 @@
     header {
       display: flex;
       justify-content: space-between;
+      gap: var(--s-spacing-small);
     }
 
-    p {
+    .description {
       font: var(--s-typography-paragraph-regular);
       color: var(--s-color-content-default);
+      word-break: break-all;
     }
 
-    h1 {
+    .title {
       font: var(--s-typography-heading-small);
       color: var(--s-color-content-default);
     }
@@ -66,16 +71,44 @@
 }
 
 @media screen and (max-width: 490px) {
-  .float {
+  .notification {
+    &.float {
+      bottom: -100vw;
+      right: 24px;
+      left: 24px;
+      &.open {
+        animation: floatMobile 5s ease-in-out;
+      }
+    }
+  }
+}
+
+@keyframes floatMobile {
+  0% {
+    right: 24px;
+    bottom: -100vw;
+  }
+  20% {
+    bottom: 24px;
     right: 24px;
     left: 24px;
+  }
+  80% {
+    left: 24px;
+    bottom: 24px;
+    right: 24px;
+  }
+  100% {
+    left: 100vw;
+    right: -85vw;
+    bottom: 24px;
   }
 }
 
 @keyframes float {
   0% {
     right: 24px;
-    bottom: -10vw;
+    bottom: -100vw;
   }
   20% {
     bottom: 24px;
@@ -86,7 +119,7 @@
     right: 24px;
   }
   100% {
-    right: -24vw;
+    right: -40vw;
     bottom: 24px;
   }
 }

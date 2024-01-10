@@ -10,6 +10,7 @@ interface NotificationProps {
   variant: "primary" | "warning" | "success";
   type: "float" | "inline";
   isOpen?: boolean;
+  dismissible?: boolean;
 }
 
 const Notification: React.FC<NotificationProps> = ({
@@ -19,6 +20,7 @@ const Notification: React.FC<NotificationProps> = ({
   variant,
   type,
   isOpen,
+  dismissible,
 }) => {
   const [isClose, setIsClose] = useState(true);
 
@@ -36,18 +38,22 @@ const Notification: React.FC<NotificationProps> = ({
           </div>
           <div className="notification-content">
             <header>
-              <h1>{title}</h1>
+              <div className="title">{title}</div>
               {type === "inline" && (
-                <ButtonIcon
-                  variant=""
-                  size="md"
-                  typeIcon="close"
-                  type="plain"
-                  onClick={handleClickClose}
-                />
+                <>
+                  {dismissible && (
+                    <ButtonIcon
+                      variant=""
+                      size="md"
+                      typeIcon="close"
+                      type="plain"
+                      onClick={handleClickClose}
+                    />
+                  )}
+                </>
               )}
             </header>
-            {description && <p>{description}</p>}
+            {description && <div className="description">{description}</div>}
           </div>
         </div>
       )}

@@ -20,8 +20,21 @@ export const Default: Story = {
     title: "Title",
     type: "inline",
     variant: "primary",
+    dismissible: false,
   },
 };
+
+export const Dismissible: Story = {
+  args: {
+    description: "Description",
+    icon: "ac_unit",
+    title: "Title",
+    type: "inline",
+    variant: "primary",
+    dismissible: true,
+  },
+};
+
 export const Success: Story = {
   args: {
     description: "Description",
