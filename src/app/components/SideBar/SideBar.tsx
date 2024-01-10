@@ -96,7 +96,7 @@ export const SidebarItem: React.FC<SideBarItemsProps> = ({
       >
         <div className="sidebar-item-header">
           <Icon size="sm" icon={icon} fill={1} />
-          <p>{title}</p>
+          <div>{title}</div>
         </div>
         {children && (
           <div
@@ -119,18 +119,16 @@ export const SidebarItem: React.FC<SideBarItemsProps> = ({
 
 interface SidebarSubItemProps {
   title: string;
-  icon: string;
 }
 
 export const SidebarSubItem: React.FC<SidebarSubItemProps> = ({
   title,
-  icon,
 }) => {
   return (
     <>
       <div className="sidebar-sub-item" tabIndex={0}>
-        <Icon size="sm" icon={icon} fill={1} />
-        <p>{title}</p>
+        <div><Icon size="sm" icon='subdirectory_arrow_right' fill={1} /></div>
+        <div>{title}</div>
       </div>
     </>
   );

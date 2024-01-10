@@ -39,10 +39,10 @@ const Template: Story<DefaultProps> = (args) => {
       >
         <SideBarList title="SideBar">
           <SidebarItem icon="settings" title="Item 1">
-            <SidebarSubItem title="Sub Item 1" icon="settings" />
+            <SidebarSubItem title="Sub Item 1" />
           </SidebarItem>
           <SidebarItem icon="settings" title="Item 2">
-            <SidebarSubItem title="Sub Item 1" icon="settings" />
+            <SidebarSubItem title="Sub Item 1" />
           </SidebarItem>
         </SideBarList>
       </SideBar>

@@ -50,6 +50,7 @@
       padding: var(--s-spacing-xx-small);
       border-radius: var(--s-border-radius-small);
       background-color: var(--s-color-fill-default);
+      color: var(--s-color-content-default);
     }
 
     .sidebar-item:hover {
@@ -91,10 +92,17 @@
       font: var(--s-typography-paragraph-regular);
       color: var(--s-color-content-default);
       background-color: var(--s-color-fill-default);
+
+      div:first-child {
+        opacity: 0;
+      }
     }
 
     .sidebar-sub-item:hover {
       background-color: var(--s-color-fill-default-hover);
+      div:first-child {
+        opacity: 1;
+      }
     }
 
     .sidebar-sub-item:focus-visible {
