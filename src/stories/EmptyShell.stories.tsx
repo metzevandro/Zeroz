@@ -4,7 +4,7 @@ import EmptyState from "../app/components/EmptyState/EmptyState";
 import Story from "@storybook/react";
 
 const meta = {
-  title: "Templates/EmptyState",
+  title: "Templates/Empty State",
   component: EmptyState,
   parameters: {
     layout: "padded",

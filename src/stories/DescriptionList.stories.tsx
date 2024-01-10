@@ -2,7 +2,7 @@ import DescriptionList from "../app/components/DescriptionList/DescriptionList";
 import type { Meta, Story } from "@storybook/react";
 
 const meta = {
-  title: "Components/DescriptionList",
+  title: "Components/Description List",
   component: DescriptionList,
   parameters: {
     layout: "padded",

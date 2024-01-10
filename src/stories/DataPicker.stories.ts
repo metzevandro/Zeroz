@@ -4,7 +4,7 @@ import DataPicker from "../app/components/DataPicker/DataPicker";
 import Story from "@storybook/react";
 
 const meta = {
-  title: "Components/DataPicker",
+  title: "Components/Data Picker",
   component: DataPicker,
   parameters: {
     layout: "padded",

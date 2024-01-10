@@ -8,7 +8,7 @@ import {
 import Button from "../app/components/Button/Button";
 
 const meta: Meta = {
-  title: "Components/DropdownMenu",
+  title: "Components/Dropdown Menu",
   component: DropDownMenu,
   parameters: {
     layout: "padded",

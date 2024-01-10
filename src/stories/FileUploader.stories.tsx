@@ -4,7 +4,7 @@ import FileUploader from "../app/components/FileUploader/FileUploader";
 import Story from "@storybook/react";
 
 const meta = {
-  title: "Components/FileUploader",
+  title: "Components/File Uploader",
   component: FileUploader,
   parameters: {
     layout: "padded",

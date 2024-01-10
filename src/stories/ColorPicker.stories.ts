@@ -4,7 +4,7 @@ import ColorPicker from "../app/components/ColorPicker/ColorPicker";
 import Story from "@storybook/react";
 
 const meta = {
-  title: "Components/ColorPicker",
+  title: "Components/Color Picker",
   component: ColorPicker,
   parameters: {
     layout: "padded",

@@ -13,9 +13,9 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Inline: Story = {
   args: {
-    description: "Description",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     icon: "ac_unit",
     title: "Title",
     type: "inline",
@@ -24,20 +24,30 @@ export const Default: Story = {
   },
 };
 
-export const Dismissible: Story = {
+export const Float: Story = {
   args: {
-    description: "Description",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    icon: "ac_unit",
+    title: "Title",
+    type: "float",
+    variant: "primary",
+    isOpen: true,
+  },
+};
+
+export const Primary: Story = {
+  args: {
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     icon: "ac_unit",
     title: "Title",
     type: "inline",
     variant: "primary",
-    dismissible: true,
   },
 };
 
 export const Success: Story = {
   args: {
-    description: "Description",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     icon: "ac_unit",
     title: "Title",
     type: "inline",
@@ -47,7 +57,7 @@ export const Success: Story = {
 
 export const Warning: Story = {
   args: {
-    description: "Description",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     icon: "ac_unit",
     title: "Title",
     type: "inline",
@@ -55,13 +65,13 @@ export const Warning: Story = {
   },
 };
 
-export const Float: Story = {
+export const Dismissible: Story = {
   args: {
-    description: "Description",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     icon: "ac_unit",
     title: "Title",
-    type: "float",
+    type: "inline",
     variant: "primary",
-    isOpen: true,
+    dismissible: true,
   },
 };

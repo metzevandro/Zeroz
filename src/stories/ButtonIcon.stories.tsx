@@ -16,16 +16,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Plain: Story = {
-  args: {
-    size: "md",
-    variant: "",
-    type: "plain",
-    typeIcon: "check_circle",
-  },
-};
-
-export const PlainOnColor: Story = {
+export const OnColor: Story = {
   args: {
     size: "md",
     variant: "on-color",
@@ -37,7 +28,16 @@ export const PlainOnColor: Story = {
   },
 };
 
-export const DefaultPrimary: Story = {
+export const Plain: Story = {
+  args: {
+    size: "md",
+    variant: "",
+    type: "plain",
+    typeIcon: "check_circle",
+  },
+};
+
+export const Primary: Story = {
   args: {
     size: "md",
     variant: "primary",
@@ -46,7 +46,7 @@ export const DefaultPrimary: Story = {
   },
 };
 
-export const DefaultSecondary: Story = {
+export const Secondary: Story = {
   args: {
     size: "md",
     variant: "secondary",
@@ -55,7 +55,7 @@ export const DefaultSecondary: Story = {
   },
 };
 
-export const DefaultSuccess: Story = {
+export const Success: Story = {
   args: {
     size: "md",
     variant: "success",
@@ -64,7 +64,7 @@ export const DefaultSuccess: Story = {
   },
 };
 
-export const DefaultWarning: Story = {
+export const Warning: Story = {
   args: {
     size: "md",
     variant: "warning",

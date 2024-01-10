@@ -3,7 +3,7 @@ import type { Meta, Story } from "@storybook/react";
 import DataTable from "../app/components/DataTable/DataTable";
 
 const meta: Meta = {
-  title: "Components/DataTable",
+  title: "Components/Data Table",
   component: DataTable,
   parameters: {
     layout: "padded",

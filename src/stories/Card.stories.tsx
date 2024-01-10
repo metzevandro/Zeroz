@@ -9,6 +9,7 @@ import {
   CardImage,
 } from "../app/components/Card/Card";
 import Icon from "../app/components/Icon/Icon";
+import ButtonGroup from "../app/components/ButtonGroup/ButtonGroup";
 
 const meta = {
   title: "Components/Card",
@@ -36,13 +37,18 @@ export const Default: Story = {
         <CardContent>
           <div className="slot">
             <Icon icon="refresh" size="md" />
-            Content
+            Slot Content
           </div>
         </CardContent>
         <CardFooter>
-          <div className="slot">
-            <Icon icon="refresh" size="md" />
-            Footer
+          <div style={{ width: "min-content" }}>
+            <ButtonGroup
+              direction="row"
+              variantFirstButton="primary"
+              variantSecondButton="secondary"
+              contentFirstButton="Button"
+              contentSecondButton="Button"
+            />
           </div>
         </CardFooter>
       </Card>
