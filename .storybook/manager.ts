@@ -11,6 +11,7 @@ addons.setConfig({
     brandTitle: 'ZeroZ',
     brandImage: '/logo-sm.svg',
     brandTarget: '_self',
+    brandUrl: 'https://github.com/metzevandro/Zeroz',
   
     //
     colorSecondary: '#945df5',
