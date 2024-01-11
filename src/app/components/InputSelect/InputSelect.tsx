@@ -19,11 +19,8 @@ const InputSelect: React.FC<InputSelectProps> = ({
   placeholder,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string | undefined>(
-    undefined
-  );
+  const [selectedOption, setSelectedOption] = useState<string | undefined>(undefined);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(event.target.value);
@@ -34,9 +31,7 @@ const InputSelect: React.FC<InputSelectProps> = ({
     if (
       isOpen &&
       dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node) &&
-      buttonRef.current &&
-      !buttonRef.current.contains(event.target as Node)
+      !dropdownRef.current.contains(event.target as Node)
     ) {
       setIsOpen(false);
     }
@@ -55,17 +50,15 @@ const InputSelect: React.FC<InputSelectProps> = ({
       <div className="input-select-label">{label}</div>
       <div className="input-select">
         <div
-          className={`input-select-button ${selectedOption && "option"} ${
-            error && "error"
-          } ${disabled && "disabled"}`}
+          className={`input-select-button ${selectedOption && "option"} ${error && "error"} ${disabled && "disabled"}`}
         >
           <select
             className={`${error && "select-error"}`}
-            value="Escolha"
+            value={selectedOption || ""}
             onChange={handleOptionChange}
             disabled={disabled || error}
           >
-            <option value="" disabled selected>
+            <option value="" disabled>
               {placeholder}
             </option>
             {options.map((option, index) => (
