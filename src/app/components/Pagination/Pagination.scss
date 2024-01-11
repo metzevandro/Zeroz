@@ -1,4 +1,7 @@
 .PaginationItem {
+  .arrow_back {
+    border-right: 0px !important;
+  }
   .arrow_back,
   .arrow_forward {
     cursor: pointer;
@@ -60,6 +63,15 @@
     justify-content: space-between;
     padding: var(--s-spacing-small);
     align-items: center;
+
+    .arrow_back {
+      border-right: var(--s-border-width-hairline) solid var(--s-color-border-default) !important;
+      border-radius: var(--s-border-radius-small);
+    }
+
+    .arrow_forward {
+      border-radius: var(--s-border-radius-small);
+    }
 
     p {
       font: var(--s-typography-paragraph-regular);
