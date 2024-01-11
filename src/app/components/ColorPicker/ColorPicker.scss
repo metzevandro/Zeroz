@@ -185,9 +185,20 @@
 }
 
 .color-picker-input {
-  padding-left: 8px;
+  padding-left: var(--s-spacing-xx-small);
 }
 
 .color-picker-input * {
   width: 100%;
+}
+.pickr .pcr-button {
+  border-radius: var(--s-border-radius-small) !important;
+}
+
+.pickr .pcr-button::after {
+  border-radius: var(--s-border-radius-small) !important;
+}
+
+.pickr .pcr-button::before {
+  border-radius: var(--s-border-radius-small) !important;
 }

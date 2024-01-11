@@ -1,5 +1,4 @@
 import { Preview } from '@storybook/react';
-import './styles.scss';
 import { SchemeMode, scheme } from "./decorators/scheme-mode";
 const preview: Preview = {
   parameters: {
