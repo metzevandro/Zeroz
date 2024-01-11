@@ -1,8 +1,8 @@
 import React from "react";
 import Icon from "../Icon/Icon";
-import "./Checkbox.scss";
+import "./InputCheckbox.scss";
 
-interface CheckboxProps {
+interface InputCheckboxProps {
   label?: string;
   disabled?: boolean;
   checked: boolean;
@@ -10,10 +10,10 @@ interface CheckboxProps {
   indeterminate?: boolean;
 }
 
-export function Checkbox(props: CheckboxProps) {
+export function InputCheckbox(props: InputCheckboxProps) {
   const { checked, onChange, disabled, indeterminate, label } = props;
 
-  const toggleCheckbox = () => {
+  const toggleInputCheckbox = () => {
     if (disabled) {
       return;
     } else {
@@ -23,15 +23,15 @@ export function Checkbox(props: CheckboxProps) {
 
   return (
     <div
-      onClick={toggleCheckbox}
+      onClick={toggleInputCheckbox}
       className={`check-box-root ${disabled && "disabled"}`}
     >
       <button
-        className={`checkbox ${checked ? "checked" : ""} ${
+        className={`InputCheckbox ${checked ? "checked" : ""} ${
           disabled ? "disabled" : ""
         }`}
         tabIndex={0}
-        role="checkbox"
+        role="InputCheckbox"
         aria-checked={checked}
         disabled={disabled}
       >

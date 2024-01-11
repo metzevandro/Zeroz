@@ -5,7 +5,7 @@ import {
   SideBar,
   SideBarList,
   SidebarItem,
-} from "../app/components/SideBar/SideBar";
+} from "../app/components/SideBar/Sidebar";
 import { Header, HeaderProfile } from "../app/components/Header/Header";
 import {
   DropDownMenu,

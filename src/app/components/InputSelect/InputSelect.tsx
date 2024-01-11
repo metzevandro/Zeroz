@@ -19,7 +19,9 @@ const InputSelect: React.FC<InputSelectProps> = ({
   placeholder,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string | undefined>(undefined);
+  const [selectedOption, setSelectedOption] = useState<string | undefined>(
+    undefined
+  );
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -50,7 +52,9 @@ const InputSelect: React.FC<InputSelectProps> = ({
       <div className="input-select-label">{label}</div>
       <div className="input-select">
         <div
-          className={`input-select-button ${selectedOption && "option"} ${error && "error"} ${disabled && "disabled"}`}
+          className={`input-select-button ${selectedOption && "option"} ${
+            error && "error"
+          } ${disabled && "disabled"}`}
         >
           <select
             className={`${error && "select-error"}`}

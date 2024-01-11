@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import type { Meta, Story } from "@storybook/react";
-import { Checkbox } from "../app/components/Checkbox/Checkbox";
+import { InputCheckbox } from "../app/components/InputCheckbox/InputCheckbox";
 
 const meta: Meta = {
-  title: "Components/Checkbox",
-  component: Checkbox,
+  title: "Components/InputCheckbox",
+  component: InputCheckbox,
   parameters: {
     layout: "centered",
   },
@@ -22,14 +22,14 @@ type DefaultProps = {
 const Template: Story<DefaultProps> = (props) => {
   const [isChecked, setChecked] = useState(false);
 
-  const handleCheckBoxChange = () => {
+  const handleInputCheckboxChange = () => {
     setChecked((prevChecked) => !prevChecked);
   };
 
   return (
     <>
-      <Checkbox
-        onChange={handleCheckBoxChange}
+      <InputCheckbox
+        onChange={handleInputCheckboxChange}
         checked={isChecked}
         label={props.label}
         disabled={props.disabled}
@@ -46,22 +46,24 @@ Default.args = {
   indeterminate: false,
 };
 
-type DisabledCheckBoxProps = {
+type DisabledInputCheckboxProps = {
   label: string;
   disabled: boolean;
 };
 
-const DisabledCheckBoxTemplate: Story<DisabledCheckBoxProps> = (props) => {
+const DisabledInputCheckboxTemplate: Story<DisabledInputCheckboxProps> = (
+  props
+) => {
   const [isChecked, setChecked] = useState(false);
 
-  const handleCheckBoxChange = () => {
+  const handleInputCheckboxChange = () => {
     setChecked((prevChecked) => !prevChecked);
   };
 
   return (
     <>
-      <Checkbox
-        onChange={handleCheckBoxChange}
+      <InputCheckbox
+        onChange={handleInputCheckboxChange}
         checked={isChecked}
         label={props.label}
         disabled={props.disabled}
@@ -70,7 +72,7 @@ const DisabledCheckBoxTemplate: Story<DisabledCheckBoxProps> = (props) => {
   );
 };
 
-export const Disabled = DisabledCheckBoxTemplate.bind({});
+export const Disabled = DisabledInputCheckboxTemplate.bind({});
 Disabled.args = {
   label: "Label",
   disabled: true,

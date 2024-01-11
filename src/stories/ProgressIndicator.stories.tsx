@@ -2,7 +2,7 @@ import { Meta, Story } from "@storybook/react";
 import ProgressIndicator from "../app/components/ProgressIndicator/ProgressIndicator";
 
 const meta: Meta = {
-  title: "Components/ProgressIndicator",
+  title: "Components/Progress Indicator",
   component: ProgressIndicator,
   argTypes: {},
   parameters: {

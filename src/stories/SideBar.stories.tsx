@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import type { Meta, Story } from "@storybook/react";
 import {
-  SideBar,
-  SideBarList,
+  Sidebar,
+  SidebarList,
   SidebarItem,
   SidebarSubItem,
-} from "../app/components/SideBar/SideBar";
+} from "../app/components/Sidebar/Sidebar";
 
 const meta: Meta = {
-  title: "Components/SideBar",
-  component: SideBar,
+  title: "Components/Sidebar",
+  component: Sidebar,
   parameters: {
     layout: "fullscreen",
   },
@@ -24,28 +24,28 @@ export default meta;
 type DefaultProps = {};
 
 const Template: Story<DefaultProps> = (args) => {
-  const [isOpenSideBar, setIsOpenSideBar] = useState(false);
+  const [isOpenSidebar, setIsOpenSidebar] = useState(false);
 
-  const toggleSideBar = () => {
-    setIsOpenSideBar(!isOpenSideBar);
+  const toggleSidebar = () => {
+    setIsOpenSidebar(!isOpenSidebar);
   };
 
   return (
     <>
-      <SideBar
+      <Sidebar
         brand="/logo-sm.svg"
-        setToggleSideBar={toggleSideBar}
+        setToggleSidebar={toggleSidebar}
         toggle={true}
       >
-        <SideBarList title="SideBar">
+        <SidebarList title="Sidebar">
           <SidebarItem icon="settings" title="Item 1">
             <SidebarSubItem title="Sub Item 1" />
           </SidebarItem>
           <SidebarItem icon="settings" title="Item 2">
             <SidebarSubItem title="Sub Item 1" />
           </SidebarItem>
-        </SideBarList>
-      </SideBar>
+        </SidebarList>
+      </Sidebar>
     </>
   );
 };
