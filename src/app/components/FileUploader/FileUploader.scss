@@ -48,6 +48,7 @@
         width: 100%;
         justify-content: space-between;
         align-items: center;
+        font: var(--s-typography-paragraph-regular);
 
         &.file-uploaded-error {
           border-bottom: var(--s-border-width-hairline) solid

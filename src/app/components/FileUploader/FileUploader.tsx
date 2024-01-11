@@ -10,7 +10,7 @@ interface FileUploaderProps {
   description: string;
   multiple?: boolean;
   disable?: boolean;
-  maxFileSize?: number; // Adicione a propriedade maxFileSize
+  maxFileSize?: number;
 }
 
 interface UploadedFile {
@@ -55,8 +55,12 @@ const FileUploader: React.FC<FileUploaderProps> = ({
           handleFile(file);
         }
       });
-
-      setSelectedFiles((prevFiles) => [...prevFiles, ...updatedFiles]);
+      if (multiple === false) {
+        setSelectedFiles(updatedFiles);
+      }
+      if (multiple === true) {
+        setSelectedFiles((prevFiles) => [...prevFiles, ...updatedFiles]);
+      }
     }
   };
 
@@ -126,7 +130,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
                   >
                     <p>{fileObj.file.name}</p>
                     <p className=".file-uploaded-icon">
-                      {isLoading && <Loading variant="icon-small" />}
+                      {isLoading && <Loading variant="default" />}
                       <div className="file-uploader-icon-error">
                         {fileObj.hasError && (
                           <Icon icon="error_outline" size="sm" />
