@@ -9,6 +9,8 @@ interface InputNumberProps {
   disabled?: boolean;
   label?: string;
   onSetValue?: (value: string) => void;
+  error?: boolean;
+  textError?: string;
 }
 
 const InputNumber: React.FC<InputNumberProps> = ({
@@ -18,6 +20,8 @@ const InputNumber: React.FC<InputNumberProps> = ({
   disabled,
   label,
   onSetValue,
+  error,
+  textError,
 }) => {
   const [numero, setNumero] = useState<undefined | number>(() => {
     if (min !== undefined) {
@@ -106,7 +110,7 @@ const InputNumber: React.FC<InputNumberProps> = ({
             <Icon size="medium" icon="remove" />
           </button>
           <input
-            className="input"
+            className={`input ${error && "error"}`}
             type="number"
             placeholder={placeholder}
             onChange={handleInputChange}
@@ -125,6 +129,7 @@ const InputNumber: React.FC<InputNumberProps> = ({
             <Icon size="medium" icon="add" />
           </button>
         </div>
+        {error && <div className="textError">{textError}</div>}
       </div>
     </>
   );

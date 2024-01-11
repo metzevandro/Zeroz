@@ -22,6 +22,18 @@ export const Default: Story = {
     disabled: false,
     typeIcon: "",
     error: false,
+    textError: "Error",
+  },
+};
+
+export const Error: Story = {
+  args: {
+    label: "Label",
+    placeholder: "Placeholder",
+    disabled: false,
+    typeIcon: "",
+    error: true,
+    textError: "Error",
   },
 };
 

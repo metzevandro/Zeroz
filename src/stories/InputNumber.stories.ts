@@ -25,6 +25,18 @@ export const Default: Story = {
   },
 };
 
+export const Error: Story = {
+  args: {
+    label: "Label",
+    placeholder: "Placeholder",
+    disabled: false,
+    max: 10,
+    min: 5,
+    error: true,
+    textError: "Error",
+  },
+};
+
 export const Disable: Story = {
   args: {
     label: "Label",

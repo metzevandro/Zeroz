@@ -8,6 +8,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: boolean;
   disabled?: boolean;
+  textError?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -16,6 +17,7 @@ const Input: React.FC<InputProps> = ({
   label,
   error,
   disabled,
+  textError,
   ...rest
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -48,7 +50,7 @@ const Input: React.FC<InputProps> = ({
           />
           <Icon icon={typeIcon} size="md" fill={fillIcon} />
         </div>
-        {error && <div className="input-error">Error</div>}
+        {error && <div className="input-error">{textError}</div>}
       </div>
     </div>
   );
