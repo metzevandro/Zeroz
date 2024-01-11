@@ -65,7 +65,8 @@
     align-items: center;
 
     .arrow_back {
-      border-right: var(--s-border-width-hairline) solid var(--s-color-border-default) !important;
+      border-right: var(--s-border-width-hairline) solid
+        var(--s-color-border-default) !important;
       border-radius: var(--s-border-radius-small);
     }
 
