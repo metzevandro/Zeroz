@@ -3,7 +3,7 @@ import type { Meta, Story } from "@storybook/react";
 import { InputCheckbox } from "../app/components/InputCheckbox/InputCheckbox";
 
 const meta: Meta = {
-  title: "Components/InputCheckbox",
+  title: "Components/Input Checkbox",
   component: InputCheckbox,
   parameters: {
     layout: "centered",

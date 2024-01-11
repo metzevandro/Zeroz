@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import type { Meta, Story } from "@storybook/react";
 import AppShell from "../app/components/AppShell/AppShell";
 import {
-  SideBar,
-  SideBarList,
+  Sidebar,
+  SidebarList,
   SidebarItem,
-} from "../app/components/SideBar/Sidebar";
+} from "../app/components/Sidebar/Sidebar";
 import { Header, HeaderProfile } from "../app/components/Header/Header";
 import {
   DropDownMenu,
@@ -32,24 +32,24 @@ export default meta;
 type DefaultProps = {};
 
 const Template: Story<DefaultProps> = (args) => {
-  const [isOpenSideBar, setIsOpenSideBar] = useState(false);
+  const [isOpenSidebar, setIsOpenSidebar] = useState(false);
 
-  const toggleSideBar = () => {
-    setIsOpenSideBar(!isOpenSideBar);
+  const toggleSidebar = () => {
+    setIsOpenSidebar(!isOpenSidebar);
   };
 
   return (
     <>
       <AppShell>
-        <SideBar
-          setToggleSideBar={toggleSideBar}
+        <Sidebar
+          setToggleSidebar={toggleSidebar}
           brand="/logo-sm.svg"
-          toggle={isOpenSideBar}
+          toggle={isOpenSidebar}
         >
-          <SideBarList title="SideBar">
+          <SidebarList title="Sidebar">
             <SidebarItem icon="settings" title="Settings" />
-          </SideBarList>
-        </SideBar>
+          </SidebarList>
+        </Sidebar>
         <Header
           breadcrumb={
             <>
@@ -58,7 +58,7 @@ const Template: Story<DefaultProps> = (args) => {
               </BreadcrumbRoot>
             </>
           }
-          onClick={toggleSideBar}
+          onClick={toggleSidebar}
         >
           <HeaderProfile name="Username">
             <DropDownMenu dropDownMenu>
