@@ -26,6 +26,16 @@ const Template: Story<DefaultProps> = (args) => {
         title={args.title}
         description={args.description}
       />
+      <DescriptionList
+        direction={args.direction}
+        title={args.title}
+        description={args.description}
+      />
+      <DescriptionList
+        direction={args.direction}
+        title={args.title}
+        description={args.description}
+      />
     </>
   );
 };

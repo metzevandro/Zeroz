@@ -11,7 +11,7 @@ const meta: Meta = {
   title: "Components/Dropdown Menu",
   component: DropDownMenu,
   parameters: {
-    layout: "padded",
+    layout: "centered",
   },
   tags: ["autodocs"],
 };
@@ -38,9 +38,12 @@ const Template: Story<DefaultProps> = (args) => {
         <div>
           <DropDownMenu dropDownMenu={isDropDownOpen}>
             <DropDownMenuTitle content="Title" />
+            <DropDownMenuItem content="Item 1" typeIcon="ac_unit" />
+            <DropDownMenuItem content="Item 2" typeIcon="ac_unit" />
+            <DropDownMenuItem content="Item 3" typeIcon="ac_unit" />
+            <DropDownMenuTitle content="Title" />
             <DropDownMenuItem content="Item 1" />
             <DropDownMenuItem content="Item 2" />
-            <DropDownMenuItem content="Item 3" typeIcon="ac_unit" />
           </DropDownMenu>
         </div>
       </div>
