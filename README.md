@@ -1,4 +1,6 @@
-<div><img src="https://zeroz.vercel.app/logo-sm.svg"/></div>
+<div style="text-align: center;">
+  <img src="https://zeroz.vercel.app/logo-sm.svg" alt="Zeroz Design System Logo"/>
+</div>
 
 Bem-vindo ao Zeroz Design System! Este é um sistema de design abrangente e consistente, projetado para facilitar o desenvolvimento e a manutenção de interfaces de usuário modernas e intuitivas. O Zeroz visa proporcionar uma experiência de usuário coesa em todos os produtos e plataformas, promovendo eficiência no processo de design e desenvolvimento.
 
