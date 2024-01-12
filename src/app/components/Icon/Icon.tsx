@@ -1,8 +1,8 @@
 import "./Icon.scss";
 
 interface IconProps {
-  size: string | undefined;
-  icon: string | undefined;
+  size: "sm" | "md" | "lg";
+  icon: string;
   fill?: 0 | 1;
 }
 
