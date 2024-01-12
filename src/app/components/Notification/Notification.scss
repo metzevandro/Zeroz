@@ -18,6 +18,10 @@
     &.open {
       animation: float 5s ease-in-out;
     }
+    &.dismissible {
+      animation: floatDismissible 5s ease-in-out;
+      animation-fill-mode: forwards;
+    }
   }
 
   &.primary {
@@ -79,7 +83,23 @@
       &.open {
         animation: floatMobile 5s ease-in-out;
       }
+      &.dismissible {
+        animation: floatDismissibleMobile 5s ease-in-out;
+        animation-fill-mode: forwards;
+      }
     }
+  }
+}
+
+@keyframes floatDismissibleMobile {
+  0% {
+    right: 24px;
+    bottom: -100vw;
+  }
+  100% {
+    bottom: 24px;
+    right: 24px;
+    left: 24px;
   }
 }
 
@@ -102,6 +122,17 @@
     left: 100vw;
     right: -85vw;
     bottom: 24px;
+  }
+}
+
+@keyframes floatDismissible{
+  0% {
+    right: 24px;
+    bottom: -100vw;
+  }
+  100% {
+    bottom: 24px;
+    right: 24px;
   }
 }
 

@@ -25,10 +25,7 @@ export const Default: Story = {
   render: (args) => (
     <>
       <Tooltip text={args.text} direction={args.direction}>
-        <div className="slot">
-          <Icon icon="refresh" size="md" />
-          Slot Content
-        </div>
+          <Icon icon="info" size="md" />
       </Tooltip>
     </>
   ),
