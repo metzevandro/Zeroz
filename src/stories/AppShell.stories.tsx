@@ -72,9 +72,9 @@ const Template: Story<DefaultProps> = (args) => {
         <Page
           columnLayout="1"
           namePage="Page Name"
-          buttonContentSecondary="Secondary"
+          buttonContentSecondary="Button"
           withActionSecondary
-          buttonContentPrimary="Primary"
+          buttonContentPrimary="Button"
           withActionPrimary
           withBackButton
         ></Page>

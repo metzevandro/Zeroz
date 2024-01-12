@@ -6,19 +6,23 @@ interface InputTimerProps {
   label: string;
   placeholder: string;
   disabled?: boolean;
+  error?: boolean;
+  textError?: string;
 }
 
 const InputTime: React.FC<InputTimerProps> = ({
   label,
   placeholder,
   disabled,
+  error,
+  textError,
   ...rest
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedHour, setSelectedHour] = useState("00");
-  const [selectedMinute, setSelectedMinute] = useState("00");
+  const [selectedHour, setSelectedHour] = useState("");
+  const [selectedMinute, setSelectedMinute] = useState("");
 
-  const [totalTime, setTotalTime] = useState<string>("00:00");
+  const [totalTime, setTotalTime] = useState<string>("");
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -86,12 +90,18 @@ const InputTime: React.FC<InputTimerProps> = ({
       <Input
         label={label}
         type="text"
-        value={totalTime}
+        value={
+          selectedHour && selectedMinute
+            ? `${selectedHour}:${selectedMinute}`
+            : ""
+        }
         placeholder={placeholder}
         typeIcon="schedule"
         disabled={disabled}
         onClick={openModal}
         onChange={handleInputChange}
+        error={error}
+        textError={textError}
         {...rest}
       />
       {isModalOpen && (

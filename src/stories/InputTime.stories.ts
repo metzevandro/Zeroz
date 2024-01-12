@@ -18,7 +18,19 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     label: "Label",
-    placeholder: "placeholder",
+    placeholder: "Placeholder",
+    error: false,
+    textError: "Error",
+    disabled: false,
+  },
+};
+
+export const Error: Story = {
+  args: {
+    label: "Label",
+    placeholder: "Placeholder",
+    error: true,
+    textError: "Error",
     disabled: false,
   },
 };
@@ -26,7 +38,7 @@ export const Default: Story = {
 export const Disable: Story = {
   args: {
     label: "Label",
-    placeholder: "placeholder",
+    placeholder: "Placeholder",
     disabled: true,
   },
 };

@@ -36,6 +36,25 @@
       outline-style: solid;
     }
 
+    &.disabled {
+      color: var(--s-color-content-disable);
+      background-color: var(--s-color-fill-disable);
+      cursor: auto;
+      input {
+        &::placeholder {
+          color: var(--s-color-content-disable);
+        }
+      }
+
+      &:hover {
+        background-color: var(--s-color-fill-disable);
+      }
+
+      &:focus-within {
+        outline: none;
+      }
+    }
+
     &.error {
       color: var(--s-color-content-warning);
       background-color: var(--s-color-fill-warning-light);
@@ -49,25 +68,6 @@
 
       &:hover {
         background-color: var(--s-color-fill-warning-light);
-      }
-
-      &:focus-within {
-        outline: none;
-      }
-    }
-
-    &.disabled {
-      color: var(--s-color-content-disable);
-      background-color: var(--s-color-fill-disable);
-      cursor: auto;
-      input {
-        &::placeholder {
-          color: var(--s-color-content-disable);
-        }
-      }
-
-      &:hover {
-        background-color: var(--s-color-fill-disable);
       }
 
       &:focus-within {

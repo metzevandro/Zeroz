@@ -27,6 +27,17 @@ export const Default: Story = {
   },
 };
 
+export const Error: Story = {
+  args: {
+    placeholder: "Placeholder",
+    label: "Label",
+    options: options,
+    disabled: false,
+    error: true,
+    errorMessage: "Error",
+  },
+};
+
 export const Disable: Story = {
   args: {
     placeholder: "Placeholder",

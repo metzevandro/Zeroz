@@ -23,19 +23,19 @@ export const Default: Story = {
   },
 };
 
-export const Disable: Story = {
-  args: {
-    label: "Label",
-    placeholder: "Placeholder",
-    disabled: true,
-  },
-};
-
-export const withError: Story = {
+export const Error: Story = {
   args: {
     label: "Label",
     placeholder: "Placeholder",
     error: true,
     errorText: "Error",
+  },
+};
+
+export const Disable: Story = {
+  args: {
+    label: "Label",
+    placeholder: "Placeholder",
+    disabled: true,
   },
 };

@@ -2,7 +2,7 @@ import "./Icon.scss";
 
 interface IconProps {
   size: "sm" | "md" | "lg";
-  icon: string;
+  icon: string | undefined;
   fill?: 0 | 1;
 }
 
