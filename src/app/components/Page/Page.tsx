@@ -34,6 +34,7 @@ const Page: React.FC<PageProps> = ({
   onClickBackButton,
 }) => {
   return (
+    <div style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
     <div className="page-root">
       <div className="page-header">
         <div className="page-header-title">
@@ -94,6 +95,7 @@ const Page: React.FC<PageProps> = ({
         </div>
       </div>
       <Layout columns={columnLayout}>{children}</Layout>
+    </div>
     </div>
   );
 };
