@@ -12,6 +12,6 @@ O Zeroz Design System é baseado em princípios fundamentais de design, usabilid
 
 O Zeroz Design System é uma iniciativa para unificar a experiência do usuário em todas as plataformas, proporcionando uma base sólida para o desenvolvimento ágil e a colaboração efetiva entre equipes de design e desenvolvimento.
 
-[Clique aqui para acessar o StoryBook!](https://zeroz.vercel.app/){:target="_blank"}
+[Clique aqui para acessar o StoryBook!](https://zeroz.vercel.app/"target="_blank)
 
 **Zeroz Design System! 🚀**
