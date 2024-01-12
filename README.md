@@ -1,4 +1,4 @@
-<div style="text-align: center;">
+<div style="display: flex; justify-content: center;">
   <img src="https://zeroz.vercel.app/logo-sm.svg" alt="Zeroz Design System Logo"/>
 </div>
 
@@ -14,4 +14,4 @@ O Zeroz Design System é uma iniciativa para unificar a experiência do usuário
 
 <a href="https://zeroz.vercel.app/">Clique aqui para acessar o StoryBook</a>
 
-**Vamos criar algo incrível juntos com o Zeroz Design System! 🚀**
+**Zeroz Design System! 🚀**
