@@ -1,4 +1,4 @@
-<div style="display: flex; justify-content: center;">
+<div align="center">
   <img src="https://zeroz.vercel.app/logo-sm.svg" alt="Zeroz Design System Logo"/>
 </div>
 
