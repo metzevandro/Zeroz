@@ -1,14 +1,18 @@
 @import "../../../scss/tokens/tokens.scss";
 
-.table-list {
+.table-list-root {
   overflow: auto;
 
-  table {
-    width: 100%;
+  .table {
     border-spacing: 0;
     border-collapse: collapse;
+    box-sizing: border-box;
+    display: grid;
 
-    th {
+    grid-template-rows: auto;
+
+    .th {
+      box-sizing: border-box;
       padding: var(--s-spacing-xx-small) var(--s-spacing-small);
       text-align: left;
       background-color: var(--s-color-fill-default);
@@ -17,12 +21,19 @@
       font: var(--s-typography-caption-strong);
     }
 
-    td {
+    // Define as linhas como grid
+    .table-container {
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+
+    .td {
+      box-sizing: border-box;
       white-space: nowrap;
       background-color: var(--s-color-fill-default);
       color: var(--s-color-content-default);
       font: var(--s-typography-paragraph-regular);
-      height: 40px;
       border: none;
 
       &.sm {
@@ -38,24 +49,27 @@
       }
     }
 
-    td:first-of-type,
-    th:first-of-type {
+    // Ajuste para o posicionamento fixo da primeira coluna
+    .table-column:first-of-type,
+    .th:first-of-type {
       position: sticky;
+      top: 0;
       left: 0;
       z-index: 1;
     }
   }
 
+  // Estilo da barra de rolagem
   &::-webkit-scrollbar {
     height: 4px;
   }
 
+  // Ajuste quando há overflow horizontal
   &.overflow-ativo {
-    td:first-of-type,
-    th:first-of-type {
+    .table-column:first-of-type,
+    .th:first-of-type {
       box-sizing: border-box;
-      border-right: var(--s-border-width-hairline) solid
-        var(--s-color-border-default);
+      box-shadow: var(--s-shadow-level-4);
     }
   }
 }

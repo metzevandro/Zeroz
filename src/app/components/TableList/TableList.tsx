@@ -41,31 +41,35 @@ const TableList: React.FC<TableListProps> = ({ columns, data, size }) => {
     };
   }, []);
 
+  const transposedData = columns.map((_, columnIndex) =>
+    data.map((row) => row[columnIndex])
+  );
+
   return (
     <div
-      className={`table-list ${isOverflowed ? "overflow-ativo" : ""}`}
+      className={`table-list-root ${isOverflowed ? "overflow-ativo" : ""}`}
       ref={tableListRef}
     >
-      <table>
-        <thead>
-          <tr>
-            {columns.map((column, index) => (
-              <th key={index}>{column}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {row.map((cell, cellIndex) => (
-                <td className={`${size} border`} key={cellIndex}>
+      <div className="table">
+      <div className="table-container">
+        {columns.map((column, columnIndex) => (
+          <div className="th" key={columnIndex}>
+            {column}
+          </div>
+        ))}
+        </div>
+        <div className="table-container">
+          {transposedData.map((column, columnIndex) => (
+            <div key={columnIndex} className="table-column">
+              {column.map((cell, cellIndex) => (
+                <div className={`td ${size} border`} key={cellIndex}>
                   {cell}
-                </td>
+                </div>
               ))}
-            </tr>
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   );
 };
