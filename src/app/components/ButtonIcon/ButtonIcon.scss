@@ -13,6 +13,7 @@
   }
 
   &.md.plain {
+    padding: 4px;
     height: 32px;
   }
 
@@ -42,8 +43,10 @@
 
     &:disabled {
       cursor: not-allowed;
-      background-color: var(--s-color-fill-disable);
-      color: var(--s-color-content-disable);
+      &:hover {
+        color: var(--s-color-content-default);
+        background-color: transparent;
+      }
     }
   }
 
