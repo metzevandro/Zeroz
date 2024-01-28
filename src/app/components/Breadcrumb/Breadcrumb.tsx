@@ -22,7 +22,7 @@ export const BreadcrumbRoot: React.FC<BreadcrumbRootProps> = ({
   );
 };
 
-const BreadcrumbInitial: React.FC<BreadcrumProps> = ({ pageName }) => {
+const BreadcrumbInitial: React.FC<BreadcrumbProps> = ({ pageName }) => {
   return (
     <>
       <div className="breadcrumb">
@@ -32,11 +32,11 @@ const BreadcrumbInitial: React.FC<BreadcrumProps> = ({ pageName }) => {
   );
 };
 
-interface BreadcrumProps {
+interface BreadcrumbProps {
   pageName: string;
 }
 
-export const Breadcrumb: React.FC<BreadcrumProps> = ({ pageName }) => {
+export const Breadcrumb: React.FC<BreadcrumbProps> = ({ pageName }) => {
   return (
     <>
       <div className="breadcrumb">

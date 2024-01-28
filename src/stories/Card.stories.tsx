@@ -29,7 +29,7 @@ type DefaultProps = {};
 
 const Template: Story<DefaultProps> = (args) => {
   return (
-    <div style={{width: '320px'}}>
+    <div style={{ width: "320px" }}>
       <Card>
         <CardHeader title="Card Title" description="Card Description" />
         <CardContent>
@@ -59,10 +59,10 @@ Default.args = {};
 
 const Template2: Story<DefaultProps> = (args) => {
   return (
-    <div style={{width: '320px'}}>
+    <div style={{ width: "320px" }}>
       <Card>
         <CardImage>
-          <img src="https://picsum.photos/200" alt="Card Image" height={200}/>
+          <img src="https://picsum.photos/200" alt="Card Image" height={200} />
         </CardImage>
         <CardHeader title="Card Title" description="Card Description" />
         <CardContent>

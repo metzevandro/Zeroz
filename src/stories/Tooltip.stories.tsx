@@ -25,7 +25,7 @@ export const Default: Story = {
   render: (args) => (
     <>
       <Tooltip text={args.text} direction={args.direction}>
-          <Icon icon="info" size="md" />
+        <Icon icon="info" size="md" />
       </Tooltip>
     </>
   ),

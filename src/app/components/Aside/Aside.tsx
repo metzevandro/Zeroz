@@ -1,4 +1,3 @@
-// Aside.tsx
 import React from "react";
 import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 import "./Aside.scss";

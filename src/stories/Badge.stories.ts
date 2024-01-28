@@ -1,15 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Badge from "../app/components/Badge/Badge";
 
-const meta: Meta = {
+const meta = {
   title: "Components/Badge",
   component: Badge,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
-  argTypes: {},
-};
+} as Meta<typeof Badge>;
 
 export default meta;
 
