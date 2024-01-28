@@ -42,7 +42,7 @@
     }
 
     &:disabled {
-      cursor: not-allowed;
+      cursor: auto;
       &:hover {
         color: var(--s-color-content-default);
         background-color: transparent;

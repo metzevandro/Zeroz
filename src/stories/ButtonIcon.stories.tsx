@@ -57,7 +57,7 @@ export const Warning: Story = {
 export const Plain: Story = {
   args: {
     size: "md",
-    variant: "",
+    variant: "primary",
     type: "plain",
     typeIcon: "check_circle",
   },
