@@ -7,11 +7,12 @@
   padding: 0;
   cursor: pointer;
 
-  &.md.plain {
+  &.sm.plain {
+    padding: 4px;
     height: 24px;
   }
 
-  &.lg.plain {
+  &.md.plain {
     height: 32px;
   }
 

@@ -21,7 +21,7 @@ export const Default: Story = {
     placeholder: "Placeholder",
     disabled: false,
     max: 10,
-    min: 5,
+    min: 0,
   },
 };
 
@@ -31,7 +31,7 @@ export const Error: Story = {
     placeholder: "Placeholder",
     disabled: false,
     max: 10,
-    min: 5,
+    min: 0,
     error: true,
     textError: "Error",
   },

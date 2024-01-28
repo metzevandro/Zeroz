@@ -2,8 +2,8 @@
 
 .tag-root {
   display: flex;
-  padding: 0 var(--s-spacing-xx-small);
-  gap: var(--s-spacing-nano);
+  gap: var(--s-spacing-quarck);
+  padding: 0 0 0 var(--s-spacing-xx-small);
   border-radius: var(--s-border-radius-pill);
   font: var(--s-typography-caption-regular);
   align-items: center;
@@ -27,5 +27,8 @@
   &.warning {
     background-color: var(--s-color-fill-warning);
     color: var(--s-color-content-on-color);
+  }
+  .sm.plain {
+    border-radius: var(--s-border-radius-pill);
   }
 }
