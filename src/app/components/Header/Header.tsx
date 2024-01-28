@@ -1,5 +1,5 @@
 import "./Header.scss";
-import { Avatar } from "../Avatar/Avatar";
+import Avatar from "../Avatar/Avatar";
 import Icon from "../Icon/Icon";
 import { useState } from "react";
 import { ButtonIcon } from "../ButtonIcon/ButtonIcon";

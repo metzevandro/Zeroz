@@ -8,20 +8,22 @@ interface AvatarProps {
   src?: string;
 }
 
-export function Avatar(props: AvatarProps) {
+const Avatar: React.FC<AvatarProps> = ({ size, src }) => {
   return (
     <>
       <div className="avatar">
-        {props.src ? (
+        {src ? (
           <label className="avatar-image">
-            <img className={props.size} src={props.src} />
+            <img className={size} src={src} />
           </label>
         ) : (
-          <label className={`avatar-icon ${props.size}`}>
-            <Icon size={props.size} icon="person" />
+          <label className={`avatar-icon ${size}`}>
+            <Icon size={size} icon="person" />
           </label>
         )}
       </div>
     </>
   );
-}
+};
+
+export default Avatar;

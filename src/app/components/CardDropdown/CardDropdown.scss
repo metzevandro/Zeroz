@@ -1,4 +1,7 @@
+@import "../../../scss/tokens/tokens.scss";
+
 .card-dropdown {
+  cursor: pointer;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

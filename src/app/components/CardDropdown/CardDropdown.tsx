@@ -20,10 +20,9 @@ export const CardDropdown: React.FC<CardDropdownProps> = ({
 
   return (
     <>
-      <div className="card-dropdown">
+      <div className="card-dropdown" onClick={toggleDropDown}>
         <div className="card-dropdown-header">
           <div>
-            {" "}
             <h1 className="card-dropdown-title">{title}</h1>
             {description && <p>{description}</p>}
           </div>

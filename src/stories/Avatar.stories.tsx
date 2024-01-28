@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { Avatar } from "../app/components/Avatar/Avatar";
+import type { Meta, Story } from "@storybook/react";
+import Avatar from "../app/components/Avatar/Avatar";
+import React from "react";
 
 const meta: Meta = {
   title: "Components/Avatar",
@@ -8,22 +9,26 @@ const meta: Meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
-  argTypes: {},
 };
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
-  args: {
-    size: "md",
-  },
+type Args = {
+  size: "sm" | "md" | "lg";
+  src: string;
 };
 
-export const withImage: Story = {
-  args: {
-    size: "md",
-    src: `https://placehold.co/40x40`,
-  },
+const Template: Story<Args> = (args) => {
+  return <Avatar size={args.size} />;
+};
+
+export const Default = Template.bind({});
+Default.args = {
+  size: "md",
+};
+
+export const withImage = Template.bind({});
+withImage.args = {
+  size: "md",
+  src: "https://placehold.co/40x40",
 };

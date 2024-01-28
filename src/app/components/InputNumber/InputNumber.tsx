@@ -107,7 +107,7 @@ const InputNumber: React.FC<InputNumberProps> = ({
             onMouseDown={handleMouseDownSubtract}
             onMouseUp={handleMouseUp}
           >
-            <Icon size="medium" icon="remove" />
+            <Icon size="md" icon="remove" />
           </button>
           <input
             className={`input ${error && "error"}`}
@@ -126,7 +126,7 @@ const InputNumber: React.FC<InputNumberProps> = ({
             className="add"
             onClick={addNum}
           >
-            <Icon size="medium" icon="add" />
+            <Icon size="md" icon="add" />
           </button>
         </div>
         {error && <div className="textError">{textError}</div>}

@@ -1,11 +1,4 @@
-@keyframes spin {
-  0% {
-    transform: rotateZ(0deg);
-  }
-  100% {
-    transform: rotateZ(360deg);
-  }
-}
+@import "../../../scss/tokens/tokens.scss";
 
 .loading {
   overflow: hidden;
@@ -37,4 +30,13 @@
 
 .material-symbols-outlined.extra-large {
   font-size: 88px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
 }
