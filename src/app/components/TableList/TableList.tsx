@@ -51,12 +51,12 @@ const TableList: React.FC<TableListProps> = ({ columns, data, size }) => {
       ref={tableListRef}
     >
       <div className="table">
-      <div className="table-container">
-        {columns.map((column, columnIndex) => (
-          <div className="th" key={columnIndex}>
-            {column}
-          </div>
-        ))}
+        <div className="table-container">
+          {columns.map((column, columnIndex) => (
+            <div className="th" key={columnIndex}>
+              {column}
+            </div>
+          ))}
         </div>
         <div className="table-container">
           {transposedData.map((column, columnIndex) => (

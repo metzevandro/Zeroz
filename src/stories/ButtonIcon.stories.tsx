@@ -9,8 +9,10 @@ const meta = {
   parameters: {
     layout: "centered",
   },
+  args: {
+    disable: false,
+  },
   tags: ["autodocs"],
-  argTypes: {},
 } satisfies Meta<typeof ButtonIcon>;
 
 export default meta;

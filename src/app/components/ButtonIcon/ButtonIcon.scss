@@ -71,18 +71,18 @@
       outline-style: solid;
     }
 
-    &:disabled {
-      cursor: not-allowed;
-      background-color: var(--s-color-fill-disable);
-      color: var(--s-color-content-disable);
-    }
-
     &.primary {
       background-color: var(--s-color-fill-highlight);
       color: var(--s-color-content-on-color);
 
       &:hover {
         background-color: var(--s-color-fill-highlight-hover);
+      }
+
+      &:disabled {
+        cursor: auto;
+        background-color: var(--s-color-fill-disable);
+        color: var(--s-color-content-disable);
       }
     }
 
@@ -94,6 +94,12 @@
       &:hover {
         background-color: var(--s-color-fill-default-hover);
       }
+
+      &:disabled {
+        cursor: auto;
+        background-color: var(--s-color-fill-disable);
+        color: var(--s-color-content-disable);
+      }
     }
 
     &.success {
@@ -103,6 +109,12 @@
       &:hover {
         background-color: var(--s-color-fill-success-hover);
       }
+
+      &:disabled {
+        cursor: auto;
+        background-color: var(--s-color-fill-disable);
+        color: var(--s-color-content-disable);
+      }
     }
 
     &.warning {
@@ -111,6 +123,12 @@
 
       &:hover {
         background-color: var(--s-color-fill-warning-hover);
+      }
+
+      &:disabled {
+        cursor: auto;
+        background-color: var(--s-color-fill-disable);
+        color: var(--s-color-content-disable);
       }
     }
   }
