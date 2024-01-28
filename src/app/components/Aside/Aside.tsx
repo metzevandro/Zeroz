@@ -28,17 +28,17 @@ const Aside: React.FC<AsideProps> = ({
       <div className={`aside-root ${isOpen ? "open" : ""}`}>
         <div className="aside">
           <header className="aside-header">
-            <div>
-              <h1 className="aside-title">{title}</h1>
-              <p className="aside-description">{description}</p>
+            <div className="aside-title">
+              <div>{title}</div>
+              <ButtonIcon
+                type="plain"
+                variant="primary"
+                typeIcon="close"
+                size="md"
+                onClick={toggleSidebar}
+              />
             </div>
-            <ButtonIcon
-              type="plain"
-              variant=""
-              typeIcon="close"
-              size="md"
-              onClick={toggleSidebar}
-            />
+            <div className="aside-description">{description}</div>
           </header>
           <main className="aside-children">{content}</main>
           <footer className="aside-footer">{footer}</footer>

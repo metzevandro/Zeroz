@@ -20,23 +20,23 @@
 
   .modal-header {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     padding: var(--s-spacing-medium) var(--s-spacing-medium)
       var(--s-spacing-small) var(--s-spacing-medium);
+    gap: var(--s-spacing-nano);
 
     .modal-title {
       display: flex;
-      flex-direction: column;
-      gap: var(--s-spacing-nano);
-      h1 {
-        font: var(--s-typography-heading-medium);
-        color: var(--s-color-content-default);
-      }
-      p {
-        font: var(--s-typography-paragraph-regular);
-        color: var(--s-color-content-light);
-      }
+      justify-content: space-between;
+      align-items: center;
+
+      font: var(--s-typography-heading-medium);
+      color: var(--s-color-content-default);
+    }
+
+    .modal-description {
+      font: var(--s-typography-paragraph-regular);
+      color: var(--s-color-content-light);
     }
   }
 

@@ -22,19 +22,21 @@ export const CardDropdown: React.FC<CardDropdownProps> = ({
     <>
       <div className="card-dropdown" onClick={toggleDropDown}>
         <div className="card-dropdown-header">
-          <div>
-            <h1 className="card-dropdown-title">{title}</h1>
-            {description && <p>{description}</p>}
+          <div className="card-dropdown-title">
+            <div>{title}</div>
+            <div
+              className={`card-dropdown-button ${isOpen ? "open" : "close"}`}
+            >
+              <ButtonIcon
+                variant="primary"
+                onClick={toggleDropDown}
+                type="plain"
+                size="md"
+                typeIcon="keyboard_arrow_down"
+              />
+            </div>
           </div>
-          <div className={`card-dropdown-button ${isOpen ? "open" : "close"}`}>
-            <ButtonIcon
-              variant=""
-              onClick={toggleDropDown}
-              type="plain"
-              size="md"
-              typeIcon="keyboard_arrow_down"
-            />
-          </div>
+          <div>{description && <p>{description}</p>}</div>
         </div>
         <p className={`card-dropdown-content ${isOpen ? "open" : "close"}`}>
           {children}

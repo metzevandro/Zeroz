@@ -3,7 +3,7 @@ import Icon from "../Icon/Icon";
 import "./ButtonIcon.scss";
 
 interface ButtonProps {
-  variant: "primary" | "secondary" | "success" | "warning" | "on-color"
+  variant: "primary" | "secondary" | "success" | "warning" | "on-color";
   disable?: boolean;
   type: "plain" | "default";
   size: "sm" | "md";

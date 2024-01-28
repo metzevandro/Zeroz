@@ -29,13 +29,10 @@ const Modal: React.FC<ModalProps> = ({
       <div className={modalClass}>
         <div className="modal-header">
           <div className="modal-title">
-            <h1>{title}</h1>
-            <p>{description}</p>
-          </div>
-          <div>
+            <div>{title}</div>
             {dismissible && (
               <ButtonIcon
-                variant=""
+                variant="primary"
                 size="md"
                 typeIcon="close"
                 type="plain"
@@ -43,6 +40,7 @@ const Modal: React.FC<ModalProps> = ({
               />
             )}
           </div>
+          <div className="modal-description">{description}</div>
         </div>
         {content}
         {footer}

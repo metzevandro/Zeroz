@@ -43,24 +43,23 @@
 
     .aside-header {
       display: flex;
-      justify-content: space-between;
-      align-items: start;
+      flex-direction: column;
       padding: var(--s-spacing-medium);
-
-      div {
-        display: flex;
-        flex-direction: column;
-        gap: var(--s-spacing-xx-small);
-      }
+      gap: var(--s-spacing-xx-small);
 
       .aside-title {
+        align-items: center;
         color: var(--s-color-content-default);
         font: var(--s-typography-heading-large);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
       }
 
       .aside-description {
         color: var(--s-color-content-light);
         font: var(--s-typography-paragraph-regular);
+        word-break: break-all;
       }
     }
     .aside-children {

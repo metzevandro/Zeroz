@@ -9,19 +9,24 @@
   border-radius: var(--s-border-radius-small);
   border: var(--s-border-width-hairline) solid var(--s-color-border-default);
   background-color: var(--s-color-fill-default);
+
   .card-dropdown-header {
     padding: var(--s-spacing-medium);
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 
     & p {
       font: var(--s-typography-paragraph-regular);
       color: var(--s-color-content-light);
+      word-break: break-all;
     }
 
     .card-dropdown-title {
       font: var(--s-typography-heading-small);
       color: var(--s-color-content-default);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .card-dropdown-button {
