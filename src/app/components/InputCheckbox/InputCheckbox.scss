@@ -72,6 +72,7 @@
     cursor: pointer;
     &.disabled {
       cursor: auto;
+      color: var(--s-color-content-disable);
     }
   }
 }

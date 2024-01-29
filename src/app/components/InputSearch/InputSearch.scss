@@ -16,6 +16,7 @@
     cursor: auto;
     background-color: var(--s-color-fill-disable);
     color: var(--s-color-content-disable);
+    opacity: 0.64;
   }
 
   &.disabled:hover {

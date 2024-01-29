@@ -20,7 +20,7 @@
     &.disabled {
       border-color: var(--s-color-border-default);
       background-color: var(--s-color-fill-disable);
-
+      opacity: 0.64;
       input {
         background-color: var(--s-color-fill-disable);
       }

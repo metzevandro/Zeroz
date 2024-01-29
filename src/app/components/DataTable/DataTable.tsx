@@ -189,7 +189,7 @@ const DataTable: React.FC<DataTableProps> = ({
                   onClick={() => toggleExpandRow("header")}
                 >
                   <ButtonIcon
-                    variant=""
+                    variant="primary"
                     size="md"
                     typeIcon={
                       allRowsExpanded
@@ -231,7 +231,7 @@ const DataTable: React.FC<DataTableProps> = ({
                       }`}
                     >
                       <ButtonIcon
-                        variant=""
+                        variant="primary"
                         size="md"
                         typeIcon={
                           expandedRows.includes(item.id)

@@ -4,13 +4,15 @@ import Icon from "../Icon/Icon";
 
 interface CardDropdownProps {
   title: string;
-  children: React.ReactNode;
+  content?: React.ReactNode;
   description?: string;
+  footer?: React.ReactNode;
 }
 
 export const CardDropdown: React.FC<CardDropdownProps> = ({
   title,
-  children,
+  content,
+  footer,
   description,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,9 +34,12 @@ export const CardDropdown: React.FC<CardDropdownProps> = ({
           </div>
           <div>{description && <p>{description}</p>}</div>
         </div>
-        <p className={`card-dropdown-content ${isOpen ? "open" : "close"}`}>
-          {children}
-        </p>
+        <div className={`card-dropdown-content ${isOpen ? "open" : "close"}`}>
+          {content}
+        </div>
+        <div className={`card-dropdown-footer ${isOpen ? "open" : "close"}`}>
+          {footer}
+        </div>
       </div>
     </>
   );
