@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 import Icon from "../Icon/Icon";
 import "./Notification.scss";
+import Button from "../Button/Button";
 
 interface NotificationProps {
   icon?: string;
@@ -11,6 +12,10 @@ interface NotificationProps {
   type: "float" | "inline";
   isOpen?: boolean;
   dismissible?: boolean;
+  withAction?: boolean;
+  disableButton?: boolean;
+  buttonLabel?: string;
+  onClickButton?: () => void;
 }
 
 const Notification: React.FC<NotificationProps> = ({
@@ -21,6 +26,10 @@ const Notification: React.FC<NotificationProps> = ({
   type,
   isOpen,
   dismissible,
+  withAction,
+  disableButton,
+  onClickButton,
+  buttonLabel,
 }) => {
   const [isClose, setIsClose] = useState(true);
 
@@ -44,7 +53,7 @@ const Notification: React.FC<NotificationProps> = ({
               <>
                 {dismissible && (
                   <ButtonIcon
-                    variant=""
+                    variant="primary"
                     size="md"
                     typeIcon="close"
                     type="plain"
@@ -54,6 +63,17 @@ const Notification: React.FC<NotificationProps> = ({
               </>
             </header>
             {description && <div className="description">{description}</div>}
+            {withAction && (
+              <div className="notification-with-action">
+                <Button
+                  size="md"
+                  variant="secondary"
+                  disable={disableButton}
+                  label={buttonLabel}
+                  onClick={onClickButton}
+                />
+              </div>
+            )}
           </div>
         </div>
       )}

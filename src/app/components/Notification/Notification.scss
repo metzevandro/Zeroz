@@ -59,6 +59,11 @@
       font: var(--s-typography-heading-small);
       color: var(--s-color-content-default);
     }
+
+    .notification-with-action {
+      display: flex;
+      width: min-content;
+    }
   }
 
   .notification-icon-primary {

@@ -23,6 +23,9 @@ export const Inline: Story = {
     type: "inline",
     variant: "primary",
     dismissible: false,
+    buttonLabel: "Button",
+    disableButton: false,
+    withAction: true,
   },
 };
 
