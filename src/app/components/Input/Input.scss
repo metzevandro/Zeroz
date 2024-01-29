@@ -62,6 +62,7 @@
       border-color: var(--s-color-border-warning);
 
       input {
+        font: var(--s-typography-paragraph-regular);
         &::placeholder {
           color: var(--s-color-content-warning);
         }
