@@ -38,6 +38,10 @@ export const Float: Story = {
     type: "float",
     variant: "primary",
     isOpen: true,
+    dismissible: false,
+    buttonLabel: "Button",
+    disableButton: false,
+    withAction: false,
   },
 };
 
@@ -49,6 +53,10 @@ export const Primary: Story = {
     title: "Title",
     type: "inline",
     variant: "primary",
+    dismissible: false,
+    buttonLabel: "Button",
+    disableButton: false,
+    withAction: false,
   },
 };
 
@@ -60,6 +68,10 @@ export const Success: Story = {
     title: "Title",
     type: "inline",
     variant: "success",
+    dismissible: false,
+    buttonLabel: "Button",
+    disableButton: false,
+    withAction: false,
   },
 };
 
@@ -71,6 +83,10 @@ export const Warning: Story = {
     title: "Title",
     type: "inline",
     variant: "warning",
+    dismissible: false,
+    buttonLabel: "Button",
+    disableButton: false,
+    withAction: false,
   },
 };
 
@@ -83,5 +99,8 @@ export const Dismissible: Story = {
     type: "inline",
     variant: "primary",
     dismissible: true,
+    buttonLabel: "Button",
+    disableButton: false,
+    withAction: false,
   },
 };
