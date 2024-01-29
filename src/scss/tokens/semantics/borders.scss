@@ -2,17 +2,17 @@
 @use "../primitives/borders.scss" as *;
 
 $semantic-borders-width: (
-  none: tokens.getPrimitiveVar($primitive-borders, width, 0),
-  hairline: tokens.getPrimitiveVar($primitive-borders, width, 1px),
-  thin: tokens.getPrimitiveVar($primitive-borders, width, 2px),
-  strong: tokens.getPrimitiveVar($primitive-borders, width, 4px),
-  heavy: tokens.getPrimitiveVar($primitive-borders, width, 8px),
+  none: tokens.getPrimitiveVar($p-borders, width, 0),
+  hairline: tokens.getPrimitiveVar($p-borders, width, 1px),
+  thin: tokens.getPrimitiveVar($p-borders, width, 2px),
+  strong: tokens.getPrimitiveVar($p-borders, width, 4px),
+  heavy: tokens.getPrimitiveVar($p-borders, width, 8px),
 );
 
 $semantic-borders-radius: (
-  none: tokens.getPrimitiveVar($primitive-borders, radius, 0),
-  small: tokens.getPrimitiveVar($primitive-borders, radius, 4px),
-  medium: tokens.getPrimitiveVar($primitive-borders, radius, 8px),
-  large: tokens.getPrimitiveVar($primitive-borders, radius, 16px),
-  pill: tokens.getPrimitiveVar($primitive-borders, radius, 50%),
+  none: tokens.getPrimitiveVar($p-borders, radius, 0),
+  small: tokens.getPrimitiveVar($p-borders, radius, 4px),
+  medium: tokens.getPrimitiveVar($p-borders, radius, 8px),
+  large: tokens.getPrimitiveVar($p-borders, radius, 16px),
+  pill: tokens.getPrimitiveVar($p-borders, radius, 50%),
 );
