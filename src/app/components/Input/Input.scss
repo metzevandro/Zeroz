@@ -62,7 +62,6 @@
       border-color: var(--s-color-border-warning);
 
       input {
-        font: var(--s-typography-paragraph-regular);
         &::placeholder {
           color: var(--s-color-content-warning);
         }
@@ -84,6 +83,7 @@
       margin: 0;
       padding: 0;
       color: var(--s-color-content-default);
+      font: var(--s-typography-paragraph-regular);
 
       &:focus {
         outline: none;
