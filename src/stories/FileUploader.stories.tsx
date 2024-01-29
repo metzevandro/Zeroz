@@ -18,18 +18,20 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    title: "Title",
-    description: "Description",
+    title: "Upload files",
+    description: "Max file size is 1mb.",
     multiple: false,
     disable: false,
+    maxFileSize: 1,
   },
 };
 
 export const Disable: Story = {
   args: {
-    title: "Title",
-    description: "Description",
+    title: "Upload files",
+    description: "Max file size is 1mb.",
     multiple: false,
     disable: true,
+    maxFileSize: 1,
   },
 };

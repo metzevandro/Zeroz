@@ -1,7 +1,12 @@
 .file-uploader {
   display: flex;
   flex-direction: column;
-  gap: var(--s-spacing-small);
+  gap: var(--s-spacing-x-small);
+
+  p {
+    font: var(--s-typography-caption-regular);
+    color: var(--s-color-content-light);
+  }
 
   .file-uploader-header {
     display: flex;
@@ -12,14 +17,15 @@
       font: var(--s-typography-label-medium);
       color: var(--s-color-content-default);
     }
-
-    p {
-      font: var(--s-typography-caption-regular);
-      color: var(--s-color-content-light);
-    }
   }
   .file-uploader-button {
     width: fit-content;
+  }
+
+  .file-uploader-footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-spacing-nano);
   }
 
   .file-uploader-items {
@@ -57,7 +63,8 @@
 
         .file-uploaded-icon {
           display: flex;
-          gap: var(--s-spacing-xx-small);
+          gap: var(--s-spacing-nano);
+          align-items: center;
 
           .file-uploader-icon-error {
             color: var(--s-color-content-warning);

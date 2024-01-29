@@ -93,27 +93,27 @@ const FileUploader: React.FC<FileUploaderProps> = ({
       <div className="file-uploader">
         <div className="file-uploader-header">
           <h1>{title}</h1>
+          <div className="file-uploader-button">
+            <input
+              disabled={disable}
+              type="file"
+              ref={fileInputRef}
+              multiple={!!multiple}
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
+            <Button
+              variant="primary"
+              disable={disable}
+              onClick={handleButtonClick}
+              label="Add file"
+              typeIcon="upload_file"
+              size="md"
+            />
+          </div>
+        </div>
+        <div className="file-uploader-footer">
           <p>{description}</p>
-        </div>
-        <div className="file-uploader-button">
-          <input
-            disabled={disable}
-            type="file"
-            ref={fileInputRef}
-            multiple={!!multiple}
-            style={{ display: "none" }}
-            onChange={handleFileChange}
-          />
-          <Button
-            variant="primary"
-            disable={disable}
-            onClick={handleButtonClick}
-            label="Add file"
-            typeIcon="upload_file"
-            size="md"
-          />
-        </div>
-        <div className="">
           {selectedFiles.length > 0 && (
             <ul className="file-uploader-items">
               {selectedFiles.map((fileObj, index) => (
@@ -129,7 +129,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
                     }`}
                   >
                     <p>{fileObj.file.name}</p>
-                    <p className=".file-uploaded-icon">
+                    <p className="file-uploaded-icon">
                       {isLoading && <Loading variant="default" />}
                       <div className="file-uploader-icon-error">
                         {fileObj.hasError && (
@@ -137,7 +137,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
                         )}
                       </div>
                       <ButtonIcon
-                        variant=""
+                        variant="primary"
                         type="plain"
                         onClick={() => handleRemoveFile(index)}
                         size="sm"
