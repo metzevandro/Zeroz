@@ -1,6 +1,6 @@
 import "./CardDropdown.scss";
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 import { useState } from "react";
+import Icon from "../Icon/Icon";
 
 interface CardDropdownProps {
   title: string;
@@ -27,13 +27,7 @@ export const CardDropdown: React.FC<CardDropdownProps> = ({
             <div
               className={`card-dropdown-button ${isOpen ? "open" : "close"}`}
             >
-              <ButtonIcon
-                variant="primary"
-                onClick={toggleDropDown}
-                type="plain"
-                size="md"
-                typeIcon="keyboard_arrow_down"
-              />
+              <Icon size="md" icon="keyboard_arrow_down" />
             </div>
           </div>
           <div>{description && <p>{description}</p>}</div>

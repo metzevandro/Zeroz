@@ -155,8 +155,7 @@
     align-items: center;
     cursor: pointer;
     user-select: none;
-    gap: var(--s-spacing-nano);
-    padding: 0 var(--s-spacing-nano);
+    padding: 0 0 0 var(--s-spacing-xx-small);
     border-radius: var(--s-border-radius-small);
 
     &:hover {

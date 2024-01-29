@@ -21,8 +21,7 @@
   .modal-header {
     display: flex;
     flex-direction: column;
-    padding: var(--s-spacing-medium) var(--s-spacing-medium)
-      var(--s-spacing-small) var(--s-spacing-medium);
+    padding: var(--s-spacing-medium);
     gap: var(--s-spacing-nano);
 
     .modal-title {

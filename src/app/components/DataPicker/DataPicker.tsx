@@ -525,16 +525,16 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
 
               <div style={{ display: "flex", flexDirection: "row" }}>
                 <ButtonIcon
-                  variant=""
-                  size="md"
+                  variant="primary"
+                  size="sm"
                   onClick={handlePrevMonth}
                   typeIcon="keyboard_arrow_left"
                   type="plain"
                 />
                 <ButtonIcon
-                  variant=""
+                  variant="primary"
                   type="plain"
-                  size="md"
+                  size="sm"
                   onClick={handleNextMonth}
                   typeIcon="keyboard_arrow_right"
                 />
