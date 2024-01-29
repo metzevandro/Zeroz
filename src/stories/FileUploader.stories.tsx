@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
+import "./css/main.scss";
 import FileUploader from "../app/components/FileUploader/FileUploader";
 import Story from "@storybook/react";
 

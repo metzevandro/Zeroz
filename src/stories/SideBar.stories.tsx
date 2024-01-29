@@ -6,6 +6,7 @@ import {
   SidebarItem,
   SidebarSubItem,
 } from "../app/components/Sidebar/Sidebar";
+import "./css/main.scss";
 
 const meta: Meta = {
   title: "Components/Sidebar",

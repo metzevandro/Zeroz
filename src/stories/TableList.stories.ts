@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
+import "./css/main.scss";
 import TableList from "../app/components/TableList/TableList";
 
 const meta = {

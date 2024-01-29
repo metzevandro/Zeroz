@@ -1,6 +1,6 @@
 import { Meta, Story } from "@storybook/react";
 import Layout from "../app/components/Layout/Layout";
-import "./css/slot.scss";
+import "./css/main.scss";
 import Icon from "../app/components/Icon/Icon";
 const meta: Meta = {
   title: "Templates/Layout",

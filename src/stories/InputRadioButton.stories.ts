@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
+import "./css/main.scss";
 import InputRadioButton from "../app/components/InputRadioButton/InputRadioButton";
 
 const meta = {

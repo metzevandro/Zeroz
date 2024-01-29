@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
+import "./css/main.scss";
 import Link from "../app/components/Link/Link";
 
 const meta = {

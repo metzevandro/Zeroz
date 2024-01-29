@@ -6,7 +6,7 @@ import Modal, {
 import Button from "../app/components/Button/Button";
 import { useState } from "react";
 import Icon from "../app/components/Icon/Icon";
-import "./css/slot.scss";
+import "./css/main.scss";
 import ButtonGroup from "../app/components/ButtonGroup/ButtonGroup";
 
 const meta: Meta = {

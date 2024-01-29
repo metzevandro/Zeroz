@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
+import "./css/main.scss";
 import ColorPicker from "../app/components/ColorPicker/ColorPicker";
 import Story from "@storybook/react";
 

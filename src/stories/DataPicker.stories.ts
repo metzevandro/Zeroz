@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
+import "./css/main.scss";
 import DataPicker from "../app/components/DataPicker/DataPicker";
 import Story from "@storybook/react";
 

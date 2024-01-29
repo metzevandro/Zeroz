@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
+import "./css/main.scss";
 import InputNumber from "../app/components/InputNumber/InputNumber";
 import Story from "@storybook/react";
 

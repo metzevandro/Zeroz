@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import "./css/slot.scss";
+import "./css/main.scss";
 import Tooltip from "../app/components/Tooltip/Tooltip";
 import Icon from "../app/components/Icon/Icon";
 

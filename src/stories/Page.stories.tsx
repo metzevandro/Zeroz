@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Page from "../app/components/Page/Page";
 import Icon from "../app/components/Icon/Icon";
-import "./css/slot.scss";
+import "./css/main.scss";
 
 const meta = {
   title: "Templates/Page",

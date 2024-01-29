@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
+import "./css/main.scss";
 import InputTime from "../app/components/InputTime/InputTime";
 
 const meta = {

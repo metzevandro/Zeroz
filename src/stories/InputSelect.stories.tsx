@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import InputSelect from "../app/components/InputSelect/InputSelect";
+import "./css/main.scss";
 
 const meta = {
   title: "Components/Input Select",

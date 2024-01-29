@@ -1,6 +1,7 @@
 import type { Meta, Story } from "@storybook/react";
 import Avatar from "../app/components/Avatar/Avatar";
 import React from "react";
+import "./css/main.scss";
 
 const meta: Meta = {
   title: "Components/Avatar",

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import "./css/main.scss";
 
 import SaveBar from "../app/components/SaveBar/SaveBar";
 import Story from "@storybook/react";

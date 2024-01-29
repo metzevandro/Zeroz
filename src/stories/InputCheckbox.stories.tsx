@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import type { Meta, Story } from "@storybook/react";
 import { InputCheckbox } from "../app/components/InputCheckbox/InputCheckbox";
+import "./css/main.scss";
 
 const meta: Meta = {
   title: "Components/Input Checkbox",

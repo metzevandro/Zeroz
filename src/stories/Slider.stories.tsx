@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import "./css/main.scss";
 
 import Slider from "../app/components/Slider/Slider";
 

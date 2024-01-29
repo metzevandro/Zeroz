@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import type { Meta, Story } from "@storybook/react";
 import DataTable from "../app/components/DataTable/DataTable";
+import "./css/main.scss";
 
 const meta: Meta = {
   title: "Components/Data Table",

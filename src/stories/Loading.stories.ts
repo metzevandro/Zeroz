@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
+import "./css/main.scss";
 import Loading from "../app/components/Loading/Loading";
 
 const meta = {

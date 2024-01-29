@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
+import "./css/main.scss";
 import Image from "../app/components/Image/Image";
 import Story from "@storybook/react";
 

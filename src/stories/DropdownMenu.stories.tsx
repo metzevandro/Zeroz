@@ -6,6 +6,7 @@ import {
   DropDownMenuTitle,
 } from "../app/components/DropdownMenu/DropdownMenu";
 import Button from "../app/components/Button/Button";
+import "./css/main.scss";
 
 const meta: Meta = {
   title: "Components/Dropdown Menu",

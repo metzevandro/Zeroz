@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import "./css/main.scss";
 
 import Brand from "../app/components/Brand/Brand";
 import Story from "@storybook/react";

@@ -1,5 +1,6 @@
 import DescriptionList from "../app/components/DescriptionList/DescriptionList";
 import type { Meta, Story } from "@storybook/react";
+import "./css/main.scss";
 
 const meta = {
   title: "Components/Description List",

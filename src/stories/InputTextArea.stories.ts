@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
+import "./css/main.scss";
 import TextArea from "../app/components/InputTextArea/InputTextArea";
 
 const meta = {

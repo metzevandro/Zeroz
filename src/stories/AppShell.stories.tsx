@@ -17,6 +17,7 @@ import {
   Breadcrumb,
   BreadcrumbRoot,
 } from "../app/components/Breadcrumb/Breadcrumb";
+import "./css/main.scss";
 
 const meta: Meta = {
   title: "Templates/AppShell",

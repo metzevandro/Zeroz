@@ -1,6 +1,6 @@
 // Importando tipos necessários do Storybook
 import type { Meta, StoryObj } from "@storybook/react";
-import "./css/slot.scss";
+import "./css/main.scss";
 import { CardDropdown } from "../app/components/CardDropdown/CardDropdown";
 import Icon from "../app/components/Icon/Icon";
 

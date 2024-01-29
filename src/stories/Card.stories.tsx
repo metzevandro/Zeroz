@@ -1,6 +1,6 @@
 // Importando tipos necessários do Storybook
 import type { Meta, Story } from "@storybook/react";
-import "./css/slot.scss";
+import "./css/main.scss";
 import {
   Card,
   CardContent,

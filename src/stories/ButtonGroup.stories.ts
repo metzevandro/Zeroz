@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import ButtonGroup from "../app/components/ButtonGroup/ButtonGroup";
+import "./css/main.scss";
 
 const meta = {
   title: "Components/Button Group",

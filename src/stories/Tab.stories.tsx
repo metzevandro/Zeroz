@@ -1,7 +1,7 @@
 import { Meta, Story } from "@storybook/react";
 import { Tabs, TabsProps } from "../app/components/Tab/Tab";
 import Icon from "../app/components/Icon/Icon";
-import "./css/slot.scss";
+import "./css/main.scss";
 
 export default {
   title: "Components/Tab",
