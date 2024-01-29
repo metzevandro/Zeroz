@@ -1,10 +1,30 @@
 @use "../../mixins/tokens" as tokens;
 @use "../primitives/colors.scss" as *;
 
+@layer brand {
+  :root {
+    &[data-company="zeroz"] {
+      --b-color-darkness: #{tokens.getPrimitiveVar($p-color, purple, 950)};
+      --b-color-base: #{tokens.getPrimitiveVar($p-color, purple, 600)};
+      --b-color-medium: #{tokens.getPrimitiveVar($p-color, purple, 500)};
+      --b-color-light: #{tokens.getPrimitiveVar($p-color, purple, 400)};
+      --b-color-lightness: #{tokens.getPrimitiveVar($p-color, purple, 50)};
+    }
+
+    &[data-company="whitelabel"] {
+      --b-color-darkness: #{tokens.getPrimitiveVar($p-color, blue, 950)};
+      --b-color-base: #{tokens.getPrimitiveVar($p-color, blue, 600)};
+      --b-color-medium: #{tokens.getPrimitiveVar($p-color, blue, 500)};
+      --b-color-light: #{tokens.getPrimitiveVar($p-color, blue, 400)};
+      --b-color-lightness: #{tokens.getPrimitiveVar($p-color, blue, 50)};
+    }
+  }
+}
+
 $semantic-color-light: (
   background: (
     default: tokens.getPrimitiveVar($p-color, neutral, 50),
-    highlight: tokens.getPrimitiveVar($p-color, purple, 600),
+    highlight: var(--b-color-base),
     overlay: tokens.getPrimitiveVar($p-color, black, null, 64),
   ),
   fill: (
@@ -12,9 +32,9 @@ $semantic-color-light: (
     default-hover: tokens.getPrimitiveVar($p-color, neutral, 100),
     default-light: tokens.getPrimitiveVar($p-color, neutral, 200),
     disable: tokens.getPrimitiveVar($p-color, neutral, 100),
-    highlight: tokens.getPrimitiveVar($p-color, purple, 600),
-    highlight-hover: tokens.getPrimitiveVar($p-color, purple, 500),
-    highlight-light: tokens.getPrimitiveVar($p-color, purple, 50),
+    highlight: var(--b-color-base),
+    highlight-hover: var(--b-color-medium),
+    highlight-light: var(--b-color-lightness),
     success: tokens.getPrimitiveVar($p-color, green, 600),
     success-hover: tokens.getPrimitiveVar($p-color, green, 500),
     success-light: tokens.getPrimitiveVar($p-color, green, 50),
@@ -24,7 +44,7 @@ $semantic-color-light: (
   ),
   border: (
     default: tokens.getPrimitiveVar($p-color, neutral, 300),
-    highlight: tokens.getPrimitiveVar($p-color, purple, 600),
+    highlight: var(--b-color-base),
     success: tokens.getPrimitiveVar($p-color, green, 600),
     warning: tokens.getPrimitiveVar($p-color, orange, 600),
   ),
@@ -34,7 +54,7 @@ $semantic-color-light: (
     placeholder: tokens.getPrimitiveVar($p-color, neutral, 500),
     disable: tokens.getPrimitiveVar($p-color, neutral, 400),
     on-color: tokens.getPrimitiveVar($p-color, white),
-    highlight: tokens.getPrimitiveVar($p-color, purple, 600),
+    highlight: var(--b-color-base),
     success: tokens.getPrimitiveVar($p-color, green, 600),
     warning: tokens.getPrimitiveVar($p-color, orange, 600),
   ),
@@ -43,7 +63,7 @@ $semantic-color-light: (
 $semantic-color-dark: (
   background: (
     default: tokens.getPrimitiveVar($p-color, neutral, 950),
-    highlight: tokens.getPrimitiveVar($p-color, purple, 600),
+    highlight: var(--b-color-base),
     overlay: tokens.getPrimitiveVar($p-color, black, null, 64),
   ),
   fill: (
@@ -51,9 +71,9 @@ $semantic-color-dark: (
     default-hover: tokens.getPrimitiveVar($p-color, neutral, 800),
     default-light: tokens.getPrimitiveVar($p-color, neutral, 700),
     disable: tokens.getPrimitiveVar($p-color, neutral, 800),
-    highlight: tokens.getPrimitiveVar($p-color, purple, 600),
-    highlight-hover: tokens.getPrimitiveVar($p-color, purple, 500),
-    highlight-light: tokens.getPrimitiveVar($p-color, purple, 950),
+    highlight: var(--b-color-base),
+    highlight-hover: var(--b-color-medium),
+    highlight-light: var(--b-color-darkness),
     success: tokens.getPrimitiveVar($p-color, green, 600),
     success-hover: tokens.getPrimitiveVar($p-color, green, 500),
     success-light: tokens.getPrimitiveVar($p-color, green, 950),
@@ -63,7 +83,7 @@ $semantic-color-dark: (
   ),
   border: (
     default: tokens.getPrimitiveVar($p-color, neutral, 600),
-    highlight: tokens.getPrimitiveVar($p-color, purple, 400),
+    highlight: var(--b-color-light),
     success: tokens.getPrimitiveVar($p-color, green, 400),
     warning: tokens.getPrimitiveVar($p-color, orange, 400),
   ),
@@ -73,7 +93,7 @@ $semantic-color-dark: (
     placeholder: tokens.getPrimitiveVar($p-color, neutral, 400),
     disable: tokens.getPrimitiveVar($p-color, neutral, 500),
     on-color: tokens.getPrimitiveVar($p-color, white),
-    highlight: tokens.getPrimitiveVar($p-color, purple, 400),
+    highlight: var(--b-color-light),
     success: tokens.getPrimitiveVar($p-color, green, 400),
     warning: tokens.getPrimitiveVar($p-color, orange, 400),
   ),

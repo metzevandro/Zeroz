@@ -1,26 +1,26 @@
 import { Preview } from '@storybook/react';
 import { SchemeMode, scheme } from "./decorators/scheme-mode";
+import { brand, BrandMode } from './decorators/brand-mode';
+
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
+    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
-        date: /Date$/i,
-      },
-    },
-    docs: {
-      autodocs: true,
-    },
-    backgrounds: { disable: true },
+        date: /Date$/i
+      }
+    }
   },
   decorators: [
     SchemeMode,
+    BrandMode
   ],
   globalTypes: {
     scheme,
-  }
+    brand
+  },
+}
 
-};
 
 export default preview;
