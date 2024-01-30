@@ -1,130 +1,195 @@
-import React, { useState, useEffect } from "react";
-import "./DataTable.scss";
-import { InputCheckbox } from "../InputCheckbox/InputCheckbox";
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import React, { useState, useEffect, useRef } from "react";
 import InputSearch from "../InputSearch/InputSearch";
-import { Pagination } from "../Pagination/Pagination";
 import Button from "../Button/Button";
+import { Pagination } from "../Pagination/Pagination";
+import { InputCheckbox } from "../InputCheckbox/InputCheckbox";
+import "../DataTable/DataTable.scss";
+import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 
 interface DataTableProps {
-  data: Array<{ id: string; [key: string]: string | number }>;
-  expandedData?: Array<{ id: string; [key: string]: React.ReactNode }>;
   columns: string[];
+  data: { id: string; [key: string]: any }[];
+  expandedData?: Array<{ id: string; [key: string]: React.ReactNode }>;
   selectable?: boolean;
   expandable?: boolean;
-  contentPrimaryButton: string;
-  contentSecondButton: string;
-  onClickFirstButton?: () => void;
-  onClickSecondButton?: () => void;
-  onClickOrderBy?: () => void;
-  onClickFilterBy?: () => void;
 }
 
 const DataTable: React.FC<DataTableProps> = ({
-  contentPrimaryButton,
-  contentSecondButton,
-  onClickFirstButton,
-  onClickSecondButton,
-  onClickFilterBy,
-  onClickOrderBy,
-  data,
-  expandedData,
   columns,
-  selectable,
+  data,
   expandable,
+  selectable,
+  expandedData,
 }) => {
-  const [selectAll, setSelectAll] = useState(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectAll, setSelectAll] = useState<boolean>(false);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [expandedRows, setExpandedRows] = useState<string[]>([]);
-  const [allRowsExpanded, setAllRowsExpanded] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isAnyItemSelected, setIsAnyItemSelected] = useState(false);
+  const [isAnyItemSelected, setIsAnyItemSelected] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredData, setFilteredData] =
+    useState<{ id: string; [key: string]: any }[]>(data);
+  const [expandedRows, setExpandedRows] = useState<string[]>([]);
+  const [contentOverflowed, setContentOverflowed] = useState<boolean>(false);
+
+  const contentRef = useRef<HTMLDivElement>(null);
+
   const itemsPerPage = 4;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const [allItemsExpanded, setAllItemsExpanded] = useState<boolean>(false);
 
   useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm]);
 
-  const filteredData = data.filter((item) => {
-    const values = columns.map((column) => String(item[column])).join(" ");
-    return values.toLowerCase().includes(searchTerm.toLowerCase());
-  });
-
-  const toggleSelectAll = () => {
-    setSelectAll(!selectAll);
-    const allIds = filteredData.map((item) => item.id);
-    if (!selectAll) {
-      setSelectedRows(allIds);
-    } else {
-      setSelectedRows([]);
-    }
-    setIsAnyItemSelected(!selectAll);
-  };
-
-  const toggleSelectRow = (id: string) => {
-    const index = selectedRows.indexOf(id);
-    let newSelectedRows: string[];
-
-    if (index === -1) {
-      newSelectedRows = [...selectedRows, id];
-    } else {
-      newSelectedRows = selectedRows.filter((rowId) => rowId !== id);
-    }
-
-    setSelectedRows(newSelectedRows);
-
-    if (selectable) {
-      const allIds = filteredData.map((item) => item.id);
-      setSelectAll(newSelectedRows.length === allIds.length);
-    }
-    setIsAnyItemSelected(newSelectedRows.length > 0);
-  };
-
-  const toggleExpandRow = (id: string) => {
-    setExpandedRows((prevExpandedRows) => {
-      if (id === "header") {
-        const allRowIds = filteredData.map((item) => item.id);
-        const newExpandedRows = prevExpandedRows.length === 0 ? allRowIds : [];
-
-        setAllRowsExpanded(newExpandedRows.length === filteredData.length);
-
-        return newExpandedRows;
-      }
-
-      const newExpandedRows = prevExpandedRows.includes(id)
-        ? prevExpandedRows.filter((rowId) => rowId !== id)
-        : [...prevExpandedRows, id];
-
-      if (newExpandedRows.length === filteredData.length) {
-        setAllRowsExpanded(true);
-      } else if (newExpandedRows.length === 0) {
-        setAllRowsExpanded(false);
-      }
-
-      return newExpandedRows;
+  useEffect(() => {
+    const filtered = data.filter((item) => {
+      const values = columns.map((column) => String(item[column])).join(" ");
+      return values.toLowerCase().includes(searchTerm.toLowerCase());
     });
-  };
+    setFilteredData(filtered);
+  }, [searchTerm, data, columns]);
 
-  const isIndeterminate =
-    selectable &&
-    selectedRows.length > 0 &&
-    selectedRows.length !== filteredData.length;
+  useEffect(() => {
+    setIsAnyItemSelected(selectedRows.length > 0);
+  }, [selectedRows]);
 
-  const paginatedData = filteredData.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  useEffect(() => {
+    setSelectAll(isAllSelected());
+  }, [selectedRows]);
+
+  useEffect(() => {
+    const checkOverflow = () => {
+      const contentElement = contentRef.current;
+
+      if (contentElement) {
+        setContentOverflowed(
+          contentElement.scrollWidth > contentElement.clientWidth
+        );
+      }
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+      checkOverflow();
+    });
+
+    const contentElement = contentRef.current;
+
+    if (contentElement) {
+      resizeObserver.observe(contentElement);
+      checkOverflow();
+    }
+
+    return () => {
+      if (contentElement) {
+        resizeObserver.unobserve(contentElement);
+      }
+    };
+  }, [filteredData]);
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
-  const handlePaginationClick = (newPage: number) => {
-    setCurrentPage(newPage);
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => {
+      const nextPage = prevPage + 1;
+      return nextPage > totalPages ? prevPage : nextPage;
+    });
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => {
+      const newPage = prevPage - 1;
+      return newPage < 1 ? prevPage : newPage;
+    });
+  };
+
+  const toggleSelectAll = () => {
+    const allIds = filteredData.map((item) => item.id);
+    if (isAllSelected()) {
+      setSelectAll(false);
+      setSelectedRows([]);
+    } else {
+      setSelectAll(true);
+      setSelectedRows(allIds);
+    }
+  };
+
+  const isAllSelected = () => {
+    const allIds = filteredData.map((item) => item.id);
+    return selectedRows.length === allIds.length;
+  };
+
+  const toggleSelectRow = (rowId: string) => {
+    if (selectedRows.includes(rowId)) {
+      setSelectedRows(selectedRows.filter((id) => id !== rowId));
+      setSelectAll(false);
+    } else {
+      setSelectedRows([...selectedRows, rowId]);
+      if (isAllSelected()) {
+        setSelectAll(true);
+      }
+    }
   };
 
   const handleSearchChange = (value: string) => {
     setSearchTerm(value);
   };
+
+  const isIndeterminate =
+    selectedRows.length > 0 &&
+    selectedRows.length < filteredData.length &&
+    !selectAll;
+
+  const label = `Page ${currentPage} of ${totalPages}`;
+
+  function calculateGridTemplate(
+    selectable: boolean = false,
+    expandable: boolean = false
+  ) {
+    if (selectable && expandable) {
+      return {
+        gridTemplateColumns: "56px 56px repeat(auto-fit, minmax(120px, 1fr))",
+      };
+    } else if (selectable || expandable) {
+      return {
+        gridTemplateColumns: "56px repeat(auto-fit, minmax(120px, 1fr))",
+      };
+    } else {
+      return {};
+    }
+  }
+
+  function calculateLeft(
+    selectable: boolean = false,
+    expandable: boolean = false
+  ) {
+    if (selectable && expandable) {
+      return {
+        left: "112px",
+      };
+    } else if (selectable || expandable) {
+      return {
+        left: "56px",
+      };
+    } else {
+      return {
+        left: "0px",
+      };
+    }
+  }
+
+  function calculateLeftToCheckBox(expandable: boolean = false) {
+    if (expandable) {
+      return {
+        left: "56px",
+      };
+    } else {
+      return {
+        left: "0px",
+      };
+    }
+  }
 
   const renderHeader = () => {
     if (isAnyItemSelected) {
@@ -136,18 +201,8 @@ const DataTable: React.FC<DataTableProps> = ({
             } selected`}</p>
           </div>
           <div className="data-table-header-selected-items-buttons">
-            <Button
-              size="md"
-              variant="secondary"
-              label={contentPrimaryButton}
-              onClick={onClickFirstButton}
-            />
-            <Button
-              size="md"
-              variant="secondary"
-              label={contentSecondButton}
-              onClick={onClickSecondButton}
-            />
+            <Button size="md" variant="secondary" label="Action 1" />
+            <Button size="md" variant="secondary" label="Action 2" />
           </div>
         </div>
       );
@@ -155,148 +210,186 @@ const DataTable: React.FC<DataTableProps> = ({
 
     return (
       <div className="data-table-header">
-        <InputSearch onChange={handleSearchChange} />
-        <div className="data-table-header-buttons">
+        <InputSearch onChange={handleSearchChange} />{" "}
+        <div className="data-table-header-actions">
           <Button
             variant="secondary"
             typeIcon="swap_vert"
             size="md"
             label="Order by"
-            onClick={onClickOrderBy}
           />
           <Button
             variant="secondary"
             typeIcon="filter_alt"
             size="md"
             label="Filter by"
-            onClick={onClickFilterBy}
           />
         </div>
       </div>
     );
   };
 
+  const handleExpandRow = (rowId: string) => {
+    if (expandedRows.includes(rowId)) {
+      setExpandedRows(expandedRows.filter((id) => id !== rowId));
+      setAllItemsExpanded(false);
+    } else {
+      setExpandedRows([...expandedRows, rowId]);
+      if (expandedRows.length + 1 === filteredData.length) {
+        setAllItemsExpanded(true);
+      }
+    }
+  };
+
+  const toggleExpandAllRows = () => {
+    if (allItemsExpanded) {
+      setExpandedRows([]);
+      setAllItemsExpanded(false);
+    } else {
+      const allIds = filteredData.map((item) => item.id);
+      setExpandedRows(allIds);
+      setAllItemsExpanded(true);
+    }
+  };
+
   return (
-    <div className="data-table-root">
-      {renderHeader()}
-      <div className="data-table">
-        <table>
-          <thead>
-            <tr>
-              {expandable && (
-                <th
-                  className="data-table-expandable"
-                  onClick={() => toggleExpandRow("header")}
-                >
-                  <ButtonIcon
-                    variant="primary"
-                    size="md"
-                    typeIcon={
-                      allRowsExpanded
-                        ? "keyboard_arrow_up"
-                        : "keyboard_arrow_down"
-                    }
-                    type="plain"
-                  />
-                </th>
-              )}
-              {selectable && (
-                <th
-                  className={`data-table-selectable ${
-                    expandable ? "header-cell" : ""
-                  }`}
-                >
-                  <InputCheckbox
-                    checked={selectAll}
-                    onChange={toggleSelectAll}
-                    indeterminate={isIndeterminate}
-                  />
-                </th>
-              )}
-              {columns.map((column) => (
-                <th key={column} className="header-cell">
-                  {column}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="table-body">
-            {paginatedData.map((item) => (
-              <>
-                <tr key={item.id}>
-                  {expandable && (
-                    <td
-                      className={`data-table-expandable ${
-                        expandedRows.includes(item.id) ? "expanded" : ""
-                      }`}
-                    >
-                      <ButtonIcon
-                        variant="primary"
-                        size="md"
-                        typeIcon={
-                          expandedRows.includes(item.id)
-                            ? "keyboard_arrow_up"
-                            : "keyboard_arrow_down"
-                        }
-                        type="plain"
-                        onClick={() => toggleExpandRow(item.id)}
-                      />
-                    </td>
-                  )}
-                  {selectable && (
-                    <td className="data-table-selectable">
-                      <InputCheckbox
-                        checked={selectedRows.includes(item.id)}
-                        onChange={() => toggleSelectRow(item.id)}
-                      />
-                    </td>
-                  )}
-                  {columns.map((column) => (
-                    <td key={column}>{item[column]}</td>
-                  ))}
-                </tr>
-                {expandedRows.includes(item.id) && expandedData && (
-                  <tr className="expanded-row">
-                    <td className="data-table-expandable none"></td>
-                    <td
-                      colSpan={expandable ? columns.length + 1 : columns.length}
-                    >
-                      <div className="expanded-content">
-                        {expandedData
-                          .filter((expandedItem) => expandedItem.id === item.id)
-                          .map((expandedItem) => (
-                            <div key={expandedItem.id}>
-                              {Object.keys(expandedItem)
-                                .filter((key) => key !== "id")
-                                .map((key) => (
-                                  <div key={key}>{expandedItem[key]}</div>
-                                ))}
-                            </div>
-                          ))}
-                      </div>
-                    </td>
-                  </tr>
-                )}
-              </>
+    <>
+      <div className="data-table-root">
+        {renderHeader()}
+        <div
+          ref={contentRef}
+          className={`data-table-content ${
+            contentOverflowed ? "overflowed" : ""
+          }`}
+        >
+          <div
+            className="data-table-content-header"
+            style={calculateGridTemplate(selectable, expandable)}
+          >
+            {expandable && (
+              <div className="data-table-content-header-expandable">
+                <ButtonIcon
+                  size="md"
+                  type="plain"
+                  typeIcon={
+                    allItemsExpanded
+                      ? "keyboard_arrow_up"
+                      : "keyboard_arrow_down"
+                  }
+                  variant="primary"
+                  onClick={toggleExpandAllRows}
+                />
+              </div>
+            )}
+            {selectable && (
+              <div
+                className="data-table-content-header-checkbox"
+                style={calculateLeftToCheckBox(expandable)}
+              >
+                <InputCheckbox
+                  checked={selectAll}
+                  onChange={toggleSelectAll}
+                  indeterminate={isIndeterminate}
+                />
+              </div>
+            )}
+
+            {columns.map((column, columnIndex) => (
+              <div
+                className={`th ${
+                  columnIndex === 0 ? "sticky-first-column" : ""
+                }`}
+                style={calculateLeft(selectable, expandable)}
+                key={columnIndex}
+              >
+                {column}
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+          {filteredData.slice(indexOfFirstItem, indexOfLastItem).map((row) => (
+            <>
+              <div
+                className="data-table-content-body"
+                style={calculateGridTemplate(selectable, expandable)}
+                key={row.id}
+              >
+                {expandable && (
+                  <div
+                    className="data-table-content-body-expandable"
+                    key={row.id}
+                  >
+                    <ButtonIcon
+                      size="md"
+                      type="plain"
+                      typeIcon={
+                        expandedRows.includes(row.id)
+                          ? "keyboard_arrow_up"
+                          : "keyboard_arrow_down"
+                      }
+                      variant="primary"
+                      onClick={() => handleExpandRow(row.id)}
+                    />
+                  </div>
+                )}
+                {selectable && (
+                  <div
+                    className="data-table-content-body-checkbox"
+                    style={calculateLeftToCheckBox(expandable)}
+                    key={row.id}
+                  >
+                    <InputCheckbox
+                      checked={selectedRows.includes(row.id)}
+                      onChange={() => toggleSelectRow(row.id)}
+                    />
+                  </div>
+                )}
+                {columns.map((_, columnIndex) => (
+                  <div
+                    key={columnIndex}
+                    className={`fixed ${
+                      columnIndex === 0 ? "sticky-first-column" : ""
+                    }`}
+                    style={calculateLeft(selectable, expandable)}
+                  >
+                    <div key={row.id}>
+                      <div className="td" key={row.id}>
+                        {row[columns[columnIndex]]}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {expandedRows.includes(row.id) && expandedData && (
+                <div style={{ display: "flex" }}>
+                  <div className="space-expanded-content" />
+                  <div className="expanded-content">
+                    {expandedData
+                      .filter((expandedItem) => expandedItem.id === row.id)
+                      .map((expandedItem) => (
+                        <div key={expandedItem.id}>
+                          {Object.keys(expandedItem)
+                            .filter((key) => key !== "id")
+                            .map((key) => (
+                              <div key={key}>{expandedItem[key]}</div>
+                            ))}
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              )}
+            </>
+          ))}
+        </div>
+        <div className="data-table-footer">
+          <Pagination
+            label={label}
+            variant="leftLabel"
+            onClickRight={handleNextPage}
+            onClickLeft={handlePrevPage}
+          />
+        </div>
       </div>
-      <div className="data-table-footer">
-        <Pagination
-          variant="leftLabel"
-          label={`Page ${currentPage} of ${totalPages}`}
-          onClickLeft={() =>
-            handlePaginationClick(currentPage > 1 ? currentPage - 1 : 1)
-          }
-          onClickRight={() =>
-            handlePaginationClick(
-              currentPage < totalPages ? currentPage + 1 : totalPages
-            )
-          }
-        />
-      </div>
-    </div>
+    </>
   );
 };
 
