@@ -44,10 +44,10 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, widthFull }) => {
   const customizeWidthFull = (widthFull: boolean = false) => {
     if (widthFull) {
       return {
-        width: '100%'
-      }
+        width: "100%",
+      };
     }
-  }
+  };
 
   return (
     <div className="tab-root">

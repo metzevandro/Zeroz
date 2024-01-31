@@ -34,12 +34,16 @@ export const CardDropdown: React.FC<CardDropdownProps> = ({
           </div>
           <div>{description && <p>{description}</p>}</div>
         </div>
-        <div className={`card-dropdown-content ${isOpen ? "open" : "close"}`}>
-          {content}
-        </div>
-        <div className={`card-dropdown-footer ${isOpen ? "open" : "close"}`}>
-          {footer}
-        </div>
+        {content && (
+          <div className={`card-dropdown-content ${isOpen ? "open" : "close"}`}>
+            {content}
+          </div>
+        )}
+        {footer && (
+          <div className={`card-dropdown-footer ${isOpen ? "open" : "close"}`}>
+            {footer}
+          </div>
+        )}
       </div>
     </>
   );
