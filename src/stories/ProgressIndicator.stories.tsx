@@ -40,7 +40,9 @@ type Args = {
 
 const Template: Story<Args> = (args) => {
   return (
-    <div style={{ display: "flex", width: '100%', flexDirection: args.direction }}>
+    <div
+      style={{ display: "flex", width: "100%", flexDirection: args.direction }}
+    >
       <ProgressIndicator
         direction={args.direction}
         state={args.state1}

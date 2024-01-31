@@ -62,7 +62,7 @@ const InputSelect: React.FC<InputSelectProps> = ({
             onChange={handleOptionChange}
             disabled={disabled || error}
           >
-            <option value="" disabled>
+            <option className="placeholder" value="" disabled>
               {placeholder}
             </option>
             {options.map((option, index) => (

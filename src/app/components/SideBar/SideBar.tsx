@@ -89,7 +89,7 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
   return (
     <>
       <div
-        className={`Sidebar-item  ${toggleActive && "active"}`}
+        className={`Sidebar-item ${children && "active"}`}
         onClick={children ? toggleKey : undefined}
         tabIndex={0}
         onKeyDown={handleKeyPress}
