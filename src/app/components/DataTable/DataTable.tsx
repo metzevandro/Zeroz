@@ -14,6 +14,10 @@ interface DataTableProps {
   expandable?: boolean;
   itemPerPage: number;
   inputPlaceholder: string;
+  labelFirstButton: string;
+  labelSecondButton: string;
+  onClickFirstButton?: () => void;
+  onClickSecondButton?: () => void;
 }
 
 const DataTable: React.FC<DataTableProps> = ({
@@ -24,6 +28,10 @@ const DataTable: React.FC<DataTableProps> = ({
   expandedData,
   itemPerPage,
   inputPlaceholder,
+  labelFirstButton,
+  labelSecondButton,
+  onClickFirstButton,
+  onClickSecondButton,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -205,8 +213,18 @@ const DataTable: React.FC<DataTableProps> = ({
             } selected`}</p>
           </div>
           <div className="data-table-header-selected-items-buttons">
-            <Button size="md" variant="secondary" label="Action 1" />
-            <Button size="md" variant="secondary" label="Action 2" />
+            <Button
+              size="md"
+              variant="secondary"
+              label={labelFirstButton}
+              onClick={onClickFirstButton}
+            />
+            <Button
+              size="md"
+              variant="secondary"
+              label={labelSecondButton}
+              onClick={onClickSecondButton}
+            />
           </div>
         </div>
       );

@@ -21,6 +21,8 @@ type DefaultProps = {
   selectable: boolean;
   itemPerPage: number;
   inputPlaceholder: string;
+  labelFirstButton: string;
+  labelSecondButton: string;
 };
 
 const Template: Story<DefaultProps> = (args) => {
@@ -131,6 +133,8 @@ const Template: Story<DefaultProps> = (args) => {
   return (
     <>
       <DataTable
+        labelFirstButton={args.labelFirstButton}
+        labelSecondButton={args.labelSecondButton}
         inputPlaceholder={args.inputPlaceholder}
         itemPerPage={args.itemPerPage}
         columns={columns}
@@ -149,6 +153,8 @@ Default.args = {
   expandable: false,
   itemPerPage: 4,
   inputPlaceholder: "Search",
+  labelFirstButton: "button",
+  labelSecondButton: "button",
 };
 
 export const withSelectable = Template.bind({});
@@ -157,6 +163,8 @@ withSelectable.args = {
   expandable: false,
   itemPerPage: 4,
   inputPlaceholder: "Search",
+  labelFirstButton: "button",
+  labelSecondButton: "button",
 };
 
 export const withExpandable = Template.bind({});
@@ -165,6 +173,8 @@ withExpandable.args = {
   expandable: true,
   itemPerPage: 4,
   inputPlaceholder: "Search",
+  labelFirstButton: "button",
+  labelSecondButton: "button",
 };
 
 export const withSelectableAndWithExpandable = Template.bind({});
@@ -173,4 +183,6 @@ withSelectableAndWithExpandable.args = {
   expandable: true,
   itemPerPage: 4,
   inputPlaceholder: "Search",
+  labelFirstButton: "button",
+  labelSecondButton: "button",
 };
