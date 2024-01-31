@@ -1,6 +1,7 @@
 import React from "react";
 import Icon from "../Icon/Icon";
 import "./ProgressIndicator.scss";
+import { widthFull } from '../../../stories/Tab.stories';
 
 interface ProgressIndicatorProps {
   step: string;
@@ -8,6 +9,7 @@ interface ProgressIndicatorProps {
   state: "default" | "current" | "error" | "completed" | "disable";
   direction: "row" | "column";
   onClick?: () => void;
+  widthFull?: boolean;
 }
 
 const stateNames: Record<string, string> = {
@@ -24,14 +26,23 @@ const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
   state,
   direction,
   onClick,
+  widthFull,
 }) => {
   const displayName = stateNames[state] || state;
 
+  const customizeWidthFull = (widthFull: boolean = false) => {
+    if (widthFull) {
+      return {
+        width: "100%",
+      };
+    }
+  };
   return (
     <>
       <div
         className={`progress-indicator  ${direction} ${state}`}
         onClick={onClick}
+        style={customizeWidthFull(widthFull)}
       >
         <div className="header">
           <div className={state}>
