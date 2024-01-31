@@ -19,6 +19,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    iconDropzone: "file_upload",
+    labelDropzone: "Select an image",
     title: "Title",
     description: "Description",
     proportion: "1/1",
@@ -29,6 +31,8 @@ export const Default: Story = {
 
 export const Multiple: Story = {
   args: {
+    iconDropzone: "file_upload",
+    labelDropzone: "Select an image",
     title: "Title",
     description: "Description",
     proportion: "1/1",
@@ -39,6 +43,8 @@ export const Multiple: Story = {
 
 export const Disable: Story = {
   args: {
+    iconDropzone: "file_upload",
+    labelDropzone: "Select an image",
     title: "Title",
     description: "Description",
     proportion: "1/1",

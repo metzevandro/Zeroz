@@ -18,6 +18,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    typeIconButton: "upload_file",
+    buttonLabel: "Add file",
     title: "Upload files",
     description: "Max file size is 1mb.",
     multiple: false,
@@ -28,6 +30,8 @@ export const Default: Story = {
 
 export const Disable: Story = {
   args: {
+    typeIconButton: "upload_file",
+    buttonLabel: "Add file",
     title: "Upload files",
     description: "Max file size is 1mb.",
     multiple: false,

@@ -11,6 +11,8 @@ interface FileUploaderProps {
   multiple?: boolean;
   disable?: boolean;
   maxFileSize?: number;
+  buttonLabel: string;
+  typeIconButton: string;
 }
 
 interface UploadedFile {
@@ -25,6 +27,8 @@ const FileUploader: React.FC<FileUploaderProps> = ({
   multiple,
   disable,
   maxFileSize,
+  buttonLabel,
+  typeIconButton,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<UploadedFile[]>([]);
@@ -106,8 +110,8 @@ const FileUploader: React.FC<FileUploaderProps> = ({
               variant="primary"
               disable={disable}
               onClick={handleButtonClick}
-              label="Add file"
-              typeIcon="upload_file"
+              label={buttonLabel}
+              typeIcon={typeIconButton}
               size="md"
             />
           </div>

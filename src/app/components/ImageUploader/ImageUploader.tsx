@@ -11,6 +11,8 @@ interface ImageUploaderProps {
   disable?: boolean;
   multiple?: boolean;
   maxFileSize?: number;
+  labelDropzone: string;
+  iconDropzone: string;
 }
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({
@@ -20,6 +22,8 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   title,
   disable,
   multiple,
+  labelDropzone,
+  iconDropzone,
 }) => {
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
@@ -188,13 +192,13 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                   disable ? "image-uploader-dropzone-disabled" : ""
                 }`}
               >
-                <Icon icon="file_upload" size="md" />
-                <p>Select an image</p>
+                <Icon icon={iconDropzone} size="md" />
+                <p>{labelDropzone}</p>
               </button>
             </div>
             {isLoading && (
               <div className="loading-screen">
-                <Loading variant="icon-small" />
+                <Loading variant="default" />
               </div>
             )}
           </div>
