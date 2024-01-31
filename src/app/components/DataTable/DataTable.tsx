@@ -12,6 +12,7 @@ interface DataTableProps {
   expandedData?: Array<{ id: string; [key: string]: React.ReactNode }>;
   selectable?: boolean;
   expandable?: boolean;
+  itemPerPage: number;
 }
 
 const DataTable: React.FC<DataTableProps> = ({
@@ -20,6 +21,7 @@ const DataTable: React.FC<DataTableProps> = ({
   expandable,
   selectable,
   expandedData,
+  itemPerPage,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -33,7 +35,7 @@ const DataTable: React.FC<DataTableProps> = ({
 
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const itemsPerPage = 4;
+  const itemsPerPage = itemPerPage;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 

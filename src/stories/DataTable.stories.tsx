@@ -19,6 +19,7 @@ type DefaultProps = {
   contentSecondaryButton: string;
   expandable: boolean;
   selectable: boolean;
+  itemPerPage: number;
 };
 
 const Template: Story<DefaultProps> = (args) => {
@@ -129,6 +130,7 @@ const Template: Story<DefaultProps> = (args) => {
   return (
     <>
       <DataTable
+        itemPerPage={args.itemPerPage}
         columns={columns}
         data={data}
         selectable={args.selectable}
@@ -143,22 +145,26 @@ export const Default = Template.bind({});
 Default.args = {
   selectable: false,
   expandable: false,
+  itemPerPage: 4,
 };
 
 export const withSelectable = Template.bind({});
 withSelectable.args = {
   selectable: true,
   expandable: false,
+  itemPerPage: 4,
 };
 
 export const withExpandable = Template.bind({});
 withExpandable.args = {
   selectable: false,
   expandable: true,
+  itemPerPage: 4,
 };
 
 export const withSelectableAndWithExpandable = Template.bind({});
 withSelectableAndWithExpandable.args = {
   selectable: true,
   expandable: true,
+  itemPerPage: 4,
 };
