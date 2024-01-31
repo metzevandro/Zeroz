@@ -6,6 +6,7 @@ import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 interface InputSearchProps {
   disabled?: boolean;
   onChange?: (value: string) => void;
+  placeholder: string;
 }
 
 const InputSearch: React.FC<InputSearchProps> = (props) => {
@@ -55,7 +56,7 @@ const InputSearch: React.FC<InputSearchProps> = (props) => {
           disabled={props.disabled}
           size={1000}
           type="text"
-          placeholder="Search"
+          placeholder={props.placeholder}
           value={inputValue}
           onChange={handleChange}
           onBlur={handleInputBlur}
@@ -66,7 +67,12 @@ const InputSearch: React.FC<InputSearchProps> = (props) => {
             className={`input-search-button-close ${inputValue && "visible"}`}
             onClick={handleClearClick}
           >
-            <ButtonIcon variant="" typeIcon="close" type="plain" size="sm" />
+            <ButtonIcon
+              variant="primary"
+              typeIcon="close"
+              type="plain"
+              size="sm"
+            />
           </button>
         )}
       </div>

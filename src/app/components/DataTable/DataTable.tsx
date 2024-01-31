@@ -13,6 +13,7 @@ interface DataTableProps {
   selectable?: boolean;
   expandable?: boolean;
   itemPerPage: number;
+  inputPlaceholder: string;
 }
 
 const DataTable: React.FC<DataTableProps> = ({
@@ -22,6 +23,7 @@ const DataTable: React.FC<DataTableProps> = ({
   selectable,
   expandedData,
   itemPerPage,
+  inputPlaceholder,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -212,7 +214,10 @@ const DataTable: React.FC<DataTableProps> = ({
 
     return (
       <div className="data-table-header">
-        <InputSearch onChange={handleSearchChange} />{" "}
+        <InputSearch
+          placeholder={inputPlaceholder}
+          onChange={handleSearchChange}
+        />{" "}
         <div className="data-table-header-actions">
           <Button
             variant="secondary"

@@ -17,12 +17,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    placeholder: "Search",
     disabled: false,
   },
 };
 
 export const Disable: Story = {
   args: {
+    placeholder: "Search",
     disabled: true,
   },
 };
