@@ -8,6 +8,7 @@ interface TabProps {
 
 export interface TabsProps {
   tabs: TabProps[];
+  widthFull?: boolean;
 }
 
 export const Tab: React.FC<TabProps> = ({ content }) => {
@@ -18,7 +19,7 @@ export const Tab: React.FC<TabProps> = ({ content }) => {
   );
 };
 
-export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
+export const Tabs: React.FC<TabsProps> = ({ tabs, widthFull }) => {
   const [activeTab, setActiveTab] = useState(0);
   const tabItemGroupRef = useRef<HTMLDivElement>(null);
 
@@ -40,11 +41,20 @@ export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
     }
   };
 
+  const customizeWidthFull = (widthFull: boolean = false) => {
+    if (widthFull) {
+      return {
+        width: '100%'
+      }
+    }
+  }
+
   return (
     <div className="tab-root">
       <div className="tab-item-group" ref={tabItemGroupRef}>
         {tabs.map((tab, index) => (
           <button
+            style={customizeWidthFull(widthFull)}
             className={`tab-item ${index === activeTab && "tab-item-active"}`}
             key={index}
             onClick={() => handleTabClick(index)}
