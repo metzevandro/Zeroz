@@ -46,6 +46,7 @@ type DefaultProps = {
   titleNoDataMessage: string;
   labelButtonNoDataMessage: string;
   descriptionNoDataMessage: string;
+  asideTitle: string;
 };
 
 const Template: Story<DefaultProps> = (args) => {
@@ -174,6 +175,7 @@ const Template: Story<DefaultProps> = (args) => {
         descriptionNoDataMessage={args.descriptionNoDataMessage}
         labelButtonNoDataMessage={args.labelButtonNoDataMessage}
         titleNoDataMessage={args.titleNoDataMessage}
+        asideTitle={args.asideTitle}
       />
     </>
   );
@@ -197,6 +199,7 @@ Default.args = {
     "This option does not exist in your store, remove the filter and try again.",
   labelButtonNoDataMessage: "Remove filters",
   titleNoDataMessage: "Your filter did not return any results.",
+  asideTitle: "Filters",
 };
 
 export const withSelectable = Template.bind({});
@@ -217,6 +220,7 @@ withSelectable.args = {
     "This option does not exist in your store, remove the filter and try again.",
   labelButtonNoDataMessage: "Remove filters",
   titleNoDataMessage: "Your filter did not return any results.",
+  asideTitle: "Filters",
 };
 
 export const withExpandable = Template.bind({});
@@ -237,6 +241,7 @@ withExpandable.args = {
     "This option does not exist in your store, remove the filter and try again.",
   labelButtonNoDataMessage: "Remove filters",
   titleNoDataMessage: "Your filter did not return any results.",
+  asideTitle: "Filters",
 };
 
 export const withSelectableAndWithExpandable = Template.bind({});
@@ -257,4 +262,5 @@ withSelectableAndWithExpandable.args = {
     "This option does not exist in your store, remove the filter and try again.",
   labelButtonNoDataMessage: "Remove filters",
   titleNoDataMessage: "Your filter did not return any results.",
+  asideTitle: "Filters",
 };

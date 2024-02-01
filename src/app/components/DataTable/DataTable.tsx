@@ -31,6 +31,7 @@ interface DataTableProps {
   titleNoDataMessage: string;
   labelButtonNoDataMessage: string;
   descriptionNoDataMessage: string;
+  asideTitle: string;
 }
 
 const DataTable: React.FC<DataTableProps> = ({
@@ -54,6 +55,7 @@ const DataTable: React.FC<DataTableProps> = ({
   titleNoDataMessage,
   labelButtonNoDataMessage,
   descriptionNoDataMessage,
+  asideTitle,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -275,13 +277,15 @@ const DataTable: React.FC<DataTableProps> = ({
               <DropDownMenuItem content="Z-A" />
             </DropDownMenu>
           </div>
-          <Button
-            variant="secondary"
-            typeIcon={typeIconSecondButton}
-            size="md"
-            label={labelSecondButton}
-            onClick={toggleAside}
-          />
+          <div style={{ width: "100%" }}>
+            <Button
+              variant="secondary"
+              typeIcon={typeIconSecondButton}
+              size="md"
+              label={labelSecondButton}
+              onClick={toggleAside}
+            />
+          </div>
         </div>
       </div>
     );
@@ -399,7 +403,7 @@ const DataTable: React.FC<DataTableProps> = ({
     <>
       <Aside
         isOpen={isOpenAside}
-        title="Filtros"
+        title={asideTitle}
         toggleSidebar={toggleAside}
         content={
           <AsideContent>
