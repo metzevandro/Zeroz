@@ -40,15 +40,15 @@ const InputSearch: React.FC<InputSearchProps> = (props) => {
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Evita o envio padrão do formulário
   };
 
   return (
     <form
       className={`input-search-root ${props.disabled ? "disabled" : ""}`}
-      onSubmit={handleSubmit}
       onClick={handleInputClick}
+      onSubmit={handleSubmit} // Adiciona o manipulador de evento onSubmit
     >
       <div className="input-search">
         <Icon size="md" icon="search" />

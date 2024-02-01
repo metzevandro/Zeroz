@@ -7,7 +7,7 @@
   display: none;
   transition: 0.5s;
   overflow-x: hidden;
-  z-index: 1;
+  z-index: 98;
 
   &.open {
     display: flex;
@@ -26,7 +26,7 @@
   right: -100vw;
   background-color: var(--s-color-fill-default);
   transition: 0.5s;
-  z-index: 2;
+  z-index: 99;
 
   &.open {
     width: 50%;

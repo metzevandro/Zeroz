@@ -40,11 +40,11 @@ const Switch: React.FC<SwitchProps> = ({ label, disabled }) => {
       >
         {isChecked ? (
           <span className="checked">
-            <Icon size="medium" icon="toggle_on" />
+            <Icon size="md" icon="toggle_on" />
           </span>
         ) : (
           <span className="unchecked">
-            <Icon size="medium" icon="toggle_off" />
+            <Icon size="md" icon="toggle_off" />
           </span>
         )}
       </div>

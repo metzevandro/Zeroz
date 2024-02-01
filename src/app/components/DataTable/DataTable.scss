@@ -1,3 +1,21 @@
+.aside-filter {
+  .aside-title-col {
+    color: var(--s-color-content-light);
+    font: var(--s-typography-heading-x-small);
+    text-transform: uppercase;
+  }
+
+  .aside-content-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-spacing-xx-small);
+  }
+}
+
+.render-no-data-message {
+  margin: var(--s-spacing-xx-large) 0;
+}
+
 .data-table-root {
   display: flex;
   flex-direction: column;
@@ -40,7 +58,7 @@
   .data-table-content {
     display: grid;
     grid-template-rows: auto;
-    overflow-x: auto;
+    overflow-x: scroll;
 
     &.overflowed {
       .data-table-content-header-expandable {

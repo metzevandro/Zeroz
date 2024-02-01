@@ -42,6 +42,7 @@
     }
 
     .Sidebar-item {
+      user-select: none;
       transition: 0.1s ease-out;
       cursor: pointer;
       display: flex;
@@ -90,6 +91,7 @@
     }
 
     .Sidebar-sub-item {
+      user-select: none;
       cursor: pointer;
       padding: var(--s-spacing-xx-small);
       display: flex;

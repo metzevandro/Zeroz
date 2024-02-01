@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import type { Meta, Story } from "@storybook/react";
 import DataTable from "../app/components/DataTable/DataTable";
 import "./css/main.scss";
+import Aside, {
+  AsideContent,
+  AsideFooter,
+} from "../app/components/Aside/Aside";
+import ButtonGroup from "../app/components/ButtonGroup/ButtonGroup";
+import Icon from "../app/components/Icon/Icon";
+import { InputCheckbox } from "../app/components/InputCheckbox/InputCheckbox";
+import {
+  DropDownMenu,
+  DropDownMenuItem,
+  DropDownMenuTitle,
+} from "../app/components/DropdownMenu/DropdownMenu";
 
 const meta: Meta = {
   title: "Components/Data Table",
@@ -15,14 +27,25 @@ const meta: Meta = {
 export default meta;
 
 type DefaultProps = {
-  contentPrimaryButton: string;
-  contentSecondaryButton: string;
   expandable: boolean;
   selectable: boolean;
   itemPerPage: number;
   inputPlaceholder: string;
+  typeIconFirstButton: string;
+  typeIconSecondButton: string;
   labelFirstButton: string;
   labelSecondButton: string;
+  onClickFirstButton?: () => void;
+  onClickSecondButton?: () => void;
+  selectableLabelFirstButton: string;
+  selectableLabelSecondButton: string;
+  selectableOnClickFirstButton?: () => void;
+  selectableOnClickSecondButton?: () => void;
+  firstButtonLabelAside: string;
+  secondButtonLabelAside: string;
+  titleNoDataMessage: string;
+  labelButtonNoDataMessage: string;
+  descriptionNoDataMessage: string;
 };
 
 const Template: Story<DefaultProps> = (args) => {
@@ -32,7 +55,7 @@ const Template: Story<DefaultProps> = (args) => {
     {
       id: "1",
       Name: "David",
-      Age: 25,
+      Age: "25",
       Role: "Developer",
       Experience: "4 years",
       Company: "Google",
@@ -40,7 +63,7 @@ const Template: Story<DefaultProps> = (args) => {
     {
       id: "2",
       Name: "Maria",
-      Age: 30,
+      Age: "30",
       Role: "Designer",
       Experience: "1 year",
       Company: "Microsoft",
@@ -48,7 +71,7 @@ const Template: Story<DefaultProps> = (args) => {
     {
       id: "3",
       Name: "Carlos",
-      Age: 28,
+      Age: "30",
       Role: "Data Analyst",
       Experience: "1 month",
       Company: "Netflix",
@@ -56,7 +79,7 @@ const Template: Story<DefaultProps> = (args) => {
     {
       id: "4",
       Name: "Roberto",
-      Age: 21,
+      Age: "21",
       Role: "Product Owner",
       Experience: "2 years",
       Company: "Instagram",
@@ -64,7 +87,7 @@ const Template: Story<DefaultProps> = (args) => {
     {
       id: "5",
       Name: "Juliana",
-      Age: 27,
+      Age: "27",
       Role: "Software Engineer",
       Experience: "3 years",
       Company: "Amazon",
@@ -72,7 +95,7 @@ const Template: Story<DefaultProps> = (args) => {
     {
       id: "6",
       Name: "Ana",
-      Age: 29,
+      Age: "29",
       Role: "UX Designer",
       Experience: "2 years",
       Company: "Apple",
@@ -80,7 +103,7 @@ const Template: Story<DefaultProps> = (args) => {
     {
       id: "7",
       Name: "Pedro",
-      Age: 26,
+      Age: "26",
       Role: "Data Scientist",
       Experience: "6 months",
       Company: "Facebook",
@@ -88,7 +111,7 @@ const Template: Story<DefaultProps> = (args) => {
     {
       id: "8",
       Name: "Mariana",
-      Age: 24,
+      Age: "24",
       Role: "Project Manager",
       Experience: "1 year",
       Company: "Twitter",
@@ -133,6 +156,12 @@ const Template: Story<DefaultProps> = (args) => {
   return (
     <>
       <DataTable
+        firstButtonLabelAside={args.firstButtonLabelAside}
+        secondButtonLabelAside={args.secondButtonLabelAside}
+        typeIconSecondButton={args.typeIconSecondButton}
+        typeIconFirstButton={args.typeIconFirstButton}
+        selectableLabelSecondButton={args.selectableLabelSecondButton}
+        selectableLabelFirstButton={args.selectableLabelFirstButton}
         labelFirstButton={args.labelFirstButton}
         labelSecondButton={args.labelSecondButton}
         inputPlaceholder={args.inputPlaceholder}
@@ -142,6 +171,9 @@ const Template: Story<DefaultProps> = (args) => {
         selectable={args.selectable}
         expandable={args.expandable}
         expandedData={expandableContent}
+        descriptionNoDataMessage={args.descriptionNoDataMessage}
+        labelButtonNoDataMessage={args.labelButtonNoDataMessage}
+        titleNoDataMessage={args.titleNoDataMessage}
       />
     </>
   );
@@ -153,8 +185,18 @@ Default.args = {
   expandable: false,
   itemPerPage: 4,
   inputPlaceholder: "Search",
-  labelFirstButton: "button",
-  labelSecondButton: "button",
+  labelFirstButton: "Order By",
+  labelSecondButton: "Filter By",
+  typeIconFirstButton: "swap_vert",
+  typeIconSecondButton: "filter_alt",
+  selectableLabelFirstButton: "Button",
+  selectableLabelSecondButton: "Button",
+  firstButtonLabelAside: "Apply",
+  secondButtonLabelAside: "Cancel",
+  descriptionNoDataMessage:
+    "This option does not exist in your store, remove the filter and try again.",
+  labelButtonNoDataMessage: "Remove filters",
+  titleNoDataMessage: "Your filter did not return any results.",
 };
 
 export const withSelectable = Template.bind({});
@@ -163,8 +205,18 @@ withSelectable.args = {
   expandable: false,
   itemPerPage: 4,
   inputPlaceholder: "Search",
-  labelFirstButton: "button",
-  labelSecondButton: "button",
+  labelFirstButton: "Order By",
+  labelSecondButton: "Filter By",
+  typeIconFirstButton: "swap_vert",
+  typeIconSecondButton: "filter_alt",
+  selectableLabelFirstButton: "Button",
+  selectableLabelSecondButton: "Button",
+  firstButtonLabelAside: "Apply",
+  secondButtonLabelAside: "Cancel",
+  descriptionNoDataMessage:
+    "This option does not exist in your store, remove the filter and try again.",
+  labelButtonNoDataMessage: "Remove filters",
+  titleNoDataMessage: "Your filter did not return any results.",
 };
 
 export const withExpandable = Template.bind({});
@@ -173,8 +225,18 @@ withExpandable.args = {
   expandable: true,
   itemPerPage: 4,
   inputPlaceholder: "Search",
-  labelFirstButton: "button",
-  labelSecondButton: "button",
+  labelFirstButton: "Order By",
+  labelSecondButton: "Filter By",
+  typeIconFirstButton: "swap_vert",
+  typeIconSecondButton: "filter_alt",
+  selectableLabelFirstButton: "Button",
+  selectableLabelSecondButton: "Button",
+  firstButtonLabelAside: "Apply",
+  secondButtonLabelAside: "Cancel",
+  descriptionNoDataMessage:
+    "This option does not exist in your store, remove the filter and try again.",
+  labelButtonNoDataMessage: "Remove filters",
+  titleNoDataMessage: "Your filter did not return any results.",
 };
 
 export const withSelectableAndWithExpandable = Template.bind({});
@@ -183,6 +245,16 @@ withSelectableAndWithExpandable.args = {
   expandable: true,
   itemPerPage: 4,
   inputPlaceholder: "Search",
-  labelFirstButton: "button",
-  labelSecondButton: "button",
+  labelFirstButton: "Order By",
+  labelSecondButton: "Filter By",
+  typeIconFirstButton: "swap_vert",
+  typeIconSecondButton: "filter_alt",
+  selectableLabelFirstButton: "Button",
+  selectableLabelSecondButton: "Button",
+  firstButtonLabelAside: "Apply",
+  secondButtonLabelAside: "Cancel",
+  descriptionNoDataMessage:
+    "This option does not exist in your store, remove the filter and try again.",
+  labelButtonNoDataMessage: "Remove filters",
+  titleNoDataMessage: "Your filter did not return any results.",
 };
