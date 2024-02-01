@@ -270,7 +270,7 @@ const DataTable: React.FC<DataTableProps> = ({
               label={labelFirstButton}
               onClick={toggleDropDown}
             />
-            <DropDownMenu dropDownMenu={!isDropDownOpen}>
+            <DropDownMenu dropDownMenu={isDropDownOpen}>
               <DropDownMenuItem content="A-Z" />
               <DropDownMenuItem content="Z-A" />
             </DropDownMenu>
