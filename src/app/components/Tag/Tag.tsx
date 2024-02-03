@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 import "./Tag.scss";
 
@@ -7,6 +7,7 @@ type typeVariant = "primary" | "secondary" | "success" | "warning";
 interface TagProps {
   content: string;
   variant: typeVariant;
+  onClose?: () => void;
 }
 
 export function Tag(props: TagProps) {
@@ -14,6 +15,9 @@ export function Tag(props: TagProps) {
 
   const handleCloseTag = () => {
     setClosed(true);
+    if (props.onClose) {
+      props.onClose();
+    }
   };
 
   return (
@@ -26,7 +30,7 @@ export function Tag(props: TagProps) {
               type="plain"
               size="sm"
               typeIcon="close"
-              variant={props.variant === "secondary" ? "" : "on-color"}
+              variant={props.variant === "secondary" ? "primary" : "on-color"}
               onClick={handleCloseTag}
             />
           </span>

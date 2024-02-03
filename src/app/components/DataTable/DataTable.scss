@@ -23,6 +23,15 @@
   border-radius: var(--s-border-radius-medium);
   background-color: var(--s-color-fill-default);
 
+  .tags {
+    border-top: 1px solid var(--s-color-border-default);
+    padding: var(--s-spacing-x-small) 0 var(--s-spacing-x-small)
+      var(--s-spacing-x-small);
+    display: flex;
+    flex-direction: row;
+    gap: var(--s-spacing-nano);
+  }
+
   .data-table-header-selected-items {
     background-color: var(--s-color-fill-highlight);
     border-top-left-radius: 7px;
@@ -30,7 +39,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--s-spacing-small);
+    padding: var(--s-spacing-x-small) var(--s-spacing-small);
 
     .data-table-header-selected-items-message {
       font: var(--s-typography-paragraph-regular);
@@ -46,7 +55,7 @@
 
   .data-table-header {
     display: flex;
-    padding: var(--s-spacing-small);
+    padding: var(--s-spacing-x-small);
     gap: var(--s-spacing-xx-small);
 
     .data-table-header-actions {
@@ -122,6 +131,25 @@
         text-transform: uppercase;
         color: var(--s-color-content-light);
         white-space: nowrap;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+        transition: 0.2s background ease-in;
+
+        .icon {
+          opacity: 0;
+          transition: 0.2s opacity ease-in;
+        }
+
+        &:hover {
+          background-color: var(--s-color-fill-default-hover);
+          .icon {
+            opacity: 1;
+          }
+        }
       }
 
       .data-table-content-header-checkbox {
