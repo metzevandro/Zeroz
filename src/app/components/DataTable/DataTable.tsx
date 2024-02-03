@@ -8,7 +8,6 @@ import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 import Aside, { AsideContent, AsideFooter } from "../Aside/Aside";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import EmptyState from "../EmptyState/EmptyState";
-import { DropDownMenu, DropDownMenuItem } from "../DropdownMenu/DropdownMenu";
 import Icon from "../Icon/Icon";
 import { Tag } from "../Tag/Tag";
 
