@@ -6,6 +6,7 @@
   font: var(--s-typography-caption-regular);
   align-items: center;
   width: fit-content;
+  white-space: nowrap;
 
   &.secondary {
     background-color: var(--s-color-fill-default-light);

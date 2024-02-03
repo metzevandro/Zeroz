@@ -25,11 +25,21 @@
 
   .tags {
     border-top: 1px solid var(--s-color-border-default);
-    padding: var(--s-spacing-x-small) 0 var(--s-spacing-x-small)
-      var(--s-spacing-x-small);
+    padding: var(--s-spacing-x-small);
     display: flex;
     flex-direction: row;
     gap: var(--s-spacing-nano);
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+      border-radius: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--s-color-fill-default-light);
+      border-radius: 12px;
+    }
   }
 
   .data-table-header-selected-items {
