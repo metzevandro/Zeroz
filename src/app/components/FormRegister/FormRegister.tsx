@@ -22,7 +22,7 @@ const FormRegister: React.FC<FormRegisterProps> = ({ children }) => {
   useEffect(() => {
     const updateTamanhoPai = () => {
       const paiElement = document.querySelector(
-        ".Header"
+        ".header-root"
       ) as HTMLElement | null;
       if (paiElement) {
         setTamanhoPai(paiElement.offsetWidth);

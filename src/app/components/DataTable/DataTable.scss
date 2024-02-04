@@ -13,7 +13,7 @@
 }
 
 .render-no-data-message {
-  margin: var(--s-spacing-xx-large) 0;
+  margin: var(--s-spacing-xx-large) var(--s-spacing-x-small);
 }
 
 .data-table-root {
@@ -25,14 +25,15 @@
 
   .tags {
     border-top: 1px solid var(--s-color-border-default);
-    padding: var(--s-spacing-x-small);
+    padding: var(--s-spacing-x-small) var(--s-spacing-x-small)
+      var(--s-spacing-xx-small) var(--s-spacing-x-small);
     display: flex;
     flex-direction: row;
     gap: var(--s-spacing-nano);
     overflow-x: scroll;
 
     &::-webkit-scrollbar {
-      height: 4px;
+      height: var(--s-spacing-nano);
       border-radius: 12px;
     }
 

@@ -47,6 +47,8 @@ type DefaultProps = {
   labelButtonNoDataMessage: string;
   descriptionNoDataMessage: string;
   asideTitle: string;
+  selectableIconFirstButton: string;
+  selectableIconSecondButton: string;
 };
 
 const Template: Story<DefaultProps> = (args) => {
@@ -160,10 +162,8 @@ const Template: Story<DefaultProps> = (args) => {
         firstButtonLabelAside={args.firstButtonLabelAside}
         secondButtonLabelAside={args.secondButtonLabelAside}
         typeIconSecondButton={args.typeIconSecondButton}
-        typeIconFirstButton={args.typeIconFirstButton}
         selectableLabelSecondButton={args.selectableLabelSecondButton}
         selectableLabelFirstButton={args.selectableLabelFirstButton}
-        labelFirstButton={args.labelFirstButton}
         labelSecondButton={args.labelSecondButton}
         inputPlaceholder={args.inputPlaceholder}
         itemPerPage={args.itemPerPage}
@@ -176,6 +176,8 @@ const Template: Story<DefaultProps> = (args) => {
         labelButtonNoDataMessage={args.labelButtonNoDataMessage}
         titleNoDataMessage={args.titleNoDataMessage}
         asideTitle={args.asideTitle}
+        selectableIconFirstButton={args.selectableIconFirstButton}
+        selectableIconSecondButton={args.selectableIconSecondButton}
       />
     </>
   );
@@ -189,10 +191,8 @@ Default.args = {
   inputPlaceholder: "Search",
   labelFirstButton: "Order By",
   labelSecondButton: "Filter By",
-  typeIconFirstButton: "swap_vert",
   typeIconSecondButton: "filter_alt",
-  selectableLabelFirstButton: "Button",
-  selectableLabelSecondButton: "Button",
+  selectableLabelSecondButton: "Delete",
   firstButtonLabelAside: "Apply",
   secondButtonLabelAside: "Cancel",
   descriptionNoDataMessage:
@@ -200,6 +200,8 @@ Default.args = {
   labelButtonNoDataMessage: "Remove filters",
   titleNoDataMessage: "Your filter did not return any results.",
   asideTitle: "Filters",
+  selectableIconFirstButton: "",
+  selectableIconSecondButton: "",
 };
 
 export const withSelectable = Template.bind({});
@@ -208,12 +210,10 @@ withSelectable.args = {
   expandable: false,
   itemPerPage: 4,
   inputPlaceholder: "Search",
-  labelFirstButton: "Order By",
   labelSecondButton: "Filter By",
-  typeIconFirstButton: "swap_vert",
   typeIconSecondButton: "filter_alt",
   selectableLabelFirstButton: "Button",
-  selectableLabelSecondButton: "Button",
+  selectableLabelSecondButton: "Delete",
   firstButtonLabelAside: "Apply",
   secondButtonLabelAside: "Cancel",
   descriptionNoDataMessage:
@@ -221,6 +221,8 @@ withSelectable.args = {
   labelButtonNoDataMessage: "Remove filters",
   titleNoDataMessage: "Your filter did not return any results.",
   asideTitle: "Filters",
+  selectableIconFirstButton: "",
+  selectableIconSecondButton: "delete",
 };
 
 export const withExpandable = Template.bind({});
@@ -229,12 +231,10 @@ withExpandable.args = {
   expandable: true,
   itemPerPage: 4,
   inputPlaceholder: "Search",
-  labelFirstButton: "Order By",
   labelSecondButton: "Filter By",
-  typeIconFirstButton: "swap_vert",
   typeIconSecondButton: "filter_alt",
   selectableLabelFirstButton: "Button",
-  selectableLabelSecondButton: "Button",
+  selectableLabelSecondButton: "Delete",
   firstButtonLabelAside: "Apply",
   secondButtonLabelAside: "Cancel",
   descriptionNoDataMessage:
@@ -242,6 +242,8 @@ withExpandable.args = {
   labelButtonNoDataMessage: "Remove filters",
   titleNoDataMessage: "Your filter did not return any results.",
   asideTitle: "Filters",
+  selectableIconFirstButton: "",
+  selectableIconSecondButton: "delete",
 };
 
 export const withSelectableAndWithExpandable = Template.bind({});
@@ -250,9 +252,7 @@ withSelectableAndWithExpandable.args = {
   expandable: true,
   itemPerPage: 4,
   inputPlaceholder: "Search",
-  labelFirstButton: "Order By",
   labelSecondButton: "Filter By",
-  typeIconFirstButton: "swap_vert",
   typeIconSecondButton: "filter_alt",
   selectableLabelFirstButton: "Button",
   selectableLabelSecondButton: "Button",
@@ -263,4 +263,6 @@ withSelectableAndWithExpandable.args = {
   labelButtonNoDataMessage: "Remove filters",
   titleNoDataMessage: "Your filter did not return any results.",
   asideTitle: "Filters",
+  selectableIconFirstButton: "",
+  selectableIconSecondButton: "delete",
 };

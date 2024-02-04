@@ -4,9 +4,9 @@ import "./InputSelect.scss";
 interface InputSelectProps {
   options: string[];
   placeholder: string;
-  disabled: boolean;
+  disabled?: boolean;
   label?: string;
-  error: boolean;
+  error?: boolean;
   errorMessage?: string;
 }
 

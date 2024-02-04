@@ -14,7 +14,6 @@
     justify-content: space-between;
     align-items: center;
     border: var(--s-border-width-hairline) solid var(--s-color-border-default);
-    font: var(--s-typography-paragraph-regular);
     background-color: var(--s-color-fill-default);
     border-radius: var(--s-border-radius-small);
     color: var(--s-color-content-placeholder);
@@ -24,7 +23,7 @@
       background-color: transparent;
       color: var(--s-color-content-default);
       font: var(--s-typography-paragraph-regular);
-
+      height: 22px;
       &:focus {
         outline: none;
       }

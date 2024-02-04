@@ -10,6 +10,7 @@ import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import EmptyState from "../EmptyState/EmptyState";
 import Icon from "../Icon/Icon";
 import { Tag } from "../Tag/Tag";
+import Modal, { FooterModal } from "../Modal/Modal";
 
 interface DataTableProps {
   columns: string[];
@@ -19,9 +20,7 @@ interface DataTableProps {
   expandable?: boolean;
   itemPerPage: number;
   inputPlaceholder: string;
-  typeIconFirstButton: string;
   typeIconSecondButton: string;
-  labelFirstButton: string;
   labelSecondButton: string;
   selectableLabelFirstButton: string;
   selectableLabelSecondButton: string;
@@ -33,6 +32,8 @@ interface DataTableProps {
   labelButtonNoDataMessage: string;
   descriptionNoDataMessage: string;
   asideTitle: string;
+  selectableIconFirstButton: string;
+  selectableIconSecondButton: string;
 }
 
 type ColumnSorting = "asc" | "desc" | "default";
@@ -57,18 +58,42 @@ const DataTable: React.FC<DataTableProps> = ({
   labelButtonNoDataMessage,
   descriptionNoDataMessage,
   asideTitle,
+  selectableIconFirstButton,
+  selectableIconSecondButton,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [selectAll, setSelectAll] = useState<boolean>(false);
-  const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [isAnyItemSelected, setIsAnyItemSelected] = useState<boolean>(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const itemsPerPage = itemPerPage;
   const [filteredData, setFilteredData] =
     useState<{ id: string; [key: string]: any }[]>(originalData);
+
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  const label = `Page ${currentPage} of ${totalPages}`;
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => {
+      const nextPage = prevPage + 1;
+      return nextPage > totalPages ? prevPage : nextPage;
+    });
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => {
+      const newPage = prevPage - 1;
+      return newPage < 1 ? prevPage : newPage;
+    });
+  };
+
+  const [selectAll, setSelectAll] = useState<boolean>(false);
+  const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [expandedRows, setExpandedRows] = useState<string[]>([]);
+
+  const [isAnyItemSelected, setIsAnyItemSelected] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const [contentOverflowed, setContentOverflowed] = useState<boolean>(false);
 
-  const contentRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null); 
 
   const [isOpenAside, setIsOpenAside] = useState(false);
   const [filterOptions, setFilterOptions] = useState<{
@@ -79,7 +104,6 @@ const DataTable: React.FC<DataTableProps> = ({
     columns.reduce((acc, column) => ({ ...acc, [column]: [] }), {})
   );
 
-  const itemsPerPage = itemPerPage;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
@@ -123,21 +147,7 @@ const DataTable: React.FC<DataTableProps> = ({
     };
   }, []);
 
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => {
-      const nextPage = prevPage + 1;
-      return nextPage > totalPages ? prevPage : nextPage;
-    });
-  };
-
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) => {
-      const newPage = prevPage - 1;
-      return newPage < 1 ? prevPage : newPage;
-    });
-  };
+  
 
   const toggleSelectAll = () => {
     const allIds = filteredData.map((item) => item.id);
@@ -172,7 +182,6 @@ const DataTable: React.FC<DataTableProps> = ({
     selectedRows.length < filteredData.length &&
     !selectAll;
 
-  const label = `Page ${currentPage} of ${totalPages}`;
 
   function calculateGridTemplate(
     selectable: boolean = false,
@@ -230,30 +239,112 @@ const DataTable: React.FC<DataTableProps> = ({
     setIsOpenAside(!isOpenAside);
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const removeRow = () => {
+    const updatedData = filteredData.filter(
+      (item) => !selectedRows.includes(item.id)
+    );
+    setFilteredData(updatedData);
+    setSelectedRows([]);
+    setIsOpen(false);
+  };
+
+  const toggleModal = () => {
+    setIsOpen((prevIsOpen) => !prevIsOpen);
+  };
+
+  const exportSelectedRowsAsCSV = () => {
+    // Filter selected rows from the original data
+    const selectedData = originalData.filter((row) =>
+      selectedRows.includes(row.id)
+    );
+
+    // Extract column names
+    const columnNames = columns;
+
+    // Create the CSV content
+    const csvContent = selectedData
+      .map((row) => {
+        return columnNames.map((column) => row[column]).join(",");
+      })
+      .join("\n");
+
+    // Add column names as the header
+    const csvData = columnNames.join(",") + "\n" + csvContent;
+
+    // Create a blob with the CSV data
+    const csvBlob = new Blob([csvData], {
+      type: "text/csv",
+    });
+
+    // Create a temporary URL for downloading
+    const csvURL = window.URL.createObjectURL(csvBlob);
+
+    // Create an anchor element for initiating the download
+    const downloadLink = document.createElement("a");
+    downloadLink.href = csvURL;
+    downloadLink.download = "selected_data.csv";
+
+    // Simulate a click to trigger the download
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+
+    // Clean up by removing the temporary URL and anchor element
+    window.URL.revokeObjectURL(csvURL);
+    document.body.removeChild(downloadLink);
+  };
+
   const renderHeader = () => {
     if (isAnyItemSelected) {
       return (
-        <div className="data-table-header-selected-items">
-          <div className="data-table-header-selected-items-message">
-            <p>{`${selectedRows.length} item${
-              selectedRows.length >= 2 ? "s" : ""
-            } selected`}</p>
+        <>
+          <Modal
+            footer={
+              <FooterModal>
+                <div style={{ width: "min-content" }}>
+                  <ButtonGroup
+                    contentFirstButton="Delete"
+                    contentSecondButton="Cancel"
+                    direction="row"
+                    variantFirstButton="warning"
+                    variantSecondButton="secondary"
+                    onClickFirstButton={removeRow}
+                    onClickSecondButton={toggleModal}
+                  />
+                </div>
+              </FooterModal>
+            }
+            description="Are you sure that you want delete this row?"
+            dismissible={true}
+            title="Delete"
+            isOpen={isOpen}
+            hideModal={toggleModal}
+          />
+          <div className="data-table-header-selected-items">
+            <div className="data-table-header-selected-items-message">
+              <p>{`${selectedRows.length} item${
+                selectedRows.length >= 2 ? "s" : ""
+              } selected`}</p>
+            </div>
+            <div className="data-table-header-selected-items-buttons">
+              <Button
+                size="md"
+                variant="secondary"
+                label="Export as CSV"
+                onClick={exportSelectedRowsAsCSV}
+                typeIcon="cloud_download"
+              />
+              <Button
+                size="md"
+                variant="secondary"
+                label={selectableLabelSecondButton}
+                onClick={toggleModal}
+                typeIcon={selectableIconSecondButton}
+              />
+            </div>
           </div>
-          <div className="data-table-header-selected-items-buttons">
-            <Button
-              size="md"
-              variant="secondary"
-              label={selectableLabelFirstButton}
-              onClick={selectableOnClickFirstButton}
-            />
-            <Button
-              size="md"
-              variant="secondary"
-              label={selectableLabelSecondButton}
-              onClick={selectableOnClickSecondButton}
-            />
-          </div>
-        </div>
+        </>
       );
     } else {
     }
@@ -303,7 +394,6 @@ const DataTable: React.FC<DataTableProps> = ({
   };
 
   const removeTag = (columnName: string, tags: string[]) => {
-    // Remove a tag do array de tags selecionadas
     const updatedSelectedTags = {
       ...selectedTags,
       [columnName]: selectedTags[columnName].filter(
@@ -311,7 +401,6 @@ const DataTable: React.FC<DataTableProps> = ({
       ),
     };
 
-    // Atualiza os filtros removendo os valores das tags
     const updatedFilterOptions = {
       ...filterOptions,
       [columnName]: filterOptions[columnName].filter(
