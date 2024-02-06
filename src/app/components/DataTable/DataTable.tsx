@@ -19,6 +19,7 @@ interface DataTableProps {
   selectable?: boolean;
   expandable?: boolean;
   itemPerPage: number;
+  pagesText: string;
   inputPlaceholder: string;
   typeIconSecondButton: string;
   labelSecondButton: string;
@@ -58,6 +59,7 @@ const DataTable: React.FC<DataTableProps> = ({
   availableFilters,
   titleNoDataFilteredMessage,
   descriptionNoDataFilteredMessage,
+  pagesText,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = itemPerPage;
@@ -75,8 +77,8 @@ const DataTable: React.FC<DataTableProps> = ({
   // Atualize a renderização do label para mostrar "0 of 0" quando não houver dados
   const label =
     filteredData.length > 0
-      ? `Page ${currentPage} of ${totalPages}`
-      : "Page 0 of 0";
+      ? `${pagesText} ${currentPage} - ${totalPages}`
+      : `${pagesText} 0 - 0`;
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => {
@@ -92,11 +94,11 @@ const DataTable: React.FC<DataTableProps> = ({
     });
   };
 
-  useEffect(() => {    
+  useEffect(() => {
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     setTotalPages(totalPages);
   }, [originalData, itemsPerPage, filteredData]);
-  
+
   const [originalDataState, setOriginalDataState] =
     useState<{ id: string; [key: string]: any }[]>(originalData);
   const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -655,28 +657,41 @@ const DataTable: React.FC<DataTableProps> = ({
           toggleSidebar={toggleAside}
           content={
             <AsideContent>
-              {Object.entries(availableFilters)
-                .sort(([columnA], [columnB]) => columnA.localeCompare(columnB))
-                .map(([column, options]) => (
-                  <div key={column} className="aside-filter">
-                    <div className="aside-content-col">
-                      <div className="aside-title-col">{column}</div>
-                      {options
-                        .sort((a, b) => a.localeCompare(b))
-                        .map((option, idx) => (
-                          <div key={idx}>
-                            <InputCheckbox
-                              checked={filterOptions[column].includes(option)}
-                              onChange={() =>
-                                handleFilterChange(column, option)
-                              }
-                              label={option}
-                            />
-                          </div>
-                        ))}
-                    </div>
-                  </div>
-                ))}
+              {filteredData.length > 0 ? (
+                <>
+                  {/* Conteúdo do aside quando houver dados filtrados */}
+                  {Object.entries(availableFilters)
+                    .sort(([columnA], [columnB]) =>
+                      columnA.localeCompare(columnB)
+                    )
+                    .map(([column, options]) => (
+                      <div key={column} className="aside-filter">
+                        <div className="aside-content-col">
+                          <div className="aside-title-col">{column}</div>
+                          {options
+                            .sort((a, b) => a.localeCompare(b))
+                            .map((option, idx) => (
+                              <div key={idx}>
+                                <InputCheckbox
+                                  checked={filterOptions[column].includes(
+                                    option
+                                  )}
+                                  onChange={() =>
+                                    handleFilterChange(column, option)
+                                  }
+                                  label={option}
+                                />
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    ))}
+                </>
+              ) : (
+                <>
+                  {renderNoDataMessage()}
+                </>
+              )}
             </AsideContent>
           }
           footer={
@@ -727,15 +742,15 @@ const DataTable: React.FC<DataTableProps> = ({
                 style={calculateGridTemplate(selectable, expandable)}
               >
                 {expandable && (
-                  <div className="data-table-content-header-expandable">
+                  <div
+                    className={`data-table-content-header-expandable ${
+                      allItemsExpanded ? "up" : "down"
+                    }`}
+                  >
                     <ButtonIcon
                       size="md"
                       type="plain"
-                      typeIcon={
-                        allItemsExpanded
-                          ? "keyboard_arrow_up"
-                          : "keyboard_arrow_down"
-                      }
+                      typeIcon="keyboard_arrow_down"
                       variant="primary"
                       onClick={toggleExpandAllRows}
                     />
@@ -787,17 +802,15 @@ const DataTable: React.FC<DataTableProps> = ({
                     >
                       {expandable && (
                         <div
-                          className="data-table-content-body-expandable"
+                          className={`data-table-content-body-expandable ${
+                            expandedRows.includes(row.id) ? "up" : "down"
+                          }`}
                           key={row.id}
                         >
                           <ButtonIcon
                             size="md"
                             type="plain"
-                            typeIcon={
-                              expandedRows.includes(row.id)
-                                ? "keyboard_arrow_up"
-                                : "keyboard_arrow_down"
-                            }
+                            typeIcon="keyboard_arrow_down"
                             variant="primary"
                             onClick={() => handleExpandRow(row.id)}
                           />

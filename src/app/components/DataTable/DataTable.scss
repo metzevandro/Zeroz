@@ -109,6 +109,7 @@
         left: 0;
         z-index: 2;
       }
+
       .data-table-content-body-checkbox {
         position: sticky;
         left: 56px;
@@ -179,6 +180,16 @@
         display: flex;
         justify-content: center;
         height: 40px;
+
+        &.down .button-icon .material-symbols-outlined {
+          transition: 0.3s all ease-in-out;
+          transform: rotate(0deg);
+        }
+
+        &.up .button-icon .material-symbols-outlined {
+          transform: rotate(-180deg);
+          transition: 0.3s all ease-in-out;
+        }
       }
     }
 
@@ -233,6 +244,16 @@
         justify-content: center;
         height: 56px;
         background-color: var(--s-color-fill-default);
+
+        &.down .button-icon .material-symbols-outlined {
+          transition: 0.3s all ease-in-out;
+          transform: rotate(0deg);
+        }
+
+        &.up .button-icon .material-symbols-outlined {
+          transform: rotate(-180deg);
+          transition: 0.3s all ease-in-out;
+        }
       }
     }
   }

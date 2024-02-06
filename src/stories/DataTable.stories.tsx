@@ -30,6 +30,7 @@ type DefaultProps = {
   expandable: boolean;
   selectable: boolean;
   itemPerPage: number;
+  pagesText: string;
   inputPlaceholder: string;
   typeIconFirstButton: string;
   typeIconSecondButton: string;
@@ -61,6 +62,7 @@ const Template: Story<DefaultProps> = (args) => {
   return (
     <>
       <DataTable
+      pagesText={args.pagesText}
         titleNoDataFilteredMessage={args.titleNoDataFilteredMessage}
         labelButtonNoDataFilteredMessage={args.labelButtonNoDataFilteredMessage}
         descriptionNoDataFilteredMessage={args.descriptionNoDataFilteredMessage}
@@ -207,6 +209,7 @@ const availableFilters = {
 export const Default = Template.bind({});
 Default.args = {
   itemPerPage: 4,
+  pagesText: 'Page',
   columns: columns,
   data: data,
   expandedData: expandedData,
@@ -230,6 +233,7 @@ Default.args = {
 export const withSelectable = Template.bind({});
 withSelectable.args = {
   itemPerPage: 4,
+  pagesText: 'Page',
   columns: columns,
   data: data,
   expandedData: expandedData,
@@ -256,6 +260,7 @@ withSelectable.args = {
 export const withExpandable = Template.bind({});
 withExpandable.args = {
   itemPerPage: 4,
+  pagesText: 'Page',
   columns: columns,
   data: data,
   expandedData: expandedData,
@@ -282,6 +287,7 @@ withExpandable.args = {
 export const withSelectableAndWithExpandable = Template.bind({});
 withSelectableAndWithExpandable.args = {
   itemPerPage: 4,
+  pagesText: 'Page',
   columns: columns,
   data: data,
   expandedData: expandedData,
@@ -309,6 +315,7 @@ export const withFilters = Template.bind({});
 withFilters.args = {
   filters: availableFilters,
   itemPerPage: 4,
+  pagesText: 'Page',
   columns: columns,
   data: data,
   expandedData: expandedData,
