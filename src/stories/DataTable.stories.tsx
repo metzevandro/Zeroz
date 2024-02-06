@@ -159,6 +159,10 @@ const Template: Story<DefaultProps> = (args) => {
   return (
     <>
       <DataTable
+        availableFilters={{
+          Age: ["23", "24", "30", "21"],
+          Experience: ["Mariana", "David"],
+        }}
         firstButtonLabelAside={args.firstButtonLabelAside}
         secondButtonLabelAside={args.secondButtonLabelAside}
         typeIconSecondButton={args.typeIconSecondButton}
