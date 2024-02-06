@@ -513,7 +513,7 @@ const DataTable: React.FC<DataTableProps> = ({
   const handleSort = (column: string) => {
     const currentSortState = sortConfig[column];
     let nextSortState: ColumnSorting;
-
+  
     if (currentSortState === "asc") {
       nextSortState = "desc";
     } else if (currentSortState === "desc") {
@@ -521,17 +521,17 @@ const DataTable: React.FC<DataTableProps> = ({
     } else {
       nextSortState = "asc";
     }
-
+  
     const updatedSortConfig: SortConfig = {
       ...initialSortConfig,
       [column]: nextSortState,
     };
-
+  
     setSortConfig(updatedSortConfig);
     setSortingColumn(column);
-
-    let sortedData = [...filteredData];
-
+  
+    let sortedData = [...originalDataState]; // Usando originalDataState em vez de filteredData
+  
     if (nextSortState !== "default") {
       sortedData = sortedData.sort((a, b) => {
         if (nextSortState === "asc") {
@@ -543,19 +543,19 @@ const DataTable: React.FC<DataTableProps> = ({
       });
     } else {
       if (Object.values(filterOptions).some((options) => options.length > 0)) {
-        sortedData = filteredData.slice().sort((a, b) => {
-          const indexA = originalData.findIndex((item) => item.id === a.id);
-          const indexB = originalData.findIndex((item) => item.id === b.id);
+        sortedData = originalDataState.slice().sort((a, b) => {
+          const indexA = originalDataState.findIndex((item) => item.id === a.id);
+          const indexB = originalDataState.findIndex((item) => item.id === b.id);
           return indexA - indexB;
         });
       } else {
-        sortedData = [...originalData];
+        sortedData = [...originalDataState];
       }
     }
-
+  
     setFilteredData(sortedData);
   };
-
+  
   useEffect(() => {
     // Reset sortConfig to default state when filters are applied
     const defaultSortConfig: SortConfig = columns.reduce(
@@ -563,7 +563,7 @@ const DataTable: React.FC<DataTableProps> = ({
       {}
     );
     setSortConfig(defaultSortConfig);
-  }, [filterOptions]);
+  }, [filterOptions]);  
 
   const handleClearFilters = () => {
     setSearchTerm("");

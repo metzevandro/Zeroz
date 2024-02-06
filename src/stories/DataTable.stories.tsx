@@ -161,13 +161,12 @@ const Template: Story<DefaultProps> = (args) => {
       <DataTable
         availableFilters={{
           Age: ["23", "24", "30", "21"],
-          Experience: ["Mariana", "David"],
+          Name: ["Mariana", "David"],
         }}
         firstButtonLabelAside={args.firstButtonLabelAside}
         secondButtonLabelAside={args.secondButtonLabelAside}
         typeIconSecondButton={args.typeIconSecondButton}
         selectableLabelSecondButton={args.selectableLabelSecondButton}
-        selectableLabelFirstButton={args.selectableLabelFirstButton}
         labelSecondButton={args.labelSecondButton}
         inputPlaceholder={args.inputPlaceholder}
         itemPerPage={args.itemPerPage}
@@ -180,7 +179,6 @@ const Template: Story<DefaultProps> = (args) => {
         labelButtonNoDataMessage={args.labelButtonNoDataMessage}
         titleNoDataMessage={args.titleNoDataMessage}
         asideTitle={args.asideTitle}
-        selectableIconFirstButton={args.selectableIconFirstButton}
         selectableIconSecondButton={args.selectableIconSecondButton}
       />
     </>
