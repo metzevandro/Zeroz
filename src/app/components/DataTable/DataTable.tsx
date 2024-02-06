@@ -23,14 +23,16 @@ interface DataTableProps {
   typeIconSecondButton: string;
   labelSecondButton: string;
   selectableLabelSecondButton: string;
+  selectableIconSecondButton: string;
+  availableFilters?: { [key: string]: string[] };
+  asideTitle: string;
   firstButtonLabelAside: string;
   secondButtonLabelAside: string;
   titleNoDataMessage: string;
-  labelButtonNoDataMessage: string;
   descriptionNoDataMessage: string;
-  asideTitle: string;
-  selectableIconSecondButton: string;
-  availableFilters?: { [key: string]: string[] };
+  titleNoDataFilteredMessage: string;
+  labelButtonNoDataFilteredMessage: string;
+  descriptionNoDataFilteredMessage: string;
 }
 
 type ColumnSorting = "asc" | "desc" | "default";
@@ -49,20 +51,32 @@ const DataTable: React.FC<DataTableProps> = ({
   firstButtonLabelAside,
   secondButtonLabelAside,
   titleNoDataMessage,
-  labelButtonNoDataMessage,
+  labelButtonNoDataFilteredMessage,
   descriptionNoDataMessage,
   asideTitle,
   selectableIconSecondButton,
   availableFilters,
+  titleNoDataFilteredMessage,
+  descriptionNoDataFilteredMessage,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = itemPerPage;
   const [filteredData, setFilteredData] =
     useState<{ id: string; [key: string]: any }[]>(originalData);
 
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
-  const label = `Page ${currentPage} of ${totalPages}`;
+  useEffect(() => {
+    setFilteredData(originalData);
+    const totalPages = Math.ceil(originalData.length / itemsPerPage);
+    setTotalPages(totalPages);
+  }, [originalData, itemsPerPage]);
+
+  // Atualize a renderização do label para mostrar "0 of 0" quando não houver dados
+  const label =
+    filteredData.length > 0
+      ? `Page ${currentPage} of ${totalPages}`
+      : "Page 0 of 0";
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => {
@@ -77,6 +91,12 @@ const DataTable: React.FC<DataTableProps> = ({
       return newPage < 1 ? prevPage : newPage;
     });
   };
+
+  useEffect(() => {    
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    setTotalPages(totalPages);
+  }, [originalData, itemsPerPage, filteredData]);
+  
   const [originalDataState, setOriginalDataState] =
     useState<{ id: string; [key: string]: any }[]>(originalData);
   const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -513,7 +533,7 @@ const DataTable: React.FC<DataTableProps> = ({
   const handleSort = (column: string) => {
     const currentSortState = sortConfig[column];
     let nextSortState: ColumnSorting;
-  
+
     if (currentSortState === "asc") {
       nextSortState = "desc";
     } else if (currentSortState === "desc") {
@@ -521,17 +541,17 @@ const DataTable: React.FC<DataTableProps> = ({
     } else {
       nextSortState = "asc";
     }
-  
+
     const updatedSortConfig: SortConfig = {
       ...initialSortConfig,
       [column]: nextSortState,
     };
-  
+
     setSortConfig(updatedSortConfig);
     setSortingColumn(column);
-  
-    let sortedData = [...originalDataState]; // Usando originalDataState em vez de filteredData
-  
+
+    let sortedData = [...filteredData];
+
     if (nextSortState !== "default") {
       sortedData = sortedData.sort((a, b) => {
         if (nextSortState === "asc") {
@@ -542,20 +562,35 @@ const DataTable: React.FC<DataTableProps> = ({
         return 0;
       });
     } else {
+      // Se houver filtros aplicados
       if (Object.values(filterOptions).some((options) => options.length > 0)) {
-        sortedData = originalDataState.slice().sort((a, b) => {
-          const indexA = originalDataState.findIndex((item) => item.id === a.id);
-          const indexB = originalDataState.findIndex((item) => item.id === b.id);
-          return indexA - indexB;
+        // Filtra os dados originais com base nos filtros aplicados
+        let filteredOriginalData = [...originalDataState];
+        Object.entries(filterOptions).forEach(
+          ([filterColumn, selectedValues]) => {
+            if (selectedValues.length > 0) {
+              filteredOriginalData = filteredOriginalData.filter((item) =>
+                selectedValues.includes(String(item[filterColumn]))
+              );
+            }
+          }
+        );
+
+        // Ordena os dados filtrados originalmente
+        sortedData = filteredOriginalData.sort((a, b) => {
+          if (a[column] > b[column]) return 1;
+          if (a[column] < b[column]) return -1;
+          return 0;
         });
       } else {
+        // Se não houver filtros aplicados, mantém a ordem original
         sortedData = [...originalDataState];
       }
     }
-  
+
     setFilteredData(sortedData);
   };
-  
+
   useEffect(() => {
     // Reset sortConfig to default state when filters are applied
     const defaultSortConfig: SortConfig = columns.reduce(
@@ -563,37 +598,52 @@ const DataTable: React.FC<DataTableProps> = ({
       {}
     );
     setSortConfig(defaultSortConfig);
-  }, [filterOptions]);  
+  }, [filterOptions]);
 
   const handleClearFilters = () => {
-    setSearchTerm("");
-    setFilterOptions(
-      columns.reduce((acc, column) => ({ ...acc, [column]: [] }), {})
-    );
+    // Define os novos dados filtrados como os dados originais
+    const updatedFilteredData = [...originalData];
 
-    // Filtra apenas os itens que ainda estão presentes nos dados filtrados
-    const updatedFilteredData = originalData.filter((item) =>
-      filteredData.some((filteredItem) => filteredItem.id === item.id)
+    // Limpa os filtros e tags selecionadas
+    const updatedFilterOptions = columns.reduce(
+      (acc, column) => ({ ...acc, [column]: [] }),
+      {}
     );
+    const updatedSelectedTags = { ...updatedFilterOptions };
 
-    // Define os novos dados filtrados
+    // Define os novos dados filtrados, filtros e tags selecionadas
     setFilteredData(updatedFilteredData);
+    setFilterOptions(updatedFilterOptions);
+    setSelectedTags(updatedSelectedTags);
+    setSearchTerm("");
+  };
 
-    setSelectedTags(
-      columns.reduce((acc, column) => ({ ...acc, [column]: [] }), {})
+  const renderNoDataMessage = () => {
+    return (
+      <div className="render-no-data-message">
+        <EmptyState
+          icon="search_off"
+          title={titleNoDataMessage}
+          description={descriptionNoDataMessage}
+        />
+      </div>
     );
   };
 
-  const renderNoDataMessage = () => (
+  const renderNoDataFilteredMessage = () => (
     <div className="render-no-data-message">
       <EmptyState
         icon="search_off"
-        title={titleNoDataMessage}
-        description={descriptionNoDataMessage}
-        buttonContentPrimary={labelButtonNoDataMessage}
+        title={titleNoDataFilteredMessage}
+        description={descriptionNoDataFilteredMessage}
+        buttonContentPrimary={labelButtonNoDataFilteredMessage}
         onClickActionPrimary={handleClearFilters}
       />
     </div>
+  );
+
+  const hasSelectedFilters = Object.values(filterOptions).some(
+    (options) => options.length > 0
   );
 
   return (
@@ -804,6 +854,8 @@ const DataTable: React.FC<DataTableProps> = ({
                   </>
                 ))}
             </>
+          ) : hasSelectedFilters || searchTerm.trim() !== "" ? (
+            renderNoDataFilteredMessage()
           ) : (
             renderNoDataMessage()
           )}
