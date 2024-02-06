@@ -22,17 +22,13 @@ interface DataTableProps {
   inputPlaceholder: string;
   typeIconSecondButton: string;
   labelSecondButton: string;
-  selectableLabelFirstButton: string;
   selectableLabelSecondButton: string;
-  selectableOnClickFirstButton?: () => void;
-  selectableOnClickSecondButton?: () => void;
   firstButtonLabelAside: string;
   secondButtonLabelAside: string;
   titleNoDataMessage: string;
   labelButtonNoDataMessage: string;
   descriptionNoDataMessage: string;
   asideTitle: string;
-  selectableIconFirstButton: string;
   selectableIconSecondButton: string;
   availableFilters?: { [key: string]: string[] };
 }
@@ -47,10 +43,7 @@ const DataTable: React.FC<DataTableProps> = ({
   expandedData,
   itemPerPage,
   inputPlaceholder,
-  selectableLabelFirstButton,
   selectableLabelSecondButton,
-  selectableOnClickFirstButton,
-  selectableOnClickSecondButton,
   labelSecondButton,
   typeIconSecondButton,
   firstButtonLabelAside,
@@ -59,7 +52,6 @@ const DataTable: React.FC<DataTableProps> = ({
   labelButtonNoDataMessage,
   descriptionNoDataMessage,
   asideTitle,
-  selectableIconFirstButton,
   selectableIconSecondButton,
   availableFilters,
 }) => {
