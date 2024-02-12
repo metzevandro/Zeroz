@@ -296,7 +296,7 @@ const Template: Story<DefaultProps> = (args) => {
               />
               <ImageUploader
                 title="Image Uploader"
-                proportion={"1/1"}
+                proportion="1/1"
                 labelDropzone={"Drop your images here"}
                 iconDropzone={"add_a_photo"}
                 multiple={true}
