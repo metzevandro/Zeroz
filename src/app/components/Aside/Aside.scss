@@ -63,7 +63,7 @@
     .aside-children {
       flex-grow: 1;
       max-height: 100%;
-      overflow: auto;
+      overflow: scroll;
       display: flex;
       flex-direction: column;
       justify-content: space-between;

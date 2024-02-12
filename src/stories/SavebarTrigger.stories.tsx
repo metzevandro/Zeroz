@@ -57,12 +57,12 @@ const Template: Story<DefaultProps> = (args) => {
     Input: "",
     "Input Select": "Option 1",
     "Input Number": "",
-    ImageUploader: [], 
+    ImageUploader: [],
     FileUploader: [],
     Checkbox: false,
     Switch: false,
     "Radio Button": false,
-    "Input do DataPicker": '',
+    "Input do DataPicker": "",
     ColorPicker: "#FFFFFF",
     Slider: "0",
     "Input Time": "",
@@ -201,10 +201,12 @@ const Template: Story<DefaultProps> = (args) => {
           withActionPrimary
           withBackButton
         >
-          <SavebarTrigger formChanged={formChanged}
+          <SavebarTrigger
+            formChanged={formChanged}
             handleCancel={handleCancel}
-            handleSubmit={handleSubmit}>
-          <Layout columns="2 - Symmetric">
+            handleSubmit={handleSubmit}
+          >
+            <Layout columns="2 - Symmetric">
               <Input
                 label="Input"
                 placeholder="Placeholder"

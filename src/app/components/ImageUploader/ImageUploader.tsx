@@ -20,7 +20,7 @@ interface ImageUploaderProps {
   labelDropzone: string;
   iconDropzone: string;
   onChange: (files: FileList | null) => void;
-  value?: FileList | null
+  value?: FileList | null;
 }
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({

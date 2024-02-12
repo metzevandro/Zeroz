@@ -13,7 +13,7 @@
   gap: var(--s-spacing-large);
   padding: var(--s-spacing-medium) var(--s-spacing-xx-small);
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
   transition: 0.3s;
 
   &::-webkit-scrollbar {

@@ -9,7 +9,7 @@
 .header-root {
   background-color: var(--s-color-fill-default);
   position: sticky;
-  z-index: 2;
+  z-index: 99;
   top: 0;
   grid-area: header;
   display: flex;
