@@ -5,16 +5,23 @@ interface SliderProps {
   step: number;
   min: number;
   max: number;
-  value: number;
+  value: string;
   label?: string;
+  onChange?: (value: string) => void;
 }
 
-const Slider: React.FC<SliderProps> = ({ step, min, max, value, label }) => {
-  const percentage = ((value - min) / (max - min)) * 100;
-  const [progress, setProgress] = useState(percentage);
-  const numberRef = useRef<HTMLDivElement>(null);
-  const [editingValue, setEditingValue] = useState("");
-  const [currentValue, setCurrentValue] = useState(value);
+const Slider: React.FC<SliderProps> = ({
+  step,
+  min,
+  max,
+  value,
+  label,
+  onChange,
+}) => {
+  const [progress, setProgress] = useState<number>(
+    ((parseInt(value) - min) / (max - min)) * 100
+  );
+  const [currentValue, setCurrentValue] = useState<string>(value);
   const buttonRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
 
@@ -24,29 +31,33 @@ const Slider: React.FC<SliderProps> = ({ step, min, max, value, label }) => {
     }
   }, []);
 
+  useEffect(() => {
+    const newValue = parseInt(value);
+    setCurrentValue(value);
+    setProgress(((newValue - min) / (max - min)) * 100);
+  }, [value, min, max]);
+
   const handleArrowKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
       e.preventDefault();
 
       const change = e.key === "ArrowLeft" ? -step : step;
-      let newValue = currentValue + change;
+      let newValue = parseInt(currentValue) + change;
 
       const alignedValue = Math.round(newValue / step) * step;
-
       newValue = Math.min(Math.max(alignedValue, min), max);
 
       updateProgress(newValue);
-
-      setCurrentValue(newValue);
     }
   };
 
   const updateProgress = (newValue: number) => {
     const clampedValue = Math.min(Math.max(newValue, min), max);
     setProgress(((clampedValue - min) / (max - min)) * 100);
+    setCurrentValue(String(clampedValue));
 
-    if (numberRef.current) {
-      numberRef.current.innerText = String(clampedValue);
+    if (onChange) {
+      onChange(String(clampedValue));
     }
   };
 
@@ -59,7 +70,7 @@ const Slider: React.FC<SliderProps> = ({ step, min, max, value, label }) => {
     window.addEventListener("mousemove", handleDragMove);
     window.addEventListener("mouseup", handleDragEnd);
 
-    handleDragMove(e);
+    handleDragMove(e.nativeEvent);
   };
 
   const handleDragMove = (e: MouseEvent) => {
@@ -80,11 +91,8 @@ const Slider: React.FC<SliderProps> = ({ step, min, max, value, label }) => {
 
         if (calculatedStep >= 0 && calculatedStep <= 100) {
           const calculatedValue = (calculatedStep / 100) * (max - min) + min;
-
-          const steps = Math.round((calculatedValue - min) / step);
-          const newValue = steps * step + min;
-
-          updateProgress(newValue);
+          const alignedValue = Math.round(calculatedValue / step) * step;
+          updateProgress(alignedValue);
         }
       }
     }
@@ -96,32 +104,9 @@ const Slider: React.FC<SliderProps> = ({ step, min, max, value, label }) => {
     window.removeEventListener("mouseup", handleDragEnd);
   };
 
-  const handleNumberInput = () => {
-    if (numberRef.current) {
-      let enteredValue = numberRef.current.innerText;
-      const numericValue = enteredValue.replace(/[^0-9]/g, "");
-
-      const parsedNumericValue = parseInt(numericValue);
-
-      const clampedValue = isNaN(parsedNumericValue)
-        ? min
-        : Math.min(Math.max(parsedNumericValue, min), max);
-
-      setEditingValue(String(clampedValue));
-    }
-  };
-
-  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      updateProgress(parseInt(editingValue));
-      numberRef.current && (numberRef.current.innerText = editingValue);
-    }
-  };
-
-  const handleInputBlur = () => {
-    updateProgress(parseInt(editingValue));
-    numberRef.current && (numberRef.current.innerText = editingValue);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = parseInt(e.target.value);
+    updateProgress(newValue);
   };
 
   return (
@@ -132,34 +117,43 @@ const Slider: React.FC<SliderProps> = ({ step, min, max, value, label }) => {
       <div className="slider-container">
         <div className="slider-max-min">{min}</div>
         <div
-          id="slider-background"
-          className="slider-background"
-          onMouseDown={(e) => handleSliderClick(e)}
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            cursor: "grabbing",
+          }}
         >
           <div
-            className="slider-progress-bar"
-            style={{ width: `${progress}%` }}
-          ></div>
-          <div
-            className="slider-button"
-            tabIndex={0}
-            style={{ left: `calc(${progress}% - 10px)` }}
-            ref={buttonRef}
-            onKeyDown={handleArrowKeyPress}
-          ></div>
+            id="slider-background"
+            className="slider-background"
+            onMouseDown={(e) => handleSliderClick(e)}
+          >
+            <div
+              className="slider-progress-bar"
+              style={{ width: `${progress}%` }}
+            ></div>
+            <div
+              className="slider-button"
+              tabIndex={0}
+              style={{ left: `calc(${progress}% - 10px)` }}
+              ref={buttonRef}
+              onKeyDown={handleArrowKeyPress}
+            ></div>
+          </div>
         </div>
+
         <div className="slider-max-min">{max}</div>
-        <div
-          onBlur={handleInputBlur}
-          onInput={handleNumberInput}
+        <input
           className="slider-input"
-          onKeyDown={handleInputKeyDown}
-          contentEditable
-          ref={numberRef}
+          type="number"
+          min={min}
+          max={max}
+          value={currentValue}
+          onChange={handleInputChange}
           id="sliderInput"
-        >
-          {Math.round((progress / 100) * (max - min) + min)}
-        </div>
+        />
       </div>
     </div>
   );

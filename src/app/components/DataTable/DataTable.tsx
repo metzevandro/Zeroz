@@ -688,9 +688,7 @@ const DataTable: React.FC<DataTableProps> = ({
                     ))}
                 </>
               ) : (
-                <>
-                  {renderNoDataMessage()}
-                </>
+                <>{renderNoDataMessage()}</>
               )}
             </AsideContent>
           }

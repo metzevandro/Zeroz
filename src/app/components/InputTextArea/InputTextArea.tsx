@@ -7,6 +7,7 @@ interface TextAreaProps {
   disabled?: boolean;
   error?: boolean;
   errorText?: string;
+  onChange?: (value: string) => void; // Adicionando a prop onChange
 }
 
 const TextArea: React.FC<TextAreaProps> = ({
@@ -15,12 +16,22 @@ const TextArea: React.FC<TextAreaProps> = ({
   disabled,
   error,
   errorText,
+  onChange, // Recebendo a prop onChange
 }) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleButtonClick = () => {
     if (textareaRef.current) {
       textareaRef.current.focus();
+    }
+  };
+
+  const handleInputChange: React.ChangeEventHandler<HTMLTextAreaElement> = (
+    event
+  ) => {
+    const newValue = event.target.value;
+    if (onChange) {
+      onChange(newValue); // Chamando a função onChange passando o novo valor
     }
   };
 
@@ -38,6 +49,7 @@ const TextArea: React.FC<TextAreaProps> = ({
           ref={textareaRef}
           placeholder={placeholder}
           disabled={disabled || error}
+          onChange={handleInputChange}
         />
       </div>
       {error && <p className="description">{errorText}</p>}

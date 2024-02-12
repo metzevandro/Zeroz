@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./ColorPicker.scss";
 import Pickr from "@simonwep/pickr";
 import "@simonwep/pickr/dist/themes/monolith.min.css";
@@ -8,23 +8,41 @@ import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 interface ColorPickerProps {
   label: string;
   disabled?: boolean;
+  onChange?: (color: string) => void;
+  value?: string;
 }
 
 function ColorPicker(props: ColorPickerProps) {
-  const [pickr, setPickr] = React.useState<Pickr | null>(null);
-  const [currentColor, setCurrentColor] = React.useState<string>("");
-  const [inputClass, setInputClass] = React.useState<string>("");
+  const [pickr, setPickr] = useState<Pickr | null>(null);
+  const [currentColor, setCurrentColor] = useState<string>(props.value || "");
+  const [inputValue, setInputValue] = useState<string>(props.value || "");
+  const [inputClass, setInputClass] = useState<string>(
+    props.value ? "color-defined" : ""
+  );
+  const previousValueRef = useRef<string | undefined>();
+
+  useEffect(() => {
+    if (previousValueRef.current !== props.value) {
+      setCurrentColor(props.value || "");
+      setInputValue(props.value || "");
+      setInputClass(props.value ? "color-defined" : "");
+      if (pickr && props.value) {
+        pickr.setColor(props.value);
+      }
+      previousValueRef.current = props.value;
+    }
+  }, [props.value]);
 
   useEffect(() => {
     let pickrInstance: Pickr | null = null;
 
     const initColorPicker = () => {
-      const pickrInstance = Pickr.create({
+      pickrInstance = Pickr.create({
         el: ".pickr",
         padding: 8,
-        default: "default",
         theme: "monolith",
         position: "bottom-start",
+        default: props.value,
         disabled: props.disabled,
         components: {
           preview: true,
@@ -41,13 +59,20 @@ function ColorPicker(props: ColorPickerProps) {
       });
 
       pickrInstance.on("change", (color: Pickr.HSVaColor) => {
-        setCurrentColor(color.toHEXA().toString());
-        setInputClass(color ? "color-defined" : "");
+        const hexColor = color.toHEXA().toString();
+        setCurrentColor(hexColor);
+        setInputClass(hexColor ? "color-defined" : "");
       });
 
       pickrInstance.on("save", () => {
         if (pickrInstance) {
-          pickrInstance.setColor(currentColor || "");
+          const hexColor = pickrInstance.getColor().toHEXA().toString();
+          setCurrentColor(hexColor);
+          setInputValue(hexColor);
+          setInputClass(hexColor ? "color-defined" : "");
+          if (props.onChange) {
+            props.onChange(hexColor);
+          }
           if (pickrInstance.isOpen()) {
             pickrInstance.hide();
           }
@@ -91,7 +116,7 @@ function ColorPicker(props: ColorPickerProps) {
           }`}
         >
           <ButtonIcon
-            variant=""
+            variant="primary"
             size="md"
             typeIcon="add"
             type="default"
@@ -102,7 +127,7 @@ function ColorPicker(props: ColorPickerProps) {
           <Input
             disabled={props.disabled}
             type="text"
-            value={currentColor}
+            value={inputValue}
             readOnly
             onClick={handleInputClick}
             className={inputClass}

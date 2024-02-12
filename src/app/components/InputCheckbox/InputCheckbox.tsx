@@ -6,7 +6,7 @@ interface InputCheckboxProps {
   label?: string;
   disabled?: boolean;
   checked: boolean;
-  onChange: () => void;
+  onChange: (checked: boolean) => void; // Adicionando a prop onChange
   indeterminate?: boolean;
 }
 
@@ -17,7 +17,7 @@ export function InputCheckbox(props: InputCheckboxProps) {
     if (disabled) {
       return;
     } else {
-      onChange();
+      onChange(!checked); // Alterando o estado do checkbox e chamando a função onChange
     }
   };
 

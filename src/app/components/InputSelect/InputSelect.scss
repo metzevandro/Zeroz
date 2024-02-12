@@ -9,6 +9,7 @@
   }
 
   .input-select-button {
+    cursor: pointer;
     padding: var(--s-spacing-xx-small) var(--s-spacing-x-small);
     display: flex;
     justify-content: space-between;
@@ -19,6 +20,7 @@
     color: var(--s-color-content-placeholder);
 
     select {
+      cursor: pointer;
       width: 100%;
       background-color: transparent;
       color: var(--s-color-content-default);
@@ -33,6 +35,7 @@
       }
 
       option {
+        cursor: pointer;
         display: flex;
         background-color: var(--s-color-fill-default);
         color: var(--s-color-content-default);

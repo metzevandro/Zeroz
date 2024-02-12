@@ -17,6 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    date: "",
     label: "Label",
     placeholder: "Placeholder",
     disabled: false,
@@ -25,6 +26,7 @@ export const Default: Story = {
 
 export const Disable: Story = {
   args: {
+    date: "",
     label: "Label",
     placeholder: "Placeholder",
     disabled: true,

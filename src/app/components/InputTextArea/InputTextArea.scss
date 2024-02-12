@@ -27,6 +27,16 @@
       height: 100%;
       resize: vertical;
 
+      &::-webkit-scrollbar {
+        width: var(--s-spacing-nano);
+        border-radius: 12px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--s-color-fill-default-light);
+        border-radius: 12px;
+      }
+
       &:focus-visible {
         outline: none;
       }

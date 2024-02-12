@@ -100,7 +100,6 @@
 
 .pcr-app {
   box-shadow: var(--s-shadow-level-2) !important ;
-  position: relative !important;
 }
 
 .pcr-app .pcr-interaction input:focus-visible {
@@ -130,7 +129,7 @@
 .color-picker-content {
   display: flex;
   align-items: center;
-  width: fit-content;
+  width: 100%;
 }
 
 .pcr-app .pcr-interaction > * {
@@ -186,6 +185,7 @@
 
 .color-picker-input {
   padding-left: var(--s-spacing-xx-small);
+  width: 100%;
 }
 
 .color-picker-input * {
@@ -193,6 +193,11 @@
 }
 .pickr .pcr-button {
   border-radius: var(--s-border-radius-small) !important;
+  border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+
+  &:focus {
+    box-shadow: 0 0 0 0 !important;
+  }
 }
 
 .pickr .pcr-button::after {

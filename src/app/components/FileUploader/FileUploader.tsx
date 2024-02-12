@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useRef } from "react";
+import React, { useState, useEffect, useRef, ChangeEvent } from "react";
 import "./FileUploader.scss";
 import Loading from "../Loading/Loading";
 import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
@@ -7,15 +7,17 @@ import Button from "../Button/Button";
 
 interface FileUploaderProps {
   title: string;
-  description: string;
+  description?: string;
   multiple?: boolean;
   disable?: boolean;
   maxFileSize?: number;
   buttonLabel: string;
   typeIconButton: string;
+  onChange: (files: File[]) => void;
+  value?: FileList | null; // Alteração aqui: Adiciona value como propriedade opcional
 }
 
-interface UploadedFile {
+export interface UploadedFile {
   file: File;
   hasError: boolean;
   errorMessage: string | null;
@@ -29,12 +31,43 @@ const FileUploader: React.FC<FileUploaderProps> = ({
   maxFileSize,
   buttonLabel,
   typeIconButton,
+  onChange,
+  value, // Alteração aqui: Recebe o valor de fora como propriedade
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<UploadedFile[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const maxFileSizeBytes =
     maxFileSize !== undefined ? maxFileSize * 1024 * 1024 : undefined;
+
+  useEffect(() => {
+    // Atualiza os arquivos selecionados quando o valor de fora muda
+    if (value && value.length > 0) {
+      const updatedFiles: UploadedFile[] = [];
+      Array.from(value).forEach((file) => {
+        const hasError =
+          maxFileSizeBytes !== undefined && file.size > maxFileSizeBytes;
+        const errorMessage = hasError
+          ? `O tamanho do arquivo "${file.name}" excede o limite de ${maxFileSize} MB.`
+          : null;
+
+        updatedFiles.push({
+          file,
+          hasError,
+          errorMessage,
+        });
+
+        if (!hasError) {
+          // Se não houver erro, processa o arquivo
+          handleFile(file);
+        }
+      });
+
+      setSelectedFiles(updatedFiles);
+    } else {
+      setSelectedFiles([]); // Limpa a lista de arquivos se o valor for nulo ou vazio
+    }
+  }, [value, maxFileSizeBytes]);
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -56,15 +89,23 @@ const FileUploader: React.FC<FileUploaderProps> = ({
         });
 
         if (!hasError) {
+          // Se não houver erro, processa o arquivo
           handleFile(file);
         }
       });
+
+      // Limpar o valor do campo de entrada de arquivo
+      event.target.value = "";
+
       if (multiple === false) {
         setSelectedFiles(updatedFiles);
       }
       if (multiple === true) {
         setSelectedFiles((prevFiles) => [...prevFiles, ...updatedFiles]);
       }
+
+      // Chama a função onChange com a lista de arquivos
+      onChange(updatedFiles.map((fileObj) => fileObj.file));
     }
   };
 
@@ -90,7 +131,35 @@ const FileUploader: React.FC<FileUploaderProps> = ({
     const updatedFiles = [...selectedFiles];
     updatedFiles.splice(index, 1);
     setSelectedFiles(updatedFiles);
+
+    // Chama a função onChange com a lista atualizada de arquivos
+    onChange(updatedFiles.map((fileObj) => fileObj.file));
   };
+
+  const [tamanhoPai, setTamanhoPai] = useState<number | null>(null);
+
+  useEffect(() => {
+    const updateTamanhoPai = () => {
+      const paiElement = document.querySelector(
+        ".file-uploader"
+      ) as HTMLElement | null;
+      if (paiElement) {
+        setTamanhoPai(paiElement.offsetWidth);
+      }
+    };
+
+    updateTamanhoPai();
+
+    window.addEventListener("resize", updateTamanhoPai);
+
+    return () => {
+      window.removeEventListener("resize", updateTamanhoPai);
+    };
+  }, []);
+
+  const estiloFilha = tamanhoPai
+    ? { maxWidth: `calc(${tamanhoPai}px - 60px)` }
+    : {};
 
   return (
     <>
@@ -132,7 +201,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
                       fileObj.hasError ? "file-uploaded-error" : ""
                     }`}
                   >
-                    <p>{fileObj.file.name}</p>
+                    <p style={estiloFilha}>{fileObj.file.name}</p>
                     <p className="file-uploaded-icon">
                       {isLoading && <Loading variant="default" />}
                       <div className="file-uploader-icon-error">

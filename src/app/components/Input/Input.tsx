@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useRef, useEffect, useState } from "react";
+import React, { InputHTMLAttributes, useRef } from "react";
 import "./Input.scss";
 import Icon from "../Icon/Icon";
 
@@ -9,6 +9,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
   disabled?: boolean;
   textError?: string;
+  value?: string; // Alterado para garantir que seja uma string
 }
 
 const Input: React.FC<InputProps> = ({
@@ -18,6 +19,7 @@ const Input: React.FC<InputProps> = ({
   error,
   disabled,
   textError,
+  value,
   ...rest
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -45,6 +47,7 @@ const Input: React.FC<InputProps> = ({
           <input
             size={0}
             {...rest}
+            value={value || ""} // Garantindo que o valor seja uma string
             disabled={disabled || error}
             ref={inputRef}
           />

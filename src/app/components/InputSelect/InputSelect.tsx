@@ -3,11 +3,12 @@ import "./InputSelect.scss";
 
 interface InputSelectProps {
   options: string[];
-  placeholder: string;
   disabled?: boolean;
   label?: string;
   error?: boolean;
   errorMessage?: string;
+  onChange: (value: string) => void;
+  value?: string;
 }
 
 const InputSelect: React.FC<InputSelectProps> = ({
@@ -16,18 +17,26 @@ const InputSelect: React.FC<InputSelectProps> = ({
   error,
   errorMessage,
   disabled,
-  placeholder,
+  onChange,
+  value,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | undefined>(
-    undefined
-  );
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
+    value || undefined
+  ); // Defina o valor inicial com a propriedade value
+
+  useEffect(() => {
+    // Atualiza o estado selectedOption quando a propriedade value mudar
+    setSelectedOption(value || undefined);
+  }, [value]);
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(event.target.value);
-    setIsOpen(false);
+    const newValue = event.target.value;
+    setSelectedOption(newValue);
+    onChange(newValue);
   };
+
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -62,9 +71,6 @@ const InputSelect: React.FC<InputSelectProps> = ({
             onChange={handleOptionChange}
             disabled={disabled || error}
           >
-            <option className="placeholder" value="" disabled>
-              {placeholder}
-            </option>
             {options.map((option, index) => (
               <option key={index} value={option}>
                 {option}

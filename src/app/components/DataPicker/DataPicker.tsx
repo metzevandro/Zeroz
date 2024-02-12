@@ -71,24 +71,22 @@ interface DataPickerCalendarProps {
   label: string;
   placeholder: string;
   disabled?: boolean;
+  onDateChange: (date: Date) => void;
+  date: string;
 }
 
 const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
   label,
   placeholder,
   disabled,
+  onDateChange,
+  date,
 }) => {
   const monthsOverflowContainerRef = useRef<HTMLDivElement>(null);
   const yearsOverflowContainerRef = useRef<HTMLDivElement>(null);
   const today = new Date();
-  const [selectedDate, setSelectedDate] = useState<Date | null>(today);
-  const [inputDate, setInputDate] = useState<string>(
-    today.toLocaleDateString("pt-BR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    })
-  );
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date(date));
+  const [inputDate, setInputDate] = useState<string>(date);
   const [currentMonth, setCurrentMonth] = useState<number>(
     new Date().getMonth()
   );
@@ -104,6 +102,50 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
     new Date().getFullYear()
   );
   const [selectedDay, setSelectedDay] = useState<number>(today.getDate());
+
+  // Atualizando o estado selectedDate quando a propriedade date for atualizada
+  useEffect(() => {
+    if (date) {
+      const [day, month, year] = date.split("/").map(Number);
+
+      if (day && month && year) {
+        const formattedDate = new Date(year, month - 1, day).toLocaleDateString(
+          "pt-BR",
+          {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          }
+        );
+
+        setSelectedDate(new Date(year, month - 1, day));
+        setInputDate(formattedDate);
+      }
+    }
+  }, [date]);
+
+  // Função para atualizar a data quando o input for alterado
+  const handleInputChange = (value: string) => {
+    setInputDate(value);
+    const [day, month, year] = value.split("/").map(Number);
+
+    const isValidDate =
+      day > 0 &&
+      month > 0 &&
+      year > 0 &&
+      month <= 12 &&
+      day <= new Date(year, month, 0).getDate();
+
+    if (isValidDate) {
+      const selectedDate = new Date(year, month - 1, day);
+      setSelectedDate(selectedDate);
+      setCurrentMonth(selectedDate.getMonth());
+      setCurrentYear(selectedDate.getFullYear());
+      setSelectedDay(selectedDate.getDate());
+    } else {
+      console.error("Data inválida!");
+    }
+  };
 
   const handleMonthSelect = (selectedMonth: number) => {
     setSelectedMonth(selectedMonth);
@@ -153,10 +195,21 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
   };
 
   const handleDoneClick = () => {
-    console.log("Selected Date:", selectedDate);
+    if (selectedDate) {
+      const formattedDay = selectedDate.getDate().toString().padStart(2, "0");
+      const formattedMonth = (selectedDate.getMonth() + 1)
+        .toString()
+        .padStart(2, "0");
+      const formattedYear = selectedDate.getFullYear().toString();
+      const formattedDate = `${formattedDay}/${formattedMonth}/${formattedYear}`;
 
-    setCalendarOpen(false);
-    setSecondModalOpen(false);
+      setInputDate(formattedDate);
+      onDateChange(selectedDate);
+      setCalendarOpen(false);
+      setSecondModalOpen(false);
+    } else {
+      console.error("Data inválida!");
+    }
   };
 
   const handleDateClick = (date: Date) => {
@@ -192,23 +245,6 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
       setCurrentYear(newYear);
       return (newMonth + 12) % 12;
     });
-  };
-
-  const handleInputChange = (value: string) => {
-    const cleanedValue = value.replace(/[^\d]/g, "");
-    let formattedValue = "";
-    if (cleanedValue.length <= 2) {
-      formattedValue = cleanedValue;
-    } else if (cleanedValue.length <= 4) {
-      formattedValue = `${cleanedValue.slice(0, 2)}/${cleanedValue.slice(2)}`;
-    } else {
-      formattedValue = `${cleanedValue.slice(0, 2)}/${cleanedValue.slice(
-        2,
-        4
-      )}/${cleanedValue.slice(4, 8)}`;
-    }
-
-    setInputDate(formattedValue);
   };
 
   const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
@@ -500,7 +536,11 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
                 size="sm"
                 variant="primary"
                 label="Done"
-                onClick={handleDoneClick}
+                onClick={() => {
+                  if (selectedDate) {
+                    handleDoneClick();
+                  }
+                }}
               />
             </div>
           </div>
@@ -560,7 +600,11 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
                 size="sm"
                 variant="primary"
                 label="Done"
-                onClick={handleDoneClick}
+                onClick={() => {
+                  if (selectedDate) {
+                    handleDoneClick();
+                  }
+                }}
               />
             </div>
           </div>
@@ -574,17 +618,23 @@ interface DataPickerProps {
   label: string;
   placeholder: string;
   disabled?: boolean;
+  onDateChange: (date: Date) => void;
+  date: string;
 }
 
 const DataPicker: React.FC<DataPickerProps> = ({
   label,
   placeholder,
   disabled,
+  onDateChange,
+  date,
 }) => {
   return (
     <>
       <div>
         <DataPickerCalendar
+          date={date}
+          onDateChange={onDateChange}
           placeholder={placeholder}
           label={label}
           disabled={disabled}

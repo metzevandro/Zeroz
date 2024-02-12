@@ -1,57 +1,73 @@
-"use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Icon from "../Icon/Icon";
 import "./InputRadioButton.scss";
 
 interface InputRadioButtonProps {
-  label: string;
+  label?: string;
   disabled?: boolean;
+  onChange?: (isChecked: boolean) => void;
+  checked?: boolean;
 }
 
 const InputRadioButton: React.FC<InputRadioButtonProps> = ({
   disabled,
   label,
+  onChange,
+  checked: controlledChecked,
 }) => {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState<boolean>(
+    controlledChecked || false
+  );
 
-  const isDisabled = disabled;
+  useEffect(() => {
+    if (controlledChecked !== undefined) {
+      setIsChecked(controlledChecked);
+    }
+  }, [controlledChecked]);
 
-  const toggleCheckbox = () => {
-    if (isDisabled === true) {
+  const toggleRadioButton = () => {
+    if (disabled) {
       return;
     } else {
-      setIsChecked(!isChecked);
+      const newValue = !isChecked;
+      setIsChecked(newValue);
+      if (onChange) {
+        onChange(newValue);
+      }
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
-      toggleCheckbox();
+      toggleRadioButton();
     }
   };
+
   return (
     <div className="radio-button-root">
       <div
-        className={`radio-button ${disabled ? "disabled" : ""}`}
-        onClick={toggleCheckbox}
-        tabIndex={0}
+        className={`radio-button ${disabled ? "disabled" : ""} ${
+          isChecked ? "checked" : ""
+        }`}
+        onClick={toggleRadioButton}
         onKeyDown={handleKeyPress}
-        role="checkbox"
+        role="radio"
         aria-checked={isChecked}
+        tabIndex={0}
       >
         {isChecked ? (
           <span className="checked">
-            <Icon size="medium" icon="radio_button_checked" />
+            <Icon size="md" icon="radio_button_checked" />
           </span>
         ) : (
           <span className="unchecked">
-            <Icon size="medium" icon="radio_button_unchecked" />
+            <Icon size="md" icon="radio_button_unchecked" />
           </span>
         )}
       </div>
       <label
-        onClick={toggleCheckbox}
-        className={`radio-button-label ${disabled && "disabled"}`}
+        onClick={toggleRadioButton}
+        className={`radio-button-label ${disabled ? "disabled" : ""}`}
       >
         {label}
       </label>

@@ -1,14 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Icon from "../Icon/Icon";
 import "./Switch.scss";
 
 interface SwitchProps {
   label: string;
   disabled?: boolean;
+  checked?: boolean;
+  onChange?: (value: boolean) => void;
 }
 
-const Switch: React.FC<SwitchProps> = ({ label, disabled }) => {
-  const [isChecked, setIsChecked] = useState(false);
+const Switch: React.FC<SwitchProps> = ({
+  label,
+  disabled,
+  checked: controlledChecked,
+  onChange,
+}) => {
+  const [isChecked, setIsChecked] = useState<boolean>(
+    controlledChecked || false
+  );
+
+  useEffect(() => {
+    if (controlledChecked !== undefined) {
+      setIsChecked(controlledChecked);
+    }
+  }, [controlledChecked]);
 
   const isDisabled = disabled;
 
@@ -16,7 +31,11 @@ const Switch: React.FC<SwitchProps> = ({ label, disabled }) => {
     if (isDisabled === true) {
       return;
     } else {
-      setIsChecked(!isChecked);
+      const newValue = !isChecked;
+      setIsChecked(newValue);
+      if (onChange) {
+        onChange(newValue);
+      }
     }
   };
 
