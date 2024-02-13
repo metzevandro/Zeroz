@@ -43,6 +43,12 @@ body {
   border-radius: 12px;
 }
 
+@media screen and (max-width: 590px) {
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+
 * {
   box-sizing: border-box;
   border: 0;
