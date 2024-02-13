@@ -47,7 +47,7 @@ export default meta;
 type DefaultProps = {};
 
 type FormValuesType = {
-  [key: string]: string | boolean | number | File;
+  [key: string]: string | boolean | number | File[] | FileList | null | undefined;
 };
 
 const Template: Story<DefaultProps> = (args) => {
@@ -83,6 +83,15 @@ const Template: Story<DefaultProps> = (args) => {
       ...formValues,
       [name]: value,
     });
+  };
+
+  const handleFileChange = (name: string, files: FileList | null) => {
+    if (files) {
+      setFormValues({
+        ...formValues,
+        [name]: files,
+      });
+    }
   };
 
   const handleDateChange = (name: string, newDate: Date) => {
@@ -285,15 +294,11 @@ const Template: Story<DefaultProps> = (args) => {
                 maxFileSize={10}
                 multiple={true}
                 value={formValues["FileUploader"]}
-                onChange={(files: FileList | null) => {
-                  if (files) {
-                    setFormValues({
-                      ...formValues,
-                      FileUploader: Array.from(files),
-                    });
-                  }
-                }}
+                onChange={(files: FileList | null) =>
+                  handleFileChange("FileUploader", files)
+                }
               />
+
               <ImageUploader
                 title="Image Uploader"
                 proportion="1/1"
@@ -301,14 +306,9 @@ const Template: Story<DefaultProps> = (args) => {
                 iconDropzone={"add_a_photo"}
                 multiple={true}
                 value={formValues["ImageUploader"]}
-                onChange={(files: FileList | null) => {
-                  if (files) {
-                    setFormValues({
-                      ...formValues,
-                      ImageUploader: Array.from(files),
-                    });
-                  }
-                }}
+                onChange={(files: FileList | null) =>
+                  handleFileChange("ImageUploader", files)
+                }
               />
             </Layout>
           </SavebarTrigger>

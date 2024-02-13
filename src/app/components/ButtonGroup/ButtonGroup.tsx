@@ -40,7 +40,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
           label={contentFirstButton}
           typeIcon={typeIconFirstButton}
           variant={variantFirstButton}
-        ></Button>
+        />
         <Button
           size="md"
           disable={disableSecondButton}
@@ -48,7 +48,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
           label={contentSecondButton}
           typeIcon={typeIconSecondButton}
           variant={variantSecondButton}
-        ></Button>
+        />
       </div>
     </>
   );

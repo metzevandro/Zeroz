@@ -151,7 +151,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 
     const newFileList = dataTransfer.files;
     setSelectedFiles(newFileList);
-    onChange(newFileList);
+    onChange(newFileList); // Chamando onChange aqui para notificar a remoção do arquivo
 
     setImagePreviews((prevPreviews) => {
       const newPreviews = [...prevPreviews];

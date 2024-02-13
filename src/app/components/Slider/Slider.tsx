@@ -65,20 +65,25 @@ const Slider: React.FC<SliderProps> = ({
     handleDragStart(e);
   };
 
-  const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleDragStart = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
     isDragging.current = true;
     window.addEventListener("mousemove", handleDragMove);
+    window.addEventListener("touchmove", handleDragMove);
     window.addEventListener("mouseup", handleDragEnd);
+    window.addEventListener("touchend", handleDragEnd);
 
     handleDragMove(e.nativeEvent);
   };
 
-  const handleDragMove = (e: MouseEvent) => {
+  const handleDragMove = (e: MouseEvent | TouchEvent) => {
+    const clientX = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
+    const clientY = e instanceof MouseEvent ? e.clientY : e.touches[0].clientY;
+
     if (isDragging.current) {
       const slider = document.getElementById("slider-background");
       if (slider) {
         const rect = slider.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
+        const mouseX = clientX - rect.left;
         let rawPercentage = (mouseX / rect.width) * 100;
 
         if (rawPercentage > 100) {
@@ -101,7 +106,9 @@ const Slider: React.FC<SliderProps> = ({
   const handleDragEnd = () => {
     isDragging.current = false;
     window.removeEventListener("mousemove", handleDragMove);
+    window.removeEventListener("touchmove", handleDragMove);
     window.removeEventListener("mouseup", handleDragEnd);
+    window.removeEventListener("touchend", handleDragEnd);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,6 +136,7 @@ const Slider: React.FC<SliderProps> = ({
             id="slider-background"
             className="slider-background"
             onMouseDown={(e) => handleSliderClick(e)}
+            onTouchStart={(e) => handleSliderClick(e)}
           >
             <div
               className="slider-progress-bar"

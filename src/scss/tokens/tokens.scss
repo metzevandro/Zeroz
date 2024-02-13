@@ -33,17 +33,21 @@ body {
   }
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--s-color-fill-default-light);
+  border-radius: 12px;
+}
+
 * {
   box-sizing: border-box;
   border: 0;
   margin: 0;
   padding: 0;
-}
-
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
 }
 
 [class*="col-"] {

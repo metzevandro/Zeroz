@@ -9,11 +9,11 @@ interface FileUploaderProps {
   title: string;
   description?: string;
   multiple?: boolean;
-  disable?: boolean;
+  disabled?: boolean;
   maxFileSize?: number;
   buttonLabel: string;
   typeIconButton: string;
-  onChange: (files: File[]) => void;
+  onChange: (files: FileList | null) => void;
   value?: FileList | null; // Alteração aqui: Adiciona value como propriedade opcional
 }
 
@@ -27,7 +27,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
   title,
   description,
   multiple,
-  disable,
+  disabled,
   maxFileSize,
   buttonLabel,
   typeIconButton,
@@ -104,12 +104,19 @@ const FileUploader: React.FC<FileUploaderProps> = ({
         setSelectedFiles((prevFiles) => [...prevFiles, ...updatedFiles]);
       }
 
-      // Chama a função onChange com a lista de arquivos
-      onChange(updatedFiles.map((fileObj) => fileObj.file));
+      // Crie um novo FileList usando DataTransfer
+      const updatedFileList = new DataTransfer();
+      updatedFiles.forEach((fileObj) => {
+        updatedFileList.items.add(fileObj.file);
+      });
+
+      // Chama a função onChange com o novo FileList
+      onChange(updatedFileList.files.length > 0 ? updatedFileList.files : null);
     }
   };
 
   const handleFile = (file: File) => {
+    setIsLoading(true); // Corrigido aqui
     const reader = new FileReader();
     reader.onload = () => {
       setIsLoading(false);
@@ -129,12 +136,21 @@ const FileUploader: React.FC<FileUploaderProps> = ({
 
   const handleRemoveFile = (index: number) => {
     const updatedFiles = [...selectedFiles];
-    updatedFiles.splice(index, 1);
+    const removedFile = updatedFiles.splice(index, 1)[0];
     setSelectedFiles(updatedFiles);
-
-    // Chama a função onChange com a lista atualizada de arquivos
-    onChange(updatedFiles.map((fileObj) => fileObj.file));
-  };
+  
+    const updatedFileList = updatedFiles.map((fileObj) => fileObj.file);
+    const updatedFileListAsFileList = new DataTransfer();
+    updatedFileList.forEach((file) => {
+      updatedFileListAsFileList.items.add(file);
+    });
+  
+    onChange(
+      updatedFileListAsFileList.files.length > 0
+        ? updatedFileListAsFileList.files
+        : null
+    );
+  };  
 
   const [tamanhoPai, setTamanhoPai] = useState<number | null>(null);
 
@@ -168,7 +184,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
           <h1>{title}</h1>
           <div className="file-uploader-button">
             <input
-              disabled={disable}
+              disabled={disabled}
               type="file"
               ref={fileInputRef}
               multiple={!!multiple}
@@ -177,7 +193,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
             />
             <Button
               variant="primary"
-              disable={disable}
+              disable={disabled}
               onClick={handleButtonClick}
               label={buttonLabel}
               typeIcon={typeIconButton}
