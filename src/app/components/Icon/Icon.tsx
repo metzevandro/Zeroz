@@ -3,12 +3,12 @@ import "./Icon.scss";
 interface IconProps {
   size: "sm" | "md" | "lg";
   icon: string | undefined;
-  fill?: 0 | 1;
+  fill?: boolean;
 }
 
 const Icon: React.FC<IconProps> = ({ size, fill, icon }) => {
   const sizeClass = size;
-  const fillStyle = `'FILL' ${fill || 0}`;
+  const fillStyle = `'FILL' ${fill ? 1 : 0}`;
 
   return (
     <>

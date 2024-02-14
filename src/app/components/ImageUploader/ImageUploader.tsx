@@ -264,9 +264,10 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
           </div>
         )}
       </div>
-      {errorMessage ? (
+      {errorMessage && (
         <p className="image-uploader-error-message">{errorMessage}</p>
-      ) : (
+      ) }
+      {description && (
         <p className="image-uploader-description">{description}</p>
       )}
     </div>

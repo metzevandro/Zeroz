@@ -36,6 +36,10 @@
       outline-style: solid;
     }
 
+    &:read-only {
+      cursor: auto;
+    }
+
     &.disabled {
       color: var(--s-color-content-disable);
       background-color: var(--s-color-fill-disable);

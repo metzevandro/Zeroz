@@ -17,7 +17,6 @@ type Args = {
   label: string;
   placeholder: string;
   disabled: boolean;
-  typeIcon: string;
   error: boolean;
   textError: string;
   max: number;
@@ -42,6 +41,8 @@ const Template: Story<Args> = (args) => {
       value={inputValue}
       onChange={handleInputChange}
       disabled={args.disabled}
+      error={args.error}
+      textError={args.textError}
     />
   );
 };
@@ -50,10 +51,30 @@ export const Default = Template.bind({});
 Default.args = {
   label: "Label",
   placeholder: "Placeholder",
+  initialValue: 0,
+  max: 10,
+  min: -10,
   disabled: false,
-  typeIcon: "",
   error: false,
   textError: "Error",
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
+  label: "Label",
+  placeholder: "Placeholder",
+  initialValue: 0,
+  max: 10,
+  min: -10,
+};
+
+export const Error = Template.bind({});
+Error.args = {
+  error: true,
+  textError: "Error",
+  label: "Label",
+  placeholder: "Placeholder",
   initialValue: 0,
   max: 10,
   min: -10,

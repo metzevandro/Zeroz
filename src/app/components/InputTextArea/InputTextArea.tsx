@@ -8,7 +8,7 @@ interface TextAreaProps {
   error?: boolean;
   errorText?: string;
   onChange?: (value: string) => void;
-  value?: string; 
+  value?: string;
 }
 
 const TextArea: React.FC<TextAreaProps> = ({
@@ -25,7 +25,7 @@ const TextArea: React.FC<TextAreaProps> = ({
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   useEffect(() => {
-    setInternalValue(value); 
+    setInternalValue(value);
   }, [value]);
 
   const handleButtonClick = () => {
@@ -57,9 +57,9 @@ const TextArea: React.FC<TextAreaProps> = ({
         <textarea
           ref={textareaRef}
           placeholder={placeholder}
-          disabled={disabled || error}
+          disabled={disabled}
           onChange={handleInputChange}
-          value={internalValue} 
+          value={internalValue}
         />
       </div>
       {error && <p className="description">{errorText}</p>}

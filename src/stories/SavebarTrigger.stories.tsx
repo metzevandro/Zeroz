@@ -32,7 +32,7 @@ import ColorPicker from "../app/components/ColorPicker/ColorPicker";
 import Slider from "../app/components/Slider/Slider";
 import Switch from "../app/components/Switch/Switch";
 import InputTime from "../app/components/InputTime/InputTime";
-import TextArea from '../app/components/InputTextArea/InputTextArea';
+import TextArea from "../app/components/InputTextArea/InputTextArea";
 
 const meta: Meta = {
   title: "Templates/Savebar Trigger",
@@ -300,9 +300,7 @@ const Template: Story<DefaultProps> = (args) => {
                 label="Text Area"
                 placeholder="Placeholder"
                 value={String(formValues["Text Area"])}
-                onChange={(value) =>
-                  handleInputChange("Text Area", value)
-                }
+                onChange={(value) => handleInputChange("Text Area", value)}
               />
               <ImageUploader
                 title="Image Uploader"

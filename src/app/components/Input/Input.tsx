@@ -4,7 +4,7 @@ import Icon from "../Icon/Icon";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   typeIcon?: string;
-  fillIcon?: 1 | 0;
+  fillIcon?: boolean;
   label?: string;
   error?: boolean;
   disabled?: boolean;
@@ -47,8 +47,8 @@ const Input: React.FC<InputProps> = ({
           <input
             size={0}
             {...rest}
-            value={value || ""} // Garantindo que o valor seja uma string
-            disabled={disabled || error}
+            value={value || ""}
+            disabled={disabled}
             ref={inputRef}
           />
           <Icon icon={typeIcon} size="md" fill={fillIcon} />
