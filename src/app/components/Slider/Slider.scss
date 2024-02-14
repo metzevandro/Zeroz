@@ -31,6 +31,7 @@
       border-radius: 150px;
       height: 100%;
       background-color: var(--s-color-fill-highlight);
+      transition: 0.01s width ease-in-out;
     }
 
     .slider-button {
@@ -43,18 +44,18 @@
       top: 50%;
       transform: translateY(-50%);
       z-index: 2;
-    }
+      transition: 0.01s left ease-in-out;
+      &:hover {
+        width: 20px;
+        height: 20px;
+      }
 
-    .slider-button:hover {
-      width: 20px;
-      height: 20px;
-    }
-
-    .slider-button:focus-visible {
-      outline-width: var(--s-border-width-thin);
-      outline-color: var(--s-color-fill-highlight);
-      outline-offset: var(--s-border-width-thin);
-      outline-style: solid;
+      &:focus-visible {
+        outline-width: var(--s-border-width-thin);
+        outline-color: var(--s-color-fill-highlight);
+        outline-offset: var(--s-border-width-thin);
+        outline-style: solid;
+      }
     }
 
     .slider-input {
@@ -67,13 +68,13 @@
       font: var(--s-typography-paragraph-regular);
       color: var(--s-color-content-default);
       background-color: var(--s-color-fill-default);
-    }
 
-    .slider-input:focus-visible {
-      outline-width: var(--s-border-width-thin);
-      outline-color: var(--s-color-fill-highlight);
-      outline-offset: var(--s-border-width-thin);
-      outline-style: solid;
+      &:focus-visible {
+        outline-width: var(--s-border-width-thin);
+        outline-color: var(--s-color-fill-highlight);
+        outline-offset: var(--s-border-width-thin);
+        outline-style: solid;
+      }
     }
   }
 }

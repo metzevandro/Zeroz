@@ -29,7 +29,7 @@ const InputTime: React.FC<InputTimeProps> = ({
   const modalRef = useRef<HTMLDivElement>(null);
 
   const openModal = () => {
-    setIsModalOpen(!isModalOpen); // Toggle the modal state
+    setIsModalOpen(!isModalOpen);
   };
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const InputTime: React.FC<InputTimeProps> = ({
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
       ) {
-        setIsModalOpen(false); // Close the modal if the click is outside the modal
+        setIsModalOpen(false);
       }
     };
 
@@ -59,13 +59,19 @@ const InputTime: React.FC<InputTimeProps> = ({
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (
     event
   ) => {
-    const newValue = event.target.value;
-    if (!newValue.includes(":")) return;
-    const [hour, minute] = newValue.split(":");
-    setSelectedHour(hour);
-    setSelectedMinute(minute);
+    let newValue = event.target.value;
+  
+    newValue = newValue.replace(/[^\d:]/g, "");
+  
+    if (newValue.length > 5) {
+      newValue = newValue.substring(0, 5);
+    }
+  
+    event.target.value = newValue;
+  
     onChange(newValue);
   };
+  
 
   const renderButtons = useCallback(
     (maxValue: number, isHour: boolean) => {
@@ -115,6 +121,8 @@ const InputTime: React.FC<InputTimeProps> = ({
         onChange={handleInputChange}
         error={error}
         textError={textError}
+        inputMode="numeric"
+        pattern="[0-9]*"
         {...rest}
       />
       {isModalOpen && (

@@ -22,14 +22,7 @@ const Slider: React.FC<SliderProps> = ({
     ((parseInt(value) - min) / (max - min)) * 100
   );
   const [currentValue, setCurrentValue] = useState<string>(value);
-  const buttonRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
-
-  useEffect(() => {
-    if (buttonRef.current) {
-      buttonRef.current.focus();
-    }
-  }, []);
 
   useEffect(() => {
     const newValue = parseInt(value);
@@ -144,7 +137,6 @@ const Slider: React.FC<SliderProps> = ({
               className="slider-button"
               tabIndex={0}
               style={{ left: `calc(${progress}% - 10px)` }}
-              ref={buttonRef}
               onKeyDown={handleArrowKeyPress}
             ></div>
           </div>

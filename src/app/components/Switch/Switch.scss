@@ -60,7 +60,7 @@
       color: var(--s-color-content-disable);
     }
 
-    &:focus {
+    &:focus-visible {
       outline-width: none;
       outline-color: none;
       outline-style: none;

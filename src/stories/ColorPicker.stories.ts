@@ -19,6 +19,7 @@ export const Default: Story = {
   args: {
     label: "Label",
     disabled: false,
+    value: "#FFFFFF",
   },
 };
 
@@ -26,5 +27,6 @@ export const Disable: Story = {
   args: {
     label: "Label",
     disabled: true,
+    value: "#FFFFFF",
   },
 };

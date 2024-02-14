@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./InputTextArea.scss";
 
 interface TextAreaProps {
@@ -7,7 +7,8 @@ interface TextAreaProps {
   disabled?: boolean;
   error?: boolean;
   errorText?: string;
-  onChange?: (value: string) => void; // Adicionando a prop onChange
+  onChange?: (value: string) => void;
+  value?: string; 
 }
 
 const TextArea: React.FC<TextAreaProps> = ({
@@ -16,9 +17,16 @@ const TextArea: React.FC<TextAreaProps> = ({
   disabled,
   error,
   errorText,
-  onChange, // Recebendo a prop onChange
+  onChange,
+  value = "",
 }) => {
+  const [internalValue, setInternalValue] = useState<string>(value);
+
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  useEffect(() => {
+    setInternalValue(value); 
+  }, [value]);
 
   const handleButtonClick = () => {
     if (textareaRef.current) {
@@ -30,8 +38,9 @@ const TextArea: React.FC<TextAreaProps> = ({
     event
   ) => {
     const newValue = event.target.value;
+    setInternalValue(newValue);
     if (onChange) {
-      onChange(newValue); // Chamando a função onChange passando o novo valor
+      onChange(newValue);
     }
   };
 
@@ -50,6 +59,7 @@ const TextArea: React.FC<TextAreaProps> = ({
           placeholder={placeholder}
           disabled={disabled || error}
           onChange={handleInputChange}
+          value={internalValue} 
         />
       </div>
       {error && <p className="description">{errorText}</p>}

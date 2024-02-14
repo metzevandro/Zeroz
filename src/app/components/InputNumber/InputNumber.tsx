@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Icon from "../Icon/Icon";
 import "./InputNumber.scss";
 
@@ -11,7 +11,8 @@ interface InputNumberProps {
   onChange?: (value: string) => void;
   error?: boolean;
   textError?: string;
-  value?: string; // Adicione a propriedade value aqui
+  value?: string;
+  initialValue?: number; // Adicionando initialValue
 }
 
 const InputNumber: React.FC<InputNumberProps> = ({
@@ -23,18 +24,28 @@ const InputNumber: React.FC<InputNumberProps> = ({
   onChange,
   error,
   textError,
-  value, // Desestruture a propriedade value aqui
+  value,
+  initialValue, // Adicionando initialValue
 }) => {
   const [numero, setNumero] = useState<number | undefined>(() => {
+    if (initialValue !== undefined) {
+      return initialValue;
+    }
     if (min !== undefined) {
       return min;
     }
     return undefined;
   });
 
+  useEffect(() => {
+    if (initialValue !== undefined && onChange) {
+      onChange(initialValue.toString());
+    }
+  }, [initialValue, onChange]);
+
   const addNum = () => {
     setNumero((prevNumero) => {
-      if (prevNumero === undefined) return 1;
+      if (prevNumero === undefined) return min !== undefined ? min : 1;
       const newNum = prevNumero + 1;
       if (max !== undefined && newNum > max) {
         return prevNumero;
@@ -48,7 +59,7 @@ const InputNumber: React.FC<InputNumberProps> = ({
 
   const subtractNum = () => {
     setNumero((prevNumero) => {
-      if (prevNumero === undefined) return -1;
+      if (prevNumero === undefined) return min !== undefined ? min : -1;
       const newNum = prevNumero - 1;
       if (min !== undefined && newNum < min) {
         return prevNumero;
@@ -85,14 +96,15 @@ const InputNumber: React.FC<InputNumberProps> = ({
           <Icon size="md" icon="remove" />
         </button>
         <input
-          className={`input ${error && "error"}`}
+          className={`input ${error ? "error" : ""}`}
           type="number"
           placeholder={placeholder}
           onChange={handleInputChange}
-          value={value} // Use a propriedade value aqui
+          value={numero !== undefined ? numero : value}
           max={max}
           min={min}
           disabled={disabled}
+          inputMode="numeric"
         />
         <button disabled={disabled} className="add" onClick={addNum}>
           <Icon size="md" icon="add" />

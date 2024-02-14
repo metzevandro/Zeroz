@@ -32,6 +32,7 @@ import ColorPicker from "../app/components/ColorPicker/ColorPicker";
 import Slider from "../app/components/Slider/Slider";
 import Switch from "../app/components/Switch/Switch";
 import InputTime from "../app/components/InputTime/InputTime";
+import TextArea from '../app/components/InputTextArea/InputTextArea';
 
 const meta: Meta = {
   title: "Templates/Savebar Trigger",
@@ -73,6 +74,7 @@ const Template: Story<DefaultProps> = (args) => {
     ColorPicker: "#FFFFFF",
     Slider: "0",
     "Input Time": "",
+    "Text Area": "",
   });
 
   const [initialValues, setInitialValues] = useState<FormValuesType>({});
@@ -294,18 +296,14 @@ const Template: Story<DefaultProps> = (args) => {
                 label="Slider"
                 onChange={handleSliderChange}
               />
-              <FileUploader
-                buttonLabel="Add File"
-                title="File Uploader"
-                typeIconButton="upload_file"
-                maxFileSize={10}
-                multiple={true}
-                value={formValues["FileUploader"]}
-                onChange={(files: FileList | null) =>
-                  handleFileChange("FileUploader", files)
+              <TextArea
+                label="Text Area"
+                placeholder="Placeholder"
+                value={String(formValues["Text Area"])}
+                onChange={(value) =>
+                  handleInputChange("Text Area", value)
                 }
               />
-
               <ImageUploader
                 title="Image Uploader"
                 proportion="1/1"
@@ -315,6 +313,17 @@ const Template: Story<DefaultProps> = (args) => {
                 value={formValues["ImageUploader"]}
                 onChange={(files: FileList | null) =>
                   handleFileChange("ImageUploader", files)
+                }
+              />
+              <FileUploader
+                buttonLabel="Add File"
+                title="File Uploader"
+                typeIconButton="upload_file"
+                maxFileSize={10}
+                multiple={true}
+                value={formValues["FileUploader"]}
+                onChange={(files: FileList | null) =>
+                  handleFileChange("FileUploader", files)
                 }
               />
             </Layout>
