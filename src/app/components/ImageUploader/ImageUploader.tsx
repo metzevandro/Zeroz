@@ -242,7 +242,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
               ref={fileInputRef}
               disabled={disable}
               style={{ display: "none" }}
-              multiple={!multiple}
+              multiple={multiple}
             />
             <div className={`${isLoading ? "hidden" : "uploader-item"}`}>
               <button
