@@ -138,19 +138,19 @@ const FileUploader: React.FC<FileUploaderProps> = ({
     const updatedFiles = [...selectedFiles];
     const removedFile = updatedFiles.splice(index, 1)[0];
     setSelectedFiles(updatedFiles);
-  
+
     const updatedFileList = updatedFiles.map((fileObj) => fileObj.file);
     const updatedFileListAsFileList = new DataTransfer();
     updatedFileList.forEach((file) => {
       updatedFileListAsFileList.items.add(file);
     });
-  
+
     onChange(
       updatedFileListAsFileList.files.length > 0
         ? updatedFileListAsFileList.files
         : null
     );
-  };  
+  };
 
   const [tamanhoPai, setTamanhoPai] = useState<number | null>(null);
 

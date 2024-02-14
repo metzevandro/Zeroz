@@ -47,7 +47,14 @@ export default meta;
 type DefaultProps = {};
 
 type FormValuesType = {
-  [key: string]: string | boolean | number | File[] | FileList | null | undefined;
+  [key: string]:
+    | string
+    | boolean
+    | number
+    | File[]
+    | FileList
+    | null
+    | undefined;
 };
 
 const Template: Story<DefaultProps> = (args) => {

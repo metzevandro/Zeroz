@@ -65,7 +65,9 @@ const Slider: React.FC<SliderProps> = ({
     handleDragStart(e);
   };
 
-  const handleDragStart = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
+  const handleDragStart = (
+    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+  ) => {
     isDragging.current = true;
     window.addEventListener("mousemove", handleDragMove);
     window.addEventListener("touchmove", handleDragMove);
@@ -92,13 +94,9 @@ const Slider: React.FC<SliderProps> = ({
           rawPercentage = 0;
         }
 
-        const calculatedStep = Math.round(rawPercentage / step) * step;
-
-        if (calculatedStep >= 0 && calculatedStep <= 100) {
-          const calculatedValue = (calculatedStep / 100) * (max - min) + min;
-          const alignedValue = Math.round(calculatedValue / step) * step;
-          updateProgress(alignedValue);
-        }
+        const calculatedValue = (rawPercentage / 100) * (max - min) + min;
+        const alignedValue = Math.round(calculatedValue / step) * step;
+        updateProgress(alignedValue);
       }
     }
   };
@@ -158,6 +156,7 @@ const Slider: React.FC<SliderProps> = ({
           type="number"
           min={min}
           max={max}
+          step={step}
           value={currentValue}
           onChange={handleInputChange}
           id="sliderInput"
