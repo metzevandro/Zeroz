@@ -60,22 +60,21 @@ const InputTime: React.FC<InputTimeProps> = ({
     event
   ) => {
     let newValue = event.target.value;
-  
+
     newValue = newValue.replace(/[^\d:]/g, "");
-  
+
     if (newValue.length > 5) {
       newValue = newValue.substring(0, 5);
     }
-  
+
     if (newValue.length === 2 && newValue.charAt(2) !== ":") {
       newValue = newValue.slice(0, 2) + ":" + newValue.slice(2);
     }
-  
+
     event.target.value = newValue;
-  
+
     onChange(newValue);
   };
-  
 
   const renderButtons = useCallback(
     (maxValue: number, isHour: boolean) => {

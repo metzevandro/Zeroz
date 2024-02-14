@@ -64,7 +64,7 @@ const Template: Story<DefaultProps> = (args) => {
   const [formValues, setFormValues] = useState<FormValuesType>({
     Input: "",
     "Input Select": "Option 1",
-    "Input Number": "",
+    "Input Number": "1",
     ImageUploader: [],
     FileUploader: [],
     Checkbox: false,
@@ -238,6 +238,9 @@ const Template: Story<DefaultProps> = (args) => {
               <InputNumber
                 label="Input Number"
                 placeholder="Placeholder"
+                initialValue={1}
+                min={0}
+                max={10}
                 value={String(formValues["Input Number"])}
                 onChange={(value: string) => {
                   handleInputChange("Input Number", value);
