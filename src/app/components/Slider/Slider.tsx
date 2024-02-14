@@ -144,6 +144,7 @@ const Slider: React.FC<SliderProps> = ({
 
         <div className="slider-max-min">{max}</div>
         <input
+          inputMode="numeric"
           className="slider-input"
           type="number"
           min={min}

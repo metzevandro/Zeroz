@@ -72,7 +72,7 @@ ReadOnly.args = {
   label: "Label",
   placeholder: "Placeholder",
   readOnly: true,
-  value: "This is read only, you can't type more."
+  value: "This is read only, you can't type more.",
 };
 
 export const Disabled = Template.bind({});
