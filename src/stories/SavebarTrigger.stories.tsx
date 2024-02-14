@@ -107,10 +107,10 @@ const Template: Story<DefaultProps> = (args) => {
   };
 
   const handleColorChange = (color: string) => {
-    setFormValues({
-      ...formValues,
+    setFormValues((prevFormValues) => ({
+      ...prevFormValues,
       ColorPicker: color,
-    });
+    }));
   };
 
   const handleSliderChange = (value: string) => {
