@@ -1,7 +1,8 @@
 {
-  "name": "web",
+  "name": "design-system-zeroz",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "main": "next.config.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,14 +11,19 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
+  "files": [
+    "src/app/components/**/*"
+  ],
+  "peerDependencies": {
+    "react": "^18",
+    "react-dom": "^18",
+    "next": "14.0.4"
+  },
   "dependencies": {
     "@simonwep/pickr": "^1.9.0",
     "@storybook/addon-decorator": "^6.2.9",
     "@storybook/addon-styling": "^1.3.7",
     "@storybook/client-api": "^7.6.16",
-    "next": "14.0.4",
-    "react": "^18",
-    "react-dom": "^18",
     "sass": "^1.69.6",
     "storybook-dark-mode": "^3.0.3",
     "storybook-design-token": "^2.10.0"
@@ -43,5 +49,11 @@
     "storybook": "^7.6.16",
     "storybook-addon-themes": "^6.1.0",
     "typescript": "^5"
-  }
+  },
+  "description": "<div align=\"center\">\r   <img src=\"https://zeroz.vercel.app/logo-sm.svg\" alt=\"Zeroz Design System Logo\"/>\r </div>",
+  "keywords": [
+    "Design System"
+  ],
+  "author": "evandrometz",
+  "license": "ISC"
 }
