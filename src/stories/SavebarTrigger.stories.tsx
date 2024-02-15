@@ -60,13 +60,13 @@ type FormValuesType = {
 
 const Template: Story<DefaultProps> = (args) => {
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
-
+  
   const [formValues, setFormValues] = useState<FormValuesType>({
     Input: "",
     "Input Select": "Option 1",
     "Input Number": "0",
-    ImageUploader: [],
-    FileUploader: [],
+    ImageUploader: null,
+    FileUploader: null,
     Checkbox: false,
     Switch: false,
     "Radio Button": false,
@@ -95,13 +95,19 @@ const Template: Story<DefaultProps> = (args) => {
   };
 
   const handleFileChange = (name: string, files: FileList | null) => {
-    if (files) {
+    if (files && files.length > 0) {
       setFormValues({
         ...formValues,
         [name]: files,
       });
+    } else {
+      setFormValues({
+        ...formValues,
+        [name]: null,
+      });
     }
   };
+  
 
   const handleDateChange = (name: string, newDate: Date) => {
     const day = newDate.getDate().toString().padStart(2, "0");
