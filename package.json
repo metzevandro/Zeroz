@@ -11,7 +11,9 @@
     "build-storybook": "storybook build"
   },
   "files": [
-    "src/app/*"
+    "src/app/components",
+    "src/scss",
+    "src/app/styles.scss"
   ],
   "peerDependencies": {
     "react": "^18",
