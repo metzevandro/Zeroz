@@ -8,7 +8,7 @@ interface BreadcrumbRootProps {
   pageName: string;
 }
 
-export const BreadcrumbRoot: React.FC<BreadcrumbRootProps> = ({
+const BreadcrumbRoot: React.FC<BreadcrumbRootProps> = ({
   children,
   pageName,
 }) => {
@@ -46,3 +46,5 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ pageName }) => {
     </>
   );
 };
+
+export default BreadcrumbRoot;

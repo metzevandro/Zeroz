@@ -10,7 +10,7 @@ interface InputCheckboxProps {
   indeterminate?: boolean;
 }
 
-export function InputCheckbox(props: InputCheckboxProps) {
+function InputCheckbox(props: InputCheckboxProps) {
   const { checked, onChange, disabled, indeterminate, label } = props;
 
   const toggleInputCheckbox = () => {
@@ -38,14 +38,14 @@ export function InputCheckbox(props: InputCheckboxProps) {
         {indeterminate ? (
           <>
             <span className="indeterminate">
-              <Icon size="md" icon="indeterminate_check_box" fill={1} />
+              <Icon size="md" icon="indeterminate_check_box" fill={true} />
             </span>
           </>
         ) : (
           <>
             {checked ? (
               <span className="checked">
-                <Icon size="md" icon="check_box" fill={1} />
+                <Icon size="md" icon="check_box" fill={true} />
               </span>
             ) : (
               <span className="unchecked">
@@ -63,3 +63,5 @@ export function InputCheckbox(props: InputCheckboxProps) {
     </div>
   );
 }
+
+export default InputCheckbox;

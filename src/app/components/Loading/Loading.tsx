@@ -19,7 +19,7 @@ const Loading: React.FC<LoadingProps> = ({ variant, message }) => {
       )}
       {variant === "large" && (
         <span className="loading">
-          <Icon size="extra-large" icon="progress_activity" />
+          <Icon size="lg" icon="progress_activity" />
         </span>
       )}
       {variant === "success" && (

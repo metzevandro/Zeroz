@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import type { Meta, Story } from "@storybook/react";
-import {
-  DropDownMenu,
+import DropDownMenu,{
+  
   DropDownMenuItem,
   DropDownMenuTitle,
 } from "../app/components/DropdownMenu/DropdownMenu";

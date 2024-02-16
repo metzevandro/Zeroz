@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import InputSearch from "../InputSearch/InputSearch";
 import Button from "../Button/Button";
-import { Pagination } from "../Pagination/Pagination";
-import { InputCheckbox } from "../InputCheckbox/InputCheckbox";
+import Pagination from "../Pagination/Pagination";
+import InputCheckbox from "../InputCheckbox/InputCheckbox";
 import "../DataTable/DataTable.scss";
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import Aside, { AsideContent, AsideFooter } from "../Aside/Aside";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import EmptyState from "../EmptyState/EmptyState";
 import Icon from "../Icon/Icon";
-import { Tag } from "../Tag/Tag";
+import Tag from "../Tag/Tag";
 import Modal, { FooterModal } from "../Modal/Modal";
 
 interface DataTableProps {

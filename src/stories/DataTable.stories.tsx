@@ -1,19 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import type { Meta, Story } from "@storybook/react";
 import DataTable from "../app/components/DataTable/DataTable";
 import "./css/main.scss";
-import Aside, {
-  AsideContent,
-  AsideFooter,
-} from "../app/components/Aside/Aside";
-import ButtonGroup from "../app/components/ButtonGroup/ButtonGroup";
-import Icon from "../app/components/Icon/Icon";
-import { InputCheckbox } from "../app/components/InputCheckbox/InputCheckbox";
-import {
-  DropDownMenu,
-  DropDownMenuItem,
-  DropDownMenuTitle,
-} from "../app/components/DropdownMenu/DropdownMenu";
 
 const meta: Meta = {
   title: "Components/Data Table",

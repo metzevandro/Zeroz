@@ -2,7 +2,7 @@ import "./Header.scss";
 import Avatar from "../Avatar/Avatar";
 import Icon from "../Icon/Icon";
 import { useState } from "react";
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -10,18 +10,14 @@ interface HeaderProps {
   onClick: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({
-  children,
-  onClick,
-  breadcrumb,
-}) => {
+const Header: React.FC<HeaderProps> = ({ children, onClick, breadcrumb }) => {
   return (
     <>
       <header className="header-root">
         <div>
           <div className="header-action">
             <ButtonIcon
-              variant=""
+              variant="primary"
               type="plain"
               size="md"
               typeIcon="menu"
@@ -75,3 +71,5 @@ export const HeaderProfile: React.FC<HeaderProfileProps> = ({
     </>
   );
 };
+
+export default Header;

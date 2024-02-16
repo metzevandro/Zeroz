@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import Icon from "../Icon/Icon";
 import "./Notification.scss";
 import Button from "../Button/Button";

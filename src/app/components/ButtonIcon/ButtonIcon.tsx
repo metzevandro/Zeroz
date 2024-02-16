@@ -11,7 +11,7 @@ interface ButtonProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const ButtonIcon: React.FC<ButtonProps> = ({
+const ButtonIcon: React.FC<ButtonProps> = ({
   size,
   type,
   typeIcon,
@@ -29,3 +29,5 @@ export const ButtonIcon: React.FC<ButtonProps> = ({
     </button>
   );
 };
+
+export default ButtonIcon;

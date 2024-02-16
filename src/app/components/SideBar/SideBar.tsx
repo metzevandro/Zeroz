@@ -1,7 +1,7 @@
 import "./Sidebar.scss";
 import Brand from "../Brand/Brand";
 import Icon from "../Icon/Icon";
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import { useState } from "react";
 import React from "react";
 
@@ -12,7 +12,7 @@ interface SidebarProps {
   setToggleSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({
+const Sidebar: React.FC<SidebarProps> = ({
   brand,
   children,
   toggle,
@@ -152,3 +152,5 @@ export const SidebarSubItem: React.FC<SidebarSubItemProps> = ({
     </>
   );
 };
+
+export default Sidebar;

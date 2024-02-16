@@ -9,7 +9,7 @@ interface CardDropdownProps {
   footer?: React.ReactNode;
 }
 
-export const CardDropdown: React.FC<CardDropdownProps> = ({
+const CardDropdown: React.FC<CardDropdownProps> = ({
   title,
   content,
   footer,
@@ -48,3 +48,5 @@ export const CardDropdown: React.FC<CardDropdownProps> = ({
     </>
   );
 };
+
+export default CardDropdown;

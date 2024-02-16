@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import "./Aside.scss";
 
 interface AsideProps {

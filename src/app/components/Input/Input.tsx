@@ -9,7 +9,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
   disabled?: boolean;
   textError?: string;
-  value?: string; // Alterado para garantir que seja uma string
+  value?: string;
 }
 
 const Input: React.FC<InputProps> = ({

@@ -19,7 +19,7 @@ export const Tab: React.FC<TabProps> = ({ content }) => {
   );
 };
 
-export const Tabs: React.FC<TabsProps> = ({ tabs, widthFull }) => {
+const Tabs: React.FC<TabsProps> = ({ tabs, widthFull }) => {
   const [activeTab, setActiveTab] = useState(0);
   const tabItemGroupRef = useRef<HTMLDivElement>(null);
 
@@ -69,3 +69,5 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, widthFull }) => {
     </div>
   );
 };
+
+export default Tabs;

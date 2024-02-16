@@ -37,3 +37,5 @@ export function CardContent(props: { children: React.ReactNode }) {
 export function CardFooter(props: { children: React.ReactNode }) {
   return <div className="card-footer">{props.children}</div>;
 }
+
+export default Card;

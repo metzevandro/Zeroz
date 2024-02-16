@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import "./Tag.scss";
 
 type typeVariant = "primary" | "secondary" | "success" | "warning";
@@ -10,7 +10,7 @@ interface TagProps {
   onClose?: () => void;
 }
 
-export function Tag(props: TagProps) {
+function Tag(props: TagProps) {
   const [closed, setClosed] = useState(false);
 
   const handleCloseTag = () => {
@@ -39,3 +39,5 @@ export function Tag(props: TagProps) {
     </>
   );
 }
+
+export default Tag;

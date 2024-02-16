@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent, useRef } from "react";
 import Icon from "../Icon/Icon";
 import "./InputSearch.scss";
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 
 interface InputSearchProps {
   disabled?: boolean;

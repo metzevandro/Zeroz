@@ -1,6 +1,6 @@
 import React from "react";
 import "./Page.scss";
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import Button from "../Button/Button";
 import Layout from "../Layout/Layout";
 

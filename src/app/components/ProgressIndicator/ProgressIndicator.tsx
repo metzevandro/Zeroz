@@ -51,8 +51,8 @@ const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
               size="sm"
               fill={
                 displayName === "check_circle" || displayName === "error"
-                  ? 1
-                  : 0
+                  ? true
+                  : false
               }
             />
           </div>

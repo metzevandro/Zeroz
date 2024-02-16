@@ -3,7 +3,7 @@ import "./ColorPicker.scss";
 import Pickr from "@simonwep/pickr";
 import "@simonwep/pickr/dist/themes/monolith.min.css";
 import Input from "../Input/Input";
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 
 interface ColorPickerProps {
   label: string;

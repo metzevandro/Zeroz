@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./DataPicker.scss";
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 
@@ -53,7 +53,7 @@ const DataPickerInputDate: React.FC<{
     <div className={containerClass}>
       <Input
         typeIcon="calendar_month"
-        fillIcon={1}
+        fillIcon={true}
         label={label}
         type="text"
         value={value}

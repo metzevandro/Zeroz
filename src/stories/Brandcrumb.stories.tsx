@@ -1,7 +1,6 @@
 import type { Meta, Story } from "@storybook/react";
-import {
+import BreadcrumbRoot, {
   Breadcrumb,
-  BreadcrumbRoot,
 } from "../app/components/Breadcrumb/Breadcrumb";
 import "./css/main.scss";
 

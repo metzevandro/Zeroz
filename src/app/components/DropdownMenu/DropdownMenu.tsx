@@ -1,3 +1,4 @@
+import { DropdownMenu } from "@/app";
 import Icon from "../Icon/Icon";
 import "./DropdownMenu.scss";
 
@@ -6,7 +7,7 @@ interface DropDownMenuProps {
   dropDownMenu: boolean;
 }
 
-export const DropDownMenu: React.FC<DropDownMenuProps> = ({
+const DropDownMenu: React.FC<DropDownMenuProps> = ({
   children,
   dropDownMenu,
 }) => {
@@ -55,3 +56,5 @@ export const DropDownMenuItem: React.FC<DropDownMenuItemProps> = ({
     </>
   );
 };
+
+export default DropDownMenu;

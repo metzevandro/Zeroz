@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import type { Meta, Story } from "@storybook/react";
 import AppShell from "../app/components/AppShell/AppShell";
-import {
-  Sidebar,
+import Sidebar, {
   SidebarList,
   SidebarItem,
 } from "../app/components/Sidebar/Sidebar";
-import { Header, HeaderProfile } from "../app/components/Header/Header";
-import {
-  DropDownMenu,
+import Header, { HeaderProfile } from "../app/components/Header/Header";
+import DropDownMenu, {
   DropDownMenuItem,
   DropDownMenuTitle,
 } from "../app/components/DropdownMenu/DropdownMenu";
 import Page from "../app/components/Page/Page";
-import {
+import BreadcrumbRoot, {
   Breadcrumb,
-  BreadcrumbRoot,
 } from "../app/components/Breadcrumb/Breadcrumb";
 import "./css/main.scss";
 

@@ -1,4 +1,3 @@
-// Importando tipos necessários do Storybook
 import type { Meta, Story } from "@storybook/react";
 import "./css/main.scss";
 import {

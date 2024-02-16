@@ -40,7 +40,7 @@ interface PaginationProps {
   label: string;
 }
 
-export const Pagination: React.FC<PaginationProps> = ({
+const Pagination: React.FC<PaginationProps> = ({
   disableRight,
   disableLeft,
   variant,
@@ -99,3 +99,5 @@ export const Pagination: React.FC<PaginationProps> = ({
     </div>
   );
 };
+
+export default Pagination;

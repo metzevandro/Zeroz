@@ -8,7 +8,7 @@ import React, {
 import Icon from "../Icon/Icon";
 import Loading from "../Loading/Loading";
 import "./ImageUploader.scss";
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 
 interface ImageUploaderProps {
   proportion: "9/16" | "16/9" | "1/1";
