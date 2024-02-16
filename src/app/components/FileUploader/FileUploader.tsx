@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, ChangeEvent } from "react";
 import "./FileUploader.scss";
 import Loading from "../Loading/Loading";
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import Icon from "../Icon/Icon";
 import Button from "../Button/Button";
 
