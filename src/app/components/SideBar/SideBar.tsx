@@ -67,14 +67,16 @@ export const SidebarList: React.FC<SidebarListProps> = ({
 interface SidebarItemsProps {
   title: string;
   icon: string;
+  fillIcon: boolean;
   children?: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   active: boolean;
 }
 
 export const SidebarItem: React.FC<SidebarItemsProps> = ({
   title,
   icon,
+  fillIcon,
   children,
   onClick,
   active,
@@ -99,7 +101,7 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
         onKeyDown={handleKeyPress}
       >
         <div className="Sidebar-item-header">
-          <Icon size="sm" icon={icon} fill={true} />
+          <Icon size="sm" icon={icon} fill={fillIcon} />
           <div>{title}</div>
         </div>
         {children && (
@@ -123,7 +125,7 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
 
 interface SidebarSubItemProps {
   title: string;
-  onClick: () => void;
+  onClick?: () => void;
   active: boolean;
 }
 

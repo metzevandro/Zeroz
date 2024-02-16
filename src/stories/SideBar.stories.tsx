@@ -22,7 +22,9 @@ const meta: Meta = {
 
 export default meta;
 
-type DefaultProps = {};
+type DefaultProps = {
+  titleSidebar: string;
+};
 
 const Template: Story<DefaultProps> = (args) => {
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
@@ -38,11 +40,11 @@ const Template: Story<DefaultProps> = (args) => {
         setToggleSidebar={toggleSidebar}
         toggle={true}
       >
-        <SidebarList title="Sidebar">
-          <SidebarItem icon="settings" title="Item 1">
-            <SidebarSubItem title="Sub Item 1" />
+        <SidebarList title={args.titleSidebar}>
+        <SidebarItem fillIcon={false} active={true} icon="home" title="Home" />
+          <SidebarItem fillIcon active={false} icon="settings" title="Settings">
+            <SidebarSubItem active={false} title="Sub Item 1" />
           </SidebarItem>
-          <SidebarItem icon="settings" title="Item 2"></SidebarItem>
         </SidebarList>
       </Sidebar>
     </>
@@ -50,4 +52,6 @@ const Template: Story<DefaultProps> = (args) => {
 };
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  titleSidebar: 'Sidebar'
+};
