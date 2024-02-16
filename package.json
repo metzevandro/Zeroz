@@ -2,7 +2,7 @@
   "name": "design-system-zeroz",
   "version": "0.1.16",
   "private": false,
-  "main": "next.config.js",
+  "main": "/dist/index.ts",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,7 +12,6 @@
     "build-storybook": "storybook build"
   },
   "files": [
-    "src/app/components",
     "src/scss",
     "src/app/styles.scss"
   ],

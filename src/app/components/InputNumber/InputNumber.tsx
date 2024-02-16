@@ -12,7 +12,7 @@ interface InputNumberProps {
   error?: boolean;
   textError?: string;
   value?: string;
-  initialValue?: number; // Adicionando initialValue
+  initialValue?: number;
 }
 
 const InputNumber: React.FC<InputNumberProps> = ({
@@ -25,7 +25,7 @@ const InputNumber: React.FC<InputNumberProps> = ({
   error,
   textError,
   value,
-  initialValue, // Adicionando initialValue
+  initialValue,
 }) => {
   const [numero, setNumero] = useState<number | undefined>(() => {
     if (initialValue !== undefined) {
