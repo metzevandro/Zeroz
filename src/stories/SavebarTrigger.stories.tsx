@@ -60,7 +60,7 @@ type FormValuesType = {
 
 const Template: Story<DefaultProps> = (args) => {
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
-  
+
   const [formValues, setFormValues] = useState<FormValuesType>({
     Input: "",
     "Input Select": "Option 1",
@@ -107,7 +107,6 @@ const Template: Story<DefaultProps> = (args) => {
       });
     }
   };
-  
 
   const handleDateChange = (name: string, newDate: Date) => {
     const day = newDate.getDate().toString().padStart(2, "0");

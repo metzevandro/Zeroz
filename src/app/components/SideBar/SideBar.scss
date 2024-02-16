@@ -52,6 +52,11 @@
       border-radius: var(--s-border-radius-small);
       background-color: var(--s-color-fill-default);
       color: var(--s-color-content-default);
+
+      &.active {
+        background-color: var(--s-color-fill-highlight-light);
+        color: var(--s-color-content-highlight);
+      }
     }
 
     .Sidebar-item:hover {
@@ -74,17 +79,13 @@
       }
     }
 
-    .active:active {
+    .with-sub-item:active {
       background-color: var(--s-color-fill-default);
       color: var(--s-color-content-default);
-      .Sidebar-item-header {
-        color: var(--s-color-content-default);
-      }
     }
 
     .Sidebar-item-header {
       font: var(--s-typography-paragraph-strong);
-      color: var(--s-color-content-default);
       display: flex;
       align-items: center;
       gap: var(--s-spacing-xx-small);
@@ -104,13 +105,20 @@
       background-color: var(--s-color-fill-default);
 
       div:first-child {
+        transition: 0.2s opacity ease-in;
         opacity: 0;
+      }
+
+      &.active {
+        background-color: var(--s-color-fill-highlight-light);
+        color: var(--s-color-content-highlight);
       }
     }
 
     .Sidebar-sub-item:hover {
       background-color: var(--s-color-fill-default-hover);
       div:first-child {
+        transition: 0.2s opacity ease-in;
         opacity: 1;
       }
     }

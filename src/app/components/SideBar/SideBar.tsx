@@ -69,6 +69,7 @@ interface SidebarItemsProps {
   icon: string;
   children?: React.ReactNode;
   onClick: () => void;
+  active: boolean;
 }
 
 export const SidebarItem: React.FC<SidebarItemsProps> = ({
@@ -76,6 +77,7 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
   icon,
   children,
   onClick,
+  active,
 }) => {
   const [toggleActive, setToggleActive] = useState(false);
   const toggleKey = () => {
@@ -91,7 +93,9 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
   return (
     <>
       <div
-        className={`Sidebar-item ${children && "active"}`}
+        className={`Sidebar-item ${children ? "with-sub-item" : ""} ${
+          active ? "active" : ""
+        }`}
         onClick={children ? toggleKey : onClick}
         tabIndex={0}
         onKeyDown={handleKeyPress}
@@ -122,12 +126,21 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
 interface SidebarSubItemProps {
   title: string;
   onClick: () => void;
+  active: boolean;
 }
 
-export const SidebarSubItem: React.FC<SidebarSubItemProps> = ({ title, onClick }) => {
+export const SidebarSubItem: React.FC<SidebarSubItemProps> = ({
+  title,
+  onClick,
+  active,
+}) => {
   return (
     <>
-      <div className="Sidebar-sub-item" tabIndex={0} onClick={onClick}>
+      <div
+        className={`Sidebar-sub-item ${active && "active"}`}
+        tabIndex={0}
+        onClick={onClick}
+      >
         <div>
           <Icon size="sm" icon="subdirectory_arrow_right" fill={true} />
         </div>
