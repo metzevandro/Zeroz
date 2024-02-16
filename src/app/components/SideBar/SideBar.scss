@@ -74,9 +74,7 @@
     .Sidebar-item:active {
       background-color: var(--s-color-fill-highlight-light);
       color: var(--s-color-content-highlight);
-      .Sidebar-item-header {
-        color: var(--s-color-content-highlight);
-      }
+
     }
 
     .with-sub-item:active {

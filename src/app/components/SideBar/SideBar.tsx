@@ -93,9 +93,7 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
   return (
     <>
       <div
-        className={`Sidebar-item ${children ? "with-sub-item" : ""} ${
-          active ? "active" : ""
-        }`}
+        className={`Sidebar-item ${children ? "with-sub-item" : ""} ${children ? "" : active ? "active" : ""}`}
         onClick={children ? toggleKey : onClick}
         tabIndex={0}
         onKeyDown={handleKeyPress}
