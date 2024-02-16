@@ -3,6 +3,7 @@ import Brand from "../Brand/Brand";
 import Icon from "../Icon/Icon";
 import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 import { useState } from "react";
+import React from "react";
 
 interface SidebarProps {
   brand: string;
@@ -95,7 +96,9 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
   return (
     <>
       <div
-        className={`Sidebar-item ${children ? "with-sub-item" : ""} ${children ? "" : active ? "active" : ""}`}
+        className={`Sidebar-item ${children ? "with-sub-item" : ""} ${
+          children ? "" : active ? "active" : ""
+        }`}
         onClick={children ? toggleKey : onClick}
         tabIndex={0}
         onKeyDown={handleKeyPress}

@@ -41,7 +41,12 @@ const Template: Story<DefaultProps> = (args) => {
         toggle={true}
       >
         <SidebarList title={args.titleSidebar}>
-        <SidebarItem fillIcon={false} active={true} icon="home" title="Home" />
+          <SidebarItem
+            fillIcon={false}
+            active={true}
+            icon="home"
+            title="Home"
+          />
           <SidebarItem fillIcon active={false} icon="settings" title="Settings">
             <SidebarSubItem active={false} title="Sub Item 1" />
           </SidebarItem>
@@ -53,5 +58,5 @@ const Template: Story<DefaultProps> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  titleSidebar: 'Sidebar'
+  titleSidebar: "Sidebar",
 };

@@ -193,7 +193,12 @@ const Template: Story<DefaultProps> = (args) => {
           toggle={isOpenSidebar}
         >
           <SidebarList title="Sidebar">
-            <SidebarItem icon="settings" fillIcon={true} active={true} title="Page Name" />
+            <SidebarItem
+              icon="settings"
+              fillIcon={true}
+              active={true}
+              title="Page Name"
+            />
           </SidebarList>
         </Sidebar>
         <Header

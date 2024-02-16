@@ -2,6 +2,7 @@
   "name": "design-system-zeroz",
   "version": "0.1.15",
   "private": false,
+  "main": "next.config.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
