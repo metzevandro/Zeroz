@@ -1,5 +1,5 @@
 import { Meta, Story } from "@storybook/react";
-import { Tabs, TabsProps } from "../app/components/Tab/Tab";
+import Tabs, { TabsProps } from "../app/components/Tab/Tab";
 import Icon from "../app/components/Icon/Icon";
 import "./css/main.scss";
 
