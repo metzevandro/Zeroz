@@ -28,7 +28,8 @@
     "@storybook/client-api": "^7.6.16",
     "sass": "^1.69.6",
     "storybook-dark-mode": "^3.0.3",
-    "storybook-design-token": "^3.0.0"
+    "storybook-design-token": "^3.0.0",
+    "webpack": "^5.90.3"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^7.6.16",
