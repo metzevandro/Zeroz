@@ -8,6 +8,34 @@ Para visualizar todos os componentes e suas variantes, você pode acessar nosso 
 
 Acesse o [Storybook do Design System Zeroz](https://zeroz.vercel.app/).
 
+## Next.js
+#### Create project
+
+Comece criando um novo projeto Next.js usando `create-next-app`:
+
+```bash
+npx create-next-app@latest
+```
+Em seguida, serão solicitados os seguintes prompts:
+```bash
+1 What is your project named?  my-app
+2 Would you like to use TypeScript?  No / Yes
+3 Would you like to use ESLint?  No / Yes
+4 Would you like to use Tailwind CSS?  No / Yes
+5 Would you like to use `src/` directory?  No / Yes
+6 Would you like to use App Router? (recommended)  No / Yes
+7 Would you like to customize the default import alias (@/*)?  No / Yes
+```
+## Adicionando as Cores da Marca
+
+Para aplicar as cores da marca do Design System Zeroz em seus projetos, certifique-se de adicionar o atributo `data-company` com o valor `"zeroz"` à tag HTML em seus arquivos. Isso garantirá que os estilos correspondentes sejam aplicados corretamente.
+
+Adicione o seguinte trecho à sua tag HTML:
+
+```html
+<html lang="en" data-company="zeroz" />
+ ```
+
 ## Como Baixar
 
 Para instalar o Design System Zeroz em seu projeto, você pode utilizar o npm ou o yarn.
@@ -15,13 +43,13 @@ Para instalar o Design System Zeroz em seu projeto, você pode utilizar o npm ou
 ### npm
 
 ```bash
-npm install design-system-zeroz
+npm install design-system-zeroz @latest
 ```
 
 ### yarn
 
 ```bash
-yarn add design-system-zeroz
+yarn add design-system-zeroz @latest
 ```
 
 ## Como Usar
@@ -41,12 +69,9 @@ export default function Home() {
   );
 }
 
-
-export default Home;
 ```
 
 Lembre-se de importar `'design-system-zeroz/src/app/styles.scss'` para ter as estilizações dos componentes.
-
 
 ## Contribuindo
 
