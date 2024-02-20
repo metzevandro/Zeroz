@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import type { Meta, Story } from "@storybook/react";
-import Header,{  HeaderProfile } from "../app/components/Header/Header";
-import DropDownMenu,{
-  
+import Header, { HeaderProfile } from "../app/components/Header/Header";
+import DropDownMenu, {
   DropDownMenuItem,
   DropDownMenuTitle,
 } from "../app/components/DropdownMenu/DropdownMenu";
-import BreadcrumbRoot,{
+import BreadcrumbRoot, {
   Breadcrumb,
-  
 } from "../app/components/Breadcrumb/Breadcrumb";
 import "./css/main.scss";
 

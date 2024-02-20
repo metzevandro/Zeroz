@@ -36,9 +36,9 @@ export default function Home() {
   };
   return (
     <ColorPicker
-                label="Color Picker"
-                value={String(formValues.ColorPicker)}
-                onChange={handleColorChange}
-              />
+      label="Color Picker"
+      value={String(formValues.ColorPicker)}
+      onChange={handleColorChange}
+    />
   );
 }
