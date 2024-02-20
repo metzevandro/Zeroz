@@ -25,7 +25,6 @@ import FileUploader from "../app/components/FileUploader/FileUploader";
 import ImageUploader from "../app/components/ImageUploader/ImageUploader";
 import InputCheckbox from "../app/components/InputCheckbox/InputCheckbox";
 import InputRadioButton from "../app/components/InputRadioButton/InputRadioButton";
-import ColorPicker from "../app/components/ColorPicker/ColorPicker";
 import Slider from "../app/components/Slider/Slider";
 import Switch from "../app/components/Switch/Switch";
 import InputTime from "../app/components/InputTime/InputTime";
@@ -268,11 +267,6 @@ const Template: Story<DefaultProps> = (args) => {
                 }}
                 options={options}
               />
-              <ColorPicker
-                label="Color Picker"
-                value={String(formValues.ColorPicker)}
-                onChange={handleColorChange}
-              />
               <DataPicker
                 label="Data Picker"
                 placeholder="Placeholder"
@@ -280,6 +274,14 @@ const Template: Story<DefaultProps> = (args) => {
                 onDateChange={(value: Date) =>
                   handleDateChange("Input do DataPicker", value)
                 }
+              />
+              <Slider
+                value={String(formValues.Slider)}
+                max={10}
+                min={0}
+                step={1}
+                label="Slider"
+                onChange={handleSliderChange}
               />
               <InputCheckbox
                 label="Checkbox"
@@ -297,19 +299,16 @@ const Template: Story<DefaultProps> = (args) => {
                 onChange={(checked) => handleSwitchChange(checked)}
                 checked={formValues["Switch"]}
               />
-              <Slider
-                value={String(formValues.Slider)}
-                max={10}
-                min={0}
-                step={1}
-                label="Slider"
-                onChange={handleSliderChange}
-              />
-              <TextArea
-                label="Text Area"
-                placeholder="Placeholder"
-                value={String(formValues["Text Area"])}
-                onChange={(value) => handleInputChange("Text Area", value)}
+              <FileUploader
+                buttonLabel="Add File"
+                title="File Uploader"
+                typeIconButton="upload_file"
+                maxFileSize={10}
+                multiple={true}
+                value={formValues["FileUploader"]}
+                onChange={(files: FileList | null) =>
+                  handleFileChange("FileUploader", files)
+                }
               />
               <ImageUploader
                 title="Image Uploader"
@@ -322,16 +321,11 @@ const Template: Story<DefaultProps> = (args) => {
                   handleFileChange("ImageUploader", files)
                 }
               />
-              <FileUploader
-                buttonLabel="Add File"
-                title="File Uploader"
-                typeIconButton="upload_file"
-                maxFileSize={10}
-                multiple={true}
-                value={formValues["FileUploader"]}
-                onChange={(files: FileList | null) =>
-                  handleFileChange("FileUploader", files)
-                }
+              <TextArea
+                label="Text Area"
+                placeholder="Placeholder"
+                value={String(formValues["Text Area"])}
+                onChange={(value) => handleInputChange("Text Area", value)}
               />
             </Layout>
           </SavebarTrigger>
