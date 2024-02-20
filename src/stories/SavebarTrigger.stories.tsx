@@ -29,7 +29,7 @@ import Slider from "../app/components/Slider/Slider";
 import Switch from "../app/components/Switch/Switch";
 import InputTime from "../app/components/InputTime/InputTime";
 import TextArea from "../app/components/InputTextArea/InputTextArea";
-
+import ColorPicker from "../app/components/ColorPicker/ColorPicker";
 const meta: Meta = {
   title: "Templates/Savebar Trigger",
   component: SavebarTrigger,
@@ -274,6 +274,11 @@ const Template: Story<DefaultProps> = (args) => {
                 onDateChange={(value: Date) =>
                   handleDateChange("Input do DataPicker", value)
                 }
+              />
+              <ColorPicker
+                label="Color Picker"
+                value={String(formValues.ColorPicker)}
+                onChange={handleColorChange}
               />
               <Slider
                 value={String(formValues.Slider)}
