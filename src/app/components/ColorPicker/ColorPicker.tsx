@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { ChromePicker, ColorResult } from "react-color";
 import "./ColorPicker.scss";
-import Input from "../Input/Input";
 import Button from "../Button/Button";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 
 interface ColorPickerProps {
   onChange: (color: string) => void;
   value: string;
   label: string;
   buttonLabel?: string;
+  disabled?: boolean;
 }
 
 const ColorPicker: React.FC<ColorPickerProps> = ({
@@ -16,15 +17,17 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   value,
   label,
   buttonLabel,
+  disabled,
 }) => {
-  const [color, setColor] = useState<string>(value.toUpperCase());
   const [selectedColor, setSelectedColor] = useState<string>(
     value.toUpperCase()
   );
+  const [tempColor, setTempColor] = useState<string>(value.toUpperCase());
+  const [openColorPicker, setOpenColorPicker] = useState(false);
 
   useEffect(() => {
-    setColor(value.toUpperCase());
     setSelectedColor(value.toUpperCase());
+    setTempColor(value.toUpperCase());
   }, [value]);
 
   const handleColorChange = (colorResult: ColorResult) => {
@@ -33,20 +36,45 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   };
 
   const handleApplyColor = () => {
-    setColor(selectedColor);
-    onChange(selectedColor);
+    setTempColor(selectedColor);
     setOpenColorPicker(false);
+    onChange(selectedColor)
   };
 
-  const [openColorPicker, setOpenColorPicker] = useState(false);
-
   const toggleColorPicker = () => {
-    setOpenColorPicker(!openColorPicker);
+    if (disabled) {
+      return;
+    } else {
+      setOpenColorPicker(!openColorPicker);
+    }
   };
 
   return (
     <div className="color-picker-root">
-      <Input onClick={toggleColorPicker} label={label} value={color}></Input>
+      <div className="color-picker-label">{label}</div>
+      <div className="color-picker-input">
+        {disabled ? (
+          <ButtonIcon
+            variant="secondary"
+            disable={true}
+            type="default"
+            size="md"
+            typeIcon="add"
+          />
+        ) : (
+          <div
+            className="color-preview"
+            onClick={toggleColorPicker}
+            style={{ backgroundColor: tempColor }}
+          />
+        )}
+        <input
+          disabled={disabled}
+          size={0}
+          onClick={toggleColorPicker}
+          value={tempColor}
+        />
+      </div>
       {openColorPicker && (
         <div className="color-picker">
           <ChromePicker

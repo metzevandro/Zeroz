@@ -9,6 +9,6 @@ export default function Home() {
     setSelectedColor(color);
   };
   return (
-    <ColorPicker label="label" onChange={handleColorChange} value="#ffffff" />
+    <ColorPicker disabled={true} label="label" onChange={handleColorChange} value="#ffffff" />
   );
 }

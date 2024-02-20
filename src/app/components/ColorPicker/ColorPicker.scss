@@ -1,4 +1,57 @@
 .color-picker-root {
+  .color-picker-label {
+    padding-bottom: var(--s-spacing-nano);
+    font: var(--s-typography-label-medium);
+    color: var(--s-color-content-default);
+  }
+  .color-picker-input {
+    display: flex;
+    align-items: center;
+    gap: var(--s-spacing-xx-small);
+    input {
+      height: 40px;
+      width: 100%;
+      background-color: transparent;
+      border: none;
+      padding: 0;
+      color: var(--s-color-content-default);
+      font: var(--s-typography-paragraph-regular);
+      border-radius: var(--s-border-radius-small);
+      border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+      padding-left: var(--s-spacing-xx-small);
+        background-color: var(--s-color-fill-default);
+
+    &:hover {
+        background-color: var(--s-color-fill-default-hover);
+    }
+      &:focus {
+        outline: none;
+      }
+
+      &:focus-visible {
+        outline-width: var(--s-border-width-thin);
+        outline-color: var(--s-color-fill-highlight);
+        outline-offset: var(--s-border-width-thin);
+        outline-style: solid;
+      }
+
+      &:disabled {
+        background-color: var(--s-color-fill-disable);
+        opacity: 0.64;
+      }
+    }
+    .color-preview {
+        min-width: 40px;
+      cursor: pointer;
+      height: 40px;
+      width: 40px;
+      box-sizing: border-box;
+      border-radius: var(--s-border-radius-small);
+      transition: 0.3s background ease-in-out;
+      border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+    }
+  }
+
   .color-picker {
     margin-top: 8px;
     z-index: 99;

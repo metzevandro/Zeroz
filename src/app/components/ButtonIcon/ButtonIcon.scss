@@ -4,6 +4,7 @@
   border: none;
   padding: 0;
   cursor: pointer;
+  box-sizing: border-box;
 
   &.sm.plain {
     padding: 4px;
@@ -80,7 +81,7 @@
       &:disabled {
         cursor: auto;
         background-color: var(--s-color-fill-disable);
-        color: var(--s-color-content-disable);
+        opacity: 0.64;
       }
     }
 
@@ -96,7 +97,7 @@
       &:disabled {
         cursor: auto;
         background-color: var(--s-color-fill-disable);
-        color: var(--s-color-content-disable);
+        opacity: 0.64;
       }
     }
 
@@ -111,7 +112,7 @@
       &:disabled {
         cursor: auto;
         background-color: var(--s-color-fill-disable);
-        color: var(--s-color-content-disable);
+        opacity: 0.64;
       }
     }
 
@@ -126,7 +127,7 @@
       &:disabled {
         cursor: auto;
         background-color: var(--s-color-fill-disable);
-        color: var(--s-color-content-disable);
+        opacity: 0.64;
       }
     }
   }
