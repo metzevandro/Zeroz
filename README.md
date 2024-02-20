@@ -1,5 +1,8 @@
-# Design System Zeroz
+<p>
+  <img src="/public/favicon.svg" alt="Texto Alternativo" width="100">
+</p>
 
+# Design System Zeroz
 O Design System Zeroz é um conjunto de componentes reutilizáveis para construir interfaces de usuário consistentes e bonitas. Este pacote npm permite que você aproveite os componentes disponíveis em nossa biblioteca e os integre facilmente em seus projetos.
 
 ## Storybook
@@ -9,8 +12,6 @@ Para visualizar todos os componentes e suas variantes, você pode acessar nosso 
 Acesse o [Storybook do Design System Zeroz](https://zeroz.vercel.app/).
 
 ## Next.js
-#### Create project
-
 Comece criando um novo projeto Next.js usando `create-next-app`:
 
 ```bash
