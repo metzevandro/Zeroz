@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { ChromePicker, ColorResult } from "react-color";
 import "./ColorPicker.scss";
 import Button from "../Button/Button";
@@ -24,11 +24,28 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   );
   const [tempColor, setTempColor] = useState<string>(value.toUpperCase());
   const [openColorPicker, setOpenColorPicker] = useState(false);
+  const colorPickerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setSelectedColor(value.toUpperCase());
     setTempColor(value.toUpperCase());
   }, [value]);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        colorPickerRef.current &&
+        !colorPickerRef.current.contains(event.target as Node)
+      ) {
+        setOpenColorPicker(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleColorChange = (colorResult: ColorResult) => {
     const newColor = colorResult.hex.toUpperCase();
@@ -76,7 +93,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
         />
       </div>
       {openColorPicker && (
-        <div className="color-picker">
+        <div ref={colorPickerRef} className="color-picker">
           <ChromePicker
             color={selectedColor}
             onChange={handleColorChange}

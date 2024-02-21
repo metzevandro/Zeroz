@@ -67,6 +67,7 @@
     background-color: var(--s-color-fill-default);
 
     .chrome-picker {
+      background-color: var(--s-color-fill-default) !important;
       padding: 0px !important;
       border-radius: 0px !important;
       border: 0px !important;
@@ -113,6 +114,7 @@
       }
 
       .flexbox-fix {
+        background-color: var(--s-color-fill-default);
         > :nth-child(1) {
           padding: 0px;
         }
@@ -122,17 +124,18 @@
       }
 
       input {
-        background-color: transparent;
-        border: none;
+        box-shadow: none !important;
         margin: 0;
         padding: 0;
-        color: var(--s-color-content-default);
+        background-color: var(--s-color-fill-default);
+        color: var(--s-color-content-default) !important;
         font: var(--s-typography-paragraph-regular) !important;
         text-align: left !important;
         padding-left: var(--s-spacing-xx-small);
         height: 40px !important;
         border-radius: var(--s-border-radius-small) !important;
-
+        border: var(--s-border-width-hairline) solid
+          var(--s-color-border-default) !important;
         &:focus {
           outline: none;
         }
