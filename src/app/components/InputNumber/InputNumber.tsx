@@ -12,7 +12,6 @@ interface InputNumberProps {
   error?: boolean;
   textError?: string;
   value?: string;
-  initialValue?: number;
 }
 
 const InputNumber: React.FC<InputNumberProps> = ({
@@ -24,13 +23,9 @@ const InputNumber: React.FC<InputNumberProps> = ({
   onChange,
   error,
   textError,
-  value,
-  initialValue,
+  value: propValue,
 }) => {
   const [numero, setNumero] = useState<number | undefined>(() => {
-    if (initialValue !== undefined) {
-      return initialValue;
-    }
     if (min !== undefined) {
       return min;
     }
@@ -38,10 +33,13 @@ const InputNumber: React.FC<InputNumberProps> = ({
   });
 
   useEffect(() => {
-    if (initialValue !== undefined && onChange) {
-      onChange(initialValue.toString());
+    if (propValue !== undefined) {
+      const parsedValue = parseInt(propValue, 10);
+      if (!isNaN(parsedValue)) {
+        setNumero(parsedValue);
+      }
     }
-  }, [initialValue, onChange]);
+  }, [propValue]);
 
   const addNum = () => {
     setNumero((prevNumero) => {
@@ -72,21 +70,32 @@ const InputNumber: React.FC<InputNumberProps> = ({
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newNum = parseInt(event.target.value, 10);
-    if (!isNaN(newNum)) {
-      if (max !== undefined && newNum > max) {
-        setNumero(max);
-      } else if (min !== undefined && newNum < min) {
-        setNumero(min);
+    const inputValue = event.target.value;
+    let newNum: number | undefined;
+  
+    if (inputValue === "") {
+      // Se o input estiver vazio, defina como undefined
+      newNum = undefined;
+    } else {
+      newNum = parseInt(inputValue, 10);
+      if (!isNaN(newNum)) {
+        if (max !== undefined && newNum > max) {
+          newNum = max;
+        } else if (min !== undefined && newNum < min) {
+          newNum = min;
+        }
       } else {
-        setNumero(newNum);
-      }
-
-      if (onChange) {
-        onChange(newNum.toString());
+        newNum = min !== undefined ? min : undefined;
       }
     }
+  
+    setNumero(newNum);
+  
+    if (onChange) {
+      onChange(newNum !== undefined ? newNum.toString() : "");
+    }
   };
+  
 
   return (
     <div className="input-number-root">
@@ -100,7 +109,7 @@ const InputNumber: React.FC<InputNumberProps> = ({
           type="number"
           placeholder={placeholder}
           onChange={handleInputChange}
-          value={numero !== undefined ? numero : value}
+          value={numero !== undefined ? numero : ""}
           max={max}
           min={min}
           disabled={disabled}

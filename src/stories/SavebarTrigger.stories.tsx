@@ -60,7 +60,7 @@ const Template: Story<DefaultProps> = (args) => {
   const [formValues, setFormValues] = useState<FormValuesType>({
     Input: "",
     "Input Select": "Option 1",
-    "Input Number": "0",
+    "Input Number": '0',
     ImageUploader: null,
     FileUploader: null,
     Checkbox: false,
