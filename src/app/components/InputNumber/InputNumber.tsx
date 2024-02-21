@@ -72,7 +72,7 @@ const InputNumber: React.FC<InputNumberProps> = ({
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     let newNum: number | undefined;
-  
+
     if (inputValue === "") {
       // Se o input estiver vazio, defina como undefined
       newNum = undefined;
@@ -88,14 +88,13 @@ const InputNumber: React.FC<InputNumberProps> = ({
         newNum = min !== undefined ? min : undefined;
       }
     }
-  
+
     setNumero(newNum);
-  
+
     if (onChange) {
       onChange(newNum !== undefined ? newNum.toString() : "");
     }
   };
-  
 
   return (
     <div className="input-number-root">

@@ -19,11 +19,11 @@
       border-radius: var(--s-border-radius-small);
       border: var(--s-border-width-hairline) solid var(--s-color-border-default);
       padding-left: var(--s-spacing-xx-small);
-        background-color: var(--s-color-fill-default);
+      background-color: var(--s-color-fill-default);
 
-    &:hover {
+      &:hover {
         background-color: var(--s-color-fill-default-hover);
-    }
+      }
       &:focus {
         outline: none;
       }
@@ -41,7 +41,7 @@
       }
     }
     .color-preview {
-        min-width: 40px;
+      min-width: 40px;
       cursor: pointer;
       height: 40px;
       width: 40px;

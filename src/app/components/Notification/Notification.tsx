@@ -44,7 +44,7 @@ const Notification: React.FC<NotificationProps> = ({
             dismissible && "dismissible"
           } ${isOpen ? "open" : ""}`}
         >
-          <div className={`notification-icon-${variant}`}>
+          <div className={`notification-icon ${variant}`}>
             <Icon icon={icon} size="md" />
           </div>
           <div className="notification-content">

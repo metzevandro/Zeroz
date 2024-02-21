@@ -38,7 +38,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   const handleApplyColor = () => {
     setTempColor(selectedColor);
     setOpenColorPicker(false);
-    onChange(selectedColor)
+    onChange(selectedColor);
   };
 
   const toggleColorPicker = () => {

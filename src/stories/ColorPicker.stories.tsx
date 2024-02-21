@@ -24,10 +24,9 @@ export const Default: Story = {
 };
 
 export const Disable: Story = {
-    args: {
-      label: "Label",
-      value: "#FFFFFF",
-      disabled: true,
-    },
-  };
-  
+  args: {
+    label: "Label",
+    value: "#FFFFFF",
+    disabled: true,
+  },
+};
