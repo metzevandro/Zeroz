@@ -10,7 +10,7 @@ export {
 export { default as Button } from "./components/Button/Button";
 export { default as ButtonGroup } from "./components/ButtonGroup/ButtonGroup";
 export { default as ButtonIcon } from "./components/ButtonIcon/ButtonIcon";
-export { default as Card } from "./components/Card/Card";
+export { default as Card, CardContent, CardHeader, CardFooter, CardImage } from "./components/Card/Card";
 export { default as CardDropdown } from "./components/CardDropdown/CardDropdown";
 export { default as DataPicker } from "./components/DataPicker/DataPicker";
 export { default as DataTable } from "./components/DataTable/DataTable";
