@@ -1,9 +1,9 @@
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
 import "./Button.scss";
 import Icon from "../Icon/Icon";
 
-interface ButtonProps {
-  disable?: boolean;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  disabled?: boolean; 
   label?: string;
   size: "sm" | "md";
   variant: "primary" | "secondary" | "success" | "warning";
@@ -12,7 +12,7 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({
-  disable,
+  disabled,
   label,
   variant,
   typeIcon,
@@ -25,7 +25,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <>
       {label && (
-        <button {...rest} className={buttonClass} onClick={onClick} disabled={disable}>
+        <button {...rest} className={buttonClass} onClick={onClick} disabled={disabled}>
           {typeIcon && <Icon icon={typeIcon} size="sm" />}
           {label}
         </button>
