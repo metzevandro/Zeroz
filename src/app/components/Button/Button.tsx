@@ -18,13 +18,14 @@ const Button: React.FC<ButtonProps> = ({
   typeIcon,
   onClick,
   size,
+  ...rest
 }) => {
   const buttonClass = `button ${variant} ${size}`;
 
   return (
     <>
       {label && (
-        <button className={buttonClass} onClick={onClick} disabled={disable}>
+        <button {...rest} className={buttonClass} onClick={onClick} disabled={disable}>
           {typeIcon && <Icon icon={typeIcon} size="sm" />}
           {label}
         </button>
