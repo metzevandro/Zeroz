@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, Story } from "@storybook/react";
+
 import AppShell from "../app/components/AppShell/AppShell";
 import Sidebar, {
   SidebarList,

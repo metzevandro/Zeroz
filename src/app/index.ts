@@ -1,5 +1,9 @@
 export { default as AppShell } from "./components/AppShell/AppShell";
-export { default as Aside } from "./components/Aside/Aside";
+export {
+  default as Aside,
+  AsideContent,
+  AsideFooter,
+} from "./components/Aside/Aside";
 export { default as Avatar } from "./components/Avatar/Avatar";
 export { default as Badge } from "./components/Badge/Badge";
 export { default as Brand } from "./components/Brand/Brand";
@@ -10,8 +14,15 @@ export {
 export { default as Button } from "./components/Button/Button";
 export { default as ButtonGroup } from "./components/ButtonGroup/ButtonGroup";
 export { default as ButtonIcon } from "./components/ButtonIcon/ButtonIcon";
-export { default as Card, CardContent, CardHeader, CardFooter, CardImage } from "./components/Card/Card";
+export {
+  default as Card,
+  CardContent,
+  CardHeader,
+  CardFooter,
+  CardImage,
+} from "./components/Card/Card";
 export { default as CardDropdown } from "./components/CardDropdown/CardDropdown";
+export { default as ColorPicker } from "./components/ColorPicker/ColorPicker";
 export { default as DataPicker } from "./components/DataPicker/DataPicker";
 export { default as DataTable } from "./components/DataTable/DataTable";
 export { default as DescriptionList } from "./components/DescriptionList/DescriptionList";
@@ -37,7 +48,11 @@ export { default as InputTime } from "./components/InputTime/InputTime";
 export { default as Layout } from "./components/Layout/Layout";
 export { default as Link } from "./components/Link/Link";
 export { default as Loading } from "./components/Loading/Loading";
-export { default as Modal } from "./components/Modal/Modal";
+export {
+  default as Modal,
+  ContentModal,
+  FooterModal,
+} from "./components/Modal/Modal";
 export { default as Notification } from "./components/Notification/Notification";
 export { default as Page } from "./components/Page/Page";
 export { default as Pagination } from "./components/Pagination/Pagination";

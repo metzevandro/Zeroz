@@ -3,7 +3,7 @@ import "./Button.scss";
 import Icon from "../Icon/Icon";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  disabled?: boolean; 
+  disabled?: boolean;
   label?: string;
   size: "sm" | "md";
   variant: "primary" | "secondary" | "success" | "warning";
@@ -25,7 +25,12 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <>
       {label && (
-        <button {...rest} className={buttonClass} onClick={onClick} disabled={disabled}>
+        <button
+          {...rest}
+          className={buttonClass}
+          onClick={onClick}
+          disabled={disabled}
+        >
           {typeIcon && <Icon icon={typeIcon} size="sm" />}
           {label}
         </button>
