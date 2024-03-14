@@ -7,7 +7,7 @@ interface AsideProps {
   description?: string;
   footer?: React.ReactNode;
   content?: React.ReactNode;
-  toggleSidebar: () => void;
+  toggleAside: () => void;
   isOpen: boolean;
 }
 
@@ -15,7 +15,7 @@ const Aside: React.FC<AsideProps> = ({
   title,
   isOpen,
   description,
-  toggleSidebar,
+  toggleAside,
   footer,
   content,
 }) => {
@@ -23,7 +23,7 @@ const Aside: React.FC<AsideProps> = ({
     <>
       <div
         className={`aside-overlay ${isOpen ? "open" : "hidden"}`}
-        onClick={toggleSidebar}
+        onClick={toggleAside}
       />
       <div className={`aside-root ${isOpen ? "open" : ""}`}>
         <div className="aside">
@@ -35,7 +35,7 @@ const Aside: React.FC<AsideProps> = ({
                 variant="primary"
                 typeIcon="close"
                 size="md"
-                onClick={toggleSidebar}
+                onClick={toggleAside}
               />
             </div>
             <div className="aside-description">{description}</div>

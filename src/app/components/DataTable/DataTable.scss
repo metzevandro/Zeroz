@@ -152,6 +152,7 @@
         transition: 0.2s background ease-in;
 
         .icon {
+          display: flex;
           opacity: 0;
           transition: 0.2s opacity ease-in;
         }

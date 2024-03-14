@@ -3,6 +3,7 @@ import { SchemeMode, scheme } from "./decorators/scheme-mode";
 import { brand, BrandMode } from './decorators/brand-mode';
 
 const preview: Preview = {
+  
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {

@@ -27,6 +27,7 @@
 
       .checked,
       .unchecked {
+        display: flex;
         color: var(--s-color-content-disable);
       }
 

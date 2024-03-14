@@ -1,0 +1,80 @@
+import { Meta, Controls, Canvas, Story } from "@storybook/blocks";
+
+import * as Aside from "./Aside.stories.tsx";
+
+<Meta of={Aside} />
+
+# Aside
+
+[Código Fonte](https://github.com/metzevandro/Zeroz/blob/master/src/app/components/Aside/Aside.tsx)
+&nbsp;|&nbsp;
+[Figma](https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=435-10008&mode=design&t=944jf8qwfPHcxTZT-0)
+
+## Índice
+
+- [Visão Geral](#visão-geral)
+- [Como usar](#como-usar)
+- [Feedback](#feedback)
+
+## Visão Geral
+
+O componente `Aside` é utilizado para criar uma barra lateral que pode ser aberta ou fechada. É útil para mostrar conteúdo adicional ou opções de navegação em uma aplicação.
+
+<Canvas className="aside-story">
+  <Story name="primary" of={Aside} />
+</Canvas>
+<Controls />
+
+## Como usar
+
+```tsx
+const Template = () => {
+  const [isOpenAside, setIsOpenAside] = useState(false);
+
+  const toggleAside = () => {
+    setIsOpenAside(!isOpenAside);
+  };
+
+  return (
+    <>
+      <div style={{ width: "min-content" }}>
+        <Button
+          size="md"
+          variant="primary"
+          label="Click here!"
+          onClick={toggleAside}
+        />
+      </div>
+      <Aside
+        isOpen={isOpenAside}
+        toggleAside={toggleAside}
+        title={args.title}
+        description={args.description}
+        content={
+          <AsideContent>
+            <div className="slot">
+              <Icon icon="refresh" size="md" />
+              Slot Content
+            </div>
+          </AsideContent>
+        }
+        footer={
+          <AsideFooter>
+            <div style={{ width: "min-content" }}>
+              <ButtonGroup
+                direction="row"
+                variantFirstButton="primary"
+                variantSecondButton="secondary"
+                contentFirstButton="Button"
+                contentSecondButton="Button"
+              />
+            </div>
+          </AsideFooter>
+        }
+      />
+    </>
+  );
+};
+
+export default Template;
+```

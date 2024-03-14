@@ -1,5 +1,5 @@
 .aside-overlay {
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   position: fixed;
   top: 0;
@@ -38,8 +38,10 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    background-color: var(--s-color-fill-default);
 
     .aside-header {
+      background-color: var(--s-color-fill-default);
       display: flex;
       flex-direction: column;
       padding: var(--s-spacing-medium);
@@ -63,7 +65,7 @@
     .aside-children {
       flex-grow: 1;
       max-height: 100%;
-      overflow: scroll;
+      overflow: auto;
       display: flex;
       flex-direction: column;
       justify-content: space-between;

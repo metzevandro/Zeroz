@@ -654,7 +654,7 @@ const DataTable: React.FC<DataTableProps> = ({
         <Aside
           isOpen={isOpenAside}
           title={asideTitle}
-          toggleSidebar={toggleAside}
+          toggleAside={toggleAside}
           content={
             <AsideContent>
               {filteredData.length > 0 ? (
