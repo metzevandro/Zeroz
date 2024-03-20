@@ -26,6 +26,8 @@
       cursor: pointer;
       border-bottom: var(--s-border-width-thin) var(--s-color-border-default)
         solid;
+        border-radius: var(--s-border-radius-small) var(--s-border-radius-small) 0
+        0;
     }
 
     .tab-item:hover {
@@ -40,8 +42,7 @@
       outline-color: var(--s-color-border-highlight);
       outline-offset: -2px;
       outline-style: solid;
-      border-radius: var(--s-border-radius-small) var(--s-border-radius-small) 0
-        0;
+
     }
 
     .tab-item-active {
