@@ -2,15 +2,15 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Button from "./Button";
 import Story from "@storybook/react";
 import "../../styles.scss";
+import mdx from "./Button.mdx";
 
 const meta = {
   title: "Components/Button",
   component: Button,
   parameters: {
     layout: "centered",
+    page: mdx,
   },
-  tags: ["autodocs"],
-  argTypes: {},
 } as Meta<typeof Button>;
 
 export default meta;
@@ -20,7 +20,7 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     size: "md",
-    disable: false,
+    disabled: false,
     label: "Button",
     typeIcon: "",
     variant: "primary",
@@ -30,7 +30,7 @@ export const Primary: Story = {
 export const secondary: Story = {
   args: {
     size: "md",
-    disable: false,
+    disabled: false,
     label: "Button",
     typeIcon: "",
     variant: "secondary",
@@ -40,7 +40,7 @@ export const secondary: Story = {
 export const success: Story = {
   args: {
     size: "md",
-    disable: false,
+    disabled: false,
     label: "Button",
     typeIcon: "",
     variant: "success",
@@ -50,7 +50,7 @@ export const success: Story = {
 export const warning: Story = {
   args: {
     size: "md",
-    disable: false,
+    disabled: false,
     label: "Button",
     typeIcon: "",
     variant: "warning",
@@ -60,7 +60,7 @@ export const warning: Story = {
 export const with_Icon: Story = {
   args: {
     size: "md",
-    disable: false,
+    disabled: false,
     label: "Button",
     typeIcon: "ac_unit",
     variant: "primary",
@@ -70,7 +70,7 @@ export const with_Icon: Story = {
 export const disable: Story = {
   args: {
     size: "md",
-    disable: true,
+    disabled: true,
     label: "Button",
     typeIcon: "ac_unit",
     variant: "primary",

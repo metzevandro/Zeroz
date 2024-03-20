@@ -2,14 +2,17 @@ import type { Meta, StoryFn } from "@storybook/react";
 import Avatar from "./Avatar";
 import React from "react";
 import "../../styles.scss";
+import mdx from "./Avatar.mdx";
 
 const meta: Meta = {
   title: "Components/Avatar",
   component: Avatar,
   parameters: {
     layout: "centered",
+    docs: {
+      page: mdx,
+    },
   },
-  tags: ["autodocs"],
 };
 
 export default meta;
@@ -20,16 +23,17 @@ type Args = {
 };
 
 const Template: StoryFn<Args> = (args) => {
-  return <Avatar size={args.size} />;
+  return <Avatar size={args.size} src={args.src} />;
 };
 
 export const Default = Template.bind({});
 Default.args = {
   size: "md",
+  src: "",
 };
 
 export const withImage = Template.bind({});
 withImage.args = {
   size: "md",
-  src: "https://placehold.co/40x40",
+  src: "https://picsum.photos/100",
 };

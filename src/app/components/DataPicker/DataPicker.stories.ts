@@ -34,4 +34,3 @@ export const Disable: Story = {
     onDateChange: (date: Date) => console.log(date), // Example function, adjust as needed
   },
 };
-

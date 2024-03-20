@@ -1,0 +1,46 @@
+import { Meta, Controls, Canvas, Story } from "@storybook/blocks";
+import * as Button from "./Button.stories";
+
+<Meta of={Button} />
+
+# Button
+
+## Índice
+
+- [Visão Geral](#visão-geral)
+- [Como usar](#como-usar)
+
+## Visão Geral
+
+O componente `Button` é usado ​​para inicializar uma ação. Tem diferentes tamanhos podendo ser `sm` e `md`, diferentes variações podendo ser `primary`, `secondary`, `success` e `warning`. Além de poder ter a possibilidade de desabilitar o `button` e/ou adicionar um `icon`.
+
+<Canvas additionalActions={[
+    {
+      title: 'Open in Figma', 
+      onClick: () => {
+        window.open(
+          'https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=435-10010&mode=design&t=d8O17CBgGczfh4j5-0',
+          '_blank'
+        );
+      },
+    },
+    {
+      title: 'Open in GitHub',
+      onClick: () => {
+        window.open(
+          'https://github.com/metzevandro/Zeroz/blob/master/src/app/components/Button/Button.tsx',
+          '_blank'
+        );
+      },
+    }
+  ]}>
+  <Story/>
+
+</Canvas>
+<Controls />
+
+## Como usar:
+
+```tsx
+<Button variant="primary" label="Button" size="md" onClick={} />
+```

@@ -6,10 +6,6 @@ import * as Aside from "./Aside.stories.tsx";
 
 # Aside
 
-[Código Fonte](https://github.com/metzevandro/Zeroz/blob/master/src/app/components/Aside/Aside.tsx)
-&nbsp;|&nbsp;
-[Figma](https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=435-10008&mode=design&t=944jf8qwfPHcxTZT-0)
-
 ## Índice
 
 - [Visão Geral](#visão-geral)
@@ -20,7 +16,29 @@ import * as Aside from "./Aside.stories.tsx";
 
 O componente `Aside` é utilizado para criar uma barra lateral que pode ser aberta ou fechada. É útil para mostrar conteúdo adicional ou opções de navegação em uma aplicação.
 
-<Canvas className="aside-story">
+<Canvas
+  iframeHeight={600}
+  additionalActions={[
+    {
+      title: "Open in Figma",
+      onClick: () => {
+        window.open(
+          "https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=435-10008&mode=design&t=944jf8qwfPHcxTZT-0",
+          "_blank"
+        );
+      },
+    },
+    {
+      title: "Open in GitHub",
+      onClick: () => {
+        window.open(
+          "https://github.com/metzevandro/Zeroz/blob/master/src/app/components/Aside/Aside.tsx",
+          "_blank"
+        );
+      },
+    },
+  ]}
+>
   <Story name="primary" of={Aside} />
 </Canvas>
 <Controls />

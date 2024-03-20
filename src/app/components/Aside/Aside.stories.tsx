@@ -15,6 +15,9 @@ const meta: Meta = {
     layout: "fullscreen",
     docs: {
       page: mdx,
+      story: {
+        height: "500px",
+      },
     },
   },
 };

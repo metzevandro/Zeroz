@@ -8,7 +8,7 @@ import * as AppShell from "./AppShell.stories.tsx";
 
 [Código Fonte](https://github.com/metzevandro/Zeroz/blob/master/src/app/components/AppShell/AppShell.tsx)
 &nbsp;|&nbsp;
-[Figma](https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=2416-4559&mode=design&t=QggL7glqen8QWSSK-0)
+[Figma]()
 
 ## Índice
 
@@ -16,8 +16,29 @@ import * as AppShell from "./AppShell.stories.tsx";
 
 ## Visão Geral
 
-O template `AppShell` oferece uma estrutura fundamental para o seu aplicativo, incluindo uma barra lateral, cabeçalho e layout de página pré-definidos.
+O template `AppShell` oferece uma estrutura fundamental para o seu aplicativo, incluindo uma barra lateral, cabeçalho e layout de página pré-definidos. Ele foi construído utilizando display grid, garantindo uma organização flexível e responsiva em todas as telas.
 
-<Canvas>
+<Canvas
+  additionalActions={[
+    {
+      title: "Open in Figma",
+      onClick: () => {
+        window.open(
+          "https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=2416-4559&mode=design&t=QrFKvOCG3a4aXYsO-0",
+          "_blank"
+        );
+      },
+    },
+    {
+      title: "Open in GitHub",
+      onClick: () => {
+        window.open(
+          "https://github.com/metzevandro/Zeroz/blob/master/src/app/components/AppShell/AppShell.tsx",
+          "_blank"
+        );
+      },
+    },
+  ]}
+>
   <Story of={AppShell} />
 </Canvas>

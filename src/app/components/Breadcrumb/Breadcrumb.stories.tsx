@@ -1,14 +1,15 @@
 import type { Meta, StoryFn } from "@storybook/react";
 import BreadcrumbRoot, { Breadcrumb } from "./Breadcrumb";
 import "../../styles.scss";
+import mdx from "./Breadcrumb.mdx";
 
 const meta: Meta = {
   title: "Components/Breadcrumb",
   component: Breadcrumb,
   parameters: {
     layout: "centered",
+    page: mdx,
   },
-  tags: ["autodocs"],
 };
 
 export default meta;
@@ -16,13 +17,15 @@ export default meta;
 type Args = {
   pageName: string;
   initialPage: string;
+  initialHref: string;
+  href: string;
 };
 
 const Template: StoryFn<Args> = (args) => {
   return (
     <>
-      <BreadcrumbRoot pageName={args.initialPage}>
-        <Breadcrumb pageName={args.pageName}></Breadcrumb>
+      <BreadcrumbRoot href={args.initialHref} pageName={args.initialPage}>
+        <Breadcrumb href={args.href} pageName={args.pageName}></Breadcrumb>
       </BreadcrumbRoot>
     </>
   );

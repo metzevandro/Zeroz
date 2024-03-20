@@ -35,7 +35,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
       <div className={`button-group ${direction}`}>
         <Button
           size="md"
-          disable={disableFirstButton}
+          disabled={disableFirstButton}
           onClick={onClickFirstButton}
           label={contentFirstButton}
           typeIcon={typeIconFirstButton}
@@ -43,7 +43,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
         />
         <Button
           size="md"
-          disable={disableSecondButton}
+          disabled={disableSecondButton}
           onClick={onClickSecondButton}
           label={contentSecondButton}
           typeIcon={typeIconSecondButton}

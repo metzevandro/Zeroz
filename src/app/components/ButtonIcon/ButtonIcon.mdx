@@ -1,0 +1,46 @@
+import { Meta, Controls, Canvas, Story } from "@storybook/blocks";
+import * as ButtonIcon from "./ButtonIcon.stories";
+
+<Meta of={ButtonIcon} />
+
+# ButtonIcon
+
+## Índice
+
+- [Visão Geral](#visão-geral)
+- [Como usar](#como-usar)
+
+## Visão Geral
+
+O componente `ButtonIcon` é usado ​​para inicializar uma ação. Tem diferentes tamanhos podendo ser `sm` e `md`, diferentes `variants` podendo ser `primary`, `secondary`, `success` e `warning` e diferentes `types` podendo ser `plain` ou `default`. Além de poder ter a possibilidade de desabilitar o `button` e/ou adicionar um `icon`.
+
+<Canvas additionalActions={[
+    {
+      title: 'Open in Figma', 
+      onClick: () => {
+        window.open(
+          'https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=435-10012&mode=design&t=kK89265VlQhzelzF-0',
+          '_blank'
+        );
+      },
+    },
+    {
+      title: 'Open in GitHub',
+      onClick: () => {
+        window.open(
+          'https://github.com/metzevandro/Zeroz/blob/master/src/app/components/ButtonIcon/ButtonIcon.tsx',
+          '_blank'
+        );
+      },
+    }
+  ]}>
+  <Story/>
+
+</Canvas>
+<Controls />
+
+## Como usar:
+
+```tsx
+<ButtonIcon variant="primary" type="default" size="md" onClick={} />
+```

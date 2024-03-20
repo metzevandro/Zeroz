@@ -1,0 +1,46 @@
+import { Meta, Controls, Canvas, Story } from "@storybook/blocks";
+import * as AvatarStory from "./Avatar.stories";
+
+<Meta of={AvatarStory} />
+
+# Avatar
+
+## Índice
+
+- [Visão Geral](#visão-geral)
+- [Como usar](#como-usar)
+
+## Visão Geral
+
+O componente `Avatar` é utilizado para utilizar como um local de imagem do usuário. Caso não haja uma imagem, como padrão virá com um `icon="person"` dentro dele. Além disso, ele possuí três tamanhos, sendo eles: `sm`, `md` e `lg`.
+
+<Canvas additionalActions={[
+    {
+      title: 'Open in Figma', 
+      onClick: () => {
+        window.open(
+          'https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=435-9992&mode=design&t=aqNRdnXuXkA76H7O-0',
+          '_blank'
+        );
+      },
+    },
+    {
+      title: 'Open in GitHub',
+      onClick: () => {
+        window.open(
+          'https://github.com/metzevandro/Zeroz/blob/master/src/app/components/Avatar/Avatar.tsx',
+          '_blank'
+        );
+      },
+    }
+  ]}>
+  <Story name="withImage" {...AvatarStory.withImage} />
+
+</Canvas>
+<Controls />
+
+## Como usar:
+
+```tsx
+<Avatar size="md" src="https://picsum.photos/100" />
+```

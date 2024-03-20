@@ -2,17 +2,18 @@ import type { Meta, StoryObj } from "@storybook/react";
 import ButtonIcon from "./ButtonIcon";
 import Story from "@storybook/react";
 import "../../styles.scss";
+import mdx from "./ButtonIcon.mdx";
 
 const meta = {
   title: "Components/Button Icon",
   component: ButtonIcon,
   parameters: {
     layout: "centered",
+    page: mdx,
   },
   args: {
     disable: false,
   },
-  tags: ["autodocs"],
 } satisfies Meta<typeof ButtonIcon>;
 
 export default meta;
