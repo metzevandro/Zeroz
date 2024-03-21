@@ -3,17 +3,18 @@ import "../../styles.scss";
 import { Card, CardContent, CardFooter, CardHeader, CardImage } from "./Card";
 import Icon from "../Icon/Icon";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
+import mdx from "./Card.mdx";
 
 const meta: Meta = {
   title: "Components/Card",
   component: Card,
   parameters: {
     layout: "centered",
+    page: mdx,
   },
   args: {
     toggle: false,
   },
-  tags: ["autodocs"],
 };
 
 export default meta;

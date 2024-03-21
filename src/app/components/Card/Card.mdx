@@ -1,0 +1,64 @@
+import { Meta, Controls, Canvas, Story } from "@storybook/blocks";
+import * as Card from "./Card.stories";
+
+<Meta of={Card} />
+
+# Card
+
+## Índice
+
+- [Visão Geral](#visão-geral)
+- [Como usar](#como-usar)
+
+## Visão Geral
+
+O componente `Card` é usado ​​para agrupar conteúdos e tarefas semelhantes. Eles ajudam você a ler e fazer coisas. O card tem 4 componentes filhos: o `CardImage`, `CardHeader`, o `CardContent` e o `CardFooter`, que podem ou não ser usados (é aconselhado o uso).
+
+<Canvas additionalActions={[
+    {
+      title: 'Open in Figma', 
+      onClick: () => {
+        window.open(
+          'https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=435-10014&mode=design&t=HveeJ0emyZvlNEZy-0',
+          '_blank'
+        );
+      },
+    },
+    {
+      title: 'Open in GitHub',
+      onClick: () => {
+        window.open(
+          'https://github.com/metzevandro/Zeroz/blob/master/src/app/components/Card/Card.tsx',
+          '_blank'
+        );
+      },
+    }
+  ]}>
+  <Story/>
+
+</Canvas>
+
+## Como usar:
+
+```tsx
+<Card>
+  <CardHeader title="Card Title" description="Card Description" />
+  <CardContent>
+    <div className="slot">
+      <Icon icon="refresh" size="md" />
+      Slot Content
+    </div>
+  </CardContent>
+  <CardFooter>
+    <div style={{ width: "min-content" }}>
+      <ButtonGroup
+        direction="row"
+        variantFirstButton="primary"
+        variantSecondButton="secondary"
+        contentFirstButton="Button"
+        contentSecondButton="Button"
+      />
+    </div>
+  </CardFooter>
+</Card>
+```
