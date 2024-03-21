@@ -22,8 +22,8 @@ const CardDropdown: React.FC<CardDropdownProps> = ({
 
   return (
     <>
-      <div className="card-dropdown" onClick={toggleDropDown}>
-        <div className="card-dropdown-header">
+      <div className="card-dropdown">
+        <div className="card-dropdown-header" onClick={toggleDropDown}>
           <div className="card-dropdown-title">
             <div>{title}</div>
             <div

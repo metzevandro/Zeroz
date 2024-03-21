@@ -4,19 +4,19 @@ import CardDropdown from "./CardDropdown";
 import Icon from "../Icon/Icon";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import "../../styles.scss";
+import mdx from "./CardDropdown.mdx";
 
 const meta = {
   title: "Components/Card Dropdown",
   component: CardDropdown,
   parameters: {
     layout: "padded",
+    page: mdx,
   },
   args: {
     title: "Card dropdown title",
     description: "Card dropdown description",
   },
-  tags: ["autodocs"],
-  argTypes: {},
 } as Meta<typeof CardDropdown>;
 
 export default meta;

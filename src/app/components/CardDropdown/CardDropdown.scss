@@ -1,5 +1,4 @@
 .card-dropdown {
-  cursor: pointer;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -8,6 +7,7 @@
   background-color: var(--s-color-fill-default);
 
   .card-dropdown-header {
+    cursor: pointer;
     padding: var(--s-spacing-medium);
     display: flex;
     flex-direction: column;
@@ -31,14 +31,18 @@
       height: min-content;
     }
 
-    .card-dropdown-button.open {
-      transform: rotate(-180deg);
-      transition: transform 0.3s linear;
-    }
+    .card-dropdown-button {
+      display: flex;
 
-    .card-dropdown-button.close {
-      transform: rotate(0deg);
-      transition: transform 0.3s linear;
+      &.open {
+        transform: rotate(-180deg);
+        transition: transform 0.3s linear;
+      }
+
+      &.close {
+        transform: rotate(0deg);
+        transition: transform 0.3s linear;
+      }
     }
   }
   .card-dropdown-content {
