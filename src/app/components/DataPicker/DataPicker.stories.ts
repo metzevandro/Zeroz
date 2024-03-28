@@ -2,12 +2,15 @@ import type { Meta, StoryObj } from "@storybook/react";
 import "../../styles.scss";
 import DataPicker from "./DataPicker";
 import Story from "@storybook/react";
-
+import mdx from "./DataPicker.mdx";
 const meta = {
   title: "Components/Data Picker",
   component: DataPicker,
   parameters: {
     layout: "padded",
+    docs: {
+      page: mdx,
+    },
   },
   argTypes: {},
 } satisfies Meta<typeof DataPicker>;

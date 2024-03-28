@@ -2,13 +2,15 @@ import type { Meta, StoryObj } from "@storybook/react";
 import ColorPicker from "./ColorPicker";
 import Story from "@storybook/react";
 import "../../styles.scss";
+import mdx from "./ColorPicker.mdx";
 
 const meta = {
   title: "Components/Color Picker",
   component: ColorPicker,
-
-  tags: ["autodocs"],
-  argTypes: {},
+  parameters: {
+    layout: "padded",
+    page: mdx,
+  },
 } as Meta<typeof ColorPicker>;
 
 export default meta;

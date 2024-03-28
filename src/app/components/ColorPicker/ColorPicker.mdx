@@ -1,0 +1,45 @@
+import { Meta, Controls, Canvas, Story } from "@storybook/blocks";
+import * as ColorPicker from "./ColorPicker.stories";
+
+<Meta of={ColorPicker} />
+
+# ColorPicker
+
+## Índice
+
+- [Visão Geral](#visão-geral)
+- [Como usar](#como-usar)
+
+## Visão Geral
+
+O componente `ColorPicker` é usado para definir e selecionar uma cor.
+
+<Canvas additionalActions={[
+    {
+      title: 'Open in Figma', 
+      onClick: () => {
+        window.open(
+          'https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=1411-17168&mode=design&t=kHTorrGnDdjbQR3B-0',
+          '_blank'
+        );
+      },
+    },
+    {
+      title: 'Open in GitHub',
+      onClick: () => {
+        window.open(
+          'https://github.com/metzevandro/Zeroz/blob/master/src/app/components/ColorPicker/ColorPicker.tsx',
+          '_blank'
+        );
+      },
+    }
+  ]}>
+  <Story/>
+
+</Canvas>
+
+## Como usar:
+
+```tsx
+<ColorPicker label="Label" onChange={() => {}} value="#FFFFFF" />
+```
