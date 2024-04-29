@@ -54,10 +54,6 @@ const Slider: React.FC<SliderProps> = ({
     }
   };
 
-  const handleSliderClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    handleDragStart(e);
-  };
-
   const handleDragStart = (
     e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
   ) => {
@@ -66,8 +62,21 @@ const Slider: React.FC<SliderProps> = ({
     window.addEventListener("touchmove", handleDragMove);
     window.addEventListener("mouseup", handleDragEnd);
     window.addEventListener("touchend", handleDragEnd);
+  
+    if (e instanceof MouseEvent) {
+      const { clientX, clientY } = e;
+      handleDragMove({ clientX, clientY } as MouseEvent);
+    } else if (e instanceof TouchEvent) {
+      const { touches } = e;
+      if (touches.length > 0) {
+        const { clientX, clientY } = touches[0];
+        handleDragMove({ clientX, clientY } as MouseEvent);
+      }
+    }
+  };
 
-    handleDragMove(e.nativeEvent);
+  const handleSliderClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    handleDragStart(e);
   };
 
   const handleDragMove = (e: MouseEvent | TouchEvent) => {
@@ -127,7 +136,6 @@ const Slider: React.FC<SliderProps> = ({
             id="slider-background"
             className="slider-background"
             onMouseDown={(e) => handleSliderClick(e)}
-            onTouchStart={(e) => handleSliderClick(e)}
           >
             <div
               className="slider-progress-bar"

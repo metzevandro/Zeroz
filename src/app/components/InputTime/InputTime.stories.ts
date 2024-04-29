@@ -17,6 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    onChange(value) {},
     label: "Label",
     placeholder: "Placeholder",
     error: false,
@@ -27,6 +28,7 @@ export const Default: Story = {
 
 export const Error: Story = {
   args: {
+    onChange(value) {},
     label: "Label",
     placeholder: "Placeholder",
     error: true,
@@ -37,6 +39,7 @@ export const Error: Story = {
 
 export const Disable: Story = {
   args: {
+    onChange(value) {},
     label: "Label",
     placeholder: "Placeholder",
     disabled: true,

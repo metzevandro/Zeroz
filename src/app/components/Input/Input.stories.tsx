@@ -28,7 +28,7 @@ type Args = {
 const Template: StoryFn<Args> = (args) => {
   const [inputValue, setInputValue] = useState("");
 
-  const handleInputChange = (event: ChangeEvent) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 

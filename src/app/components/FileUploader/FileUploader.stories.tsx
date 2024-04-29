@@ -23,8 +23,9 @@ export const Default: Story = {
     title: "Upload files",
     description: "Max file size is 1mb.",
     multiple: false,
-    disable: false,
+    disabled: false,
     maxFileSize: 1,
+    onChange: (files: FileList | null) => {},
   },
 };
 
@@ -35,7 +36,8 @@ export const Disable: Story = {
     title: "Upload files",
     description: "Max file size is 1mb.",
     multiple: false,
-    disable: true,
+    disabled: true,
     maxFileSize: 1,
+    onChange: (files: FileList | null) => {},
   },
 };

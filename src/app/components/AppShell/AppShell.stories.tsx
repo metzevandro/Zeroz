@@ -51,8 +51,8 @@ const Template: StoryFn<DefaultProps> = (args) => {
         <Header
           breadcrumb={
             <>
-              <BreadcrumbRoot pageName="Breadcrumb">
-                <Breadcrumb pageName="Breadcrumb" />
+              <BreadcrumbRoot href="" pageName="Breadcrumb">
+                <Breadcrumb href="" pageName="Breadcrumb" />
               </BreadcrumbRoot>
             </>
           }

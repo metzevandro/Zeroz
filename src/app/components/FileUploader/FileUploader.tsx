@@ -9,12 +9,12 @@ interface FileUploaderProps {
   title: string;
   description?: string;
   multiple?: boolean;
-  disabled?: boolean;
+  disabled?: boolean | undefined;
   maxFileSize?: number;
   buttonLabel: string;
   typeIconButton: string;
   onChange: (files: FileList | null) => void;
-  value?: FileList | null; // Alteração aqui: Adiciona value como propriedade opcional
+  value?: FileList | null;
 }
 
 export interface UploadedFile {
@@ -193,7 +193,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
             />
             <Button
               variant="primary"
-              disable={disabled}
+              disabled={disabled}
               onClick={handleButtonClick}
               label={buttonLabel}
               typeIcon={typeIconButton}

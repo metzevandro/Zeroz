@@ -68,7 +68,7 @@ const Notification: React.FC<NotificationProps> = ({
                 <Button
                   size="md"
                   variant="secondary"
-                  disable={disableButton}
+                  disabled={disableButton}
                   label={buttonLabel}
                   onClick={onClickButton}
                 />

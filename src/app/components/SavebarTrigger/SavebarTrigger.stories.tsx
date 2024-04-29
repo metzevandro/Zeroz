@@ -38,6 +38,13 @@ export default meta;
 
 type DefaultProps = {};
 
+type FormValuesFile = {
+  [key: string] :
+  | FileList
+    | null
+    | undefined;
+}
+
 type FormValuesType = {
   [key: string]:
     | string
@@ -52,12 +59,15 @@ type FormValuesType = {
 const Template: StoryFn<DefaultProps> = (args) => {
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
 
+  const [formValuesFile, setFormValuesFile] = useState<FormValuesFile>({
+    ImageUploader: null,
+    FileUploader: null,
+  })
+
   const [formValues, setFormValues] = useState<FormValuesType>({
     Input: "",
     "Input Select": "Option 1",
     "Input Number": "0",
-    ImageUploader: null,
-    FileUploader: null,
     Checkbox: false,
     Switch: false,
     "Radio Button": false,
@@ -94,7 +104,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
     } else {
       setFormValues({
         ...formValues,
-        [name]: null,
+        [name]: null, 
       });
     }
   };
@@ -134,7 +144,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
   const handleCheckboxChange = (checked: boolean) => {
     setFormValues({
       ...formValues,
-      Checkbox: checked,
+      Checkbox: !!checked, // Convert checked to boolean
     });
   };
 
@@ -195,8 +205,8 @@ const Template: StoryFn<DefaultProps> = (args) => {
         <Header
           breadcrumb={
             <>
-              <BreadcrumbRoot pageName="Breadcrumb">
-                <Breadcrumb pageName="Breadcrumb" />
+              <BreadcrumbRoot href="" pageName="Breadcrumb">
+                <Breadcrumb href="" pageName="Breadcrumb" />
               </BreadcrumbRoot>
             </>
           }
@@ -286,18 +296,30 @@ const Template: StoryFn<DefaultProps> = (args) => {
               <InputCheckbox
                 label="Checkbox"
                 onChange={(checked) => handleCheckboxChange(checked)}
-                checked={formValues["Checkbox"]}
+                checked={
+                  typeof formValues["Checkbox"] === "boolean"
+                    ? formValues["Checkbox"]
+                    : false
+                }
               />
 
               <InputRadioButton
                 label="Radio Button"
                 onChange={(checked) => handleRadioChange(checked)}
-                checked={formValues["Radio Button"]}
+                checked={
+                  typeof formValues["Radio Button"] === "boolean"
+                    ? formValues["Radio Button"]
+                    : false
+                }
               />
               <Switch
                 label="Switch"
                 onChange={(checked) => handleSwitchChange(checked)}
-                checked={formValues["Switch"]}
+                checked={
+                  typeof formValues["Switch"] === "boolean"
+                    ? formValues["Switch"]
+                    : false
+                }
               />
               <FileUploader
                 buttonLabel="Add File"
@@ -305,7 +327,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
                 typeIconButton="upload_file"
                 maxFileSize={10}
                 multiple={true}
-                value={formValues["FileUploader"]}
+                value={formValuesFile["FileUploader"]}
                 onChange={(files: FileList | null) =>
                   handleFileChange("FileUploader", files)
                 }
@@ -316,7 +338,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
                 labelDropzone={"Drop your images here"}
                 iconDropzone={"add_a_photo"}
                 multiple={true}
-                value={formValues["ImageUploader"]}
+                value={formValuesFile["ImageUploader"]}
                 onChange={(files: FileList | null) =>
                   handleFileChange("ImageUploader", files)
                 }
