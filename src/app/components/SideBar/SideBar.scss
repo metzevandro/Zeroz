@@ -102,6 +102,8 @@
       background-color: var(--s-color-fill-default);
 
       div:first-child {
+        display: flex;
+        align-items: center;
         transition: 0.2s opacity ease-in;
         opacity: 0;
       }
@@ -134,11 +136,15 @@
     }
 
     .Sidebar-item-with-action-open {
+      display: flex;
+      align-items: center;
       transform: rotate(-180deg);
       transition: 0.3s ease-out;
     }
 
     .Sidebar-item-with-action-close {
+      display: flex;
+      align-items: center;
       transition: 0.3s ease-out;
     }
   }
