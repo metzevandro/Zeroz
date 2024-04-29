@@ -1,7 +1,6 @@
 import React from "react";
 import Icon from "../Icon/Icon";
 import "./ProgressIndicator.scss";
-import { widthFull } from "../Tab/Tab.stories";
 
 interface ProgressIndicatorProps {
   step: string;

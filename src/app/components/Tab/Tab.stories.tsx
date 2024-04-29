@@ -1,4 +1,5 @@
-import type { Meta, StoryFn } from "@storybook/react";
+import React from "react";
+import { Meta, StoryFn } from "@storybook/react";
 import Tabs, { TabsProps } from "./Tab";
 import Icon from "../Icon/Icon";
 import "../../styles.scss";
@@ -7,10 +8,12 @@ export default {
   title: "Components/Tab",
   component: Tabs,
   argTypes: {},
-  tags: ["autodocs"],
+  parameters: {
+    tags: ["autodocs"],
+  },
 } as Meta;
 
-const Template: StoryFn<TabsProps> = (args) => <Tabs {...args} />;
+const Template: StoryFn<TabsProps> = (args: TabsProps) => <Tabs {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -37,8 +40,8 @@ Default.args = {
   ],
 };
 
-export const widthFull = Template.bind({});
-widthFull.args = {
+export const WidthFull = Template.bind({});
+WidthFull.args = {
   widthFull: true,
   tabs: [
     {
