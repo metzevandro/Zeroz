@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Tabs, { TabsProps } from "./Tab";
 import Icon from "../Icon/Icon";
 import "../../styles.scss";

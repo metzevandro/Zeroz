@@ -1,4 +1,3 @@
-import { DropdownMenu } from "@/app";
 import Icon from "../Icon/Icon";
 import "./DropdownMenu.scss";
 
