@@ -62,7 +62,7 @@ const Slider: React.FC<SliderProps> = ({
     window.addEventListener("touchmove", handleDragMove);
     window.addEventListener("mouseup", handleDragEnd);
     window.addEventListener("touchend", handleDragEnd);
-  
+
     if (e instanceof MouseEvent) {
       const { clientX, clientY } = e;
       handleDragMove({ clientX, clientY } as MouseEvent);

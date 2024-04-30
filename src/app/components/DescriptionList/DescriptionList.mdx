@@ -1,0 +1,45 @@
+import { Meta, Controls, Canvas, Story } from "@storybook/blocks";
+import * as DescriptionList from "./DescriptionList.stories";
+
+<Meta of={DescriptionList} />
+
+# Description List
+
+## Índice
+
+- [Visão Geral](#visão-geral)
+- [Como usar](#como-usar)
+
+## Visão Geral
+
+O componente `DescriptionList` ajuda a organizar e explicar informações relacionadas, perfeitas para listar e definir termos.
+
+<Canvas additionalActions={[
+    {
+      title: 'Open in Figma', 
+      onClick: () => {
+        window.open(
+          'https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=1641-12874&mode=design&t=NEHn9Sk29i52RYc4-0',
+          '_blank'
+        );
+      },
+    },
+    {
+      title: 'Open in GitHub',
+      onClick: () => {
+        window.open(
+          'https://github.com/metzevandro/Zeroz/blob/master/src/app/components/DescriptionList/DescriptionList.tsx',
+          '_blank'
+        );
+      },
+    }
+  ]}>
+  <Story/>
+
+</Canvas>
+
+## Como usar:
+
+```tsx
+<DescriptionList direction="row" title="title" description="description" />
+```

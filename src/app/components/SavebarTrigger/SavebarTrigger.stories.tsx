@@ -39,11 +39,8 @@ export default meta;
 type DefaultProps = {};
 
 type FormValuesFile = {
-  [key: string] :
-  | FileList
-    | null
-    | undefined;
-}
+  [key: string]: FileList | null | undefined;
+};
 
 type FormValuesType = {
   [key: string]:
@@ -62,7 +59,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
   const [formValuesFile, setFormValuesFile] = useState<FormValuesFile>({
     ImageUploader: null,
     FileUploader: null,
-  })
+  });
 
   const [formValues, setFormValues] = useState<FormValuesType>({
     Input: "",
@@ -104,7 +101,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
     } else {
       setFormValues({
         ...formValues,
-        [name]: null, 
+        [name]: null,
       });
     }
   };

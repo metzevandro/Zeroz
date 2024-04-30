@@ -1,15 +1,15 @@
 import DescriptionList from "./DescriptionList";
 import type { Meta, StoryFn } from "@storybook/react";
 import "../../styles.scss";
+import mdx from "./DescriptionList.mdx";
 
 const meta = {
   title: "Components/Description List",
   component: DescriptionList,
   parameters: {
     layout: "padded",
+    page: mdx,
   },
-  tags: ["autodocs"],
-  argTypes: {},
 } satisfies Meta<typeof DescriptionList>;
 
 export default meta;

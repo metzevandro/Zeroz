@@ -3,13 +3,15 @@ import type { Meta, StoryFn } from "@storybook/react";
 import DataTable from "./DataTable";
 import "../../styles.scss";
 
+import mdx from "./DataTable.mdx";
+
 const meta: Meta = {
   title: "Components/Data Table",
   component: DataTable,
   parameters: {
     layout: "padded",
+    page: mdx,
   },
-  tags: ["autodocs"],
 };
 
 export default meta;
