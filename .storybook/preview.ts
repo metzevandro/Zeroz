@@ -1,30 +1,24 @@
-import { Preview } from '@storybook/react';
+import { Preview } from "@storybook/react";
 import { SchemeMode, scheme } from "./decorators/scheme-mode";
-import { brand, BrandMode } from './decorators/brand-mode';
+import { brand, BrandMode } from "./decorators/brand-mode";
 
 const preview: Preview = {
-  
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
-        date: /Date$/i
-      }
+        date: /Date$/i,
+      },
     },
     backgrounds: {
       disable: true,
     },
   },
-  decorators: [
-    SchemeMode,
-    BrandMode
-  ],
+  decorators: [SchemeMode, BrandMode],
   globalTypes: {
     scheme,
-    brand
+    brand,
   },
-}
-
+};
 
 export default preview;

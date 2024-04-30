@@ -1,17 +1,17 @@
-import React from 'react';
+import React from "react";
 
 export function SchemeMode(story, context) {
-  const targetBg = document.querySelector('.sb-show-main');
-  const listTargetInDocs = document.querySelectorAll('.docs-story');
+  const targetBg = document.querySelector(".sb-show-main");
+  const listTargetInDocs = document.querySelectorAll(".docs-story");
   const backgrounds = {
-    dark: '#22262f',
-    light: '#ffffff'
+    dark: "#22262f",
+    light: "#ffffff",
   };
 
-  document.documentElement.setAttribute('data-theme', context.globals.scheme);
+  document.documentElement.setAttribute("data-theme", context.globals.scheme);
   targetBg.style.backgroundColor = backgrounds[context.globals.scheme];
 
-  listTargetInDocs.forEach(item => {
+  listTargetInDocs.forEach((item) => {
     item.style.backgroundColor = backgrounds[context.globals.scheme];
   });
 
@@ -23,13 +23,13 @@ export function SchemeMode(story, context) {
 }
 
 export const scheme = {
-  description: 'Theme',
-  defaultValue: 'light',
+  description: "Theme",
+  defaultValue: "light",
   toolbar: {
-    title: 'Theme',
+    title: "Theme",
     items: [
-      { title: 'Light', value: 'light', icon: 'sun' },
-      { title: 'Dark', value: 'dark', icon: 'moon' }
+      { title: "Light", value: "light", icon: "sun" },
+      { title: "Dark", value: "dark", icon: "moon" },
     ],
     dynamicTitle: true,
   },

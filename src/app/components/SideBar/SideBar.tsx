@@ -25,7 +25,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     <>
       <div className={`Sidebar ${toggle ? "open" : "close"}`}>
         <div className="brand">
-          <Brand alt="brand" src={brand} size="sm" />
+          <Brand alt="Logo-marca" src={brand} size="sm" />
         </div>
         {children}
       </div>
