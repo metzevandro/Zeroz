@@ -50,7 +50,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^8.0.0",
-    "storybook-addon-themes": "^6.1.0"
+    "storybook-addon-themes": "^6.1.0",
+    "typescript": "^5.4.5"
   },
   "description": "<div align=\"center\">\r   <img src=\"https://zeroz.vercel.app/logo-sm.svg\" alt=\"Zeroz Design System Logo\"/>\r </div>",
   "keywords": [
