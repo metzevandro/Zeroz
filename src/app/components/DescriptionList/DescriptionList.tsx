@@ -1,4 +1,5 @@
 import "./DescriptionList.scss";
+import React from "react";
 
 interface DescriptionListProps {
   title: string;

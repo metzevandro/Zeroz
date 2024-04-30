@@ -1,5 +1,6 @@
 import "./Pagination.scss";
 import Icon from "../Icon/Icon";
+import React from "react";
 
 interface PaginationItemProps {
   arrow: "left" | "right";

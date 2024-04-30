@@ -1,4 +1,3 @@
-// Card.tsx
 import React from "react";
 import "./Card.scss";
 

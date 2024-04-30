@@ -1,4 +1,5 @@
 import "./Icon.scss";
+import React from "react";
 
 interface IconProps {
   size: "sm" | "md" | "lg";

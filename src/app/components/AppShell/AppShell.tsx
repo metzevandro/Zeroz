@@ -1,4 +1,5 @@
 import "./AppShell.scss";
+import React from "react";
 
 interface AppShellProps {
   children: React.ReactNode;

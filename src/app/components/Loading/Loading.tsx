@@ -1,5 +1,6 @@
 import Icon from "../Icon/Icon";
 import "./Loading.scss";
+import React from "react";
 
 interface LoadingProps {
   variant: "default" | "success" | "warning" | "large";

@@ -1,5 +1,6 @@
 import Button from "../Button/Button";
 import "./ButtonGroup.scss";
+import React from "react";
 
 type ButtonVariant = "primary" | "secondary" | "success" | "warning";
 

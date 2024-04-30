@@ -2,8 +2,7 @@ import "./Sidebar.scss";
 import Brand from "../Brand/Brand";
 import Icon from "../Icon/Icon";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
-import { useState } from "react";
-import React from "react";
+import React, { useState } from "react";
 
 interface SidebarProps {
   brand: string;

@@ -1,6 +1,7 @@
 import "./CardDropdown.scss";
 import { useState } from "react";
 import Icon from "../Icon/Icon";
+import React from "react";
 
 interface CardDropdownProps {
   title: string;

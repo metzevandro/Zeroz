@@ -1,4 +1,5 @@
 import "./Link.scss";
+import React from "react";
 
 interface LinkProps {
   href?: string;

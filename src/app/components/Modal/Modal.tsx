@@ -1,6 +1,6 @@
 import "./Modal.scss";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
-import { MouseEventHandler } from "react";
+import React, { MouseEventHandler } from "react";
 
 export interface ModalProps {
   title: string;

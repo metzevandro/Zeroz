@@ -3,6 +3,7 @@ import Avatar from "../Avatar/Avatar";
 import Icon from "../Icon/Icon";
 import { useState } from "react";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
+import React from "react";
 
 interface HeaderProps {
   children: React.ReactNode;

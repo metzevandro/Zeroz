@@ -3,6 +3,7 @@ import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import Icon from "../Icon/Icon";
 import "./Notification.scss";
 import Button from "../Button/Button";
+import React from "react";
 
 interface NotificationProps {
   icon?: string;

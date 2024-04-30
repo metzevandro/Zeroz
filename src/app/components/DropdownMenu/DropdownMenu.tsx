@@ -1,5 +1,6 @@
 import Icon from "../Icon/Icon";
 import "./DropdownMenu.scss";
+import React from "react";
 
 interface DropDownMenuProps {
   children: React.ReactNode;
