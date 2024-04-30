@@ -28,7 +28,7 @@
         "./src/*"
       ]
     },
-    "noEmit": true,
+    "noEmit": false,
     "isolatedModules": true
   },
   "include": [
