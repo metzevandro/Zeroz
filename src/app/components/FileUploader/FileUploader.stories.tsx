@@ -2,15 +2,15 @@ import type { Meta, StoryObj } from "@storybook/react";
 import "../../styles.scss";
 import FileUploader from "./FileUploader";
 import Story from "@storybook/react";
+import mdx from "./FileUploader.mdx";
 
 const meta = {
   title: "Components/File Uploader",
   component: FileUploader,
   parameters: {
     layout: "padded",
+    page: mdx,
   },
-  tags: ["autodocs"],
-  argTypes: {},
 } satisfies Meta<typeof FileUploader>;
 
 export default meta;

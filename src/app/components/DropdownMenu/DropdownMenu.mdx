@@ -1,0 +1,72 @@
+import { Meta, Controls, Canvas, Story } from "@storybook/blocks";
+import * as DropdownMenu from "./DropdownMenu.stories.tsx";
+
+<Meta of={DropdownMenu} />
+
+# Dropdown Menu
+
+## Índice
+
+- [Visão Geral](#visão-geral)
+- [Como usar](#como-usar)
+
+## Visão Geral
+
+O componente `DropdownMenu` são ativadas por um botão e mostram uma lista de opções, permitindo que os usuários selecionem uma ou mais opções. Uma opção escolhida pode levar a uma página ou ser utilizada como uma ação para filtrar ou classificar o conteúdo existente.
+
+<Canvas additionalActions={[
+    {
+      title: 'Open in Figma', 
+      onClick: () => {
+        window.open(
+          'https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=435-10084&mode=design&t=tKh2sXjfWnqrJ4Ax-0',
+          '_blank'
+        );
+      },
+    },
+    {
+      title: 'Open in GitHub',
+      onClick: () => {
+        window.open(
+          'https://github.com/metzevandro/Zeroz/blob/master/src/app/components/DropdownMenu/DropdownMenu.tsx',
+          '_blank'
+        );
+      },
+    }
+  ]}>
+  <Story/>
+
+</Canvas>
+
+## Como usar:
+
+```tsx
+const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+
+const toggleDropDown = () => {
+  setIsDropDownOpen(!isDropDownOpen);
+};
+return (
+  <>
+    <div>
+      <Button
+        size="md"
+        variant="primary"
+        label="Click here!"
+        onClick={toggleDropDown}
+      />
+      <div>
+        <DropDownMenu dropDownMenu={isDropDownOpen}>
+          <DropDownMenuTitle content="Title" />
+          <DropDownMenuItem content="Item 1" typeIcon="ac_unit" />
+          <DropDownMenuItem content="Item 2" typeIcon="ac_unit" />
+          <DropDownMenuItem content="Item 3" typeIcon="ac_unit" />
+          <DropDownMenuTitle content="Title" />
+          <DropDownMenuItem content="Item 1" />
+          <DropDownMenuItem content="Item 2" />
+        </DropDownMenu>
+      </div>
+    </div>
+  </>
+);
+```

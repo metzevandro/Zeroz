@@ -1,0 +1,52 @@
+import { Meta, Controls, Canvas, Story } from "@storybook/blocks";
+import * as FileUploader from "./FileUploader.stories.tsx";
+
+<Meta of={FileUploader} />
+
+# File Uploader
+
+## Índice
+
+- [Visão Geral](#visão-geral)
+- [Como usar](#como-usar)
+
+## Visão Geral
+
+O componente `FileUploader` permitem que você escolha arquivos e os coloque em um determinado local.
+
+<Canvas additionalActions={[
+    {
+      title: 'Open in Figma', 
+      onClick: () => {
+        window.open(
+          'https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=1065-3271&mode=design&t=IRTd4zNRzjJlTrAK-0',
+          '_blank'
+        );
+      },
+    },
+    {
+      title: 'Open in GitHub',
+      onClick: () => {
+        window.open(
+          'https://github.com/metzevandro/Zeroz/blob/master/src/app/components/FileUploader/FileUploader.tsx',
+          '_blank'
+        );
+      },
+    }
+  ]}>
+  <Story/>
+
+</Canvas>
+
+## Como usar:
+
+```tsx
+<FileUploader
+  buttonLabel="Add file"
+  description="Max file size is 1mb."
+  maxFileSize={1}
+  onChange={() => {}}
+  title="Upload files"
+  typeIconButton="upload_file"
+/>
+```

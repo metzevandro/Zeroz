@@ -3,14 +3,15 @@ import "../../styles.scss";
 import EmptyState from "./EmptyState";
 import Story from "@storybook/react";
 
+import mdx from "./EmptyState.mdx";
+
 const meta = {
   title: "Templates/Empty State",
   component: EmptyState,
   parameters: {
     layout: "padded",
+    page: mdx,
   },
-  tags: ["autodocs"],
-  argTypes: {},
 } satisfies Meta<typeof EmptyState>;
 
 export default meta;

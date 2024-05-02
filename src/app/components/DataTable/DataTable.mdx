@@ -14,33 +14,34 @@ import * as DataTable from "./DataTable.stories";
 
 O componente `DataTable` ajuda a organizar e exibir informações de maneira fácil de entender. Você pode usar filtros e organizar o conteúdo para analisar e executar ações.
 
-<Canvas additionalActions={[
+<Canvas
+  additionalActions={[
     {
-      title: 'Open in Figma', 
+      title: "Open in Figma",
       onClick: () => {
         window.open(
-          'https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=2168-5730&mode=design&t=NEHn9Sk29i52RYc4-0',
-          '_blank'
+          "https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=2168-5730&mode=design&t=NEHn9Sk29i52RYc4-0",
+          "_blank"
         );
       },
     },
     {
-      title: 'Open in GitHub',
+      title: "Open in GitHub",
       onClick: () => {
         window.open(
-          'https://github.com/metzevandro/Zeroz/blob/master/src/app/components/DataTable/DataTable.tsx',
-          '_blank'
+          "https://github.com/metzevandro/Zeroz/blob/master/src/app/components/DataTable/DataTable.tsx",
+          "_blank"
         );
       },
-    }
-  ]}>
-  <Story/>
+    },
+  ]}
+>
+  <Story />
 </Canvas>
 
 ## Como usar:
 
 ```tsx
-
 const columns: string[] = ["Name", "Age", "Role", "Experience", "Company"];
 
 const data: { [key: string]: any; id: string }[] = [
@@ -179,4 +180,5 @@ const availableFilters = {
   descriptionNoDataFilteredMessage="This option does not exist in your store, remove the filter and try again."
   labelButtonNoDataFilteredMessage="Remove filters"
   titleNoDataFilteredMessage="Your filter did not return any results."
-/>
+/>;
+```
