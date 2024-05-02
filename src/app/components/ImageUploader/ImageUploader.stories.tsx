@@ -3,14 +3,15 @@ import "../../styles.scss";
 import ImageUploader from "./ImageUploader";
 import Story from "@storybook/react";
 
+import mdx from "./ImageUploader.mdx";
+
 const meta = {
   title: "Components/Image Uploader",
   component: ImageUploader,
   parameters: {
     layout: "padded",
+    page: mdx,
   },
-  tags: ["autodocs"],
-  argTypes: {},
 } as Meta<typeof ImageUploader>;
 
 export default meta;

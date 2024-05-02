@@ -3,11 +3,14 @@ import "../../styles.scss";
 import Input from "./Input";
 import { ChangeEvent, useState } from "react";
 
+import mdx from "./Input.mdx";
+
 const meta: Meta = {
   title: "Components/Input",
   component: Input,
   parameters: {
     layout: "padded",
+    page: mdx,
   },
 };
 

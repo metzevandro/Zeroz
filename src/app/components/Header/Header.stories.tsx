@@ -7,17 +7,23 @@ import DropDownMenu, {
 } from "../DropdownMenu/DropdownMenu";
 import BreadcrumbRoot, { Breadcrumb } from "../Breadcrumb/Breadcrumb";
 import "../../styles.scss";
+import mdx from "./Header.mdx";
 
 const meta: Meta = {
   title: "Components/Header",
   component: Header,
   parameters: {
-    layout: "padded",
+    layout: "fullscreen",
+    docs: {
+      page: mdx,
+      story: {
+        height: "500px",
+      },
+    },
   },
   args: {
     toggle: false,
   },
-  tags: ["autodocs"],
 };
 
 export default meta;
@@ -41,7 +47,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
             </BreadcrumbRoot>
           </>
         }
-        onClick={() => {}}
+        onClick={toggleHeader}
       >
         <HeaderProfile name="Username">
           <DropDownMenu dropDownMenu>

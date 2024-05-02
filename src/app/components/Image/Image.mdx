@@ -1,0 +1,48 @@
+import { Meta, Controls, Canvas, Story } from "@storybook/blocks";
+
+import * as Image from "./Image.stories.tsx";
+
+<Meta of={Image} />
+
+# Image
+
+## Índice
+
+- [Visão Geral](#visão-geral)
+- [Como usar](#como-usar)
+
+## Visão Geral
+
+O componente `Image` serve para exibir uma visualização de imagens.
+
+<Canvas
+  additionalActions={[
+    {
+      title: "Open in Figma",
+      onClick: () => {
+        window.open(
+          "https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=2044-19062&mode=design&t=JVfHQJ9NQ0akmOjX-0",
+          "_blank"
+        );
+      },
+    },
+    {
+      title: "Open in GitHub",
+      onClick: () => {
+        window.open(
+          "https://github.com/metzevandro/Zeroz/blob/master/src/app/components/Image/Image.tsx",
+          "_blank"
+        );
+      },
+    },
+  ]}
+>
+  <Story name="default" of={Image} />
+</Canvas>
+<Controls />
+
+## Como usar
+
+```tsx
+<Image alt="Image" src="https://picsum.photos/200" width="200" />
+```

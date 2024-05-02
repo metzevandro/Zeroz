@@ -1,0 +1,54 @@
+import { Meta, Controls, Canvas, Story } from "@storybook/blocks";
+
+import * as ImageUploader from "./ImageUploader.stories.tsx";
+
+<Meta of={ImageUploader} />
+
+# Image Uploader
+
+## Índice
+
+- [Visão Geral](#visão-geral)
+- [Como usar](#como-usar)
+
+## Visão Geral
+
+O componente `ImageUploader` permite que você coloque arquivos em uma página arrastando-os para um local ou clicando no botão.
+
+<Canvas
+  additionalActions={[
+    {
+      title: "Open in Figma",
+      onClick: () => {
+        window.open(
+          "https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=2474-364&mode=design&t=JVfHQJ9NQ0akmOjX-0",
+          "_blank"
+        );
+      },
+    },
+    {
+      title: "Open in GitHub",
+      onClick: () => {
+        window.open(
+          "https://github.com/metzevandro/Zeroz/blob/master/src/app/components/ImageUploader/ImageUploader.tsx",
+          "_blank"
+        );
+      },
+    },
+  ]}
+>
+  <Story name="default" of={ImageUploader} />
+</Canvas>
+<Controls />
+
+## Como usar
+
+````tsx
+<ImageUploader
+  description="Description"
+  iconDropzone="file_upload"
+  labelDropzone="Select an image"
+  proportion="1/1"
+  title="Title"
+/>```
+````

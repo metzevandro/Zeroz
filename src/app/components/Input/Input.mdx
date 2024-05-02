@@ -1,0 +1,54 @@
+import { Meta, Controls, Canvas, Story } from "@storybook/blocks";
+
+import * as Input from "./Input.stories.tsx";
+
+<Meta of={Input} />
+
+# Image Uploader
+
+## Índice
+
+- [Visão Geral](#visão-geral)
+- [Como usar](#como-usar)
+
+## Visão Geral
+
+O componente `Input` é um espaço onde os usuários podem digitar e inserir informações curtas, como nomes, endereços ou outro texto breve.
+
+<Canvas
+  additionalActions={[
+    {
+      title: "Open in Figma",
+      onClick: () => {
+        window.open(
+          "https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=435-10071&mode=design&t=JVfHQJ9NQ0akmOjX-0",
+          "_blank"
+        );
+      },
+    },
+    {
+      title: "Open in GitHub",
+      onClick: () => {
+        window.open(
+          "https://github.com/metzevandro/Zeroz/blob/master/src/app/components/Input/Input.tsx",
+          "_blank"
+        );
+      },
+    },
+  ]}
+>
+  <Story name="default" of={Input} />
+</Canvas>
+<Controls />
+
+## Como usar
+
+```tsx
+<Input
+  fillIcon={false}
+  label="Label"
+  placeholder="Placeholder"
+  textError="Error"
+  typeIcon="settings"
+/>
+```
