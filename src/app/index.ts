@@ -23,7 +23,6 @@ export {
   CardImage,
 } from "./components/Card/Card";
 export { default as CardDropdown } from "./components/CardDropdown/CardDropdown";
-export { default as ColorPicker } from "./components/ColorPicker/ColorPicker";
 export { default as DataPicker } from "./components/DataPicker/DataPicker";
 export { default as DataTable } from "./components/DataTable/DataTable";
 export { default as DescriptionList } from "./components/DescriptionList/DescriptionList";
