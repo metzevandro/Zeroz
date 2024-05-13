@@ -1,3 +1,4 @@
+import ProgressIndicator from "./components/ProgressIndicator/ProgressIndicator";
 export { default as AppShell } from "./components/AppShell/AppShell";
 export {
   default as Aside,
@@ -57,6 +58,7 @@ export { default as Notification } from "./components/Notification/Notification"
 export { default as Page } from "./components/Page/Page";
 export { default as Pagination } from "./components/Pagination/Pagination";
 export { default as Progress } from "./components/Progress/Progress";
+export { default as ProgressIndicator } from "./components/ProgressIndicator/ProgressIndicator";
 export { default as SaveBar } from "./components/SaveBar/SaveBar";
 export { default as SavebarTrigger } from "./components/SavebarTrigger/SavebarTrigger";
 export {
