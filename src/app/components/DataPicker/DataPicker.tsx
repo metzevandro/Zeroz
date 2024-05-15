@@ -88,18 +88,18 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date(date));
   const [inputDate, setInputDate] = useState<string>(date);
   const [currentMonth, setCurrentMonth] = useState<number>(
-    new Date().getMonth()
+    new Date().getMonth(),
   );
   const [currentYear, setCurrentYear] = useState<number>(
-    new Date().getFullYear()
+    new Date().getFullYear(),
   );
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [secondModalOpen, setSecondModalOpen] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState<number>(
-    new Date().getMonth() + 1
+    new Date().getMonth() + 1,
   );
   const [selectedYear, setSelectedYear] = useState<number>(
-    new Date().getFullYear()
+    new Date().getFullYear(),
   );
   const [selectedDay, setSelectedDay] = useState<number>(today.getDate());
 
@@ -115,7 +115,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
             day: "2-digit",
             month: "2-digit",
             year: "numeric",
-          }
+          },
         );
 
         setSelectedDate(new Date(year, month - 1, day));
@@ -152,7 +152,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
     setCurrentMonth(selectedMonth - 1);
     updateSelectedDateFormat(selectedMonth, selectedYear, selectedDay);
     const selectedMonthElement = document.querySelector(
-      `.month-item[data-month="${selectedMonth}"]`
+      `.month-item[data-month="${selectedMonth}"]`,
     );
     selectedMonthElement?.scrollIntoView({
       behavior: "smooth",
@@ -167,7 +167,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
     setCurrentYear(selectedYear);
     updateSelectedDateFormat(selectedMonth, selectedYear, selectedDay);
     const selectedYearElement = document.querySelector(
-      `.year-item[data-year="${selectedYear}"]`
+      `.year-item[data-year="${selectedYear}"]`,
     );
     selectedYearElement?.scrollIntoView({
       behavior: "smooth",
@@ -180,7 +180,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
   const updateSelectedDateFormat = (
     month: number,
     year: number,
-    day: number
+    day: number,
   ) => {
     const formattedDate = new Date(year, month - 1, day).toLocaleDateString(
       "pt-BR",
@@ -188,7 +188,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
-      }
+      },
     );
     setInputDate(formattedDate);
     setSelectedDateFormat(formattedDate);
@@ -273,7 +273,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
           key={`previous-month-${i}`}
           variant="disable"
           day={date.getDate()}
-        />
+        />,
       );
     }
 
@@ -287,10 +287,10 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
         date.getFullYear() === selectedDate.getFullYear()
           ? "active"
           : i === today.getDate() &&
-            currentMonth === today.getMonth() &&
-            currentYear === today.getFullYear()
-          ? "current-day"
-          : "default";
+              currentMonth === today.getMonth() &&
+              currentYear === today.getFullYear()
+            ? "current-day"
+            : "default";
 
       days.push(
         <DataPickerDay
@@ -298,7 +298,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
           variant={variant}
           day={i}
           onClick={() => handleDateClick(date)}
-        />
+        />,
       );
     }
 
@@ -310,7 +310,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
           key={`next-month-${i}`}
           variant="disable"
           day={date.getDate()}
-        />
+        />,
       );
     }
 
@@ -326,7 +326,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
       months.push({
         month,
         label: `${new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(
-          new Date(2000, month - 1)
+          new Date(2000, month - 1),
         )}`,
       });
     }
@@ -393,7 +393,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
     updateSelectedDateFormat(
       currentDate.getMonth() + 1,
       currentDate.getFullYear(),
-      selectedDay
+      selectedDay,
     );
 
     handleReset();
@@ -406,7 +406,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
-      })
+      }),
     );
     setCurrentMonth(today.getMonth());
     setCurrentYear(today.getFullYear());
@@ -440,12 +440,12 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
   };
 
   const centralizarOpcaoSelecionada = (
-    ref: React.RefObject<HTMLDivElement>
+    ref: React.RefObject<HTMLDivElement>,
   ) => {
     if (ref.current) {
       const overflowContainer = ref.current;
       const selectedElement = overflowContainer.querySelector(
-        ".selected"
+        ".selected",
       ) as HTMLElement;
 
       if (selectedElement) {
@@ -476,7 +476,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
             <div className="data-picker-month">
               <div className="data-picker-header" onClick={handleInputClick}>
                 {`${new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(
-                  new Date(currentYear, currentMonth)
+                  new Date(currentYear, currentMonth),
                 )} ${currentYear}`}
                 <ButtonIcon
                   size="sm"
@@ -553,7 +553,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
             <div className="data-picker-month">
               <div className="data-picker-header" onClick={openSecondModal}>
                 {`${new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(
-                  new Date(currentYear, currentMonth)
+                  new Date(currentYear, currentMonth),
                 )} ${currentYear}`}
                 <ButtonIcon
                   size="sm"

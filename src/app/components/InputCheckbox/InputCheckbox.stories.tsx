@@ -53,7 +53,7 @@ type DisabledInputCheckboxProps = {
 };
 
 const DisabledInputCheckboxTemplate: StoryFn<DisabledInputCheckboxProps> = (
-  props
+  props,
 ) => {
   const [isChecked, setChecked] = useState(false);
 

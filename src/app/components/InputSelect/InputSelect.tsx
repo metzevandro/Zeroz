@@ -22,7 +22,7 @@ const InputSelect: React.FC<InputSelectProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | undefined>(
-    value || undefined
+    value || undefined,
   ); // Defina o valor inicial com a propriedade value
 
   useEffect(() => {

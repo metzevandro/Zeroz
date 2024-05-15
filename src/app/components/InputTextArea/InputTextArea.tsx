@@ -35,7 +35,7 @@ const TextArea: React.FC<TextAreaProps> = ({
   };
 
   const handleInputChange: React.ChangeEventHandler<HTMLTextAreaElement> = (
-    event
+    event,
   ) => {
     const newValue = event.target.value;
     setInternalValue(newValue);

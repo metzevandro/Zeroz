@@ -17,7 +17,7 @@ const TableList: React.FC<TableListProps> = ({ columns, data, size }) => {
 
       if (tableListElement) {
         setIsOverflowed(
-          tableListElement.scrollWidth > tableListElement.clientWidth
+          tableListElement.scrollWidth > tableListElement.clientWidth,
         );
       }
     };
@@ -42,7 +42,7 @@ const TableList: React.FC<TableListProps> = ({ columns, data, size }) => {
   }, []);
 
   const transposedData = columns.map((_, columnIndex) =>
-    data.map((row) => row[columnIndex])
+    data.map((row) => row[columnIndex]),
   );
 
   return (

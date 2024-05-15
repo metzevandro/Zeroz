@@ -57,7 +57,7 @@ const InputTime: React.FC<InputTimeProps> = ({
   }, [controlledValue]);
 
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (
-    event
+    event,
   ) => {
     let newValue = event.target.value;
 
@@ -97,12 +97,12 @@ const InputTime: React.FC<InputTimeProps> = ({
             aria-label={formattedValue}
           >
             {formattedValue}
-          </button>
+          </button>,
         );
       }
       return buttons;
     },
-    [onChange, selectedHour, selectedMinute]
+    [onChange, selectedHour, selectedMinute],
   );
 
   return (
@@ -114,8 +114,8 @@ const InputTime: React.FC<InputTimeProps> = ({
           controlledValue !== undefined && controlledValue !== null
             ? controlledValue
             : selectedHour && selectedMinute
-            ? `${selectedHour}:${selectedMinute}`
-            : ""
+              ? `${selectedHour}:${selectedMinute}`
+              : ""
         }
         placeholder={placeholder}
         typeIcon="schedule"

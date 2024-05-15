@@ -1,6 +1,7 @@
 <img src="/public/favicon.svg" width="100"/>
 
 # Design System Zeroz
+
 O Design System Zeroz é um conjunto de componentes reutilizáveis para construir interfaces de usuário consistentes e bonitas. Este pacote npm permite que você aproveite os componentes disponíveis em nossa biblioteca e os integre facilmente em seus projetos.
 
 ## Storybook
@@ -10,12 +11,15 @@ Para visualizar todos os componentes e suas variantes, você pode acessar nosso 
 Acesse o [Storybook do Design System Zeroz](https://zeroz.vercel.app/).
 
 ## Next.js
+
 Comece criando um novo projeto Next.js usando `create-next-app`:
 
 ```bash
 npx create-next-app@latest
 ```
+
 Em seguida, serão solicitados os seguintes prompts:
+
 ```bash
 1 What is your project named?  my-app
 2 Would you like to use TypeScript?  No / Yes
@@ -25,6 +29,7 @@ Em seguida, serão solicitados os seguintes prompts:
 6 Would you like to use App Router? (recommended)  No / Yes
 7 Would you like to customize the default import alias (@/*)?  No / Yes
 ```
+
 ## Adicionando as Cores da Marca
 
 Para aplicar as cores da marca do Design System Zeroz em seus projetos, certifique-se de adicionar o atributo `data-company` com o valor `"zeroz"` à tag HTML em seus arquivos. Isso garantirá que os estilos correspondentes sejam aplicados corretamente.
@@ -33,7 +38,7 @@ Adicione o seguinte trecho à sua tag HTML:
 
 ```html
 <html lang="en" data-company="zeroz" />
- ```
+```
 
 ## Como Baixar
 
@@ -58,16 +63,13 @@ Após a instalação, você pode importar os componentes diretamente em seus arq
 ### Exemplo de Uso
 
 ```jsx
-import React from 'react';
+import React from "react";
 import "design-system-zeroz/src/app/styles.scss";
 import { Button } from "design-system-zeroz";
 
 export default function Home() {
-  return (
-    <Button size="md" label="Clique aqui!" variant="primary"/>
-  );
+  return <Button size="md" label="Clique aqui!" variant="primary" />;
 }
-
 ```
 
 Lembre-se de importar `'design-system-zeroz/src/app/styles.scss'` para ter as estilizações dos componentes.

@@ -16,7 +16,7 @@ const InputRadioButton: React.FC<InputRadioButtonProps> = ({
   checked: controlledChecked,
 }) => {
   const [isChecked, setIsChecked] = useState<boolean>(
-    controlledChecked || false
+    controlledChecked || false,
   );
 
   useEffect(() => {

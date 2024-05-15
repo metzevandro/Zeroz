@@ -19,7 +19,7 @@ const Slider: React.FC<SliderProps> = ({
   onChange,
 }) => {
   const [progress, setProgress] = useState<number>(
-    ((parseInt(value) - min) / (max - min)) * 100
+    ((parseInt(value) - min) / (max - min)) * 100,
   );
   const [currentValue, setCurrentValue] = useState<string>(value);
   const isDragging = useRef(false);
@@ -55,7 +55,7 @@ const Slider: React.FC<SliderProps> = ({
   };
 
   const handleDragStart = (
-    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
   ) => {
     isDragging.current = true;
     window.addEventListener("mousemove", handleDragMove);

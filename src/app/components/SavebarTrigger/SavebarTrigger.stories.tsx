@@ -24,7 +24,6 @@ import Slider from "../Slider/Slider";
 import Switch from "../Switch/Switch";
 import InputTime from "../InputTime/InputTime";
 import TextArea from "../InputTextArea/InputTextArea";
-import ColorPicker from "../ColorPicker/ColorPicker";
 const meta: Meta = {
   title: "Templates/Savebar Trigger",
   component: SavebarTrigger,
@@ -84,7 +83,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
 
   const handleInputChange = (
     name: string,
-    value: string | boolean | number
+    value: string | boolean | number,
   ) => {
     setFormValues({
       ...formValues,
@@ -163,7 +162,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
 
   useEffect(() => {
     const isFormChanged = Object.keys(formValues).some(
-      (key) => initialValues[key] !== formValues[key]
+      (key) => initialValues[key] !== formValues[key],
     );
     setFormChanged(isFormChanged);
   }, [formValues, initialValues]);
@@ -276,11 +275,6 @@ const Template: StoryFn<DefaultProps> = (args) => {
                 onDateChange={(value: Date) =>
                   handleDateChange("Input do DataPicker", value)
                 }
-              />
-              <ColorPicker
-                label="Color Picker"
-                value={String(formValues.ColorPicker)}
-                onChange={handleColorChange}
               />
               <Slider
                 value={String(formValues.Slider)}

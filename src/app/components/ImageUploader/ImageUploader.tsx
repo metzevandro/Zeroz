@@ -36,7 +36,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   value,
 }) => {
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(
-    value !== undefined ? value : null
+    value !== undefined ? value : null,
   );
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -70,7 +70,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
           };
           reader.onerror = reject;
           reader.readAsDataURL(file);
-        })
+        }),
       );
     });
 
@@ -100,7 +100,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         const promises = Array.from(files).map(async (file) => {
           if (file.size > (maxFileSizeBytes || Infinity)) {
             setErrorMessage(
-              `File ${file.name} exceeds the maximum file size limit.`
+              `File ${file.name} exceeds the maximum file size limit.`,
             );
             return;
           }

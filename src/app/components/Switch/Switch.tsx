@@ -16,7 +16,7 @@ const Switch: React.FC<SwitchProps> = ({
   onChange,
 }) => {
   const [isChecked, setIsChecked] = useState<boolean>(
-    controlledChecked || false
+    controlledChecked || false,
   );
 
   useEffect(() => {

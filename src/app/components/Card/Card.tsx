@@ -19,7 +19,7 @@ interface CardHeaderProps {
 }
 
 export function CardHeader(
-  props: CardHeaderProps & { children?: React.ReactNode }
+  props: CardHeaderProps & { children?: React.ReactNode },
 ) {
   return (
     <div className="card-header">

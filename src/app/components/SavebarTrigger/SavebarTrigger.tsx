@@ -29,7 +29,7 @@ const SavebarTrigger: React.FC<SavebarTriggerProps> = ({
   useEffect(() => {
     const updateTamanhoPai = () => {
       const paiElement = document.querySelector(
-        ".header-root"
+        ".header-root",
       ) as HTMLElement | null;
       if (paiElement) {
         setTamanhoPai(paiElement.offsetWidth);

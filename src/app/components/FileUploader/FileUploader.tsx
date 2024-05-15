@@ -148,7 +148,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
     onChange(
       updatedFileListAsFileList.files.length > 0
         ? updatedFileListAsFileList.files
-        : null
+        : null,
     );
   };
 
@@ -157,7 +157,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
   useEffect(() => {
     const updateTamanhoPai = () => {
       const paiElement = document.querySelector(
-        ".file-uploader"
+        ".file-uploader",
       ) as HTMLElement | null;
       if (paiElement) {
         setTamanhoPai(paiElement.offsetWidth);

@@ -46,7 +46,9 @@
     }
   }
   .card-dropdown-content {
-    transition: padding 0.3s ease-out, opacity 0.3s ease-out;
+    transition:
+      padding 0.3s ease-out,
+      opacity 0.3s ease-out;
     overflow: hidden;
     font: var(--s-typography-paragraph-regular);
     color: var(--s-color-content-light);
@@ -66,7 +68,9 @@
   }
 
   .card-dropdown-footer {
-    transition: visible 0.3s ease-out, opacity 0.3s ease-out;
+    transition:
+      visible 0.3s ease-out,
+      opacity 0.3s ease-out;
     overflow: hidden;
     font: var(--s-typography-paragraph-regular);
     color: var(--s-color-content-light);

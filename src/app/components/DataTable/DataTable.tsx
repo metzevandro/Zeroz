@@ -118,7 +118,7 @@ const DataTable: React.FC<DataTableProps> = ({
   }>(columns.reduce((acc, column) => ({ ...acc, [column]: [] }), {}));
 
   const [selectedTags, setSelectedTags] = useState<{ [key: string]: string[] }>(
-    columns.reduce((acc, column) => ({ ...acc, [column]: [] }), {})
+    columns.reduce((acc, column) => ({ ...acc, [column]: [] }), {}),
   );
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -137,7 +137,7 @@ const DataTable: React.FC<DataTableProps> = ({
 
       if (contentElement) {
         setContentOverflowed(
-          contentElement.scrollWidth > contentElement.clientWidth
+          contentElement.scrollWidth > contentElement.clientWidth,
         );
       }
     };
@@ -195,7 +195,7 @@ const DataTable: React.FC<DataTableProps> = ({
 
   function calculateGridTemplate(
     selectable: boolean = false,
-    expandable: boolean = false
+    expandable: boolean = false,
   ) {
     if (selectable && expandable) {
       return {
@@ -212,7 +212,7 @@ const DataTable: React.FC<DataTableProps> = ({
 
   function calculateLeft(
     selectable: boolean = false,
-    expandable: boolean = false
+    expandable: boolean = false,
   ) {
     if (selectable && expandable) {
       return {
@@ -253,11 +253,11 @@ const DataTable: React.FC<DataTableProps> = ({
 
   const removeRow = () => {
     const updatedOriginalData = originalDataState.filter(
-      (item) => !selectedRows.includes(item.id)
+      (item) => !selectedRows.includes(item.id),
     );
 
     const updatedFilteredData = filteredData.filter(
-      (item) => !selectedRows.includes(item.id)
+      (item) => !selectedRows.includes(item.id),
     );
 
     setFilteredData(updatedFilteredData);
@@ -275,7 +275,7 @@ const DataTable: React.FC<DataTableProps> = ({
   const exportSelectedRowsAsCSV = () => {
     // Filter selected rows from the original data
     const selectedData = originalData.filter((row) =>
-      selectedRows.includes(row.id)
+      selectedRows.includes(row.id),
     );
 
     // Extract column names
@@ -417,14 +417,14 @@ const DataTable: React.FC<DataTableProps> = ({
     const updatedSelectedTags = {
       ...selectedTags,
       [columnName]: selectedTags[columnName].filter(
-        (tag) => !tags.includes(tag)
+        (tag) => !tags.includes(tag),
       ),
     };
 
     const updatedFilterOptions = {
       ...filterOptions,
       [columnName]: filterOptions[columnName].filter(
-        (option) => !tags.includes(option)
+        (option) => !tags.includes(option),
       ),
     };
 
@@ -436,7 +436,7 @@ const DataTable: React.FC<DataTableProps> = ({
     Object.entries(updatedFilterOptions).forEach(([column, selectedValues]) => {
       if (selectedValues.length > 0) {
         filteredData = filteredData.filter((item) =>
-          selectedValues.includes(String(item[column]))
+          selectedValues.includes(String(item[column])),
         );
       }
     });
@@ -454,7 +454,7 @@ const DataTable: React.FC<DataTableProps> = ({
 
       if (newFilterOptions[columnName].includes(value)) {
         newFilterOptions[columnName] = newFilterOptions[columnName].filter(
-          (item) => item !== value
+          (item) => item !== value,
         );
       } else {
         newFilterOptions[columnName] = [...newFilterOptions[columnName], value];
@@ -472,7 +472,7 @@ const DataTable: React.FC<DataTableProps> = ({
       if (selectedValues.length > 0) {
         // Aplica os filtros apenas aos itens presentes nos dados filtrados
         updatedFilteredData = updatedFilteredData.filter((item) =>
-          selectedValues.includes(String(item[columnName]))
+          selectedValues.includes(String(item[columnName])),
         );
 
         // Ordena os filtros selecionados
@@ -501,7 +501,7 @@ const DataTable: React.FC<DataTableProps> = ({
     if (value.trim() !== "") {
       searchedData = searchedData.filter((item) => {
         return Object.values(item).some((val) =>
-          typeof val === "string" ? val.includes(value) : false
+          typeof val === "string" ? val.includes(value) : false,
         );
       });
     }
@@ -510,7 +510,7 @@ const DataTable: React.FC<DataTableProps> = ({
     Object.entries(filterOptions).forEach(([columnName, selectedValues]) => {
       if (selectedValues.length > 0) {
         searchedData = searchedData.filter((item) =>
-          selectedValues.includes(String(item[columnName]))
+          selectedValues.includes(String(item[columnName])),
         );
       }
     });
@@ -526,7 +526,7 @@ const DataTable: React.FC<DataTableProps> = ({
 
   const initialSortConfig: SortConfig = columns.reduce(
     (acc, column) => ({ ...acc, [column]: DEFAULT_SORT_STATE }),
-    {}
+    {},
   );
 
   const [sortConfig, setSortConfig] = useState<SortConfig>(initialSortConfig);
@@ -572,10 +572,10 @@ const DataTable: React.FC<DataTableProps> = ({
           ([filterColumn, selectedValues]) => {
             if (selectedValues.length > 0) {
               filteredOriginalData = filteredOriginalData.filter((item) =>
-                selectedValues.includes(String(item[filterColumn]))
+                selectedValues.includes(String(item[filterColumn])),
               );
             }
-          }
+          },
         );
 
         // Ordena os dados filtrados originalmente
@@ -597,7 +597,7 @@ const DataTable: React.FC<DataTableProps> = ({
     // Reset sortConfig to default state when filters are applied
     const defaultSortConfig: SortConfig = columns.reduce(
       (acc, column) => ({ ...acc, [column]: DEFAULT_SORT_STATE }),
-      {}
+      {},
     );
     setSortConfig(defaultSortConfig);
   }, [filterOptions]);
@@ -609,7 +609,7 @@ const DataTable: React.FC<DataTableProps> = ({
     // Limpa os filtros e tags selecionadas
     const updatedFilterOptions = columns.reduce(
       (acc, column) => ({ ...acc, [column]: [] }),
-      {}
+      {},
     );
     const updatedSelectedTags = { ...updatedFilterOptions };
 
@@ -645,7 +645,7 @@ const DataTable: React.FC<DataTableProps> = ({
   );
 
   const hasSelectedFilters = Object.values(filterOptions).some(
-    (options) => options.length > 0
+    (options) => options.length > 0,
   );
 
   return (
@@ -662,7 +662,7 @@ const DataTable: React.FC<DataTableProps> = ({
                   {/* Conteúdo do aside quando houver dados filtrados */}
                   {Object.entries(availableFilters)
                     .sort(([columnA], [columnB]) =>
-                      columnA.localeCompare(columnB)
+                      columnA.localeCompare(columnB),
                     )
                     .map(([column, options]) => (
                       <div key={column} className="aside-filter">
@@ -674,7 +674,7 @@ const DataTable: React.FC<DataTableProps> = ({
                               <div key={idx}>
                                 <InputCheckbox
                                   checked={filterOptions[column].includes(
-                                    option
+                                    option,
                                   )}
                                   onChange={() =>
                                     handleFilterChange(column, option)
@@ -723,7 +723,7 @@ const DataTable: React.FC<DataTableProps> = ({
                     variant="primary"
                     onClose={() => removeTag(column, tags)}
                   />
-                )
+                ),
             )}
           </div>
         )}
@@ -848,7 +848,7 @@ const DataTable: React.FC<DataTableProps> = ({
                         <div className="expanded-content">
                           {expandedData
                             .filter(
-                              (expandedItem) => expandedItem.id === row.id
+                              (expandedItem) => expandedItem.id === row.id,
                             )
                             .map((expandedItem) => (
                               <div key={expandedItem.id}>
