@@ -213,6 +213,7 @@
       grid-auto-flow: column;
       grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       width: 100%;
+      align-items: center;
       background-color: var(--s-color-fill-default);
       border-top: var(--s-border-width-hairline) solid
         var(--s-color-border-default);
@@ -223,7 +224,7 @@
         padding: var(--s-spacing-small);
         font: var(--s-typography-paragraph-regular);
         color: var(--s-color-content-default);
-        height: 56px;
+        height: 100%;
         white-space: nowrap;
         background-color: var(--s-color-fill-default);
       }
