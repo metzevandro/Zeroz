@@ -143,7 +143,7 @@ export const SidebarSubItem: React.FC<SidebarSubItemProps> = ({
         tabIndex={0}
         onClick={onClick}
       >
-        <div>
+        <div style={active === true ? { opacity: 1 } : undefined}>
           <Icon size="sm" icon="subdirectory_arrow_right" fill={true} />
         </div>
         <div>{title}</div>
