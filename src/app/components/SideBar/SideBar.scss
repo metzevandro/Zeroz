@@ -30,6 +30,53 @@
     padding: 0 var(--s-spacing-xx-small);
   }
 
+  .Sidebar-item {
+    user-select: none;
+    transition: 0.1s ease-out;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--s-spacing-xx-small);
+    border-radius: var(--s-border-radius-small);
+    background-color: var(--s-color-fill-default);
+    color: var(--s-color-content-default);
+
+    &.active {
+      background-color: var(--s-color-fill-highlight-light);
+      color: var(--s-color-content-highlight);
+    }
+  }
+
+  .Sidebar-item:hover {
+    background-color: var(--s-color-fill-default-hover);
+  }
+
+  .Sidebar-item:focus-visible {
+    z-index: 2;
+    outline-width: var(--s-border-width-thin);
+    outline-color: var(--s-color-fill-highlight);
+    outline-offset: -2px;
+    outline-style: solid;
+  }
+
+  .Sidebar-item:active {
+    background-color: var(--s-color-fill-highlight-light);
+    color: var(--s-color-content-highlight);
+  }
+
+  .with-sub-item:active {
+    background-color: var(--s-color-fill-default);
+    color: var(--s-color-content-default);
+  }
+
+  .Sidebar-item-header {
+    font: var(--s-typography-paragraph-strong);
+    display: flex;
+    align-items: center;
+    gap: var(--s-spacing-xx-small);
+  }
+
   .Sidebar-list {
     display: flex;
     flex-direction: column;
@@ -39,53 +86,6 @@
       font: var(--s-typography-caption-strong);
       color: var(--s-color-content-light);
       padding: 0 var(--s-spacing-xx-small);
-    }
-
-    .Sidebar-item {
-      user-select: none;
-      transition: 0.1s ease-out;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: var(--s-spacing-xx-small);
-      border-radius: var(--s-border-radius-small);
-      background-color: var(--s-color-fill-default);
-      color: var(--s-color-content-default);
-
-      &.active {
-        background-color: var(--s-color-fill-highlight-light);
-        color: var(--s-color-content-highlight);
-      }
-    }
-
-    .Sidebar-item:hover {
-      background-color: var(--s-color-fill-default-hover);
-    }
-
-    .Sidebar-item:focus-visible {
-      z-index: 2;
-      outline-width: var(--s-border-width-thin);
-      outline-color: var(--s-color-fill-highlight);
-      outline-offset: -2px;
-      outline-style: solid;
-    }
-
-    .Sidebar-item:active {
-      background-color: var(--s-color-fill-highlight-light);
-      color: var(--s-color-content-highlight);
-    }
-
-    .with-sub-item:active {
-      background-color: var(--s-color-fill-default);
-      color: var(--s-color-content-default);
-    }
-
-    .Sidebar-item-header {
-      font: var(--s-typography-paragraph-strong);
-      display: flex;
-      align-items: center;
-      gap: var(--s-spacing-xx-small);
     }
 
     .Sidebar-sub-item {
