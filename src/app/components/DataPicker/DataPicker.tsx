@@ -124,18 +124,17 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
     }
   }, [date]);
 
-  // Função para atualizar a data quando o input for alterado
   const handleInputChange = (value: string) => {
     setInputDate(value);
     const [day, month, year] = value.split("/").map(Number);
-
+  
     const isValidDate =
       day > 0 &&
       month > 0 &&
       year > 0 &&
       month <= 12 &&
       day <= new Date(year, month, 0).getDate();
-
+  
     if (isValidDate) {
       const selectedDate = new Date(year, month - 1, day);
       setSelectedDate(selectedDate);
@@ -144,9 +143,9 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
       setSelectedDay(selectedDate.getDate());
       onDateChange(selectedDate);
     } else {
-      console.error("Data inválida!");
+      console.log("Data inválida!");
     }
-  };
+  };  
 
   const handleMonthSelect = (selectedMonth: number) => {
     setSelectedMonth(selectedMonth);
