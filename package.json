@@ -1,6 +1,6 @@
 {
   "name": "design-system-zeroz",
-  "version": "0.1.68",
+  "version": "0.1.69",
   "private": false,
   "main": "src/app/index.ts",
   "scripts": {
