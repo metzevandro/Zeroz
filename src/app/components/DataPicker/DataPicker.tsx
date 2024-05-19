@@ -105,7 +105,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
 
   // Atualizando o estado selectedDate quando a propriedade date for atualizada
   useEffect(() => {
-    if (date) {
+    if (date && typeof date === "string") {
       const [day, month, year] = date.split("/").map(Number);
 
       if (day && month && year) {
@@ -142,6 +142,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
       setCurrentMonth(selectedDate.getMonth());
       setCurrentYear(selectedDate.getFullYear());
       setSelectedDay(selectedDate.getDate());
+      onDateChange(selectedDate);
     } else {
       console.error("Data inválida!");
     }
