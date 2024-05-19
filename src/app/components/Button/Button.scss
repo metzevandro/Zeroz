@@ -40,6 +40,7 @@
     }
 
     &:disabled {
+      cursor: auto;
       background-color: var(--s-color-fill-disable);
       opacity: 0.64;
       color: var(--s-color-content-disable);
