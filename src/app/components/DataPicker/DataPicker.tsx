@@ -125,7 +125,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
   
   useEffect(() => {
     if (selectedDate && !isNaN(selectedDate.getTime())) {
-      const formattedDate = selectedDate.toISOString();
+      const formattedDate = selectedDate.toLocaleDateString("pt-BR");
       onDateChange(selectedDate);
       setInputDate(formattedDate);
     }
