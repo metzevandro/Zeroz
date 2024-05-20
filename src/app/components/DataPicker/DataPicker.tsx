@@ -109,20 +109,15 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
   
       if (day && month && year) {
         const parsedDate = new Date(year, month - 1, day);
-        setSelectedDate(parsedDate);
-        setInputDate(parsedDate.toLocaleString("en-US", {
-          weekday: "short",
-          month: "short",
-          day: "2-digit",
-          year: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-          second: "numeric",
-          timeZoneName: "short"
-        }));
+        if (!isNaN(parsedDate.getTime())) {
+          setSelectedDate(parsedDate);
+        } else {
+          console.log("Invalid date!");
+        }
       }
     }
   }, [date]);
+  
   
   const handleInputChange = (value: string) => {
     setInputDate(value);
