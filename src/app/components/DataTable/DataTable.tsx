@@ -865,7 +865,7 @@ const DataTable: React.FC<DataTableProps> = ({
                   </>
                 ))}
             </>
-          ) : hasSelectedFilters || searchTerm.trim() !== "" ? (
+          ) : hasSelectedFilters || searchTerm ? (
             renderNoDataFilteredMessage()
           ) : (
             renderNoDataMessage()
