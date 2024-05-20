@@ -14396,13 +14396,11 @@ var ToolbarComp = import_react40.default.memo(function ({
     return import_react40.default.createElement(
       import_react40.default.Fragment,
       null,
-      list
-        .filter(Boolean)
-        .map(({ render: Render, id, ...t3 }, index) =>
-          import_react40.default.createElement(Render, {
-            key: id || t3.key || `f-${index}`,
-          }),
-        ),
+      list.filter(Boolean).map(({ render: Render, id, ...t3 }, index) =>
+        import_react40.default.createElement(Render, {
+          key: id || t3.key || `f-${index}`,
+        }),
+      ),
     );
   });
 function toolbarItemHasBeenExcluded(item, entry) {
