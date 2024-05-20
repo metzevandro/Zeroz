@@ -465,7 +465,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
       <DataPickerInputDate
         label={label}
         placeholder={placeholder}
-        value={inputDate}
+        value={externalDate || inputDate}
         onChange={handleInputChange}
         onEnter={handleInputEnter}
         onClick={handleInputClick}
