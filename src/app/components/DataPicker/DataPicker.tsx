@@ -113,7 +113,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
       onDateChange(selectedDate);
       setInputDate(formattedDate);
     }
-  }, [onDateChange]);
+  }, [selectedDate, onDateChange]);
 
   const handleInputChange = (value: string) => {
     setInputDate(value);
