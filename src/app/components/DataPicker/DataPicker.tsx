@@ -108,16 +108,14 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
       const [day, month, year] = date.split("/").map(Number);
 
       if (day && month && year) {
-        const formattedDate = new Date(year, month - 1, day).toLocaleString('en-US', {
-          weekday: 'short',
-          month: 'short',
-          day: '2-digit',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          timeZoneName: 'short',
-        });
+        const formattedDate = new Date(year, month - 1, day).toLocaleDateString(
+          "pt-BR",
+          {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          },
+        );
 
         setSelectedDate(new Date(year, month - 1, day));
         setInputDate(formattedDate);
@@ -128,14 +126,14 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
   const handleInputChange = (value: string) => {
     setInputDate(value);
     const [day, month, year] = value.split("/").map(Number);
-
+  
     const isValidDate =
       day > 0 &&
       month > 0 &&
       year > 0 &&
       month <= 12 &&
       day <= new Date(year, month, 0).getDate();
-
+  
     if (isValidDate) {
       const selectedDate = new Date(year, month - 1, day);
       setSelectedDate(selectedDate);
@@ -146,7 +144,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
     } else {
       console.log("Data inválida!");
     }
-  };
+  };  
 
   const handleMonthSelect = (selectedMonth: number) => {
     setSelectedMonth(selectedMonth);
@@ -538,9 +536,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
                 variant="primary"
                 label="Done"
                 onClick={() => {
-                  if (selectedDate) {
                     handleDoneClick();
-                  }
                 }}
               />
             </div>
