@@ -106,23 +106,24 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
   useEffect(() => {
     if (date && typeof date === "string") {
       const [day, month, year] = date.split("/").map(Number);
-
+  
       if (day && month && year) {
-        const formattedDate = new Date(year, month - 1, day).toLocaleDateString(
-          "pt-BR",
-          {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-          },
-        );
-
-        setSelectedDate(new Date(year, month - 1, day));
-        setInputDate(formattedDate);
+        const parsedDate = new Date(year, month - 1, day);
+        setSelectedDate(parsedDate);
+        setInputDate(parsedDate.toLocaleString("en-US", {
+          weekday: "short",
+          month: "short",
+          day: "2-digit",
+          year: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+          timeZoneName: "short"
+        }));
       }
     }
   }, [date]);
-
+  
   const handleInputChange = (value: string) => {
     setInputDate(value);
     const [day, month, year] = value.split("/").map(Number);
