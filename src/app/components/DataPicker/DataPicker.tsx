@@ -103,6 +103,53 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
   );
   const [selectedDay, setSelectedDay] = useState<number>(today.getDate());
 
+  // Atualizando o estado selectedDate quando a propriedade date for atualizada
+  useEffect(() => {
+    if (date && typeof date === "string") {
+      const [day, month, year] = date.split("/").map(Number);
+
+      if (day && month && year) {
+        const formattedDate = new Date(year, month - 1, day).toLocaleDateString(
+          "pt-BR",
+          {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          },
+        );
+
+        setSelectedDate(new Date(year, month - 1, day));
+        setInputDate(formattedDate);
+      }
+    }
+  }, [date]);
+
+  // Atualizar o estado interno quando o valor externo mudar
+  useEffect(() => {
+    if (date && typeof date === "string") {
+      const [day, month, year] = date.split("/").map(Number);
+
+      if (day && month && year) {
+        const formattedDate = new Date(year, month - 1, day).toLocaleDateString(
+          "pt-BR",
+          {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          },
+        );
+
+        setSelectedDate(new Date(year, month - 1, day));
+        setInputDate(formattedDate);
+        setCurrentMonth(month - 1);
+        setCurrentYear(year);
+        setSelectedMonth(month);
+        setSelectedYear(year);
+        setSelectedDay(day);
+      }
+    }
+  }, [date]);
+
   const handleInputChange = (value: string) => {
     setInputDate(value);
     const [day, month, year] = value.split("/").map(Number);
@@ -124,7 +171,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
     } else {
       console.log("Data inválida!");
     }
-  };  
+  };
 
   const handleMonthSelect = (selectedMonth: number) => {
     setSelectedMonth(selectedMonth);
