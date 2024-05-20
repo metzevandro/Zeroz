@@ -87,7 +87,6 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
   const today = new Date();
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date(date));
   const [inputDate, setInputDate] = useState<string>(date);
-  const [externalDate, setExternalDate] = useState<string>(date);
   const [currentMonth, setCurrentMonth] = useState<number>(
     new Date().getMonth(),
   );
@@ -105,20 +104,36 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
   const [selectedDay, setSelectedDay] = useState<number>(today.getDate());
 
   useEffect(() => {
-    setExternalDate(date);
+    if (date && typeof date === "string") {
+      const [day, month, year] = date.split("/").map(Number);
+
+      if (day && month && year) {
+        const formattedDate = new Date(year, month - 1, day).toLocaleDateString(
+          "pt-BR",
+          {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          },
+        );
+
+        setSelectedDate(new Date(year, month - 1, day));
+        setInputDate(formattedDate);
+      }
+    }
   }, [date]);
 
   const handleInputChange = (value: string) => {
     setInputDate(value);
     const [day, month, year] = value.split("/").map(Number);
-  
+
     const isValidDate =
       day > 0 &&
       month > 0 &&
       year > 0 &&
       month <= 12 &&
       day <= new Date(year, month, 0).getDate();
-  
+
     if (isValidDate) {
       const selectedDate = new Date(year, month - 1, day);
       setSelectedDate(selectedDate);
@@ -443,29 +458,12 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
     }
   };
 
-  useEffect(() => {
-    if (date && typeof date === "string") {
-      const [day, month, year] = date.split("/").map(Number);
-
-      if (day && month && year) {
-        const newDate = new Date(year, month - 1, day);
-        setSelectedDate(newDate);
-        setInputDate(date);
-        setCurrentMonth(newDate.getMonth());
-        setCurrentYear(newDate.getFullYear());
-        setSelectedDay(newDate.getDate());
-        setSelectedMonth(newDate.getMonth() + 1);
-        setSelectedYear(newDate.getFullYear());
-      }
-    }
-  }, [date]);
-
   return (
     <>
       <DataPickerInputDate
         label={label}
         placeholder={placeholder}
-        value={externalDate || inputDate}
+        value={inputDate}
         onChange={handleInputChange}
         onEnter={handleInputEnter}
         onClick={handleInputClick}
