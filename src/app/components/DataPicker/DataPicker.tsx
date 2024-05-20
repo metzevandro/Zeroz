@@ -103,27 +103,6 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
   );
   const [selectedDay, setSelectedDay] = useState<number>(today.getDate());
 
-  // Atualizando o estado selectedDate quando a propriedade date for atualizada
-  useEffect(() => {
-    if (date && typeof date === "string") {
-      const [day, month, year] = date.split("/").map(Number);
-
-      if (day && month && year) {
-        const formattedDate = new Date(year, month - 1, day).toLocaleDateString(
-          "pt-BR",
-          {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-          },
-        );
-
-        setSelectedDate(new Date(year, month - 1, day));
-        setInputDate(formattedDate);
-      }
-    }
-  }, [date]);
-
   const handleInputChange = (value: string) => {
     setInputDate(value);
     const [day, month, year] = value.split("/").map(Number);
@@ -458,6 +437,23 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
       }
     }
   };
+
+  useEffect(() => {
+    if (date && typeof date === "string") {
+      const [day, month, year] = date.split("/").map(Number);
+
+      if (day && month && year) {
+        const newDate = new Date(year, month - 1, day);
+        setSelectedDate(newDate);
+        setInputDate(date);
+        setCurrentMonth(newDate.getMonth());
+        setCurrentYear(newDate.getFullYear());
+        setSelectedDay(newDate.getDate());
+        setSelectedMonth(newDate.getMonth() + 1);
+        setSelectedYear(newDate.getFullYear());
+      }
+    }
+  }, [date]);
 
   return (
     <>
