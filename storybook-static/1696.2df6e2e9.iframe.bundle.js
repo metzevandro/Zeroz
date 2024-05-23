@@ -149,7 +149,12 @@
                   setInputDate(formattedDate);
               }
             }
-          }, [date]);
+          }, [date]),
+            (0, react.useEffect)(() => {
+              selectedDate &&
+                !isNaN(selectedDate.getTime()) &&
+                onDateChange(selectedDate);
+            }, [selectedDate, onDateChange]);
           const updateSelectedDateFormat = (month, year, day) => {
               const formattedDate = new Date(
                 year,

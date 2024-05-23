@@ -143,8 +143,8 @@
                   type: {
                     name: "enum",
                     value: [
-                      { value: '"disable"' },
                       { value: '"error"' },
+                      { value: '"disable"' },
                       { value: '"default"' },
                       { value: '"current"' },
                       { value: '"completed"' },

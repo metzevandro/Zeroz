@@ -100,7 +100,7 @@
         (options.insertStyleElement = insertStyleElement_default());
       injectStylesIntoStyleTag_default()(BemVindo.A, options);
       BemVindo.A && BemVindo.A.locals && BemVindo.A.locals;
-      const package_namespaceObject_rE = "0.1.71";
+      const package_namespaceObject_rE = "0.1.88";
       var Icon = __webpack_require__("./src/app/components/Icon/Icon.tsx");
       const BemVindo_BemVindo_BemVindo = () =>
         (0, jsx_runtime.jsxs)("div", {
