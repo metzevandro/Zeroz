@@ -18,6 +18,7 @@
 
 .data-table-root {
   display: flex;
+  overflow: auto;
   flex-direction: column;
   border: var(--s-border-width-hairline) solid var(--s-color-border-default);
   border-radius: var(--s-border-radius-medium);
