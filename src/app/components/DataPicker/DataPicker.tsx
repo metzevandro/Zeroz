@@ -128,10 +128,14 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
       }
     };
   
-    if (selectedDate !== null && !isNaN(selectedDate.getTime())) {
+    if (
+      selectedDate &&
+      !isNaN(selectedDate.getTime()) &&
+      selectedDate.getTime() !== new Date(date).getTime()
+    ) {
       handleDateChange();
     }
-  }, [selectedDate, onDateChange]);  
+  }, [selectedDate, onDateChange, date]);
 
   const handleInputChange = (value: string) => {
     setInputDate(value);
