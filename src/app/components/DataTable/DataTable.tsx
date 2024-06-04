@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import InputSearch from "../InputSearch/InputSearch";
 import Button from "../Button/Button";
@@ -74,7 +75,6 @@ const DataTable: React.FC<DataTableProps> = ({
     setTotalPages(totalPages);
   }, [originalData, itemsPerPage]);
 
-  // Atualize a renderização do label para mostrar "0 of 0" quando não houver dados
   const label =
     filteredData.length > 0
       ? `${pagesText} ${currentPage} - ${totalPages}`
