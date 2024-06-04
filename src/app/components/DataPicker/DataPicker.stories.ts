@@ -23,8 +23,8 @@ export const Default: Story = {
     label: "Label",
     placeholder: "Placeholder",
     disabled: false,
-    onDateChange: (date: Date) => console.log(date), // Example function, adjust as needed
-    date: "", // Example initial date, adjust as needed
+    onDateChange: (date: Date) => console.log(date),
+    date: "12/06/2024",
   },
 };
 

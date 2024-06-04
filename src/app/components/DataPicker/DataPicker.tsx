@@ -140,11 +140,13 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
 
     if (isValidDate) {
       const selectedDate = new Date(year, month - 1, day);
-      setSelectedDate(selectedDate);
-      setCurrentMonth(selectedDate.getMonth());
-      setCurrentYear(selectedDate.getFullYear());
-      setSelectedDay(selectedDate.getDate());
-      onDateChange(selectedDate);
+      if (selectedDate.getTime() !== selectedDate.getTime()) {
+        setSelectedDate(selectedDate);
+        setCurrentMonth(selectedDate.getMonth());
+        setCurrentYear(selectedDate.getFullYear());
+        setSelectedDay(selectedDate.getDate());
+        onDateChange(selectedDate);
+      }
     } else {
       console.log("Data inválida!");
     }
