@@ -121,12 +121,6 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
     }
   }, [date]);
 
-  useEffect(() => {
-    if (selectedDate && !isNaN(selectedDate.getTime())) {
-      onDateChange(selectedDate);
-    }
-  }, [selectedDate, onDateChange]);
-
   const handleInputChange = (value: string) => {
     setInputDate(value);
     const [day, month, year] = value.split("/").map(Number);
