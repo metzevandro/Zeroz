@@ -1,7 +1,7 @@
 .layout {
   display: grid;
   grid-gap: var(--s-spacing-small);
-  height: min-content;
+  height: 100%;
 
   &.one-column {
     grid-template-columns: 1fr;
