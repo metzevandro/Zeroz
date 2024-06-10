@@ -843,7 +843,7 @@ const DataTable: React.FC<DataTableProps> = ({
                       ))}
                     </div>
                     {expandedRows.includes(row.id) && expandedData && (
-                      <div style={{ display: "flex" }}>
+                      <div className="data-table-content-expandable">
                         <div className="space-expanded-content" />
                         <div className="expanded-content">
                           {expandedData

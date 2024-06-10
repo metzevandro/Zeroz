@@ -48,7 +48,7 @@
     }
 
     &:hover {
-      background-color: var(--s-color-fill-default-hover);
+      border: 1px solid var(--s-color-border-default-hover);
     }
 
     &:focus-within {

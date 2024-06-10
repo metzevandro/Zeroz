@@ -1,0 +1,46 @@
+import { Meta, Controls, Canvas, Story } from "@storybook/blocks";
+import * as Skeleton from "./Skeleton.stories";
+
+<Meta of={Skeleton} />
+
+# Skeleton
+
+## Índice
+
+- [Visão Geral](#visão-geral)
+- [Como usar](#como-usar)
+
+## Visão Geral
+
+O componente `Skeleton` é usado ​​em estados de carregamento para simular o conteúdo que será exibido. Você pode definir a altura e a largura da `<div>`.
+
+<Canvas additionalActions={[
+    {
+      title: 'Open in Figma', 
+      onClick: () => {
+        window.open(
+          'https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=5074-213&t=2OC7BPXp9JVcts5r-1',
+          '_blank'
+        );
+      },
+    },
+    {
+      title: 'Open in GitHub',
+      onClick: () => {
+        window.open(
+          'https://github.com/metzevandro/Zeroz/blob/master/src/app/components/Skeleton/Skeleton.tsx',
+          '_blank'
+        );
+      },
+    }
+  ]}>
+  <Story/>
+
+</Canvas>
+<Controls />
+
+## Como usar:
+
+```tsx
+<Skeleton width="150" height="150" />
+```

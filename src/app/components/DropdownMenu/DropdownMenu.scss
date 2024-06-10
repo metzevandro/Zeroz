@@ -13,7 +13,7 @@
     background-color: var(--s-color-fill-default);
     border: var(--s-border-width-hairline) solid var(--s-color-border-default);
     padding: var(--s-spacing-nano);
-    box-shadow: var(--s-shadow-level-2);
+    box-shadow: var(--s-shadow-dropdown);
 
     .dropdown-menu-title {
       font: var(--s-typography-paragraph-strong);
@@ -48,7 +48,7 @@
         border-radius: var(--s-border-radius-small);
         z-index: 2;
         outline-width: var(--s-border-width-thin);
-        outline-color: var(--s-color-fill-highlight);
+        outline-color: var(--s-color-border-highlight);
         outline-offset: var(--s-border-width-thin);
         outline-style: solid;
       }

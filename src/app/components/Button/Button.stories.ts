@@ -76,3 +76,11 @@ export const disable: Story = {
     variant: "primary",
   },
 };
+
+export const loading: Story = {
+  args: {
+    size: "md",
+    label: "Button",
+    variant: "is-loading",
+  },
+};

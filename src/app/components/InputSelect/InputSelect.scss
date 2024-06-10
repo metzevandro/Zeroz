@@ -65,11 +65,12 @@
 
     &:hover {
       background-color: var(--s-color-fill-disable);
+      border: 1px solid var(--s-color-border-default-hover);
     }
 
     &:focus-within {
       outline-width: var(--s-border-width-thin);
-      outline-color: var(--s-color-fill-highlight);
+      outline-color: var(--s-color-border-highlight);
       outline-offset: var(--s-border-width-hairline);
       outline-style: solid;
     }

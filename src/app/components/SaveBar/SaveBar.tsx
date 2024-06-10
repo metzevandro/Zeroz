@@ -19,8 +19,8 @@ const SaveBar: React.FC<SaveBarProps> = ({ onClickSave, onClickCancel }) => {
         <p className="save-bar-label">Unsaved changes</p>
         <div className="save-bar-buttons">
           <ButtonGroup
-            variantFirstButton="primary"
-            variantSecondButton="secondary"
+            variantFirstButton="secondary"
+            variantSecondButton="success"
             direction="row"
             contentFirstButton="Cancel"
             contentSecondButton="Save"

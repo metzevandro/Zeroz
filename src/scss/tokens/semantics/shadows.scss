@@ -2,10 +2,8 @@
 @use "../primitives/shadows.scss" as *;
 
 $semantic-shadows: (
-  level: (
-    1: tokens.getPrimitiveVar($p-shadows, base, 1),
-    2: tokens.getPrimitiveVar($p-shadows, base, 2),
-    3: tokens.getPrimitiveVar($p-shadows, base, 3),
-    4: tokens.getPrimitiveVar($p-shadows, base, 4),
-  ),
+  card: (0 1px 5px rgba(12, 12, 12, 0.05), 0 0 40px rgba(12, 12, 12, 0.015)),
+  header: 0 1px 5px rgba(12, 12, 12, 0.05),
+  dropdown: (0 4px 12px rgba(12, 12, 12, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05)),
+  modal: (0 24px 38px 3px rgba(12, 12, 12, 0.16), 0 9px 86px 8px rgba(12, 12, 12, 0.1), 0 11px 15px -7px rgba(12, 12, 12, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05)),
 );

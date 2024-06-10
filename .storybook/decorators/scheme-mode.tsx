@@ -4,7 +4,7 @@ export function SchemeMode(story, context) {
   const targetBg = document.querySelector(".sb-show-main");
   const listTargetInDocs = document.querySelectorAll(".docs-story");
   const backgrounds = {
-    dark: "#22262f",
+    dark: "#111827",
     light: "#ffffff",
   };
 

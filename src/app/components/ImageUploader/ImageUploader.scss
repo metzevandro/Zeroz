@@ -88,19 +88,14 @@
       }
 
       .image-uploader-dropzone:hover {
-        background-color: var(--s-color-fill-highlight-light);
-        color: var(--s-color-content-highlight);
+        background-color: var(--s-color-fill-default-hover);
         border: var(--s-border-width-hairline) dashed
-          var(--s-color-border-highlight);
+          var(--s-color-border-default-hover);
       }
 
       .image-uploader-dropzone:focus-visible {
-        background-color: var(--s-color-fill-highlight-light);
-        color: var(--s-color-content-highlight);
-        border: var(--s-border-width-hairline) dashed
-          var(--s-color-border-highlight);
         outline-width: var(--s-border-width-thin);
-        outline-color: var(--s-color-fill-highlight);
+        outline-color: var(--s-color-border-highlight);
         outline-offset: var(--s-border-width-thin);
         outline-style: solid;
       }

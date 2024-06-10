@@ -23,13 +23,14 @@
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: var(--s-border-radius-small);
+    align-items: center;
 
     &:focus-visible {
       outline-width: var(--s-border-width-thin);
-      outline-color: var(--s-color-fill-highlight);
+      outline-color: var(--s-color-border-highlight);
       outline-style: solid;
     }
 
@@ -76,4 +77,8 @@
       color: var(--s-color-content-disable);
     }
   }
+}
+
+.check-box-root:hover .unchecked {
+  color: var(--s-color-content-highlight);
 }
