@@ -34,7 +34,7 @@ const Page: React.FC<PageProps> = ({
   onClickBackButton,
 }) => {
   return (
-    <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+    <div style={{ display: "flex", justifyContent: "center", width: "100%", height: "100%" }}>
       <div className="page-root">
         <div className="page-header">
           <div className="page-header-title">
