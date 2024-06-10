@@ -9,19 +9,24 @@
   &.default {
     color: var(--s-color-content-default);
     background-color: var(--s-color-fill-default-light);
+    border: 1px solid transparent;
   }
 
-  &.default.primary {
+  &.light {
+    border: 1px solid var(--s-color-border-default);
+  }
+
+  &.primary {
     color: var(--s-color-content-on-color);
     background-color: var(--s-color-fill-highlight);
   }
 
-  &.default.warning {
+  &.warning {
     color: var(--s-color-content-on-color);
     background-color: var(--s-color-fill-warning);
   }
 
-  &.default.success {
+  &.success {
     color: var(--s-color-content-on-color);
     background-color: var(--s-color-fill-success);
   }
@@ -29,15 +34,18 @@
   &.primary.light {
     background-color: var(--s-color-fill-highlight-light);
     color: var(--s-color-content-highlight);
+    border: 1px solid var(--s-color-border-highlight);
   }
 
   &.warning.light {
     background-color: var(--s-color-fill-warning-light);
     color: var(--s-color-content-warning);
+    border: 1px solid var(--s-color-border-warning);
   }
 
   &.success.light {
     background-color: var(--s-color-fill-success-light);
     color: var(--s-color-content-success);
+    border: 1px solid var(--s-color-border-success);
   }
 }

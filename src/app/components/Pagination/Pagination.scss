@@ -1,40 +1,75 @@
 .PaginationItem {
-  .arrow_back {
-    border-right: 0px !important;
-  }
-  .arrow_back,
-  .arrow_forward {
+.arrow_back {
+  display: flex;
+    align-items: center;
+    border-radius: var(--s-border-radius-small);
     cursor: pointer;
     background-color: var(--s-color-fill-default);
     color: var(--s-color-content-default);
     border: var(--s-border-width-hairline) solid var(--s-color-border-default);
     padding: var(--s-spacing-xx-small);
+
     &:hover {
       background-color: var(--s-color-fill-default-hover);
+      border: 1px solid var(--s-color-border-default-hover);
+  }
+
+    &:focus-visible {
+      outline-width: var(--s-border-width-thin);
+      outline-color: var(--s-color-fill-highlight);
+      outline-offset: var(--s-border-width-hairline);
+      outline-style: solid;
     }
+
+    &:disabled {
+      cursor: auto;
+      opacity: 0.64;
+      background-color: var(--s-color-fill-disable);
+      color: var(--s-color-content-disable);
+
+      &:hover {
+        background-color: var(--s-color-fill-disable);
+        border: 1px solid var(--s-color-border-default);
+      }
+  }
+}
+
+.arrow_forward {
+    cursor: pointer;
+    background-color: var(--s-color-fill-default);
+    color: var(--s-color-content-default);
+    border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+    padding: var(--s-spacing-xx-small);
+    margin-right: -1px;
+    align-items: center;
+    border-radius: var(--s-border-radius-small);
+    display: flex;
+   
+    &:hover {
+      background-color: var(--s-color-fill-default-hover);
+      border: 1px solid var(--s-color-border-default-hover);
+
   }
 
-  .arrow_back {
-    border-radius: var(--s-border-radius-small) 0 0 var(--s-border-radius-small);
-  }
+    &:focus-visible {
+      outline-width: var(--s-border-width-thin);
+      outline-color: var(--s-color-border-highlight);
+      outline-offset: var(--s-border-width-hairline);
+      outline-style: solid;
+    }
 
-  .arrow_forward {
-    border-radius: 0 var(--s-border-radius-small) var(--s-border-radius-small) 0;
-  }
+    &:disabled {
+      cursor: auto;
+      opacity: 0.64;
+      background-color: var(--s-color-fill-disable);
+      color: var(--s-color-content-disable);
 
-  .arrow_back:focus-visible,
-  .arrow_forward:focus-visible {
-    outline-width: var(--s-border-width-thin);
-    outline-color: var(--s-color-fill-highlight);
-    outline-offset: var(--s-border-width-hairline);
-    outline-style: solid;
+      &:hover {
+        background-color: var(--s-color-fill-disable);
+        border: 1px solid var(--s-color-border-default);
+      }
   }
-
-  .arrow_back:disabled,
-  .arrow_forward:disabled {
-    background-color: var(--s-color-fill-disable);
-    color: var(--s-color-content-disable);
-  }
+}
 }
 
 .Pagination {
@@ -42,7 +77,7 @@
   .leftLabel,
   .centerLabel {
     display: flex;
-  }
+    gap: var(--s-spacing-xx-small);  }
 
   .leftLabel {
     padding: var(--s-spacing-small);
@@ -65,8 +100,6 @@
     align-items: center;
 
     .arrow_back {
-      border-right: var(--s-border-width-hairline) solid
-        var(--s-color-border-default) !important;
       border-radius: var(--s-border-radius-small);
     }
 

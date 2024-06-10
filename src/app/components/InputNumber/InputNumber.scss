@@ -36,7 +36,7 @@
 
     &:focus-within {
       outline-width: var(--s-border-width-thin);
-      outline-color: var(--s-color-fill-highlight);
+      outline-color: var(--s-color-border-highlight);
       outline-offset: var(--s-border-width-thin);
       outline-style: solid;
     }
@@ -45,12 +45,17 @@
       border-radius: 0 var(--s-border-radius-small) var(--s-border-radius-small)
         0;
       border-left: 0;
+      z-index: 2;
 
       &:active {
         outline-width: var(--s-border-width-thin);
-        outline-color: var(--s-color-fill-highlight);
+        outline-color: var(--s-color-border-highlight);
         outline-offset: -1px;
         outline-style: solid;
+      }
+
+      &:hover {
+        border: 1px solid var(--s-color-border-default-hover);
       }
     }
 
@@ -62,9 +67,13 @@
 
       &:active {
         outline-width: var(--s-border-width-thin);
-        outline-color: var(--s-color-fill-highlight);
+        outline-color: var(--s-color-border-highlight);
         outline-offset: -1px;
         outline-style: solid;
+      }
+
+      &:hover {
+        border: 1px solid var(--s-color-border-default-hover);
       }
     }
 
@@ -109,16 +118,15 @@
       font: var(--s-typography-paragraph-regular);
       width: 100%;
       padding: var(--s-spacing-xx-small);
-      border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+      border: 1px solid var(--s-color-border-default);
       background-color: var(--s-color-fill-default);
 
       &:hover {
-        background-color: var(--s-color-fill-default-hover);
+        border-color: var(--s-color-border-default-hover);
       }
 
       &:focus-visible {
         outline: none;
-        background-color: var(--s-color-fill-default-hover);
       }
 
       &::placeholder {

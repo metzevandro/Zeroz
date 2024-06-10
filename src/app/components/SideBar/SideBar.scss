@@ -43,25 +43,23 @@
     color: var(--s-color-content-default);
 
     &.active {
-      background-color: var(--s-color-fill-highlight-light);
       color: var(--s-color-content-highlight);
     }
   }
 
-  .Sidebar-item:hover {
+  .Sidebar-item:hover:not(.active) {
     background-color: var(--s-color-fill-default-hover);
   }
 
   .Sidebar-item:focus-visible {
     z-index: 2;
     outline-width: var(--s-border-width-thin);
-    outline-color: var(--s-color-fill-highlight);
+    outline-color: var(--s-color-border-highlight);
     outline-offset: -2px;
     outline-style: solid;
   }
 
   .Sidebar-item:active {
-    background-color: var(--s-color-fill-highlight-light);
     color: var(--s-color-content-highlight);
   }
 
@@ -109,12 +107,11 @@
       }
 
       &.active {
-        background-color: var(--s-color-fill-highlight-light);
         color: var(--s-color-content-highlight);
       }
     }
 
-    .Sidebar-sub-item:hover {
+    .Sidebar-item:hover:not(.active) {
       background-color: var(--s-color-fill-default-hover);
       div:first-child {
         transition: 0.2s opacity ease-in;
@@ -125,13 +122,12 @@
     .Sidebar-sub-item:focus-visible {
       z-index: 2;
       outline-width: var(--s-border-width-thin);
-      outline-color: var(--s-color-fill-highlight);
+      outline-color: var(--s-color-border-highlight);
       outline-offset: -2px;
       outline-style: solid;
     }
 
     .Sidebar-sub-item:active {
-      background-color: var(--s-color-fill-highlight-light);
       color: var(--s-color-content-highlight);
     }
 
@@ -143,11 +139,16 @@
     }
 
     .Sidebar-item-with-action-close {
+      opacity: 0;
       display: flex;
       align-items: center;
       transition: 0.3s ease-out;
     }
   }
+}
+
+.Sidebar .Sidebar-item:hover .Sidebar-item-with-action-close {
+  opacity: 1;
 }
 
 .Sidebar-overlay {

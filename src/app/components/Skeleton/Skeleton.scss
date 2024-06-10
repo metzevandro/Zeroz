@@ -1,0 +1,71 @@
+.skeleton {
+    position: relative;
+    padding: 0px;
+    border: none;
+    background: var(--s-color-fill-default-light);
+    box-shadow: none;
+    pointer-events: none;
+    inline-size: 9.375rem;
+    border-radius: var(--s-border-radius-small);
+  }
+  
+  .skeleton::before {
+    position: absolute;
+    animation: 3000ms ease-in-out 0s infinite normal none running animation;
+    background: var(--s-color-fill-disable);
+    block-size: 100%;
+    content: "";
+    inline-size: 100%;
+    will-change: transform-origin, transform, opacity;
+    border-radius: var(--s-border-radius-small);
+  }
+  
+  @keyframes animation {
+    0% {
+      opacity: 0.3;
+      transform: scaleX(0); /* Começa invisível e esticado à esquerda */
+      transform-origin: left center;
+    }
+  
+    20% {
+      opacity: 1;
+      transform: scaleX(1); /* Torna-se visível e esticado à esquerda */
+      transform-origin: left center;
+    }
+  
+    28% {
+      transform: scaleX(1); /* Continua esticado, agora à direita */
+      transform-origin: right center;
+    }
+  
+    51% {
+      transform: scaleX(0); /* Encolhe à direita */
+      transform-origin: right center;
+    }
+  
+    58% {
+      transform: scaleX(0); /* Encolhe à direita */
+      transform-origin: right center;
+    }
+  
+    82% {
+      transform: scaleX(1); /* Estica à direita */
+      transform-origin: right center;
+    }
+  
+    83% {
+      transform: scaleX(1); /* Estica à esquerda */
+      transform-origin: left center;
+    }
+  
+    96% {
+      transform: scaleX(0); /* Encolhe à esquerda */
+      transform-origin: left center;
+    }
+  
+    100% {
+      opacity: 0.3;
+      transform: scaleX(0); /* Termina invisível e esticado à esquerda */
+      transform-origin: left center;
+    }
+  }

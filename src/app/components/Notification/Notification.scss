@@ -14,7 +14,7 @@
     right: 24px;
     bottom: -100vw;
     border: none;
-    box-shadow: var(--s-shadow-level-2);
+    box-shadow: var(--s-shadow-dropdown);
     &.open {
       animation: float 5s ease-in-out;
     }

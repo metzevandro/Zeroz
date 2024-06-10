@@ -31,3 +31,7 @@
 
   @return map.get($variableVariations, $value);
 }
+
+@mixin apply-font-smoothing {
+  -webkit-font-smoothing: antialiased;
+}

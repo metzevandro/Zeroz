@@ -8,6 +8,7 @@
 
 .header-root {
   background-color: var(--s-color-fill-default);
+  box-shadow: var(--s-shadow-header);
   position: sticky;
   z-index: 97;
   top: 0;
@@ -39,6 +40,7 @@
 
     &:hover {
       background-color: var(--s-color-fill-default-hover);
+      cursor: pointer;
     }
 
     &:focus-visible {
@@ -48,7 +50,7 @@
       outline-style: solid;
     }
 
-    .atavar {
+    .avatar {
       cursor: pointer;
     }
 

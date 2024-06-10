@@ -26,12 +26,13 @@
     }
 
     &:hover {
-      background-color: var(--s-color-fill-default-hover);
+      // background-color: var(--s-color-fill-default-hover);
+      border-color: var(--s-color-border-default-hover);
     }
 
     &:focus-within {
       outline-width: var(--s-border-width-thin);
-      outline-color: var(--s-color-fill-highlight);
+      outline-color: var(--s-color-border-highlight);
       outline-offset: var(--s-border-width-thin);
       outline-style: solid;
     }

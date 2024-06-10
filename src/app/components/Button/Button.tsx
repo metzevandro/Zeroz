@@ -1,12 +1,13 @@
 import React, { ButtonHTMLAttributes } from "react";
 import "./Button.scss";
 import Icon from "../Icon/Icon";
+import Loading from "../Loading/Loading";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   label?: string;
   size: "sm" | "md";
-  variant: "primary" | "secondary" | "success" | "warning";
+  variant: "primary" | "secondary" | "success" | "warning" | "is-loading";
   typeIcon?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
@@ -29,8 +30,8 @@ const Button: React.FC<ButtonProps> = ({
           {...rest}
           className={buttonClass}
           onClick={onClick}
-          disabled={disabled}
-        >
+          disabled={disabled}>
+          {variant === 'is-loading' && <Loading variant="default"/>}
           {typeIcon && <Icon icon={typeIcon} size="sm" />}
           {label}
         </button>
