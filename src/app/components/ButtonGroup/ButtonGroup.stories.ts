@@ -1,14 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import ButtonGroup from "./ButtonGroup";
 import "../../styles.scss";
-import mdx from "./ButtonGroup.mdx";
 
 const meta = {
   title: "Components/Button Group",
   component: ButtonGroup,
   parameters: {
     layout: "centered",
-    page: mdx,
   },
 } satisfies Meta<typeof ButtonGroup>;
 

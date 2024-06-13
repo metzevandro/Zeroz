@@ -2,14 +2,12 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Button from "./Button";
 import Story from "@storybook/react";
 import "../../styles.scss";
-import mdx from "./Button.mdx";
 
 const meta = {
   title: "Components/Button",
   component: Button,
   parameters: {
     layout: "centered",
-    page: mdx,
   },
 } as Meta<typeof Button>;
 

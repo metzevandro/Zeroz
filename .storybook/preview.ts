@@ -14,11 +14,15 @@ const preview: Preview = {
       disable: true,
     },
   },
+
   decorators: [SchemeMode, BrandMode],
+
   globalTypes: {
     scheme,
     brand,
   },
+
+  tags: ["autodocs"]
 };
 
 export default preview;

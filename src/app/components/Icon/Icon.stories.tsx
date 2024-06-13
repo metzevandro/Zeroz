@@ -2,15 +2,13 @@ import type { Meta, StoryFn } from "@storybook/react";
 import Icon from "./Icon";
 import "../../styles.scss";
 
-import mdx from "./Icon.mdx";
 
 const meta: Meta = {
   title: "Components/Icon",
   component: Icon,
   parameters: {
     layout: "centered",
-    page: mdx,
-  },
+   },
 };
 
 export default meta;

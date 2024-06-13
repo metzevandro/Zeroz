@@ -2,16 +2,13 @@ import type { Meta, StoryFn } from "@storybook/react";
 import Avatar from "./Avatar";
 import React from "react";
 import "../../styles.scss";
-import mdx from "./Avatar.mdx";
 
 const meta: Meta = {
   title: "Components/Avatar",
   component: Avatar,
   parameters: {
     layout: "centered",
-    docs: {
-      page: mdx,
-    },
+
   },
 };
 

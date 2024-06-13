@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 import "../../styles.scss";
 
-
 import AppShell from "./AppShell";
-import Sidebar, { SidebarList, SidebarItem } from "../SideBar/Sidebar";
+import Sidebar, { SidebarList, SidebarItem } from "../Sidebar/Sidebar";
 import Header, { HeaderProfile } from "../Header/Header";
 import DropDownMenu, {
   DropDownMenuItem,

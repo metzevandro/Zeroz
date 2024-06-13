@@ -7,15 +7,13 @@ import DropDownMenu, {
 import Button from "../Button/Button";
 import "../../styles.scss";
 
-import mdx from "./DropdownMenu.mdx";
 
 const meta: Meta = {
   title: "Components/Dropdown Menu",
   component: DropDownMenu,
   parameters: {
     layout: "centered",
-    page: mdx,
-  },
+   },
 };
 
 export default meta;

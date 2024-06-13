@@ -65,7 +65,7 @@ export {
   SidebarItem,
   SidebarSubItem,
   SidebarList,
-} from "./components/SideBar/Sidebar";
+} from "./components/Sidebar/Sidebar";
 export { default as Skeleton } from "./components/Skeleton/Skeleton";
 export { default as Slider } from "./components/Slider/Slider";
 export { default as Switch } from "./components/Switch/Switch";

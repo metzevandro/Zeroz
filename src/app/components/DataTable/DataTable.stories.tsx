@@ -11,8 +11,7 @@ const meta: Meta = {
   component: DataTable,
   parameters: {
     layout: "padded",
-    page: mdx,
-  },
+   },
 };
 
 export default meta;

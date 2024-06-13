@@ -3,15 +3,13 @@ import "../../styles.scss";
 import Image from "./Image";
 import Story from "@storybook/react";
 
-import mdx from "./Image.mdx";
 
 const meta = {
   title: "Components/Image",
   component: Image,
   parameters: {
     layout: "centered",
-    page: mdx,
-  },
+   },
 } as Meta<typeof Image>;
 
 export default meta;

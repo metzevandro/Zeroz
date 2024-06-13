@@ -2,14 +2,13 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Brand from "./Brand";
 import Story from "@storybook/react";
 import "../../styles.scss";
-import mdx from "./Brand.mdx";
 
 const meta = {
   title: "Components/Brand",
   component: Brand,
   parameters: {
     layout: "centered",
-    page: mdx,
+
   },
 } as Meta<typeof Brand>;
 

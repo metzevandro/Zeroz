@@ -11,8 +11,7 @@ const meta = {
   component: CardDropdown,
   parameters: {
     layout: "padded",
-    page: mdx,
-  },
+   },
   args: {
     title: "Card dropdown title",
     description: "Card dropdown description",

@@ -5,7 +5,6 @@ import Icon from "../Icon/Icon";
 import "./Aside.scss";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import Button from "../Button/Button";
-import mdx from "./Aside.mdx";
 import "../../styles.scss";
 
 const meta: Meta = {
@@ -14,10 +13,7 @@ const meta: Meta = {
   parameters: {
     layout: "fullscreen",
     docs: {
-      page: mdx,
-      story: {
-        height: "500px",
-      },
+
     },
   },
 };
