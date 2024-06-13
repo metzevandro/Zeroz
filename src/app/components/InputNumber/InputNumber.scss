@@ -17,12 +17,28 @@
     width: 100%;
     color: var(--s-color-content-default);
 
+    button:hover + input {
+      border-left: none;
+    }
+
+    input:hover + .add {
+      border-left: none;
+    }
+
+    input:hover {
+      border-right: 1px solid var(--s-color-border-default-hover);
+    }
+
     &.disabled {
       border-color: var(--s-color-border-default);
       background-color: var(--s-color-fill-disable);
       opacity: 0.64;
       input {
         background-color: var(--s-color-fill-disable);
+
+        &:hover {
+          border-color: var(--s-color-border-default);
+        }
       }
 
       button:hover {
@@ -44,7 +60,6 @@
     .add {
       border-radius: 0 var(--s-border-radius-small) var(--s-border-radius-small)
         0;
-      border-left: 0;
       z-index: 2;
 
       &:active {
@@ -99,6 +114,10 @@
         background-color: var(--s-color-fill-disable);
         color: var(--s-color-content-disable);
         cursor: auto;
+
+        &:hover {
+          border-color: var(--s-color-border-default);
+        }
       }
     }
 
@@ -119,6 +138,7 @@
       width: 100%;
       padding: var(--s-spacing-xx-small);
       border: 1px solid var(--s-color-border-default);
+      border-right: none;
       background-color: var(--s-color-fill-default);
 
       &:hover {

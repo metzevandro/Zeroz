@@ -47,9 +47,13 @@ $semantic-color-light: (
   border: (
     default: tokens.getPrimitiveVar($p-color, neutral, 200),
     default-hover: tokens.getPrimitiveVar($p-color, neutral, 400,),
-    highlight: var(--b-color-light),
-    success: tokens.getPrimitiveVar($p-color, green, 300),
-    warning: tokens.getPrimitiveVar($p-color, orange, 300),
+    default-light: tokens.getPrimitiveVar($p-color, neutral, 200),
+    highlight: var(--b-color-base),
+    highlight-light: var(--b-color-light),
+    success: tokens.getPrimitiveVar($p-color, green, 600),
+    success-light: tokens.getPrimitiveVar($p-color, green, 300),
+    warning: tokens.getPrimitiveVar($p-color, orange, 600),
+    warning-light: tokens.getPrimitiveVar($p-color, orange, 300),
   ),
   content: (
     default: tokens.getPrimitiveVar($p-color, neutral, 800),
@@ -87,9 +91,12 @@ $semantic-color-dark: (
   border: (
     default: tokens.getPrimitiveVar($p-color, neutral, 800),
     default-hover: tokens.getPrimitiveVar($p-color, neutral, 400),
-    highlight: var(--b-color-dark),
-    success: tokens.getPrimitiveVar($p-color, green, 900),
-    warning: tokens.getPrimitiveVar($p-color, orange, 900),
+    highlight: var(--b-color-base),
+    highlight-light: var(--b-color-dark),
+    success: tokens.getPrimitiveVar($p-color, green, 600),
+    success-light: tokens.getPrimitiveVar($p-color, green, 900),
+    warning: tokens.getPrimitiveVar($p-color, orange, 600),
+    warning-light: tokens.getPrimitiveVar($p-color, orange, 900),
   ),
   content: (
     default: tokens.getPrimitiveVar($p-color, neutral, 100),

@@ -20,7 +20,7 @@ export const Inline: Story = {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     icon: "ac_unit",
     title: "Title",
-    type: "inline",
+    type: "float",
     variant: "primary",
     dismissible: false,
     buttonLabel: "Button",
@@ -41,7 +41,7 @@ export const Float: Story = {
     dismissible: false,
     buttonLabel: "Button",
     disableButton: false,
-    withAction: false,
+    withAction: true,
   },
 };
 
@@ -57,6 +57,23 @@ export const Primary: Story = {
     buttonLabel: "Button",
     disableButton: false,
     withAction: false,
+  
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    icon: "ac_unit",
+    title: "Title",
+    type: "inline",
+    variant: "secondary",
+    dismissible: false,
+    buttonLabel: "Button",
+    disableButton: false,
+    withAction: false,
+  
   },
 };
 
@@ -100,7 +117,7 @@ export const Dismissible: Story = {
     variant: "primary",
     dismissible: true,
     buttonLabel: "Button",
-    disableButton: false,
+    disableButton: true,
     withAction: false,
   },
 };

@@ -26,7 +26,6 @@
     }
 
     &:hover {
-      // background-color: var(--s-color-fill-default-hover);
       border-color: var(--s-color-border-default-hover);
     }
 
@@ -54,6 +53,7 @@
 
       &:hover {
         background-color: var(--s-color-fill-disable);
+        border-color: var(--s-color-border-default);
       }
 
       &:focus-within {

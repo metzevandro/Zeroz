@@ -1,6 +1,7 @@
+@import '../../../scss/mixins/tokens.scss';
+
 .notification {
-  padding: var(--s-spacing-small) var(--s-spacing-small) var(--s-spacing-small)
-    var(--s-spacing-xx-small);
+  padding: var(--s-spacing-small);
   background-color: var(--s-color-fill-default);
   display: flex;
   gap: var(--s-spacing-xx-small);
@@ -13,14 +14,9 @@
     position: fixed;
     right: 24px;
     bottom: -100vw;
-    border: none;
     box-shadow: var(--s-shadow-dropdown);
     &.open {
       animation: float 5s ease-in-out;
-    }
-    &.dismissible {
-      animation: floatDismissible 5s ease-in-out;
-      animation-fill-mode: forwards;
     }
   }
 
@@ -33,28 +29,16 @@
     }
   }
 
-  &.primary {
-    border-left: var(--s-border-width-heavy) solid
-      var(--s-color-border-highlight);
-  }
-
-  &.warning {
-    border-left: var(--s-border-width-heavy) solid var(--s-color-border-warning);
-  }
-
-  &.success {
-    border-left: var(--s-border-width-heavy) solid var(--s-color-border-success);
-  }
-
   .notification-content {
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: var(--s-spacing-xx-small);
 
     header {
       display: flex;
+      min-height: var(--s-spacing-large);
       justify-content: space-between;
+      align-items: center;
       gap: var(--s-spacing-small);
     }
 
@@ -62,6 +46,7 @@
       font: var(--s-typography-paragraph-regular);
       color: var(--s-color-content-default);
       word-break: break-all;
+      padding-bottom: var(--s-spacing-nano);
     }
 
     .title {
@@ -72,12 +57,19 @@
     .notification-with-action {
       display: flex;
       width: min-content;
+      margin-top: var(--s-spacing-x-small);
     }
   }
 
   .notification-icon {
+    padding-top: var(--s-spacing-nano);
+
     &.primary {
       color: var(--s-color-content-highlight);
+    }
+
+    &.secondary {
+      color: var(--s-color-content-default);
     }
 
     &.warning {
@@ -88,6 +80,101 @@
       color: var(--s-color-content-success);
     }
   }
+  
+  &.primary {
+    background-color: var(--s-color-fill-highlight-light);
+    border: 1px solid var(--s-color-border-highlight-light);
+    color: var(--s-color-content-highlight);
+
+    .button-icon.plain.on-color {
+      color: var(--s-color-content-highlight);
+
+      &:hover {
+        background-color: rgba(white, 0.8);
+      }
+
+      @include dark {
+        &:hover {
+          background-color: rgba(black, 0.8);
+        }
+      }
+    }
+  }
+
+  &.secondary {
+    background-color: var(--s-color-fill-default);
+    border: 1px solid var(--s-color-border-default);
+    color: var(--s-color-content-default);
+  
+    .button-icon.plain.on-color {
+      color: var(--s-color-content-default);
+  
+      &:hover {
+        background-color: rgba(black, 0.08);
+      }
+  
+      @include dark {
+        &:hover {
+          background-color: rgba(black, 0.8);
+        }
+      }
+    }
+  }
+
+  &.success {
+    background-color: var(--s-color-fill-success-light);
+    border: 1px solid var(--s-color-border-success-light);
+    color: var(--s-color-content-success);
+
+    .button-icon.plain.on-color {
+      color: var(--s-color-content-success);
+
+      &:hover {
+        background-color: rgba(white, 0.8);
+      }
+
+      @include dark {
+        &:hover {
+          background-color: rgba(black, 0.8);
+        }
+      }
+    }
+  }
+
+  &.warning {
+    background-color: var(--s-color-fill-warning-light);
+    border: 1px solid var(--s-color-border-warning-light);
+    color: var(--s-color-content-warning);
+
+      .button-icon.plain.on-color {
+        color: var(--s-color-content-warning);
+
+        &:hover {
+          background-color: rgba(black, 0.08);
+        }
+
+        @include dark {
+          &:hover {
+            background-color: rgba(black, 0.8);
+          }
+        }
+      }
+  }
+}
+
+.notification.warning .description,
+.notification.warning .title {
+  color: var(--s-color-content-warning);
+}
+
+.notification.primary .description,
+.notification.primary .title {
+  color: var(--s-color-content-highlight);
+}
+
+.notification.success .description,
+.notification.success .title {
+  color: var(--s-color-content-success);
 }
 
 @media screen and (max-width: 490px) {
