@@ -35,3 +35,9 @@
 @mixin apply-font-smoothing {
   -webkit-font-smoothing: antialiased;
 }
+
+@mixin dark {
+  [data-theme="dark"] & {
+    @content;
+  }
+}

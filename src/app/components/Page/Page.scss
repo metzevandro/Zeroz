@@ -13,12 +13,12 @@
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    height: 40px;
 
     .page-header-title {
       display: flex;
       align-items: center;
       gap: var(--s-spacing-small);
+      min-height: 40px;
 
       & h1 {
         font: var(--s-typography-heading-large);

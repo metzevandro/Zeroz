@@ -43,6 +43,10 @@
       }
     }
 
+    select:disabled {
+      cursor: default;
+    }
+
     &.option {
       color: var(--s-color-content-default);
     }
@@ -61,6 +65,11 @@
       background-color: var(--s-color-fill-disable);
       color: var(--s-color-content-disable);
       opacity: 0.64;
+
+      &:hover {
+        border-color: var(--s-color-border-default);
+        cursor: default;
+      }
     }
 
     &:hover {

@@ -4,6 +4,7 @@ import DataTable from "./DataTable";
 import "../../styles.scss";
 
 import mdx from "./DataTable.mdx";
+import Button from "../Button/Button";
 
 const meta: Meta = {
   title: "Components/Data Table",

@@ -46,6 +46,7 @@
       flex-direction: column;
       padding: var(--s-spacing-medium);
       gap: var(--s-spacing-nano);
+      border-bottom: 1px solid var(--s-color-border-default);
 
       .aside-title {
         align-items: center;
@@ -83,14 +84,13 @@
         display: flex;
         flex-direction: column;
         gap: var(--s-spacing-small);
-        padding: 0 var(--s-spacing-medium) var(--s-spacing-medium)
-          var(--s-spacing-medium);
+        padding: var(--s-spacing-medium);
       }
     }
 
     .aside-footer {
       padding: var(--s-spacing-medium);
-      background-color: var(--s-color-background-default);
+      border: 1px solid var(--s-color-border-default);
     }
   }
 }

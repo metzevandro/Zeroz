@@ -792,7 +792,7 @@ const DataTable: React.FC<DataTableProps> = ({
               {filteredData
                 .slice(indexOfFirstItem, indexOfLastItem)
                 .map((row) => (
-                  <>
+                  <div className="data-table-wrapper">
                     <div
                       className="data-table-content-body"
                       style={calculateGridTemplate(selectable, expandable)}
@@ -862,7 +862,7 @@ const DataTable: React.FC<DataTableProps> = ({
                         </div>
                       </div>
                     )}
-                  </>
+                  </div>
                 ))}
             </>
           ) : hasSelectedFilters || searchTerm ? (

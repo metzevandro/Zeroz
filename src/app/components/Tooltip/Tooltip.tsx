@@ -1,7 +1,6 @@
 // Tooltip.tsx
 import React, { useState } from "react";
 import "./Tooltip.scss";
-import Icon from "../Icon/Icon";
 
 interface TooltipProps {
   text: string;
@@ -10,11 +9,7 @@ interface TooltipProps {
     | "top"
     | "bottom"
     | "right"
-    | "left"
-    | "top-right"
-    | "top-left"
-    | "bottom-right"
-    | "bottom-left";
+    | "left";
 }
 
 const Tooltip: React.FC<TooltipProps> = ({ text, children, direction }) => {
@@ -38,9 +33,8 @@ const Tooltip: React.FC<TooltipProps> = ({ text, children, direction }) => {
       {isVisible && (
         <div className={`tooltip-container ${direction}`}>
           <div className={`tooltip-icon ${direction}`}>
-            <Icon icon="arrow_drop_down" size="md" />
           </div>
-          {text}
+          <p>{text}</p>
         </div>
       )}
     </div>

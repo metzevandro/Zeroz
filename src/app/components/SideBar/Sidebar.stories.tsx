@@ -46,6 +46,17 @@ const Template: StoryFn<DefaultProps> = (args) => {
             <SidebarSubItem active={false} title="Sub Item 1" />
           </SidebarItem>
         </SidebarList>
+        <SidebarList title={args.titleSidebar}>
+          <SidebarItem
+            fillIcon={false}
+            active={true}
+            icon="home"
+            title="Home"
+          />
+          <SidebarItem fillIcon active={false} icon="settings" title="Settings">
+            <SidebarSubItem active={false} title="Sub Item 1" />
+          </SidebarItem>
+        </SidebarList>
       </Sidebar>
     </>
   );

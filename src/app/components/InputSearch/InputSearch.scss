@@ -22,6 +22,7 @@
   &.disabled:hover {
     background-color: var(--s-color-fill-disable);
     color: var(--s-color-content-disable);
+    border-color: var(--s-color-border-default);
   }
 
   &:hover {

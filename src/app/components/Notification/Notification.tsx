@@ -9,7 +9,7 @@ interface NotificationProps {
   icon?: string;
   title: string;
   description?: string;
-  variant: "primary" | "warning" | "success";
+  variant: "primary" | "secondary" | "warning" | "success";
   type: "float" | "inline";
   isOpen?: boolean;
   dismissible?: boolean;
@@ -54,7 +54,7 @@ const Notification: React.FC<NotificationProps> = ({
               <>
                 {dismissible && (
                   <ButtonIcon
-                    variant="primary"
+                    variant="on-color"
                     size="md"
                     typeIcon="close"
                     type="plain"
@@ -68,7 +68,7 @@ const Notification: React.FC<NotificationProps> = ({
               <div className="notification-with-action">
                 <Button
                   size="md"
-                  variant="secondary"
+                  variant={variant}
                   disabled={disableButton}
                   label={buttonLabel}
                   onClick={onClickButton}
