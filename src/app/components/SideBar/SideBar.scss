@@ -14,7 +14,6 @@
   padding: var(--s-spacing-medium) var(--s-spacing-xx-small);
   overflow-x: hidden;
   overflow-y: scroll;
-  transition: 0.3s;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -32,7 +31,6 @@
 
   .Sidebar-item {
     user-select: none;
-    transition: 0.1s ease-out;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -102,7 +100,6 @@
       div:first-child {
         display: flex;
         align-items: center;
-        transition: 0.2s opacity ease-in;
         opacity: 0;
       }
 
@@ -111,10 +108,9 @@
       }
     }
 
-    .Sidebar-item:hover:not(.active) {
+    .Sidebar-sub-item:hover {
       background-color: var(--s-color-fill-default-hover);
       div:first-child {
-        transition: 0.2s opacity ease-in;
         opacity: 1;
       }
     }
@@ -129,6 +125,7 @@
 
     .Sidebar-sub-item:active {
       color: var(--s-color-content-highlight);
+      opacity: 1;
     }
 
     .Sidebar-sub-item:hover {
