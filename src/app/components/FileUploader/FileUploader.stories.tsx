@@ -8,7 +8,7 @@ const meta = {
   component: FileUploader,
   parameters: {
     layout: "padded",
-   },
+  },
 } satisfies Meta<typeof FileUploader>;
 
 export default meta;

@@ -8,7 +8,6 @@ const meta = {
   component: DataPicker,
   parameters: {
     layout: "padded",
-
   },
   argTypes: {},
 } satisfies Meta<typeof DataPicker>;

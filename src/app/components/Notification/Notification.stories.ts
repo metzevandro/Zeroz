@@ -57,7 +57,6 @@ export const Primary: Story = {
     buttonLabel: "Button",
     disableButton: false,
     withAction: false,
-  
   },
 };
 
@@ -73,7 +72,6 @@ export const Secondary: Story = {
     buttonLabel: "Button",
     disableButton: false,
     withAction: false,
-  
   },
 };
 

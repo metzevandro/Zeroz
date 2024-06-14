@@ -7,7 +7,6 @@ const meta = {
   component: Badge,
   parameters: {
     layout: "centered",
-
   },
 } as Meta<typeof Badge>;
 

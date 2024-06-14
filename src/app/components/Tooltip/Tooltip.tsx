@@ -5,11 +5,7 @@ import "./Tooltip.scss";
 interface TooltipProps {
   text: string;
   children: React.ReactNode;
-  direction:
-    | "top"
-    | "bottom"
-    | "right"
-    | "left";
+  direction: "top" | "bottom" | "right" | "left";
 }
 
 const Tooltip: React.FC<TooltipProps> = ({ text, children, direction }) => {
@@ -32,8 +28,7 @@ const Tooltip: React.FC<TooltipProps> = ({ text, children, direction }) => {
       {children}
       {isVisible && (
         <div className={`tooltip-container ${direction}`}>
-          <div className={`tooltip-icon ${direction}`}>
-          </div>
+          <div className={`tooltip-icon ${direction}`}></div>
           <p>{text}</p>
         </div>
       )}

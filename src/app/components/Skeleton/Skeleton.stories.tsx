@@ -8,7 +8,7 @@ const meta = {
   component: Skeleton,
   parameters: {
     layout: "centered",
-   },
+  },
 } as Meta<typeof Skeleton>;
 
 export default meta;

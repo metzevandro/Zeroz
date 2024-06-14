@@ -3,13 +3,12 @@ import "../../styles.scss";
 import Image from "./Image";
 import Story from "@storybook/react";
 
-
 const meta = {
   title: "Components/Image",
   component: Image,
   parameters: {
     layout: "centered",
-   },
+  },
 } as Meta<typeof Image>;
 
 export default meta;

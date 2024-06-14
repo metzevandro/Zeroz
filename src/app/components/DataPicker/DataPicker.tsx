@@ -127,7 +127,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
         onDateChange(selectedDate);
       }
     };
-  
+
     if (
       selectedDate &&
       !isNaN(selectedDate.getTime()) &&

@@ -3,13 +3,12 @@ import "../../styles.scss";
 import ImageUploader from "./ImageUploader";
 import Story from "@storybook/react";
 
-
 const meta = {
   title: "Components/Image Uploader",
   component: ImageUploader,
   parameters: {
     layout: "padded",
-   },
+  },
 } as Meta<typeof ImageUploader>;
 
 export default meta;

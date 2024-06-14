@@ -8,7 +8,6 @@ const meta = {
   component: Brand,
   parameters: {
     layout: "centered",
-
   },
 } as Meta<typeof Brand>;
 

@@ -8,7 +8,7 @@ const meta = {
   component: ButtonIcon,
   parameters: {
     layout: "centered",
-   },
+  },
   args: {
     disable: false,
   },

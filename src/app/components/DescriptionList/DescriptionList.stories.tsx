@@ -7,7 +7,7 @@ const meta = {
   component: DescriptionList,
   parameters: {
     layout: "padded",
-   },
+  },
 } satisfies Meta<typeof DescriptionList>;
 
 export default meta;

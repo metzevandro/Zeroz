@@ -8,7 +8,6 @@ const meta: Meta = {
   component: Avatar,
   parameters: {
     layout: "centered",
-
   },
 };
 

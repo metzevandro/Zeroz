@@ -15,7 +15,7 @@ const meta: Meta = {
   parameters: {
     layout: "fullscreen",
     docs: {
-         story: {
+      story: {
         height: "500px",
       },
     },

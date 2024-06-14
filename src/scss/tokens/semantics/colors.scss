@@ -31,7 +31,7 @@ $semantic-color-light: (
   ),
   fill: (
     default: tokens.getPrimitiveVar($p-color, white),
-    default-hover: tokens.getPrimitiveVar($p-color, neutral, 100,),
+    default-hover: tokens.getPrimitiveVar($p-color, neutral, 100),
     default-light: tokens.getPrimitiveVar($p-color, neutral, 50),
     disable: tokens.getPrimitiveVar($p-color, neutral, 100),
     highlight: var(--b-color-base),
@@ -46,7 +46,7 @@ $semantic-color-light: (
   ),
   border: (
     default: tokens.getPrimitiveVar($p-color, neutral, 200),
-    default-hover: tokens.getPrimitiveVar($p-color, neutral, 400,),
+    default-hover: tokens.getPrimitiveVar($p-color, neutral, 400),
     default-light: tokens.getPrimitiveVar($p-color, neutral, 200),
     highlight: var(--b-color-base),
     highlight-light: var(--b-color-light),

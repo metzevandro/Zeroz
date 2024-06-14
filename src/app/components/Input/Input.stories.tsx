@@ -3,13 +3,12 @@ import "../../styles.scss";
 import Input from "./Input";
 import { ChangeEvent, useState } from "react";
 
-
 const meta: Meta = {
   title: "Components/Input",
   component: Input,
   parameters: {
     layout: "padded",
-   },
+  },
 };
 
 export default meta;

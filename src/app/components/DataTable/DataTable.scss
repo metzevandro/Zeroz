@@ -105,8 +105,6 @@
         position: sticky;
         z-index: 2;
         box-shadow: 6px 0px 8px 0px rgba(0, 0, 0, 0.04);
-
-        
       }
 
       .data-table-content-body-expandable {
@@ -195,28 +193,25 @@
         height: 40px;
 
         &.down .button-icon {
-        
           &:hover {
             background-color: unset;
           }
-        
-        .material-symbols-outlined {
-          transition: 0.3s all ease-in-out;
-          transform: rotate(0deg);
+
+          .material-symbols-outlined {
+            transition: 0.3s all ease-in-out;
+            transform: rotate(0deg);
           }
-        } 
+        }
 
         &.up .button-icon {
-        
           &:hover {
             background-color: unset;
           }
 
-        .material-symbols-outlined {
-          transform: rotate(-180deg);
-          transition: 0.3s all ease-in-out;
+          .material-symbols-outlined {
+            transform: rotate(-180deg);
+            transition: 0.3s all ease-in-out;
           }
-          
         }
       }
     }
@@ -283,11 +278,9 @@
     }
   }
 
-  
-
   .data-table-footer {
     border-top: var(--s-border-width-hairline) solid
-        var(--s-color-border-default);
+      var(--s-color-border-default);
   }
 }
 
@@ -298,7 +291,6 @@
     background-color: var(--s-color-fill-default);
   }
 }
-
 
 .data-table-wrapper:hover {
   background-color: var(--s-color-fill-default-hover);

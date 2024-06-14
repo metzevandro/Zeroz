@@ -1,4 +1,4 @@
-@import '../../../scss/mixins/tokens.scss';
+@import "../../../scss/mixins/tokens.scss";
 
 .notification {
   padding: var(--s-spacing-small);
@@ -80,7 +80,7 @@
       color: var(--s-color-content-success);
     }
   }
-  
+
   &.primary {
     background-color: var(--s-color-fill-highlight-light);
     border: 1px solid var(--s-color-border-highlight-light);
@@ -105,14 +105,14 @@
     background-color: var(--s-color-fill-default);
     border: 1px solid var(--s-color-border-default);
     color: var(--s-color-content-default);
-  
+
     .button-icon.plain.on-color {
       color: var(--s-color-content-default);
-  
+
       &:hover {
         background-color: rgba(black, 0.08);
       }
-  
+
       @include dark {
         &:hover {
           background-color: rgba(black, 0.8);
@@ -146,19 +146,19 @@
     border: 1px solid var(--s-color-border-warning-light);
     color: var(--s-color-content-warning);
 
-      .button-icon.plain.on-color {
-        color: var(--s-color-content-warning);
+    .button-icon.plain.on-color {
+      color: var(--s-color-content-warning);
 
+      &:hover {
+        background-color: rgba(black, 0.08);
+      }
+
+      @include dark {
         &:hover {
-          background-color: rgba(black, 0.08);
-        }
-
-        @include dark {
-          &:hover {
-            background-color: rgba(black, 0.8);
-          }
+          background-color: rgba(black, 0.8);
         }
       }
+    }
   }
 }
 

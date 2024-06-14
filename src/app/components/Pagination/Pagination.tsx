@@ -15,17 +15,17 @@ const PaginationItem: React.FC<PaginationItemProps> = ({
 }) => {
   return (
     <>
-        {arrow === "left" ? (
-          <button className="arrow_back" disabled={disable} onClick={click}>
-            <Icon icon="arrow_back" size="sm" />
-          </button>
-        ) : arrow === "right" ? (
-          <button className="arrow_forward" disabled={disable} onClick={click}>
-            <Icon icon="arrow_forward" size="sm" />
-          </button>
-        ) : (
-          "error"
-        )}
+      {arrow === "left" ? (
+        <button className="arrow_back" disabled={disable} onClick={click}>
+          <Icon icon="arrow_back" size="sm" />
+        </button>
+      ) : arrow === "right" ? (
+        <button className="arrow_forward" disabled={disable} onClick={click}>
+          <Icon icon="arrow_forward" size="sm" />
+        </button>
+      ) : (
+        "error"
+      )}
     </>
   );
 };
@@ -65,7 +65,7 @@ const Pagination: React.FC<PaginationProps> = ({
       ) : variant === "leftLabel" ? (
         <div className="leftLabel">
           <p>{label}</p>
-          <div style={{display: 'flex'}}>
+          <div style={{ display: "flex" }}>
             <PaginationItem
               arrow="left"
               disable={disableLeft}

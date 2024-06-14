@@ -31,8 +31,8 @@
     }
 
     .tab-item:hover {
-      border-bottom: var(--s-border-width-thin) var(--s-color-border-default-hover)
-        solid;
+      border-bottom: var(--s-border-width-thin)
+        var(--s-color-border-default-hover) solid;
       color: var(--s-color-content-default);
       background-color: var(--s-color-fill-default-hover);
     }
@@ -50,11 +50,11 @@
       border-bottom: var(--s-border-width-thin) var(--s-color-border-highlight)
         solid;
 
-        &:hover {
-          border-color: var(--s-color-border-highlight);;
-          background-color: var(--s-color-fill-default);
-          color: var(--s-color-content-highlight);
-        }
+      &:hover {
+        border-color: var(--s-color-border-highlight);
+        background-color: var(--s-color-fill-default);
+        color: var(--s-color-content-highlight);
+      }
     }
   }
 
@@ -69,16 +69,16 @@
     padding: var(--s-spacing-xx-small);
     border-bottom: var(--s-border-width-thin) var(--s-color-border-highlight)
       solid;
-      
-      &:hover {
-        border-color: var(--s-color-border-highlight);;
-        background-color: var(--s-color-fill-default);
-        color: var(--s-color-content-highlight);
-      }
+
+    &:hover {
+      border-color: var(--s-color-border-highlight);
+      background-color: var(--s-color-fill-default);
+      color: var(--s-color-content-highlight);
+    }
   }
   .tab-item:hover {
-    border-bottom: var(--s-border-width-thin) var(--s-color-border-default-hover)
-      solid;
+    border-bottom: var(--s-border-width-thin)
+      var(--s-color-border-default-hover) solid;
     color: var(--s-color-content-default);
     padding: var(--s-spacing-xx-small);
   }

@@ -9,7 +9,7 @@ const meta: Meta = {
   component: Card,
   parameters: {
     layout: "centered",
-   },
+  },
   args: {
     toggle: false,
   },

@@ -30,8 +30,9 @@ const Button: React.FC<ButtonProps> = ({
           {...rest}
           className={buttonClass}
           onClick={onClick}
-          disabled={disabled}>
-          {variant === 'is-loading' && <Loading variant="default"/>}
+          disabled={disabled}
+        >
+          {variant === "is-loading" && <Loading variant="default" />}
           {typeIcon && <Icon icon={typeIcon} size="sm" />}
           {label}
         </button>

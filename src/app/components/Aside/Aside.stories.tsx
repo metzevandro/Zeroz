@@ -12,9 +12,7 @@ const meta: Meta = {
   component: Aside,
   parameters: {
     layout: "fullscreen",
-    docs: {
-
-    },
+    docs: {},
   },
 };
 
