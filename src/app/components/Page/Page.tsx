@@ -2,12 +2,8 @@ import React from "react";
 import "./Page.scss";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import Button from "../Button/Button";
-import Layout from "../Layout/Layout";
-
-type layout = "1" | "2 - Symmetric" | "2 - Asymmetric" | "3 - Symmetric";
 
 interface PageProps {
-  columnLayout: layout;
   children?: React.ReactNode;
   namePage: string;
   withBackButton?: boolean;
@@ -25,7 +21,6 @@ interface PageProps {
 }
 
 const Page: React.FC<PageProps> = ({
-  columnLayout,
   children,
   namePage,
   withBackButton,
@@ -116,7 +111,7 @@ const Page: React.FC<PageProps> = ({
             )}
           </div>
         </div>
-        <Layout columns={columnLayout}>{children}</Layout>
+        {children}
       </div>
     </div>
   );
