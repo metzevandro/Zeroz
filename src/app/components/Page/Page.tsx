@@ -42,7 +42,15 @@ const Page: React.FC<PageProps> = ({
   skeletonButtonSecondary,
 }) => {
   return (
-
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        width: "100%",
+        height: "100%",
+        background: 'var(--s-color-background-default);        '
+      }}
+    >
       <div className="page-root">
         <div className="page-header">
           <div className="page-header-title">
@@ -110,6 +118,7 @@ const Page: React.FC<PageProps> = ({
         </div>
         <Layout columns={columnLayout}>{children}</Layout>
       </div>
+    </div>
   );
 };
 
