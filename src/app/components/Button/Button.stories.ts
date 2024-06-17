@@ -82,3 +82,12 @@ export const loading: Story = {
     variant: "is-loading",
   },
 };
+
+export const Skeleton: Story = {
+  args: {
+    size: "md",
+    label: "Button",
+    variant: "primary",
+    skeleton: true,
+  },
+};

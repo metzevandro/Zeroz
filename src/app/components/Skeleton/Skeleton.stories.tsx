@@ -19,5 +19,14 @@ export const Default: Story = {
   args: {
     width: "150",
     height: "150",
+    circle: false,
+  },
+};
+
+export const Circle: Story = {
+  args: {
+    width: "150",
+    height: "150",
+    circle: true,
   },
 };

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   background-color: var(--s-color-fill-default);
-  padding: var(--s-spacing-x-small) var(--s-spacing-medium);
+  padding: var(--s-spacing-x-small) var(--s-spacing-x-large);
   box-shadow: var(--s-shadow-header);
   border-bottom: 1px solid var(--s-color-border-default);
 
@@ -22,5 +22,11 @@
     .save-bar-buttons {
       display: flex;
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .save-bar {
+    padding: var(--s-spacing-x-small) var(--s-spacing-small);
   }
 }

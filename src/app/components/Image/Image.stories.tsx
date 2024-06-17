@@ -19,6 +19,18 @@ export const Default: Story = {
   args: {
     src: "https://picsum.photos/200",
     width: "200",
+    height: "200",
     alt: "Image",
+    skeleton: false,
+  },
+};
+
+export const Skeleton: Story = {
+  args: {
+    src: "https://picsum.photos/200",
+    width: "200",
+    height: "200",
+    alt: "Image",
+    skeleton: true,
   },
 };

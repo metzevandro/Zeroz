@@ -1,6 +1,6 @@
 .page-root {
   grid-area: main;
-  margin: var(--s-spacing-medium);
+  margin: var(--s-spacing-medium) var(--s-spacing-x-large);
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -12,16 +12,23 @@
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
+    gap: var(--s-spacing-small);
 
     .page-header-title {
       display: flex;
       align-items: center;
       gap: var(--s-spacing-small);
-      min-height: 40px;
+      min-height: var(--s-spacing-x-large);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
-      & h1 {
+      h1 {
         font: var(--s-typography-heading-large);
+        line-height: var(--s-line-height-32);
         color: var(--s-color-content-default);
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
 
@@ -37,8 +44,9 @@
   }
 }
 
-@media screen and (max-width: 490px) {
+@media screen and (max-width: 768px) {
   .page-root {
+    margin: var(--s-spacing-medium) var(--s-spacing-small);
     .page-header {
       .page-header-actions {
         .button-actions {

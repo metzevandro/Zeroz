@@ -1,71 +1,61 @@
+$skeleton-bg-color: var(--s-color-fill-default-light);
+$skeleton-gradient-color-start: var(--s-color-fill-disable);
+$skeleton-gradient-color-mid: var(--s-color-fill-disable);
+$skeleton-gradient-color-end: var(--s-color-fill-disable);
+$skeleton-gradient: linear-gradient(
+  90deg,
+  $skeleton-gradient-color-start 0,
+  $skeleton-gradient-color-mid 50%,
+  $skeleton-gradient-color-end 100%
+);
+
+@mixin skeleton {
+  background-color: $skeleton-bg-color;
+  background-image: $skeleton-gradient;
+  background-repeat: no-repeat;
+  will-change: background-position;
+  animation: skeleton ease-in-out 2000ms forwards infinite;
+}
+
 .skeleton {
   position: relative;
   padding: 0px;
   border: none;
-  background: var(--s-color-fill-default-light);
   box-shadow: none;
   pointer-events: none;
-  inline-size: 9.375rem;
+  inline-size: 100%;
   border-radius: var(--s-border-radius-small);
 }
 
-.skeleton::before {
+.skeleton.no-circle::before {
+  border-radius: var(--s-border-radius-small);
   position: absolute;
-  animation: 3000ms ease-in-out 0s infinite normal none running animation;
-  background: var(--s-color-fill-disable);
   block-size: 100%;
   content: "";
   inline-size: 100%;
-  will-change: transform-origin, transform, opacity;
-  border-radius: var(--s-border-radius-small);
+  @include skeleton;
 }
 
-@keyframes animation {
+.skeleton.circle::before {
+  border-radius: var(--s-border-radius-pill);
+  position: absolute;
+  block-size: 100%;
+  content: "";
+  inline-size: 100%;
+  @include skeleton;
+}
+
+@keyframes skeleton {
   0% {
-    opacity: 0.3;
-    transform: scaleX(0); /* Começa invisível e esticado à esquerda */
-    transform-origin: left center;
+    background-position: 100% 0;
+    background-size: 0%;
   }
-
-  20% {
-    opacity: 1;
-    transform: scaleX(1); /* Torna-se visível e esticado à esquerda */
-    transform-origin: left center;
+  50% {
+    background-position: 100% 0;
+    background-size: 100%;
   }
-
-  28% {
-    transform: scaleX(1); /* Continua esticado, agora à direita */
-    transform-origin: right center;
-  }
-
-  51% {
-    transform: scaleX(0); /* Encolhe à direita */
-    transform-origin: right center;
-  }
-
-  58% {
-    transform: scaleX(0); /* Encolhe à direita */
-    transform-origin: right center;
-  }
-
-  82% {
-    transform: scaleX(1); /* Estica à direita */
-    transform-origin: right center;
-  }
-
-  83% {
-    transform: scaleX(1); /* Estica à esquerda */
-    transform-origin: left center;
-  }
-
-  96% {
-    transform: scaleX(0); /* Encolhe à esquerda */
-    transform-origin: left center;
-  }
-
   100% {
-    opacity: 0.3;
-    transform: scaleX(0); /* Termina invisível e esticado à esquerda */
-    transform-origin: left center;
+    background-position: 100% 0;
+    background-size: 0%;
   }
 }

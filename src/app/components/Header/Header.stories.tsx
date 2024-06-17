@@ -7,7 +7,6 @@ import DropDownMenu, {
 } from "../DropdownMenu/DropdownMenu";
 import BreadcrumbRoot, { Breadcrumb } from "../Breadcrumb/Breadcrumb";
 import "../../styles.scss";
-import mdx from "./Header.mdx";
 
 const meta: Meta = {
   title: "Components/Header",
@@ -27,7 +26,9 @@ const meta: Meta = {
 
 export default meta;
 
-type DefaultProps = {};
+type DefaultProps = {
+  skeleton: boolean;
+};
 
 const Template: StoryFn<DefaultProps> = (args) => {
   const [isOpenHeader, setIsOpenHeader] = useState(false);
@@ -39,6 +40,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
   return (
     <>
       <Header
+        skeleton={args.skeleton}
         breadcrumb={
           <>
             <BreadcrumbRoot href="" pageName="Breadcrumb">
@@ -48,7 +50,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
         }
         onClick={toggleHeader}
       >
-        <HeaderProfile name="Username">
+        <HeaderProfile skeleton={args.skeleton} name="Username">
           <DropDownMenu dropDownMenu>
             <DropDownMenuTitle content="Settings" />
             <DropDownMenuItem content="Item 1" />
@@ -62,4 +64,11 @@ const Template: StoryFn<DefaultProps> = (args) => {
 };
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  skeleton: false,
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  skeleton: true,
+};

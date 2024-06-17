@@ -70,3 +70,13 @@ export const OnColor: Story = {
     typeIcon: "check_circle",
   },
 };
+
+export const Skeleton: Story = {
+  args: {
+    size: "md",
+    variant: "on-color",
+    type: "plain",
+    typeIcon: "check_circle",
+    skeleton: true,
+  },
+};

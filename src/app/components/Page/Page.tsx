@@ -18,6 +18,10 @@ interface PageProps {
   onClickActionPrimary?: () => void;
   onClickActionSecondary?: () => void;
   onClickBackButton?: () => void;
+  iconButtonPrimary?: string;
+  iconButtonSecondary?: string;
+  skeletonButtonPrimary?: boolean;
+  skeletonButtonSecondary: boolean;
 }
 
 const Page: React.FC<PageProps> = ({
@@ -32,6 +36,10 @@ const Page: React.FC<PageProps> = ({
   onClickActionPrimary,
   onClickActionSecondary,
   onClickBackButton,
+  iconButtonPrimary,
+  iconButtonSecondary,
+  skeletonButtonPrimary,
+  skeletonButtonSecondary,
 }) => {
   return (
     <div
@@ -63,9 +71,10 @@ const Page: React.FC<PageProps> = ({
                   <ButtonIcon
                     type="default"
                     size="md"
-                    typeIcon="more_vert"
+                    typeIcon={`${iconButtonSecondary || "more_vert"}`}
                     variant="secondary"
                     onClick={onClickActionSecondary}
+                    skeleton={skeletonButtonSecondary}
                   />
                 </div>
                 <div className="button-actions">
@@ -74,6 +83,8 @@ const Page: React.FC<PageProps> = ({
                     variant="secondary"
                     label={buttonContentSecondary}
                     onClick={onClickActionSecondary}
+                    typeIcon={iconButtonSecondary}
+                    skeleton={skeletonButtonSecondary}
                   />
                 </div>
               </>
@@ -84,15 +95,18 @@ const Page: React.FC<PageProps> = ({
                   <ButtonIcon
                     type="default"
                     size="md"
-                    typeIcon="add"
+                    typeIcon={`${iconButtonPrimary || "add"}`}
                     variant="primary"
                     onClick={onClickActionPrimary}
+                    skeleton={skeletonButtonPrimary}
                   />
                 </div>
                 <div className="button-actions">
                   <Button
                     size="md"
                     variant="primary"
+                    skeleton={skeletonButtonPrimary}
+                    typeIcon={iconButtonPrimary}
                     label={buttonContentPrimary}
                     onClick={onClickActionPrimary}
                   />

@@ -60,8 +60,10 @@
 
   &.default {
     border-radius: 4px;
-    width: min-content;
-    height: min-content;
+
+    &.md {
+      height: 40px;
+    }
 
     &:focus-visible {
       outline-width: var(--s-border-width-thin);
