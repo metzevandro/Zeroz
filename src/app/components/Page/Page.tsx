@@ -43,7 +43,8 @@ const Page: React.FC<PageProps> = ({
         justifyContent: "center",
         width: "100%",
         height: "100%",
-        background: 'var(--s-color-background-default);        '
+        background: 'var(--s-color-background-default);',
+        overflowX: 'hidden'
       }}
     >
       <div className="page-root">
