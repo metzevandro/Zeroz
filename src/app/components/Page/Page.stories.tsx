@@ -22,7 +22,7 @@ export const Default: Story = {
     buttonContentSecondary: "Button",
     namePage: "Name Page",
     withBackButton: true,
-    columnLayout: "2 - Asymmetric",
+    description: <p>Description</p>,
     children: (
       <>
         <div className="slot">

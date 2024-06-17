@@ -5,6 +5,19 @@
   flex-direction: column;
   width: 100%;
   max-width: 1280px;
+  gap: var(--s-spacing-medium);
+
+  .page-description {
+    display: flex;
+    flex-direction: column; 
+    white-space: normal;
+    word-wrap: break-word;
+    color: var(--s-color-content-default);
+    &.with-back-button {
+      padding-left: var(--s-spacing-huge);
+    }
+  }
+  
 
   .page-header {
     display: flex;
@@ -46,7 +59,7 @@
 
 @media screen and (max-width: 768px) {
   .page-root {
-    margin: var(--s-spacing-medium) var(--s-spacing-small);
+    padding: var(--s-spacing-medium) var(--s-spacing-small);
     .page-header {
       .page-header-actions {
         .button-actions {

@@ -90,7 +90,7 @@
 
     .aside-footer {
       padding: var(--s-spacing-medium);
-      border: 1px solid var(--s-color-border-default);
+      border-top: var(--s-border-width-hairline) solid var(--s-color-border-default);
     }
   }
 }

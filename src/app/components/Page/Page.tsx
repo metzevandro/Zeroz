@@ -18,6 +18,7 @@ interface PageProps {
   iconButtonSecondary?: string;
   skeletonButtonPrimary?: boolean;
   skeletonButtonSecondary?: boolean;
+  description?: React.ReactNode;
 }
 
 const Page: React.FC<PageProps> = ({
@@ -35,6 +36,7 @@ const Page: React.FC<PageProps> = ({
   iconButtonSecondary,
   skeletonButtonPrimary,
   skeletonButtonSecondary,
+  description
 }) => {
   return (
     <div
@@ -48,6 +50,7 @@ const Page: React.FC<PageProps> = ({
       }}
     >
       <div className="page-root">
+        <div>
         <div className="page-header">
           <div className="page-header-title">
             {withBackButton && (
@@ -111,6 +114,9 @@ const Page: React.FC<PageProps> = ({
               </>
             )}
           </div>
+          
+        </div>
+        <p className={`page-description ${withBackButton ? 'with-back-button' : ''}`}>{description}</p>
         </div>
         {children}
       </div>

@@ -39,7 +39,7 @@ interface HeaderProfileProps {
   name: string;
   children: React.ReactNode;
   avatar_src?: string;
-  skeleton: boolean;
+  skeleton?: boolean;
 }
 
 export const HeaderProfile: React.FC<HeaderProfileProps> = ({

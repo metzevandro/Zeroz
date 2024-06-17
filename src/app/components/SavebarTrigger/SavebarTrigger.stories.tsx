@@ -208,7 +208,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
           }
           onClick={toggleSidebar}
         >
-          <HeaderProfile name="Username">
+          <HeaderProfile  name="Username">
             <DropDownMenu dropDownMenu>
               <DropDownMenuTitle content="Settings" />
               <DropDownMenuItem content="Item 1" />
@@ -218,7 +218,6 @@ const Template: StoryFn<DefaultProps> = (args) => {
           </HeaderProfile>
         </Header>
         <Page
-          columnLayout="1"
           namePage="Page Name"
           buttonContentSecondary="Button"
           withActionSecondary
