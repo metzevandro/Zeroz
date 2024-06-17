@@ -10,7 +10,7 @@ interface HeaderProps {
   children: React.ReactNode;
   breadcrumb: React.ReactNode;
   onClick: () => void;
-  skeleton: boolean;
+  skeleton?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({ children, onClick, breadcrumb }) => {

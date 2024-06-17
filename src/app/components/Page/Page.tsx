@@ -21,7 +21,7 @@ interface PageProps {
   iconButtonPrimary?: string;
   iconButtonSecondary?: string;
   skeletonButtonPrimary?: boolean;
-  skeletonButtonSecondary: boolean;
+  skeletonButtonSecondary?: boolean;
 }
 
 const Page: React.FC<PageProps> = ({
@@ -42,14 +42,7 @@ const Page: React.FC<PageProps> = ({
   skeletonButtonSecondary,
 }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        width: "100%",
-        height: "100%",
-      }}
-    >
+
       <div className="page-root">
         <div className="page-header">
           <div className="page-header-title">
@@ -117,7 +110,6 @@ const Page: React.FC<PageProps> = ({
         </div>
         <Layout columns={columnLayout}>{children}</Layout>
       </div>
-    </div>
   );
 };
 
