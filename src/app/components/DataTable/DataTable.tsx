@@ -64,16 +64,67 @@ const DataTable: React.FC<DataTableProps> = ({
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = itemPerPage;
-  const [filteredData, setFilteredData] =
-    useState<{ id: string; [key: string]: any }[]>(originalData);
+  const [filteredData, setFilteredData] = useState<{ id: string; [key: string]: any }[]>(originalData);
 
   const [totalPages, setTotalPages] = useState<number>(0);
 
   useEffect(() => {
+    // Atualiza os dados filtrados quando houver mudança nos dados originais
     setFilteredData(originalData);
-    const totalPages = Math.ceil(originalData.length / itemsPerPage);
+
+    // Calcula o número total de páginas com base nos dados filtrados e itens por página
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     setTotalPages(totalPages);
+
+    // Reseta a página atual para a primeira página ao mudar os dados originais
+    setCurrentPage(1);
   }, [originalData, itemsPerPage]);
+
+  useEffect(() => {
+    // Calcula o número total de páginas com base nos dados filtrados e itens por página
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    setTotalPages(totalPages);
+  }, [filteredData, itemsPerPage]);
+
+  // Função para aplicar filtros e pesquisa simultaneamente
+  const applyFiltersAndSearch = () => {
+    let updatedFilteredData = [...originalData];
+
+    // Aplica pesquisa se houver um termo de pesquisa definido
+    if (searchTerm.trim() !== "") {
+      updatedFilteredData = updatedFilteredData.filter((item) =>
+        Object.values(item).some((val) =>
+          typeof val === "string" ? val.includes(searchTerm) : false
+        )
+      );
+    }
+
+    // Aplica filtros selecionados
+    Object.entries(filterOptions).forEach(([columnName, selectedValues]) => {
+      if (selectedValues.length > 0) {
+        updatedFilteredData = updatedFilteredData.filter((item) =>
+          selectedValues.includes(String(item[columnName]))
+        );
+      }
+    });
+
+    // Atualiza os dados filtrados
+    setFilteredData(updatedFilteredData);
+
+    // Recalcula o número total de páginas
+    const totalPages = Math.ceil(updatedFilteredData.length / itemsPerPage);
+    setTotalPages(totalPages);
+
+    // Reseta a página atual para a primeira página após aplicar filtros e pesquisa
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+
+    // Aplica filtros e pesquisa simultaneamente
+    applyFiltersAndSearch();
+  };
 
   const label =
     filteredData.length > 0
@@ -490,32 +541,6 @@ const DataTable: React.FC<DataTableProps> = ({
 
     // Reseta a página para a primeira página após aplicar os filtros
     setCurrentPage(1);
-  };
-
-  const handleSearchChange = (value: string) => {
-    setSearchTerm(value);
-
-    let searchedData = [...originalData];
-
-    // Aplicar pesquisa ao conjunto de dados original
-    if (value.trim() !== "") {
-      searchedData = searchedData.filter((item) => {
-        return Object.values(item).some((val) =>
-          typeof val === "string" ? val.includes(value) : false,
-        );
-      });
-    }
-
-    // Aplicar filtros selecionados ao conjunto de dados pesquisados
-    Object.entries(filterOptions).forEach(([columnName, selectedValues]) => {
-      if (selectedValues.length > 0) {
-        searchedData = searchedData.filter((item) =>
-          selectedValues.includes(String(item[columnName])),
-        );
-      }
-    });
-
-    setFilteredData(searchedData);
   };
 
   interface SortConfig {
