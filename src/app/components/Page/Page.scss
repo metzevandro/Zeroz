@@ -9,7 +9,7 @@
 
   .page-description {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     white-space: normal;
     word-wrap: break-word;
     color: var(--s-color-content-default);
@@ -17,7 +17,6 @@
       padding-left: var(--s-spacing-huge);
     }
   }
-  
 
   .page-header {
     display: flex;

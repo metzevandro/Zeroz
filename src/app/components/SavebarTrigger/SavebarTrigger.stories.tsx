@@ -208,7 +208,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
           }
           onClick={toggleSidebar}
         >
-          <HeaderProfile  name="Username">
+          <HeaderProfile name="Username">
             <DropDownMenu dropDownMenu>
               <DropDownMenuTitle content="Settings" />
               <DropDownMenuItem content="Item 1" />

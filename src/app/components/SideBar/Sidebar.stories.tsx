@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryFn } from "@storybook/react";
-import Sidebar, { SidebarList, SidebarItem, SidebarSubItem } from "./Sidebar";
+import Sidebar, { SidebarTitle, SidebarItem, SidebarSubItem } from "./Sidebar";
 import "../../styles.scss";
 
 const meta: Meta = {
@@ -35,28 +35,17 @@ const Template: StoryFn<DefaultProps> = (args) => {
         setToggleSidebar={toggleSidebar}
         toggle={true}
       >
-        <SidebarList title={args.titleSidebar}>
-          <SidebarItem
-            fillIcon={false}
-            active={true}
-            icon="home"
-            title="Home"
-          />
-          <SidebarItem fillIcon active={false} icon="settings" title="Settings">
-            <SidebarSubItem active={false} title="Sub Item 1" />
-          </SidebarItem>
-        </SidebarList>
-        <SidebarList title={args.titleSidebar}>
-          <SidebarItem
-            fillIcon={false}
-            active={true}
-            icon="home"
-            title="Home"
-          />
-          <SidebarItem fillIcon active={false} icon="settings" title="Settings">
-            <SidebarSubItem active={false} title="Sub Item 1" />
-          </SidebarItem>
-        </SidebarList>
+        <SidebarTitle title={args.titleSidebar} />
+        <SidebarItem isActive={true} fillIcon={false} icon="home" title="Home" />
+        <SidebarItem fillIcon icon="settings" title="Settings">
+          <SidebarSubItem active={false} title="Sub Item 1" />
+        </SidebarItem>
+
+        <SidebarTitle title={args.titleSidebar} />
+        <SidebarItem fillIcon={false} icon="home" title="Home" />
+        <SidebarItem fillIcon icon="settings" title="Settings">
+          <SidebarSubItem active={false} title="Sub Item 1" />
+        </SidebarItem>
       </Sidebar>
     </>
   );

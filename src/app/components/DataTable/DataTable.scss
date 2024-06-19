@@ -104,6 +104,9 @@
       .data-table-content-body .fixed.sticky-first-column {
         position: sticky;
         z-index: 2;
+        height: 100%;
+        display: flex;
+        align-items: center;
         box-shadow: 6px 0px 8px 0px rgba(0, 0, 0, 0.04);
       }
 

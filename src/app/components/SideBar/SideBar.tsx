@@ -2,13 +2,13 @@ import "./Sidebar.scss";
 import Brand from "../Brand/Brand";
 import Icon from "../Icon/Icon";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
-import React, { useState } from "react";
+import React, { useState, ReactElement } from "react";
 
 interface SidebarProps {
   brand: string;
   children: React.ReactNode;
-  toggle?: boolean;
-  setToggleSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+  toggle: boolean;
+  setToggleSidebar: (toggle: boolean) => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -17,6 +17,8 @@ const Sidebar: React.FC<SidebarProps> = ({
   toggle,
   setToggleSidebar,
 }) => {
+  const [activeItem, setActiveItem] = useState<string | null>(null);
+
   const closeSidebar = () => {
     setToggleSidebar(false);
   };
@@ -27,8 +29,20 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div className="brand">
           <Brand alt="Logo-marca" src={brand} size="sm" />
         </div>
-        {children}
-      </div>
+        <div className="Sidebar-list">
+        {React.Children.map(children, (child, index) =>
+          React.isValidElement(child) &&
+          (child.type === SidebarItem || child.type === SidebarTitle)
+            ? React.cloneElement(child, {
+                isActive: activeItem === String(index),
+                onClick: () =>
+                  setActiveItem(
+                    activeItem === String(index) ? null : String(index),
+                  ),
+              } as { isActive: boolean; onClick: () => void })
+            : child,
+        )}
+      </div></div>
       <div
         onClick={closeSidebar}
         className={`Sidebar-overlay ${toggle ? "open" : "close"}`}
@@ -45,23 +59,12 @@ const Sidebar: React.FC<SidebarProps> = ({
   );
 };
 
-interface SidebarListProps {
+interface SidebarTitleProps {
   title: string;
-  children: React.ReactNode;
 }
 
-export const SidebarList: React.FC<SidebarListProps> = ({
-  title,
-  children,
-}) => {
-  return (
-    <>
-      <div className="Sidebar-list">
-        <h1 className="Sidebar-list-title">{title}</h1>
-        {children}
-      </div>
-    </>
-  );
+export const SidebarTitle: React.FC<SidebarTitleProps> = ({ title }) => {
+  return <h1 className="Sidebar-list-title">{title}</h1>;
 };
 
 interface SidebarItemsProps {
@@ -70,7 +73,7 @@ interface SidebarItemsProps {
   fillIcon: boolean;
   children?: React.ReactNode;
   onClick?: () => void;
-  active: boolean;
+  isActive?: boolean; // Alteração: isActive é opcional
 }
 
 export const SidebarItem: React.FC<SidebarItemsProps> = ({
@@ -79,16 +82,11 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
   fillIcon,
   children,
   onClick,
-  active,
+  isActive,
 }) => {
-  const [toggleActive, setToggleActive] = useState(false);
-  const toggleKey = () => {
-    setToggleActive(!toggleActive);
-  };
-
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter" && children) {
-      toggleKey();
+      onClick?.();
     }
   };
 
@@ -96,9 +94,9 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
     <>
       <div
         className={`Sidebar-item ${children ? "with-sub-item" : ""} ${
-          children ? "" : active ? "active" : ""
+          children ? "" : isActive ? "active" : ""
         }`}
-        onClick={children ? toggleKey : onClick}
+        onClick={onClick}
         tabIndex={0}
         onKeyDown={handleKeyPress}
       >
@@ -109,9 +107,9 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
         {children && (
           <div
             onKeyDown={handleKeyPress}
-            onClick={toggleKey}
+            onClick={onClick}
             className={`${
-              toggleActive === true
+              isActive
                 ? "Sidebar-item-with-action-open"
                 : "Sidebar-item-with-action-close"
             }`}
@@ -120,7 +118,7 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
           </div>
         )}
       </div>
-      {toggleActive && <div>{children}</div>}
+      {isActive && <div>{children}</div>}
     </>
   );
 };

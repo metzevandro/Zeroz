@@ -6,11 +6,9 @@ import Pagination from "../Pagination/Pagination";
 import InputCheckbox from "../InputCheckbox/InputCheckbox";
 import "../DataTable/DataTable.scss";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
-import Aside, { AsideContent, AsideFooter } from "../Aside/Aside";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import EmptyState from "../EmptyState/EmptyState";
 import Icon from "../Icon/Icon";
-import Tag from "../Tag/Tag";
 import Modal, { FooterModal } from "../Modal/Modal";
 
 interface DataTableProps {
@@ -26,7 +24,7 @@ interface DataTableProps {
   labelSecondButton: string;
   selectableLabelSecondButton: string;
   selectableIconSecondButton: string;
-  availableFilters?: { [key: string]: string[] };
+  filters: { [key: string]: string[] };
   asideTitle: string;
   firstButtonLabelAside: string;
   secondButtonLabelAside: string;
@@ -50,81 +48,27 @@ const DataTable: React.FC<DataTableProps> = ({
   selectableLabelSecondButton,
   labelSecondButton,
   typeIconSecondButton,
-  firstButtonLabelAside,
-  secondButtonLabelAside,
   titleNoDataMessage,
   labelButtonNoDataFilteredMessage,
   descriptionNoDataMessage,
-  asideTitle,
   selectableIconSecondButton,
-  availableFilters,
+  filters,
   titleNoDataFilteredMessage,
   descriptionNoDataFilteredMessage,
   pagesText,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = itemPerPage;
-  const [filteredData, setFilteredData] = useState<{ id: string; [key: string]: any }[]>(originalData);
+  const [filteredData, setFilteredData] =
+    useState<{ id: string; [key: string]: any }[]>(originalData);
 
   const [totalPages, setTotalPages] = useState<number>(0);
 
   useEffect(() => {
-    // Atualiza os dados filtrados quando houver mudança nos dados originais
     setFilteredData(originalData);
-
-    // Calcula o número total de páginas com base nos dados filtrados e itens por página
-    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    const totalPages = Math.ceil(originalData.length / itemsPerPage);
     setTotalPages(totalPages);
-
-    // Reseta a página atual para a primeira página ao mudar os dados originais
-    setCurrentPage(1);
   }, [originalData, itemsPerPage]);
-
-  useEffect(() => {
-    // Calcula o número total de páginas com base nos dados filtrados e itens por página
-    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-    setTotalPages(totalPages);
-  }, [filteredData, itemsPerPage]);
-
-  // Função para aplicar filtros e pesquisa simultaneamente
-  const applyFiltersAndSearch = () => {
-    let updatedFilteredData = [...originalData];
-
-    // Aplica pesquisa se houver um termo de pesquisa definido
-    if (searchTerm.trim() !== "") {
-      updatedFilteredData = updatedFilteredData.filter((item) =>
-        Object.values(item).some((val) =>
-          typeof val === "string" ? val.includes(searchTerm) : false
-        )
-      );
-    }
-
-    // Aplica filtros selecionados
-    Object.entries(filterOptions).forEach(([columnName, selectedValues]) => {
-      if (selectedValues.length > 0) {
-        updatedFilteredData = updatedFilteredData.filter((item) =>
-          selectedValues.includes(String(item[columnName]))
-        );
-      }
-    });
-
-    // Atualiza os dados filtrados
-    setFilteredData(updatedFilteredData);
-
-    // Recalcula o número total de páginas
-    const totalPages = Math.ceil(updatedFilteredData.length / itemsPerPage);
-    setTotalPages(totalPages);
-
-    // Reseta a página atual para a primeira página após aplicar filtros e pesquisa
-    setCurrentPage(1);
-  };
-
-  const handleSearchChange = (value: string) => {
-    setSearchTerm(value);
-
-    // Aplica filtros e pesquisa simultaneamente
-    applyFiltersAndSearch();
-  };
 
   const label =
     filteredData.length > 0
@@ -167,10 +111,6 @@ const DataTable: React.FC<DataTableProps> = ({
   const [filterOptions, setFilterOptions] = useState<{
     [key: string]: string[];
   }>(columns.reduce((acc, column) => ({ ...acc, [column]: [] }), {}));
-
-  const [selectedTags, setSelectedTags] = useState<{ [key: string]: string[] }>(
-    columns.reduce((acc, column) => ({ ...acc, [column]: [] }), {}),
-  );
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -424,7 +364,7 @@ const DataTable: React.FC<DataTableProps> = ({
           placeholder={inputPlaceholder}
           onChange={handleSearchChange}
         />
-        {availableFilters && (
+        {filters && (
           <div className="data-table-header-actions">
             <div style={{ width: "100%" }}>
               <Button
@@ -464,83 +404,28 @@ const DataTable: React.FC<DataTableProps> = ({
     }
   };
 
-  const removeTag = (columnName: string, tags: string[]) => {
-    const updatedSelectedTags = {
-      ...selectedTags,
-      [columnName]: selectedTags[columnName].filter(
-        (tag) => !tags.includes(tag),
-      ),
-    };
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
 
-    const updatedFilterOptions = {
-      ...filterOptions,
-      [columnName]: filterOptions[columnName].filter(
-        (option) => !tags.includes(option),
-      ),
-    };
+    let searchedData = [...originalData];
 
-    // Define os novos filtros
-    setFilterOptions(updatedFilterOptions);
-
-    // Aplica os filtros restantes aos dados originais
-    let filteredData = [...originalDataState];
-    Object.entries(updatedFilterOptions).forEach(([column, selectedValues]) => {
-      if (selectedValues.length > 0) {
-        filteredData = filteredData.filter((item) =>
-          selectedValues.includes(String(item[column])),
+    if (value.trim() !== "") {
+      searchedData = searchedData.filter((item) => {
+        return Object.values(item).some((val) =>
+          typeof val === "string" ? val.includes(value) : false,
         );
-      }
-    });
-
-    // Define os novos dados filtrados
-    setFilteredData(filteredData);
-
-    // Define os novos tags selecionadas
-    setSelectedTags(updatedSelectedTags);
-  };
-
-  const handleFilterChange = (columnName: string, value: string) => {
-    setFilterOptions((prevFilterOptions) => {
-      const newFilterOptions = { ...prevFilterOptions };
-
-      if (newFilterOptions[columnName].includes(value)) {
-        newFilterOptions[columnName] = newFilterOptions[columnName].filter(
-          (item) => item !== value,
-        );
-      } else {
-        newFilterOptions[columnName] = [...newFilterOptions[columnName], value];
-      }
-
-      return newFilterOptions;
-    });
-  };
-
-  const applyFilters = () => {
-    let updatedFilteredData = [...originalDataState]; // Usando originalDataState em vez de originalData
-    const newSelectedTags: { [key: string]: string[] } = {};
+      });
+    }
 
     Object.entries(filterOptions).forEach(([columnName, selectedValues]) => {
       if (selectedValues.length > 0) {
-        // Aplica os filtros apenas aos itens presentes nos dados filtrados
-        updatedFilteredData = updatedFilteredData.filter((item) =>
+        searchedData = searchedData.filter((item) =>
           selectedValues.includes(String(item[columnName])),
         );
-
-        // Ordena os filtros selecionados
-        newSelectedTags[columnName] = selectedValues.sort();
       }
     });
 
-    setIsOpenAside(false);
-
-    // Atualiza os dados filtrados com base na filtragem aplicada
-    setFilteredData(updatedFilteredData);
-
-    // Atualiza os tags selecionados
-    setSelectedTags(newSelectedTags);
-
-    // Reseta a página para a primeira página após aplicar os filtros
-    setCurrentPage(1);
+    setFilteredData(searchedData);
   };
 
   interface SortConfig {
@@ -555,7 +440,6 @@ const DataTable: React.FC<DataTableProps> = ({
   );
 
   const [sortConfig, setSortConfig] = useState<SortConfig>(initialSortConfig);
-  const [sortingColumn, setSortingColumn] = useState<string | null>(null);
 
   const handleSort = (column: string) => {
     const currentSortState = sortConfig[column];
@@ -575,7 +459,6 @@ const DataTable: React.FC<DataTableProps> = ({
     };
 
     setSortConfig(updatedSortConfig);
-    setSortingColumn(column);
 
     let sortedData = [...filteredData];
 
@@ -589,9 +472,7 @@ const DataTable: React.FC<DataTableProps> = ({
         return 0;
       });
     } else {
-      // Se houver filtros aplicados
       if (Object.values(filterOptions).some((options) => options.length > 0)) {
-        // Filtra os dados originais com base nos filtros aplicados
         let filteredOriginalData = [...originalDataState];
         Object.entries(filterOptions).forEach(
           ([filterColumn, selectedValues]) => {
@@ -603,14 +484,12 @@ const DataTable: React.FC<DataTableProps> = ({
           },
         );
 
-        // Ordena os dados filtrados originalmente
         sortedData = filteredOriginalData.sort((a, b) => {
           if (a[column] > b[column]) return 1;
           if (a[column] < b[column]) return -1;
           return 0;
         });
       } else {
-        // Se não houver filtros aplicados, mantém a ordem original
         sortedData = [...originalDataState];
       }
     }
@@ -619,7 +498,6 @@ const DataTable: React.FC<DataTableProps> = ({
   };
 
   useEffect(() => {
-    // Reset sortConfig to default state when filters are applied
     const defaultSortConfig: SortConfig = columns.reduce(
       (acc, column) => ({ ...acc, [column]: DEFAULT_SORT_STATE }),
       {},
@@ -628,20 +506,15 @@ const DataTable: React.FC<DataTableProps> = ({
   }, [filterOptions]);
 
   const handleClearFilters = () => {
-    // Define os novos dados filtrados como os dados originais
     const updatedFilteredData = [...originalData];
 
-    // Limpa os filtros e tags selecionadas
     const updatedFilterOptions = columns.reduce(
       (acc, column) => ({ ...acc, [column]: [] }),
       {},
     );
-    const updatedSelectedTags = { ...updatedFilterOptions };
 
-    // Define os novos dados filtrados, filtros e tags selecionadas
     setFilteredData(updatedFilteredData);
     setFilterOptions(updatedFilterOptions);
-    setSelectedTags(updatedSelectedTags);
     setSearchTerm("");
   };
 
@@ -675,83 +548,8 @@ const DataTable: React.FC<DataTableProps> = ({
 
   return (
     <>
-      {availableFilters && (
-        <Aside
-          isOpen={isOpenAside}
-          title={asideTitle}
-          toggleAside={toggleAside}
-          content={
-            <AsideContent>
-              {filteredData.length > 0 ? (
-                <>
-                  {/* Conteúdo do aside quando houver dados filtrados */}
-                  {Object.entries(availableFilters)
-                    .sort(([columnA], [columnB]) =>
-                      columnA.localeCompare(columnB),
-                    )
-                    .map(([column, options]) => (
-                      <div key={column} className="aside-filter">
-                        <div className="aside-content-col">
-                          <div className="aside-title-col">{column}</div>
-                          {options
-                            .sort((a, b) => a.localeCompare(b))
-                            .map((option, idx) => (
-                              <div key={idx}>
-                                <InputCheckbox
-                                  checked={filterOptions[column].includes(
-                                    option,
-                                  )}
-                                  onChange={() =>
-                                    handleFilterChange(column, option)
-                                  }
-                                  label={option}
-                                />
-                              </div>
-                            ))}
-                        </div>
-                      </div>
-                    ))}
-                </>
-              ) : (
-                <>{renderNoDataMessage()}</>
-              )}
-            </AsideContent>
-          }
-          footer={
-            <AsideFooter>
-              <div style={{ display: "flex", width: "min-content" }}>
-                <ButtonGroup
-                  contentFirstButton={firstButtonLabelAside}
-                  contentSecondButton={secondButtonLabelAside}
-                  direction="row"
-                  variantFirstButton="primary"
-                  variantSecondButton="secondary"
-                  onClickFirstButton={applyFilters}
-                  onClickSecondButton={toggleAside}
-                />
-              </div>
-            </AsideFooter>
-          }
-        />
-      )}
-
       <div className="data-table-root">
         {renderHeader()}
-        {Object.values(selectedTags).some((tags) => tags.length > 0) && (
-          <div className="tags">
-            {Object.entries(selectedTags).map(
-              ([column, tags]) =>
-                tags.length > 0 && (
-                  <Tag
-                    key={column}
-                    content={`${column}: ${tags.join(", ")}`}
-                    variant="primary"
-                    onClose={() => removeTag(column, tags)}
-                  />
-                ),
-            )}
-          </div>
-        )}
         <div
           ref={contentRef}
           className={`data-table-content ${

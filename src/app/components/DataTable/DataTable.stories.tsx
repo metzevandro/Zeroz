@@ -1,10 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 import DataTable from "./DataTable";
 import "../../styles.scss";
-
-import mdx from "./DataTable.mdx";
-import Button from "../Button/Button";
 
 const meta: Meta = {
   title: "Components/Data Table",
@@ -49,14 +46,24 @@ type DefaultProps = {
 };
 
 const Template: StoryFn<DefaultProps> = (args) => {
+  const [filtersActive, setFiltersActive] = useState(false);
+
   return (
     <>
+      <label>
+        <input
+          type="checkbox"
+          checked={filtersActive}
+          onChange={() => setFiltersActive(!filtersActive)}
+        />
+        Activate Filters
+      </label>
       <DataTable
         pagesText={args.pagesText}
         titleNoDataFilteredMessage={args.titleNoDataFilteredMessage}
         labelButtonNoDataFilteredMessage={args.labelButtonNoDataFilteredMessage}
         descriptionNoDataFilteredMessage={args.descriptionNoDataFilteredMessage}
-        availableFilters={args.filters}
+        filters={args.filters}
         firstButtonLabelAside={args.firstButtonLabelAside}
         secondButtonLabelAside={args.secondButtonLabelAside}
         typeIconSecondButton={args.typeIconSecondButton}
@@ -183,17 +190,7 @@ const expandedData: { [key: string]: any; id: string }[] = [
 ];
 
 const availableFilters = {
-  Age: ["23", "24", "25", "26", "27", "28", "29", "30"],
-  Company: [
-    "Apple",
-    "Amazon",
-    "Google",
-    "Microsoft",
-    "Facebook",
-    "Netflix",
-    "Twitter",
-    "Walmart",
-  ],
+  Company: ["Apple"],
 };
 
 export const Default = Template.bind({});
@@ -203,6 +200,8 @@ Default.args = {
   columns: columns,
   data: data,
   expandedData: expandedData,
+  filters: availableFilters,
+
   selectable: false,
   expandable: false,
   inputPlaceholder: "Search",
@@ -225,6 +224,8 @@ withSelectable.args = {
   itemPerPage: 4,
   pagesText: "Page",
   columns: columns,
+  filters: availableFilters,
+
   data: data,
   expandedData: expandedData,
   selectable: true,
@@ -256,6 +257,8 @@ withExpandable.args = {
   expandedData: expandedData,
   selectable: false,
   expandable: true,
+  filters: availableFilters,
+
   inputPlaceholder: "Search",
   labelFirstButton: "Order By",
   labelSecondButton: "Filter By",
@@ -277,6 +280,8 @@ withExpandable.args = {
 export const withSelectableAndWithExpandable = Template.bind({});
 withSelectableAndWithExpandable.args = {
   itemPerPage: 4,
+  filters: availableFilters,
+
   pagesText: "Page",
   columns: columns,
   data: data,
