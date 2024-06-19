@@ -2,7 +2,7 @@ import "./Sidebar.scss";
 import Brand from "../Brand/Brand";
 import Icon from "../Icon/Icon";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
-import React, { useState, ReactElement } from "react";
+import React, { useState } from "react";
 
 interface SidebarProps {
   brand: string;
@@ -31,18 +31,14 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
         <div className="Sidebar-list">
         {React.Children.map(children, (child, index) =>
-          React.isValidElement(child) &&
-          (child.type === SidebarItem || child.type === SidebarTitle)
+          React.isValidElement(child) && child.type === SidebarItem && child.props.children
             ? React.cloneElement(child, {
                 isActive: activeItem === String(index),
-                onClick: () =>
-                  setActiveItem(
-                    activeItem === String(index) ? null : String(index),
-                  ),
+                onClick: () => setActiveItem(activeItem === String(index) ? null : String(index)),
               } as { isActive: boolean; onClick: () => void })
-            : child,
-        )}
-      </div></div>
+            : child
+        )}</div>
+      </div>
       <div
         onClick={closeSidebar}
         className={`Sidebar-overlay ${toggle ? "open" : "close"}`}
@@ -109,9 +105,7 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
             onKeyDown={handleKeyPress}
             onClick={onClick}
             className={`${
-              isActive
-                ? "Sidebar-item-with-action-open"
-                : "Sidebar-item-with-action-close"
+              isActive ? "Sidebar-item-with-action-open" : "Sidebar-item-with-action-close"
             }`}
           >
             <Icon size="sm" icon="keyboard_arrow_down" />
