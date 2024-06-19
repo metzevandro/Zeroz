@@ -64,7 +64,7 @@ export {
   default as SideBar,
   SidebarItem,
   SidebarSubItem,
-  SidebarList,
+  SidebarTitle,
 } from "./components/Sidebar/Sidebar";
 export { default as Skeleton } from "./components/Skeleton/Skeleton";
 export { default as Slider } from "./components/Slider/Slider";
