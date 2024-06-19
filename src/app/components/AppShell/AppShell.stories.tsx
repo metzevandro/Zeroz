@@ -3,7 +3,7 @@ import type { Meta, StoryFn } from "@storybook/react";
 import "../../styles.scss";
 
 import AppShell from "./AppShell";
-import Sidebar, { SidebarList, SidebarItem } from "../Sidebar/Sidebar";
+import Sidebar, { SidebarTitle, SidebarItem } from "../Sidebar/Sidebar";
 import Header, { HeaderProfile } from "../Header/Header";
 import DropDownMenu, {
   DropDownMenuItem,
@@ -39,14 +39,14 @@ const Template: StoryFn<DefaultProps> = (args) => {
           brand="/logo-sm.svg"
           toggle={isOpenSidebar}
         >
-          <SidebarList title="Sidebar">
+          <SidebarTitle title="Sidebar" />
             <SidebarItem
               fillIcon={true}
-              active={false}
+              isActive={false}
               icon="settings"
               title="Settings"
             />
-          </SidebarList>
+          
         </Sidebar>
         <Header
           breadcrumb={
@@ -68,7 +68,6 @@ const Template: StoryFn<DefaultProps> = (args) => {
           </HeaderProfile>
         </Header>
         <Page
-          columnLayout="1"
           namePage="Page Name"
           buttonContentSecondary="Button"
           withActionSecondary

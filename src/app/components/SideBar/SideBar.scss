@@ -10,7 +10,6 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: var(--s-spacing-small);
   padding: var(--s-spacing-medium) var(--s-spacing-xx-small);
   overflow-x: hidden;
   overflow-y: scroll;
@@ -78,6 +77,7 @@
     flex-direction: column;
 
     .Sidebar-list-title {
+      margin-top: var(--s-spacing-small);
       text-transform: uppercase;
       font: var(--s-typography-caption-strong);
       color: var(--s-color-content-light);
