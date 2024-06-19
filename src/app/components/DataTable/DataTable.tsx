@@ -24,7 +24,7 @@ interface DataTableProps {
   labelSecondButton: string;
   selectableLabelSecondButton: string;
   selectableIconSecondButton: string;
-  filters: { [key: string]: string[] };
+  filters?: { [key: string]: string[] };
   asideTitle: string;
   firstButtonLabelAside: string;
   secondButtonLabelAside: string;
