@@ -1,7 +1,7 @@
 .badge {
   font: var(--s-typography-caption-regular);
   padding: 0 var(--s-spacing-xx-small);
-  border-radius: var(--s-border-radius-pill);
+  border-radius: var(--s-border-radius-medium);
   width: min-content;
   height: min-content;
   color: var(--s-color-content-on-color);
@@ -33,7 +33,7 @@
 
   &.primary.light {
     background-color: var(--s-color-fill-highlight-light);
-    color: var(--s-color-content-highlight);
+    color: var(--s-color-content-highlight-light);
     border: 1px solid var(--s-color-border-highlight-light);
   }
 

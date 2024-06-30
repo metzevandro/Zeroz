@@ -73,19 +73,22 @@
   }
 
   .card-dropdown-footer {
+    background-color: var(--s-color-fill-default-light);
+    border-top: var(--s-border-width-hairline) solid
+      var(--s-color-border-default);
+    padding: var(--s-spacing-medium);
     transition:
       visible 0.3s ease-out,
       opacity 0.3s ease-out;
     overflow: hidden;
     font: var(--s-typography-paragraph-regular);
     color: var(--s-color-content-light);
-    margin-left: var(--s-spacing-medium);
-    margin-right: var(--s-spacing-medium);
 
     &.close {
       height: 0;
       opacity: 0;
       visibility: hidden;
+      padding: 0;
     }
 
     &.open {

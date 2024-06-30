@@ -26,8 +26,8 @@
       cursor: pointer;
       border-bottom: var(--s-border-width-thin) var(--s-color-border-default)
         solid;
-      border-radius: var(--s-border-radius-small) var(--s-border-radius-small) 0
-        0;
+      border-radius: var(--s-border-radius-medium) var(--s-border-radius-medium)
+        0 0;
     }
 
     .tab-item:hover {

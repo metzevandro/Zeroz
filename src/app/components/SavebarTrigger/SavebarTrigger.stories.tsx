@@ -4,7 +4,7 @@ import "../../styles.scss";
 import SavebarTrigger from "./SavebarTrigger";
 import Input from "../Input/Input";
 import AppShell from "../AppShell/AppShell";
-import Sidebar, { SidebarItem, SidebarList } from "../Sidebar/Sidebar";
+import Sidebar, { SidebarItem, SidebarTitle } from "../Sidebar/Sidebar";
 import Header, { HeaderProfile } from "../Header/Header";
 import BreadcrumbRoot, { Breadcrumb } from "../Breadcrumb/Breadcrumb";
 import DropDownMenu, {
@@ -189,14 +189,13 @@ const Template: StoryFn<DefaultProps> = (args) => {
           brand="/logo-sm.svg"
           toggle={isOpenSidebar}
         >
-          <SidebarList title="Sidebar">
-            <SidebarItem
-              icon="settings"
-              fillIcon={true}
-              active={true}
-              title="Page Name"
-            />
-          </SidebarList>
+          <SidebarTitle title="Sidebar"></SidebarTitle>
+          <SidebarItem
+            icon="settings"
+            fillIcon={true}
+            isActive={true}
+            title="Page Name"
+          />
         </Sidebar>
         <Header
           breadcrumb={

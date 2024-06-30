@@ -9,7 +9,9 @@ interface IconProps {
 
 const Icon: React.FC<IconProps> = ({ size, fill, icon }) => {
   const sizeClass = size;
-  const fillStyle = `'FILL' ${fill ? 1 : 0}`;
+  const fillStyle = `'FILL' ${fill ? 1 : 0},
+    'GRAD' 0,
+    'opsz' 24`;
 
   return (
     <>

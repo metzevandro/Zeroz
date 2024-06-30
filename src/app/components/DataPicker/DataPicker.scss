@@ -10,7 +10,7 @@
     background-color: var(--s-color-fill-default);
     font: var(--s-typography-paragraph-regular);
     color: var(--s-color-content-default);
-    border-radius: var(--s-border-radius-small);
+    border-radius: var(--s-border-radius-medium);
     cursor: pointer;
     width: 100%;
     box-sizing: border-box;
@@ -61,7 +61,7 @@
     max-width: 288px;
     padding: var(--s-spacing-small);
     background-color: var(--s-color-fill-default);
-    border-radius: 4px;
+    border-radius: var(--s-border-radius-medium);
     box-shadow: var(--s-shadow-dropdown);
     flex-wrap: wrap;
     z-index: 99;
@@ -118,7 +118,8 @@
 
   .first-day-selected {
     background-color: var(--s-color-fill-highlight);
-    border-radius: var(--s-border-radius-small) 0 0 var(--s-border-radius-small);
+    border-radius: var(--s-border-radius-medium) 0 0
+      var(--s-border-radius-medium);
     color: var(--s-color-content-on-color);
   }
 
@@ -128,7 +129,8 @@
 
   .last-day-selected {
     background-color: var(--s-color-fill-highlight);
-    border-radius: 0 var(--s-border-radius-small) var(--s-border-radius-small) 0;
+    border-radius: 0 var(--s-border-radius-medium) var(--s-border-radius-medium)
+      0;
     color: var(--s-color-content-on-color);
   }
 
@@ -141,6 +143,7 @@
   }
 
   .data-picker-buttons-actions {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     * {
@@ -154,7 +157,7 @@
     cursor: pointer;
     user-select: none;
     padding: 0 0 0 var(--s-spacing-xx-small);
-    border-radius: var(--s-border-radius-small);
+    border-radius: var(--s-border-radius-medium);
 
     &:hover {
       background-color: var(--s-color-fill-default-hover);
@@ -196,7 +199,7 @@
     width: 100%;
     cursor: pointer;
     transition: background-color 0.3s;
-    border-radius: var(--s-border-radius-small);
+    border-radius: var(--s-border-radius-medium);
     padding: var(--s-spacing-nano) 0;
 
     &.selected {
@@ -220,7 +223,7 @@
     width: 100%;
     cursor: pointer;
     transition: background-color 0.3s;
-    border-radius: var(--s-border-radius-small);
+    border-radius: var(--s-border-radius-medium);
     padding: var(--s-spacing-nano) 0;
 
     &.selected {

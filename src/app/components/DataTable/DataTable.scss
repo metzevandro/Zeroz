@@ -148,8 +148,8 @@
       .th {
         background-color: var(--s-color-fill-default-light);
         padding: var(--s-spacing-xx-small) var(--s-spacing-small);
-        font: var(--s-typography-paragraph-strong);
-        text-transform: uppercase;
+        font: var(--s-typography-paragraph-regular);
+        font-weight: var(--s-font-weight-medium);
         color: var(--s-color-content-light);
         white-space: nowrap;
         display: flex;

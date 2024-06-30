@@ -23,12 +23,12 @@
       width: 100%;
       height: 4px;
       position: relative;
-      border-radius: 150px;
+      border-radius: var(--s-border-radius-pill);
       background-color: var(--s-color-border-default);
     }
 
     .slider-progress-bar {
-      border-radius: 150px;
+      border-radius: var(--s-border-radius-pill);
       height: 100%;
       background-color: var(--s-color-fill-highlight);
       transition: 0.01s width ease-in-out;
@@ -64,10 +64,11 @@
       padding: var(--s-spacing-xx-small) var(--s-spacing-x-small);
       text-align: left;
       border: var(--s-border-width-hairline) solid var(--s-color-border-default);
-      border-radius: var(--s-border-radius-small);
+      border-radius: var(--s-border-radius-medium);
       font: var(--s-typography-paragraph-regular);
       color: var(--s-color-content-default);
       background-color: var(--s-color-fill-default);
+      box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
       &:hover {
         border-color: var(--s-color-border-default-hover);

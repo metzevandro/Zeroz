@@ -36,15 +36,17 @@ const Template: StoryFn<DefaultProps> = (args) => {
         toggle={true}
       >
         <SidebarTitle title={args.titleSidebar} />
-        <SidebarItem isActive={true} fillIcon={false} icon="home" title="Home" />
+        <SidebarItem isActive={true} fillIcon={true} icon="home" title="Home" />
         <SidebarItem fillIcon icon="settings" title="Settings">
           <SidebarSubItem active={false} title="Sub Item 1" />
         </SidebarItem>
 
         <SidebarTitle title={args.titleSidebar} />
-        <SidebarItem fillIcon={false} icon="home" title="Home" />
+        <SidebarItem fillIcon={true} icon="home" title="Home" />
         <SidebarItem fillIcon icon="settings" title="Settings">
           <SidebarSubItem active={false} title="Sub Item 1" />
+          <SidebarSubItem active={false} title="Sub Item 2" />
+          <SidebarSubItem active={false} title="Sub Item 3" />
         </SidebarItem>
       </Sidebar>
     </>

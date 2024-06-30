@@ -1,67 +1,77 @@
-import React from "react";
-import Icon from "../Icon/Icon";
+import React, { useState, useEffect, useMemo } from "react";
 import "./InputCheckbox.scss";
 
-interface InputCheckboxProps {
+interface CheckboxProps {
+  modelValue?: any;
+  value?: any;
   label?: string;
-  disabled?: boolean;
-  checked: boolean;
-  onChange: (checked: boolean) => void;
+  id?: string;
+  name?: string;
+  tabindex?: string | number;
+  required?: boolean;
   indeterminate?: boolean;
+  noEvents?: boolean;
+  disabled?: boolean;
+  onUpdate?: (val: any) => void;
 }
 
-function InputCheckbox(props: InputCheckboxProps) {
-  const { checked, onChange, disabled, indeterminate, label } = props;
+const InputCheckbox: React.FC<CheckboxProps> = ({
+  modelValue,
+  value,
+  label,
+  id,
+  name,
+  tabindex,
+  required,
+  indeterminate,
+  noEvents,
+  disabled,
+  onUpdate,
+}) => {
+  const [checked, setChecked] = useState(modelValue ?? false);
 
-  const toggleInputCheckbox = () => {
-    if (disabled) {
-      return;
-    } else {
-      onChange(!checked);
+  const uid = useMemo(
+    () => id ?? `ui-form-checkbox-${Math.random().toString(36).substr(2, 9)}`,
+    [id],
+  );
+
+  useEffect(() => {
+    if (modelValue !== checked) {
+      setChecked(modelValue);
     }
+  }, [modelValue]);
+
+  const classList = useMemo(
+    () => [disabled ? "-disabled" : "", noEvents ? "-no-events" : ""].join(" "),
+    [disabled, noEvents],
+  );
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.checked;
+    setChecked(newValue);
+    onUpdate?.(newValue);
   };
 
   return (
-    <div
-      onClick={toggleInputCheckbox}
-      className={`check-box-root ${disabled && "disabled"}`}
-    >
-      <button
-        className={`InputCheckbox ${checked ? "checked" : ""} ${
-          disabled ? "disabled" : ""
-        }`}
-        tabIndex={0}
-        role="InputCheckbox"
-        aria-checked={checked}
+    <label className={`ui-form-checkbox ${classList}`} htmlFor={uid}>
+      <input
+        type="checkbox"
+        id={uid}
+        value={value}
+        tabIndex={tabindex as number}
+        required={required}
+        ref={(el) => {
+          if (el) el.indeterminate = indeterminate ?? false;
+        }}
+        name={name}
         disabled={disabled}
-      >
-        {indeterminate ? (
-          <>
-            <span className="indeterminate">
-              <Icon size="md" icon="indeterminate_check_box" fill={true} />
-            </span>
-          </>
-        ) : (
-          <>
-            {checked ? (
-              <span className="checked">
-                <Icon size="md" icon="check_box" fill={true} />
-              </span>
-            ) : (
-              <span className="unchecked">
-                <Icon size="md" icon="check_box_outline_blank" />
-              </span>
-            )}
-          </>
-        )}
-      </button>
-      {label && (
-        <label className={`check-box-label ${disabled && "disabled"}`}>
-          {props.label}
-        </label>
-      )}
-    </div>
+        checked={checked}
+        onChange={handleChange}
+      />
+      <span className="ui-form-checkbox-checkmark"></span>
+      {label && <div className="ui-form-checkbox-text">{label}</div>}
+    </label>
   );
-}
+};
 
 export default InputCheckbox;

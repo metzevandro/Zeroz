@@ -45,24 +45,20 @@ const Notification: React.FC<NotificationProps> = ({
             dismissible && "dismissible"
           } ${isOpen ? "open" : ""}`}
         >
-          <div className={`notification-icon ${variant}`}>
+          <div className={`notification-title ${variant}`}>
             <Icon icon={icon} size="md" />
+            <div className="title">{title}</div>
+            {dismissible && (
+              <ButtonIcon
+                variant="on-color"
+                size="sm"
+                typeIcon="close"
+                type="plain"
+                onClick={handleClickClose}
+              />
+            )}
           </div>
           <div className="notification-content">
-            <header>
-              <div className="title">{title}</div>
-              <>
-                {dismissible && (
-                  <ButtonIcon
-                    variant="on-color"
-                    size="md"
-                    typeIcon="close"
-                    type="plain"
-                    onClick={handleClickClose}
-                  />
-                )}
-              </>
-            </header>
             {description && <div className="description">{description}</div>}
             {withAction && (
               <div className="notification-with-action">

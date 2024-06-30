@@ -1,7 +1,7 @@
 .modal-root {
   position: fixed;
   width: 488px;
-  border-radius: var(--s-border-radius-small);
+  border-radius: var(--s-border-radius-medium);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -50,8 +50,11 @@
   }
 
   .modal-footer {
-    padding: 0 var(--s-spacing-medium) var(--s-spacing-medium)
-      var(--s-spacing-medium);
+    background-color: var(--s-color-fill-default-light);
+    border-top: 1px solid var(--s-color-border-default);
+    padding: var(--s-spacing-medium);
+    border-radius: 0 0 var(--s-border-radius-medium)
+      var(--s-border-radius-medium);
   }
 }
 

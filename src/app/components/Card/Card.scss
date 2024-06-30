@@ -37,7 +37,9 @@
   }
 
   .card-footer {
-    padding: 0 var(--s-spacing-medium) var(--s-spacing-medium)
-      var(--s-spacing-medium);
+    background-color: var(--s-color-fill-default-light);
+    border-top: var(--s-border-width-hairline) solid
+      var(--s-color-border-default);
+    padding: var(--s-spacing-medium);
   }
 }

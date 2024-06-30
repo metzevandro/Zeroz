@@ -2,8 +2,19 @@
   display: flex;
   gap: var(--s-spacing-xx-small);
   align-items: center;
-  color: var(--s-color-content-default);
+  color: var(--s-color-content-light);
+
+  .link {
+    color: var(--s-color-content-light);
+    text-decoration: none;
+
+    &:hover {
+      background-color: transparent;
+      text-decoration: underline;
+    }
+  }
 }
+
 @media screen and (max-width: 768px) {
   .breadcrumb {
     display: none;
