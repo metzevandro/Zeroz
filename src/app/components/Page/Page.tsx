@@ -52,16 +52,16 @@ const Page: React.FC<PageProps> = ({
       <div className="page-root">
         <div>
           <div className="page-header">
+            {withBackButton && (
+              <ButtonIcon
+                onClick={onClickBackButton}
+                size="md"
+                type="default"
+                typeIcon="arrow_back"
+                variant="secondary"
+              />
+            )}
             <div className="page-header-title">
-              {withBackButton && (
-                <ButtonIcon
-                  onClick={onClickBackButton}
-                  size="md"
-                  type="default"
-                  typeIcon="arrow_back"
-                  variant="secondary"
-                />
-              )}
               <h1>{namePage}</h1>
             </div>
             <div className="page-header-actions">

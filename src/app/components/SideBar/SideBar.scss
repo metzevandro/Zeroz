@@ -10,7 +10,8 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding: var(--s-spacing-medium) var(--s-spacing-xx-small);
+  padding: var(--s-spacing-medium) var(--s-spacing-xx-small)
+    var(--s-spacing-medium) var(--s-spacing-small);
   overflow-x: hidden;
   overflow-y: scroll;
 
@@ -35,12 +36,16 @@
     justify-content: space-between;
     align-items: center;
     padding: var(--s-spacing-xx-small);
-    border-radius: var(--s-border-radius-small);
+    border-radius: var(--s-border-radius-medium);
     background-color: var(--s-color-fill-default);
-    color: var(--s-color-content-default);
+    color: var(--s-color-content-light);
 
     &.active {
-      color: var(--s-color-content-highlight);
+      color: var(--s-color-content-default);
+      background-color: var(--s-color-fill-default-hover);
+      border: 1px solid var(--s-color-border-default);
+      box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+      margin: var(--s-spacing-nano) 0;
     }
   }
 
@@ -56,17 +61,12 @@
     outline-style: solid;
   }
 
-  .Sidebar-item:active {
-    color: var(--s-color-content-highlight);
-  }
-
   .with-sub-item:active {
     background-color: var(--s-color-fill-default);
-    color: var(--s-color-content-default);
   }
 
   .Sidebar-item-header {
-    font: var(--s-typography-paragraph-strong);
+    font: var(--s-typography-label-medium);
     display: flex;
     align-items: center;
     gap: var(--s-spacing-xx-small);
@@ -92,7 +92,7 @@
       gap: var(--s-spacing-xx-small);
       align-items: center;
       padding: var(--s-spacing-xx-small);
-      border-radius: var(--s-border-radius-small);
+      border-radius: var(--s-border-radius-medium);
       font: var(--s-typography-paragraph-regular);
       color: var(--s-color-content-light);
       background-color: var(--s-color-fill-default);
@@ -104,7 +104,11 @@
       }
 
       &.active {
-        color: var(--s-color-content-highlight);
+        color: var(--s-color-content-default);
+        background-color: var(--s-color-fill-default-light);
+        border: 1px solid var(--s-color-border-default);
+        box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+        margin: var(--s-spacing-nano) 0;
       }
     }
 
@@ -124,7 +128,6 @@
     }
 
     .Sidebar-sub-item:active {
-      color: var(--s-color-content-highlight);
       opacity: 1;
     }
 
@@ -157,6 +160,10 @@
 }
 
 @media screen and (max-width: 768px) {
+  .Sidebar {
+    padding: var(--s-spacing-medium) var(--s-spacing-small);
+  }
+
   .Sidebar.close {
     border: none;
     left: -100vw;
@@ -190,7 +197,7 @@
     height: 100vh;
     width: 100%;
     justify-content: end;
-    padding: 24px;
+    padding: var(--s-spacing-small);
   }
 
   .Sidebar-overlay.close {

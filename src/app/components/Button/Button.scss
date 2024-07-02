@@ -1,9 +1,15 @@
 .button {
+  box-shadow:
+    0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+    0px 0px 0px 1px var(--b-color-base) inset,
+    0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+    0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+    0px 1px 2px 0px rgba(14, 21, 36, 0.06);
   display: flex;
   align-items: center;
   justify-content: center;
   font: var(--s-typography-label-medium);
-  border-radius: var(--s-border-radius-small);
+  border-radius: var(--s-border-radius-medium);
   white-space: nowrap;
   width: 100%;
   height: 40px;
@@ -47,6 +53,7 @@
       opacity: 0.64;
       color: var(--s-color-content-disable);
       border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+      box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
     }
   }
 
@@ -54,6 +61,7 @@
     background-color: var(--s-color-fill-default);
     color: var(--s-color-content-default);
     border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+    box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
     &:hover {
       background-color: var(--s-color-fill-default-hover);
@@ -78,6 +86,12 @@
   &.success {
     background-color: var(--s-color-fill-success);
     color: var(--s-color-content-on-color);
+    box-shadow:
+      0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+      0px 0px 0px 1px var(--s-color-border-success) inset,
+      0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+      0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+      0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
     &:hover {
       background-color: var(--s-color-fill-success-hover);
@@ -95,12 +109,19 @@
       background-color: var(--s-color-fill-disable);
       color: var(--s-color-content-disable);
       border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+      box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
     }
   }
 
   &.warning {
     background-color: var(--s-color-fill-warning);
     color: var(--s-color-content-on-color);
+    box-shadow:
+      0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+      0px 0px 0px 1px var(--s-color-border-warning) inset,
+      0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+      0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+      0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
     &:hover {
       background-color: var(--s-color-fill-warning-hover);
@@ -118,6 +139,7 @@
       background-color: var(--s-color-fill-disable);
       color: var(--s-color-content-disable);
       border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+      box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
     }
   }
 
@@ -126,6 +148,7 @@
     border: var(--s-border-width-hairline) solid var(--s-color-border-default);
     background-color: var(--s-color-fill-disable);
     color: var(--s-color-content-disable);
+    box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
     .loading {
       color: var(--s-color-content-disable);

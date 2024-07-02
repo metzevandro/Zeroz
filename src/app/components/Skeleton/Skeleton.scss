@@ -24,11 +24,11 @@ $skeleton-gradient: linear-gradient(
   box-shadow: none;
   pointer-events: none;
   inline-size: 100%;
-  border-radius: var(--s-border-radius-small);
+  border-radius: var(--s-border-radius-medium);
 }
 
 .skeleton.no-circle::before {
-  border-radius: var(--s-border-radius-small);
+  border-radius: var(--s-border-radius-medium);
   position: absolute;
   block-size: 100%;
   content: "";

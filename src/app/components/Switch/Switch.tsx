@@ -1,79 +1,77 @@
-import React, { useState, useEffect } from "react";
-import Icon from "../Icon/Icon";
+import React, { useState, useEffect, useMemo } from "react";
 import "./Switch.scss";
 
 interface SwitchProps {
-  label: string;
+  modelValue?: any;
+  value?: any;
+  label?: string;
+  id?: string;
+  name?: string;
+  tabindex?: string | number;
+  required?: boolean;
+  noEvents?: boolean;
   disabled?: boolean;
-  checked?: boolean;
-  onChange?: (value: boolean) => void;
+  onUpdate?: (val: any) => void;
 }
 
 const Switch: React.FC<SwitchProps> = ({
+  modelValue,
+  value,
   label,
+  id,
+  name,
+  tabindex,
+  required,
+  noEvents,
   disabled,
-  checked: controlledChecked,
-  onChange,
+  onUpdate,
 }) => {
-  const [isChecked, setIsChecked] = useState<boolean>(
-    controlledChecked || false,
+  const [checked, setChecked] = useState(modelValue ?? false);
+
+  const uid = useMemo(
+    () => id ?? `ui-form-switch-${Math.random().toString(36).substr(2, 9)}`,
+    [id],
   );
 
   useEffect(() => {
-    if (controlledChecked !== undefined) {
-      setIsChecked(controlledChecked);
+    if (modelValue !== checked) {
+      setChecked(modelValue);
     }
-  }, [controlledChecked]);
+  }, [modelValue]);
 
-  const isDisabled = disabled;
+  const classList = useMemo(
+    () =>
+      [
+        "ui-form-switch",
+        "-switch",
+        disabled ? "-disabled" : "",
+        noEvents ? "-no-events" : "",
+      ].join(" "),
+    [disabled, noEvents],
+  );
 
-  const toggleCheckbox = () => {
-    if (isDisabled === true) {
-      return;
-    } else {
-      const newValue = !isChecked;
-      setIsChecked(newValue);
-      if (onChange) {
-        onChange(newValue);
-      }
-    }
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Enter") {
-      toggleCheckbox();
-    }
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.checked;
+    setChecked(newValue);
+    onUpdate?.(newValue);
   };
 
   return (
-    <div className="switch-root">
-      <div
-        className={`switch ${isChecked ? "checked" : ""} ${
-          disabled ? "disabled" : ""
-        }`}
-        onClick={toggleCheckbox}
-        tabIndex={0}
-        onKeyDown={handleKeyPress}
-        role="checkbox"
-        aria-checked={isChecked}
-      >
-        {isChecked ? (
-          <span className="checked">
-            <Icon size="md" icon="toggle_on" />
-          </span>
-        ) : (
-          <span className="unchecked">
-            <Icon size="md" icon="toggle_off" />
-          </span>
-        )}
-      </div>
-      <label
-        className={`label ${disabled && "disabled"}`}
-        onClick={toggleCheckbox}
-      >
-        {label}
-      </label>
-    </div>
+    <label className={classList} htmlFor={uid}>
+      <input
+        type="checkbox"
+        id={uid}
+        value={value}
+        tabIndex={tabindex as number}
+        required={required}
+        name={name}
+        disabled={disabled}
+        checked={checked}
+        onChange={handleChange}
+      />
+      <span className="ui-form-checkbox-checkmark"></span>
+      {label && <div className="ui-form-checkbox-text">{label}</div>}
+    </label>
   );
 };
 

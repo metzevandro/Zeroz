@@ -8,7 +8,6 @@
 
 .header-root {
   background-color: var(--s-color-fill-default);
-  box-shadow: var(--s-shadow-header);
   position: sticky;
   z-index: 97;
   top: 0;
@@ -27,15 +26,16 @@
   }
 
   .profile {
+    max-width: calc(4 * var(--s-spacing-huge));
     cursor: pointer;
     display: flex;
     align-items: center;
     padding: var(--s-spacing-xx-small);
     gap: var(--s-spacing-xx-small);
-    font: var(--s-typography-paragraph-strong);
+    font: var(--s-typography-label-medium);
     color: var(--s-color-content-default);
     background-color: var(--s-color-fill-default);
-    border-radius: var(--s-border-radius-small);
+    border-radius: var(--s-border-radius-medium);
     user-select: none;
 
     &:hover {
@@ -45,13 +45,9 @@
 
     &:focus-visible {
       outline-width: var(--s-border-width-thin);
-      outline-color: var(--s-color-fill-highlight);
+      outline-color: var(--s-color-border-highlight);
       outline-offset: var(--s-border-width-thin);
       outline-style: solid;
-    }
-
-    .avatar {
-      cursor: pointer;
     }
 
     .icon {
@@ -66,9 +62,12 @@
     }
 
     .name {
-      display: flex;
-      font: var(--s-typography-paragraph-strong);
+      width: 100%;
+      font: var(--s-typography-label-medium);
       color: var(--s-color-content-default);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 

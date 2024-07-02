@@ -30,23 +30,29 @@ const Sidebar: React.FC<SidebarProps> = ({
           <Brand alt="Logo-marca" src={brand} size="sm" />
         </div>
         <div className="Sidebar-list">
-        {React.Children.map(children, (child, index) =>
-          React.isValidElement(child) && child.type === SidebarItem && child.props.children
-            ? React.cloneElement(child, {
-                isActive: activeItem === String(index),
-                onClick: () => setActiveItem(activeItem === String(index) ? null : String(index)),
-              } as { isActive: boolean; onClick: () => void })
-            : child
-        )}</div>
+          {React.Children.map(children, (child, index) =>
+            React.isValidElement(child) &&
+            child.type === SidebarItem &&
+            child.props.children
+              ? React.cloneElement(child, {
+                  isActive: activeItem === String(index),
+                  onClick: () =>
+                    setActiveItem(
+                      activeItem === String(index) ? null : String(index),
+                    ),
+                } as { isActive: boolean; onClick: () => void })
+              : child,
+          )}
+        </div>
       </div>
       <div
         onClick={closeSidebar}
         className={`Sidebar-overlay ${toggle ? "open" : "close"}`}
       >
         <ButtonIcon
-          variant="on-color"
+          variant="secondary"
           onClick={closeSidebar}
-          type="plain"
+          type="default"
           size="md"
           typeIcon="close"
         />
@@ -105,7 +111,9 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
             onKeyDown={handleKeyPress}
             onClick={onClick}
             className={`${
-              isActive ? "Sidebar-item-with-action-open" : "Sidebar-item-with-action-close"
+              isActive
+                ? "Sidebar-item-with-action-open"
+                : "Sidebar-item-with-action-close"
             }`}
           >
             <Icon size="sm" icon="keyboard_arrow_down" />

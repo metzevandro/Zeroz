@@ -5,32 +5,42 @@
   padding: 0;
   cursor: pointer;
   box-sizing: border-box;
+  box-shadow:
+    0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+    0px 0px 0px 1px var(--b-color-base) inset,
+    0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+    0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+    0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
   &.sm.plain {
     padding: 4px;
     height: 24px;
+    box-shadow: none;
   }
 
   &.md.plain {
     padding: 4px;
     height: 32px;
+    box-shadow: none;
+  }
+
+  &.on-color {
+    background-color: transparent;
+    color: var(--s-color-content-on-color);
+    box-shadow: none;
+
+    &:hover {
+      background-color: rgba(white, 0.16);
+    }
   }
 
   &.plain {
-    border-radius: var(--s-border-radius-small);
+    border-radius: var(--s-border-radius-medium);
     color: var(--s-color-content-default);
     background-color: transparent;
 
     &:hover {
       background-color: var(--s-color-fill-default-hover);
-    }
-
-    &.on-color {
-      color: var(--s-color-content-on-color);
-
-      &:hover {
-        background-color: rgba(white, 0.16);
-      }
     }
 
     &:focus-visible {
@@ -45,6 +55,17 @@
       &:hover {
         color: var(--s-color-content-default);
         background-color: transparent;
+        box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+      }
+    }
+
+    &.on-color {
+      background-color: transparent;
+      color: var(--s-color-content-on-color);
+      box-shadow: none;
+
+      &:hover {
+        background-color: rgba(white, 0.16);
       }
     }
   }
@@ -59,9 +80,11 @@
   }
 
   &.default {
-    border-radius: 4px;
+    border-radius: var(--s-border-radius-medium);
 
     &.md {
+      display: flex;
+      justify-content: center;
       height: 40px;
       width: 40px;
     }
@@ -92,6 +115,7 @@
       border: var(--s-border-width-hairline) solid var(--s-color-border-default);
       background-color: var(--s-color-fill-default);
       color: var(--s-color-content-default);
+      box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
       &:hover {
         background-color: var(--s-color-fill-default-hover);
@@ -108,6 +132,12 @@
     &.success {
       background-color: var(--s-color-fill-success);
       color: var(--s-color-content-on-color);
+      box-shadow:
+        0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+        0px 0px 0px 1px var(--s-color-border-success) inset,
+        0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+        0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+        0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
       &:hover {
         background-color: var(--s-color-fill-success-hover);
@@ -117,12 +147,19 @@
         cursor: auto;
         background-color: var(--s-color-fill-disable);
         opacity: 0.64;
+        box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
       }
     }
 
     &.warning {
       background-color: var(--s-color-fill-warning);
       color: var(--s-color-content-on-color);
+      box-shadow:
+        0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+        0px 0px 0px 1px var(--s-color-border-warning) inset,
+        0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+        0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+        0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
       &:hover {
         background-color: var(--s-color-fill-warning-hover);
@@ -132,6 +169,7 @@
         cursor: auto;
         background-color: var(--s-color-fill-disable);
         opacity: 0.64;
+        box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
       }
     }
   }

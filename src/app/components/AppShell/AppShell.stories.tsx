@@ -40,13 +40,12 @@ const Template: StoryFn<DefaultProps> = (args) => {
           toggle={isOpenSidebar}
         >
           <SidebarTitle title="Sidebar" />
-            <SidebarItem
-              fillIcon={true}
-              isActive={false}
-              icon="settings"
-              title="Settings"
-            />
-          
+          <SidebarItem
+            fillIcon={true}
+            isActive={false}
+            icon="settings"
+            title="Settings"
+          />
         </Sidebar>
         <Header
           breadcrumb={

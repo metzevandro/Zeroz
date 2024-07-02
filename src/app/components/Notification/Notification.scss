@@ -1,11 +1,10 @@
 @import "../../../scss/mixins/tokens.scss";
 
 .notification {
-  padding: var(--s-spacing-small);
   background-color: var(--s-color-fill-default);
   display: flex;
-  gap: var(--s-spacing-xx-small);
-  border-radius: var(--s-border-radius-small);
+  flex-direction: column;
+  border-radius: var(--s-border-radius-medium);
   border: var(--s-border-width-hairline) solid var(--s-color-border-default);
   overflow: hidden;
 
@@ -20,161 +19,63 @@
     }
   }
 
-  &.dismissible {
-    header {
-      align-items: center;
-    }
-    .notification-icon {
-      padding-top: var(--s-spacing-nano);
-    }
-  }
-
   .notification-content {
     display: flex;
     flex-direction: column;
     width: 100%;
-
-    header {
-      display: flex;
-      min-height: var(--s-spacing-large);
-      justify-content: space-between;
-      align-items: center;
-      gap: var(--s-spacing-small);
-    }
+    padding: var(--s-spacing-small);
+    gap: var(--s-spacing-small);
 
     .description {
       font: var(--s-typography-paragraph-regular);
       color: var(--s-color-content-default);
       word-break: break-all;
-      padding-bottom: var(--s-spacing-nano);
-    }
-
-    .title {
-      font: var(--s-typography-heading-small);
-      color: var(--s-color-content-default);
     }
 
     .notification-with-action {
       display: flex;
       width: min-content;
-      margin-top: var(--s-spacing-x-small);
     }
   }
 
-  .notification-icon {
-    padding-top: var(--s-spacing-nano);
+  .notification-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: var(--s-spacing-small);
+    gap: var(--s-spacing-xx-small);
+    color: var(--s-color-content-on-color);
+
+    .title {
+      width: 100%;
+      font: var(--s-typography-heading-small);
+    }
 
     &.primary {
-      color: var(--s-color-content-highlight);
+      background-color: var(--s-color-fill-highlight);
     }
 
     &.secondary {
+      background-color: var(--s-color-fill-default-light);
       color: var(--s-color-content-default);
+
+      .button-icon.plain.on-color {
+        color: var(--s-color-content-default);
+
+        &:hover {
+          background-color: var(--s-color-fill-default-hover);
+        }
+      }
     }
 
     &.warning {
-      color: var(--s-color-content-warning);
+      background-color: var(--s-color-fill-warning);
     }
 
     &.success {
-      color: var(--s-color-content-success);
+      background-color: var(--s-color-fill-success);
     }
   }
-
-  &.primary {
-    background-color: var(--s-color-fill-highlight-light);
-    border: 1px solid var(--s-color-border-highlight-light);
-    color: var(--s-color-content-highlight);
-
-    .button-icon.plain.on-color {
-      color: var(--s-color-content-highlight);
-
-      &:hover {
-        background-color: rgba(white, 0.8);
-      }
-
-      @include dark {
-        &:hover {
-          background-color: rgba(black, 0.8);
-        }
-      }
-    }
-  }
-
-  &.secondary {
-    background-color: var(--s-color-fill-default);
-    border: 1px solid var(--s-color-border-default);
-    color: var(--s-color-content-default);
-
-    .button-icon.plain.on-color {
-      color: var(--s-color-content-default);
-
-      &:hover {
-        background-color: rgba(black, 0.08);
-      }
-
-      @include dark {
-        &:hover {
-          background-color: rgba(black, 0.8);
-        }
-      }
-    }
-  }
-
-  &.success {
-    background-color: var(--s-color-fill-success-light);
-    border: 1px solid var(--s-color-border-success-light);
-    color: var(--s-color-content-success);
-
-    .button-icon.plain.on-color {
-      color: var(--s-color-content-success);
-
-      &:hover {
-        background-color: rgba(white, 0.8);
-      }
-
-      @include dark {
-        &:hover {
-          background-color: rgba(black, 0.8);
-        }
-      }
-    }
-  }
-
-  &.warning {
-    background-color: var(--s-color-fill-warning-light);
-    border: 1px solid var(--s-color-border-warning-light);
-    color: var(--s-color-content-warning);
-
-    .button-icon.plain.on-color {
-      color: var(--s-color-content-warning);
-
-      &:hover {
-        background-color: rgba(black, 0.08);
-      }
-
-      @include dark {
-        &:hover {
-          background-color: rgba(black, 0.8);
-        }
-      }
-    }
-  }
-}
-
-.notification.warning .description,
-.notification.warning .title {
-  color: var(--s-color-content-warning);
-}
-
-.notification.primary .description,
-.notification.primary .title {
-  color: var(--s-color-content-highlight);
-}
-
-.notification.success .description,
-.notification.success .title {
-  color: var(--s-color-content-success);
 }
 
 @media screen and (max-width: 490px) {

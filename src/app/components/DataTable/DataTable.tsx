@@ -583,8 +583,8 @@ const DataTable: React.FC<DataTableProps> = ({
                     style={calculateLeftToCheckBox(expandable)}
                   >
                     <InputCheckbox
-                      checked={selectAll}
-                      onChange={toggleSelectAll}
+                      modelValue={selectAll}
+                      onUpdate={toggleSelectAll}
                       indeterminate={isIndeterminate}
                     />
                   </div>
@@ -644,8 +644,8 @@ const DataTable: React.FC<DataTableProps> = ({
                           key={row.id}
                         >
                           <InputCheckbox
-                            checked={selectedRows.includes(row.id)}
-                            onChange={() => toggleSelectRow(row.id)}
+                            modelValue={selectedRows.includes(row.id)}
+                            onUpdate={() => toggleSelectRow(row.id)}
                           />
                         </div>
                       )}

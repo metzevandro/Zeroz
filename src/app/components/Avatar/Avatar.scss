@@ -2,9 +2,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--s-border-radius-pill);
+  border-radius: var(--s-border-radius-medium);
   color: var(--s-color-content-on-color);
   width: fit-content;
+  box-shadow:
+    0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+    0px 0px 0px 1px var(--b-color-base) inset,
+    0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+    0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+    0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .avatar img {

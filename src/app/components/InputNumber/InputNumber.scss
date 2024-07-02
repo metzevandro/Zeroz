@@ -1,4 +1,6 @@
 .input-number-root {
+  box-sizing: border-box;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: var(--s-spacing-nano);
@@ -10,12 +12,13 @@
   }
 
   .input-number {
-    border-radius: var(--s-border-radius-small);
+    border-radius: var(--s-border-radius-medium);
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     color: var(--s-color-content-default);
+    box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
     button:hover + input {
       border-left: none;
@@ -58,8 +61,13 @@
     }
 
     .add {
-      border-radius: 0 var(--s-border-radius-small) var(--s-border-radius-small)
-        0;
+      display: flex;
+      justify-content: center;
+      height: 40px;
+      width: 40px;
+      box-sizing: border-box;
+      border-radius: 0 var(--s-border-radius-medium)
+        var(--s-border-radius-medium) 0;
       z-index: 2;
 
       &:active {
@@ -75,10 +83,15 @@
     }
 
     .subtract {
+      display: flex;
+      justify-content: center;
+      height: 40px;
+      width: 40px;
+      box-sizing: border-box;
       border-right: 0;
       z-index: 2;
-      border-radius: var(--s-border-radius-small) 0 0
-        var(--s-border-radius-small);
+      border-radius: var(--s-border-radius-medium) 0 0
+        var(--s-border-radius-medium);
 
       &:active {
         outline-width: var(--s-border-width-thin);
@@ -131,6 +144,7 @@
     }
 
     input {
+      height: 40px;
       box-sizing: border-box;
       text-align: center;
       color: var(--s-color-content-default);

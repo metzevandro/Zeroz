@@ -4,7 +4,7 @@ import "../../styles.scss";
 import SavebarTrigger from "./SavebarTrigger";
 import Input from "../Input/Input";
 import AppShell from "../AppShell/AppShell";
-import Sidebar, { SidebarItem, SidebarList } from "../Sidebar/Sidebar";
+import Sidebar, { SidebarItem, SidebarTitle } from "../Sidebar/Sidebar";
 import Header, { HeaderProfile } from "../Header/Header";
 import BreadcrumbRoot, { Breadcrumb } from "../Breadcrumb/Breadcrumb";
 import DropDownMenu, {
@@ -117,13 +117,6 @@ const Template: StoryFn<DefaultProps> = (args) => {
     });
   };
 
-  const handleColorChange = (color: string) => {
-    setFormValues((prevFormValues) => ({
-      ...prevFormValues,
-      ColorPicker: color,
-    }));
-  };
-
   const handleSliderChange = (value: string) => {
     setFormValues({
       ...formValues,
@@ -140,7 +133,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
   const handleCheckboxChange = (checked: boolean) => {
     setFormValues({
       ...formValues,
-      Checkbox: !!checked, // Convert checked to boolean
+      Checkbox: checked,
     });
   };
 
@@ -189,14 +182,13 @@ const Template: StoryFn<DefaultProps> = (args) => {
           brand="/logo-sm.svg"
           toggle={isOpenSidebar}
         >
-          <SidebarList title="Sidebar">
-            <SidebarItem
-              icon="settings"
-              fillIcon={true}
-              active={true}
-              title="Page Name"
-            />
-          </SidebarList>
+          <SidebarTitle title="Sidebar"></SidebarTitle>
+          <SidebarItem
+            icon="settings"
+            fillIcon={true}
+            isActive={true}
+            title="Page Name"
+          />
         </Sidebar>
         <Header
           breadcrumb={
@@ -285,12 +277,8 @@ const Template: StoryFn<DefaultProps> = (args) => {
               />
               <InputCheckbox
                 label="Checkbox"
-                onChange={(checked) => handleCheckboxChange(checked)}
-                checked={
-                  typeof formValues["Checkbox"] === "boolean"
-                    ? formValues["Checkbox"]
-                    : false
-                }
+                onUpdate={(checked) => handleCheckboxChange(checked)}
+                modelValue={formValues["Checkbox"] ?? false}
               />
 
               <InputRadioButton
@@ -304,12 +292,8 @@ const Template: StoryFn<DefaultProps> = (args) => {
               />
               <Switch
                 label="Switch"
-                onChange={(checked) => handleSwitchChange(checked)}
-                checked={
-                  typeof formValues["Switch"] === "boolean"
-                    ? formValues["Switch"]
-                    : false
-                }
+                onUpdate={(checked) => handleSwitchChange(checked)}
+                modelValue={formValues["Switch"] ?? false}
               />
               <FileUploader
                 buttonLabel="Add File"
