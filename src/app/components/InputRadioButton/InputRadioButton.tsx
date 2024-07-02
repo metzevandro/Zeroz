@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Icon from "../Icon/Icon";
 import "./InputRadioButton.scss";
 
 interface InputRadioButtonProps {
@@ -44,9 +43,9 @@ const InputRadioButton: React.FC<InputRadioButtonProps> = ({
   };
 
   return (
-    <div className="radio-button-root">
+    <div className={`radio-button-root  ${disabled ? "disable" : ""}`}>
       <div
-        className={`radio-button ${disabled ? "disabled" : ""} ${
+        className={`radio-button ${disabled ? "disable" : ""} ${
           isChecked ? "checked" : ""
         }`}
         onClick={toggleRadioButton}
@@ -55,15 +54,7 @@ const InputRadioButton: React.FC<InputRadioButtonProps> = ({
         aria-checked={isChecked}
         tabIndex={0}
       >
-        {isChecked ? (
-          <span className="checked">
-            <Icon size="md" icon="radio_button_checked" />
-          </span>
-        ) : (
-          <span className="unchecked">
-            <Icon size="md" icon="radio_button_unchecked" />
-          </span>
-        )}
+        <span className={`radio-circle ${isChecked ? "checked-circle" : ""}`} />
       </div>
       <label
         onClick={toggleRadioButton}

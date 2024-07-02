@@ -39,9 +39,34 @@
     left: calc(var(--s-spacing-x-small) / 2 - 1px);
     top: var(--s-spacing-x-small);
 
+    &:disabled ~ .ui-form-checkbox-checkmark,
+    &:disabled:hover ~ .ui-form-checkbox-checkmark {
+      box-shadow:
+        0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+        0px 0px 0px 2px var(--s-color-content-disable) inset,
+        0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+        0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+        0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+    }
+
+    &:hover ~ .ui-form-checkbox-checkmark {
+      box-shadow:
+        0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+        0px 0px 0px 2px var(--s-color-border-highlight) inset,
+        0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+        0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+        0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+    }
+
     &:checked ~ .ui-form-checkbox-checkmark {
       background-color: var(--s-color-fill-highlight);
       border-color: transparent;
+      box-shadow:
+        0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+        0px 0px 0px 2px var(--s-color-border-highlight) inset,
+        0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+        0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+        0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
       &::after {
         display: block;
@@ -50,7 +75,13 @@
 
     &:indeterminate ~ .ui-form-checkbox-checkmark {
       background-color: var(--s-color-fill-highlight);
-      border-color: var(--s-color-border-highlight);
+      border-color: transparent;
+      box-shadow:
+        0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+        0px 0px 0px 2px var(--s-color-border-highlight) inset,
+        0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+        0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+        0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
       &:after {
         display: block;
@@ -89,12 +120,16 @@
     width: 20px;
     aspect-ratio: 1;
     background-color: var(--s-color-fill-default);
-    border: var(--s-border-width-thin) solid var(--s-color-border-default);
     border-radius: var(--s-border-radius-small);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+    box-shadow:
+      0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+      0px 0px 0px 2px var(--s-color-border-default) inset,
+      0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+      0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+      0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
     &:after {
       display: none;

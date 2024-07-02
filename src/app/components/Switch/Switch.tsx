@@ -42,7 +42,7 @@ const Switch: React.FC<SwitchProps> = ({
   const classList = useMemo(
     () =>
       [
-        "ui-form-checkbox",
+        "ui-form-switch",
         "-switch",
         disabled ? "-disabled" : "",
         noEvents ? "-no-events" : "",
