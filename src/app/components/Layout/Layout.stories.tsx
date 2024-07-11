@@ -2,12 +2,38 @@ import { Meta, StoryFn } from "@storybook/react";
 import Layout from "./Layout";
 import "../../styles.scss";
 import Icon from "../Icon/Icon";
+
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
 const meta: Meta = {
   title: "Templates/Layout",
   component: Layout,
-  argTypes: {},
+  argTypes: {
+    columns: {
+      name: "Columns",
+      description: "Number of columns in the layout.",
+      control: {
+        type: "select",
+        options: ["1", "2 - Symmetric", "2 - Asymmetric", "3 - Symmetric"],
+      },
+    },
+  },
   parameters: {
     layout: "padded",
+    docs: {
+      page: () => (
+        <>
+          <Title />
+          <Subtitle>Template</Subtitle>
+          <p>
+            The <strong>Layout</strong> template is made to create layouts with
+            one or more columns using ready-made patterns.
+          </p>
+          <Primary />
+          <Controls />
+          <Stories />
+        </>
+      ),
+    },
   },
   tags: ["autodocs"],
 };

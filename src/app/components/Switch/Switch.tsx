@@ -7,7 +7,6 @@ interface SwitchProps {
   label?: string;
   id?: string;
   name?: string;
-  tabindex?: string | number;
   required?: boolean;
   noEvents?: boolean;
   disabled?: boolean;
@@ -20,7 +19,6 @@ const Switch: React.FC<SwitchProps> = ({
   label,
   id,
   name,
-  tabindex,
   required,
   noEvents,
   disabled,
@@ -50,19 +48,31 @@ const Switch: React.FC<SwitchProps> = ({
     [disabled, noEvents],
   );
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.checked;
+  const handleChange = () => {
+    const newValue = !checked;
     setChecked(newValue);
     onUpdate?.(newValue);
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLLabelElement>) => {
+    if (event.key === "Enter") {
+      if (disabled === false) {
+        handleChange();
+      }
+    }
+  };
+
   return (
-    <label className={classList} htmlFor={uid}>
+    <label
+      className={classList}
+      htmlFor={uid}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+    >
       <input
         type="checkbox"
         id={uid}
         value={value}
-        tabIndex={tabindex as number}
         required={required}
         name={name}
         disabled={disabled}

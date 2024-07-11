@@ -9,10 +9,12 @@ interface SidebarProps {
   children: React.ReactNode;
   toggle: boolean;
   setToggleSidebar: (toggle: boolean) => void;
+  brandSize: "sm" | "md" | "lg";
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
   brand,
+  brandSize,
   children,
   toggle,
   setToggleSidebar,
@@ -27,7 +29,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     <>
       <div className={`Sidebar ${toggle ? "open" : "close"}`}>
         <div className="brand">
-          <Brand alt="Logo-marca" src={brand} size="sm" />
+          <Brand alt="Logo-marca" src={brand} size={brandSize} />
         </div>
         <div className="Sidebar-list">
           {React.Children.map(children, (child, index) =>
@@ -75,7 +77,7 @@ interface SidebarItemsProps {
   fillIcon: boolean;
   children?: React.ReactNode;
   onClick?: () => void;
-  isActive?: boolean; // Alteração: isActive é opcional
+  isActive?: boolean;
 }
 
 export const SidebarItem: React.FC<SidebarItemsProps> = ({

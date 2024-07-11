@@ -7,7 +7,6 @@ interface CheckboxProps {
   label?: string;
   id?: string;
   name?: string;
-  tabindex?: string | number;
   required?: boolean;
   indeterminate?: boolean;
   noEvents?: boolean;
@@ -21,7 +20,6 @@ const InputCheckbox: React.FC<CheckboxProps> = ({
   label,
   id,
   name,
-  tabindex,
   required,
   indeterminate,
   noEvents,
@@ -46,19 +44,31 @@ const InputCheckbox: React.FC<CheckboxProps> = ({
     [disabled, noEvents],
   );
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.checked;
+  const handleChange = () => {
+    const newValue = !checked;
     setChecked(newValue);
     onUpdate?.(newValue);
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLLabelElement>) => {
+    if (event.key === "Enter") {
+      if (disabled === false) {
+        handleChange();
+      }
+    }
+  };
+
   return (
-    <label className={`ui-form-checkbox ${classList}`} htmlFor={uid}>
+    <label
+      tabIndex={0}
+      className={`ui-form-checkbox ${classList}`}
+      htmlFor={uid}
+      onKeyDown={handleKeyDown}
+    >
       <input
         type="checkbox"
         id={uid}
         value={value}
-        tabIndex={tabindex as number}
         required={required}
         ref={(el) => {
           if (el) el.indeterminate = indeterminate ?? false;
@@ -67,6 +77,7 @@ const InputCheckbox: React.FC<CheckboxProps> = ({
         disabled={disabled}
         checked={checked}
         onChange={handleChange}
+        tabIndex={-1}
       />
       <span className="ui-form-checkbox-checkmark"></span>
       {label && <div className="ui-form-checkbox-text">{label}</div>}

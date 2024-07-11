@@ -22,6 +22,16 @@
       --b-color-light: #{tokens.getPrimitiveVar($p-color, blue, 100)};
       --b-color-lightness: #{tokens.getPrimitiveVar($p-color, blue, 50)};
     }
+
+    &[data-company="IECLB"] {
+      --b-color-darkness: #{tokens.getPrimitiveVar($p-color, green, 900)};
+      --b-color-dark: #{tokens.getPrimitiveVar($p-color, green, 800)};
+      --b-color-medium: #{tokens.getPrimitiveVar($p-color, green, 700)};
+      --b-color-base: #{tokens.getPrimitiveVar($p-color, green, 600)};
+      --b-color-soft: #{tokens.getPrimitiveVar($p-color, green, 400)};
+      --b-color-light: #{tokens.getPrimitiveVar($p-color, green, 100)};
+      --b-color-lightness: #{tokens.getPrimitiveVar($p-color, green, 50)};
+    }
   }
 }
 

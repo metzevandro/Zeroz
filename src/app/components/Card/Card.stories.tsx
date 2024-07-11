@@ -10,20 +10,20 @@ const meta: Meta = {
   parameters: {
     layout: "centered",
   },
-  args: {
-    toggle: false,
-  },
 };
 
 export default meta;
 
-type DefaultProps = {};
+type DefaultProps = {
+  title: string;
+  description: string;
+};
 
 const Template: StoryFn<DefaultProps> = (args) => {
   return (
     <div style={{ width: "320px" }}>
       <Card>
-        <CardHeader title="Card Title" description="Card Description" />
+        <CardHeader title={args.title} description={args.description} />
         <CardContent>
           <div className="slot">
             <Icon icon="refresh" size="md" />
@@ -47,7 +47,10 @@ const Template: StoryFn<DefaultProps> = (args) => {
 };
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  title: "Title",
+  description: "Description",
+};
 
 const Template2: StoryFn<DefaultProps> = (args) => {
   return (
@@ -56,7 +59,7 @@ const Template2: StoryFn<DefaultProps> = (args) => {
         <CardImage>
           <img src="https://picsum.photos/200" alt="Card Image" height={200} />
         </CardImage>
-        <CardHeader title="Card Title" description="Card Description" />
+        <CardHeader title={args.title} description={args.description} />
         <CardContent>
           <div className="slot">
             <Icon icon="refresh" size="md" />
@@ -80,4 +83,7 @@ const Template2: StoryFn<DefaultProps> = (args) => {
 };
 
 export const WithImage = Template2.bind({});
-WithImage.args = {};
+WithImage.args = {
+  title: "Title",
+  description: "Description",
+};

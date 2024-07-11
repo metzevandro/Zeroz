@@ -1,15 +1,20 @@
-.brand {
+.brand-root {
   display: flex;
+
+  svg {
+    height: 100%;
+    fill: red !important;
+  }
 }
 
-.brand-sm {
+.brand-root.sm {
   height: 24px;
 }
 
-.brand-md {
+.brand-root.md {
   height: 32px;
 }
 
-.brand-lg {
+.brand-root.lg {
   height: 40px;
 }

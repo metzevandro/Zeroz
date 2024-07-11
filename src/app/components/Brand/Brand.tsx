@@ -8,7 +8,9 @@ interface BrandProps extends ImgHTMLAttributes<HTMLImageElement> {
 }
 
 const Brand: React.FC<BrandProps> = ({ src, alt, size, ...rest }) => (
-  <img className={`brand-${size}`} src={src} alt={alt} {...rest} />
+  <div className={`brand-root ${size}`}>
+    <img src={src} alt={alt} {...rest} />
+  </div>
 );
 
 export default Brand;

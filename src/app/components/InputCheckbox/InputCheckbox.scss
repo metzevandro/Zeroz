@@ -8,6 +8,15 @@
   color: var(--s-color-content-default);
   gap: var(--s-spacing-xx-small);
 
+  &:focus-visible {
+    outline: none;
+
+    .ui-form-checkbox-checkmark {
+      outline: 2px solid var(--s-color-border-highlight);
+      outline-offset: 2px;
+    }
+  }
+
   &.-disabled {
     cursor: auto;
   }
@@ -22,7 +31,7 @@
 
   &:hover {
     .ui-form-checkbox-checkmark {
-      border-color: var(--s-color-border-highlight);
+      border-color: var(--s-color-fill-highlight);
     }
   }
 
@@ -39,20 +48,10 @@
     left: calc(var(--s-spacing-x-small) / 2 - 1px);
     top: var(--s-spacing-x-small);
 
-    &:disabled ~ .ui-form-checkbox-checkmark,
-    &:disabled:hover ~ .ui-form-checkbox-checkmark {
-      box-shadow:
-        0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
-        0px 0px 0px 2px var(--s-color-content-disable) inset,
-        0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
-        0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
-        0px 1px 2px 0px rgba(14, 21, 36, 0.06);
-    }
-
     &:hover ~ .ui-form-checkbox-checkmark {
       box-shadow:
         0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
-        0px 0px 0px 2px var(--s-color-border-highlight) inset,
+        0px 0px 0px 2px var(--s-color-fill-highlight) inset,
         0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
         0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
         0px 1px 2px 0px rgba(14, 21, 36, 0.06);
@@ -63,7 +62,7 @@
       border-color: transparent;
       box-shadow:
         0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
-        0px 0px 0px 2px var(--s-color-border-highlight) inset,
+        0px 0px 0px 2px var(--s-color-fill-highlight) inset,
         0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
         0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
         0px 1px 2px 0px rgba(14, 21, 36, 0.06);
@@ -78,7 +77,7 @@
       border-color: transparent;
       box-shadow:
         0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
-        0px 0px 0px 2px var(--s-color-border-highlight) inset,
+        0px 0px 0px 2px var(--s-color-fill-highlight) inset,
         0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
         0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
         0px 1px 2px 0px rgba(14, 21, 36, 0.06);
@@ -92,18 +91,33 @@
         transform: translateX(-50%) translateY(-50%);
       }
     }
+
+    &:disabled ~ .ui-form-checkbox-checkmark,
+    &:disabled:hover ~ .ui-form-checkbox-checkmark {
+      background-color: transparent;
+      box-shadow:
+        0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+        0px 0px 0px 2px var(--s-color-content-disable) inset,
+        0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+        0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+        0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+    }
   }
 
   input:disabled {
     cursor: auto;
 
+    &:hover {
+      ~ .ui-form-checkbox-checkmark {
+        background-color: var(--s-color-content-disable);
+      }
+    }
+
     ~ .ui-form-checkbox-checkmark {
-      background-color: var(--s-color-fill-disable);
-      border-color: var(--s-color-content-disable);
+      background-color: var(--s-color-content-disable);
 
       &::after {
-        border: none;
-        background-color: var(--s-color-content-disable) !important;
+        border-color: var(--s-color-fill-disable);
       }
     }
 
@@ -126,10 +140,15 @@
     justify-content: center;
     box-shadow:
       0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
-      0px 0px 0px 2px var(--s-color-border-default) inset,
+      0px 0px 0px 2px var(--s-color-content-default) inset,
       0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
       0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
       0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+
+    &:focus-within {
+      outline: 2px solid var(--s-color-border-highlight);
+      outline-offset: 2px;
+    }
 
     &:after {
       display: none;

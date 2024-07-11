@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import type { Meta, StoryFn } from "@storybook/react";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+
 import "../../styles.scss";
+
 import SavebarTrigger from "./SavebarTrigger";
 import Input from "../Input/Input";
 import AppShell from "../AppShell/AppShell";
@@ -24,13 +27,49 @@ import Slider from "../Slider/Slider";
 import Switch from "../Switch/Switch";
 import InputTime from "../InputTime/InputTime";
 import TextArea from "../InputTextArea/InputTextArea";
+
 const meta: Meta = {
   title: "Templates/Savebar Trigger",
   component: SavebarTrigger,
   parameters: {
     layout: "fullscreen",
+    docs: {
+      page: () => (
+        <>
+          <Title />
+          <Subtitle>Template</Subtitle>
+          <p>
+            The <strong>SavebarTrigger</strong> template is designed to monitor
+            changes to inputs within its scope. This template serves as a
+            proactive observer, ensuring timely detection and response to
+            changes made, facilitating ongoing management of data updates, and
+            associated save or cancel processes.
+          </p>
+          <Primary />
+          <Controls />
+          <Stories />
+        </>
+      ),
+    },
   },
   tags: ["autodocs"],
+  argTypes: {
+    formChanged: {
+      name: "Form Changed",
+      description: "Determines if the form content has been changed.",
+      type: "boolean",
+    },
+    handleCancel: {
+      name: "Handle Cancel",
+      description: "Callback function to handle cancel action.",
+      action: "clicked",
+    },
+    handleSubmit: {
+      name: "Handle Submit",
+      description: "Callback function to handle submit action.",
+      action: "clicked",
+    },
+  },
 };
 
 export default meta;
@@ -178,6 +217,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
     <>
       <AppShell>
         <Sidebar
+          brandSize="sm"
           setToggleSidebar={toggleSidebar}
           brand="/logo-sm.svg"
           toggle={isOpenSidebar}

@@ -1,25 +1,87 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import React from "react";
+import { Meta, StoryFn } from "@storybook/react";
 import "../../styles.scss";
 import EmptyState from "./EmptyState";
-import Story from "@storybook/react";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
 
-const meta = {
+const meta: Meta = {
   title: "Templates/Empty State",
   component: EmptyState,
   parameters: {
     layout: "padded",
+    docs: {
+      page: () => (
+        <>
+          <Title />
+          <Subtitle>Template</Subtitle>
+          <p>
+            The <strong>EmptyState</strong> template has many uses. It
+            communicates when a search finds nothing, a page is empty, or data
+            loading encounters issues. It can display an icon, a title,
+            additional text, and even suggest actions to take next if there's a
+            problem.
+          </p>
+          <Primary />
+          <Controls />
+          <Stories />
+        </>
+      ),
+    },
   },
-} satisfies Meta<typeof EmptyState>;
+  argTypes: {
+    icon: {
+      name: "Icon",
+      description: "Icon to display in the empty state.",
+    },
+    title: {
+      name: "Title",
+      description: "Main title displayed in the empty state.",
+    },
+    description: {
+      name: "Description",
+      description: "Description displayed in the empty state.",
+    },
+    buttonContentPrimary: {
+      name: "Primary Button Content",
+      description: "Text displayed in the primary button.",
+    },
+    buttonContentSecondary: {
+      name: "Secondary Button Content",
+      description: "Text displayed in the secondary button.",
+    },
+    onClickActionPrimary: {
+      name: "Primary Button Action",
+      description: "Function to be executed on primary button click.",
+    },
+    onClickActionSecondary: {
+      name: "Secondary Button Action",
+      description: "Function to be executed on secondary button click.",
+    },
+  },
+  tags: ["autodocs"],
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    title: "Title",
-    description: "Description",
-    icon: "ac_unit",
-    buttonContentPrimary: "Button",
-    buttonContentSecondary: "Button",
-  },
+type DefaultProps = {
+  title: string;
+  description: string;
+  icon: string;
+  buttonContentPrimary?: string;
+  buttonContentSecondary?: string;
+  onClickActionPrimary?: () => void;
+  onClickActionSecondary?: () => void;
+};
+
+const Template: StoryFn<DefaultProps> = (args) => {
+  return <EmptyState {...args} />;
+};
+
+export const Default = Template.bind({});
+Default.args = {
+  title: "Title",
+  description: "Description",
+  icon: "ac_unit",
+  buttonContentPrimary: "Button",
+  buttonContentSecondary: "Button",
 };

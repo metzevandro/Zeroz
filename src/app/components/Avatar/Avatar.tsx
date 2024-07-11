@@ -15,7 +15,7 @@ const Avatar: React.FC<AvatarProps> = ({ size, src, skeleton }) => {
   const getSize = (size: IconSize) => {
     switch (size) {
       case "sm":
-        return 20;
+        return 24;
       case "md":
         return 40;
       case "lg":
@@ -30,7 +30,7 @@ const Avatar: React.FC<AvatarProps> = ({ size, src, skeleton }) => {
   return (
     <div className="avatar">
       {skeleton ? (
-        <Skeleton circle height={`${sizeInPixels}`} width={`${sizeInPixels}`} />
+        <Skeleton height={`${sizeInPixels}`} width={`${sizeInPixels}`} />
       ) : (
         <>
           {src ? (

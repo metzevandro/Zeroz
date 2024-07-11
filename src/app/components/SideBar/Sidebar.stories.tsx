@@ -19,6 +19,8 @@ export default meta;
 
 type DefaultProps = {
   titleSidebar: string;
+  brand: string;
+  brandSize: "sm" | "md" | "lg";
 };
 
 const Template: StoryFn<DefaultProps> = (args) => {
@@ -31,7 +33,8 @@ const Template: StoryFn<DefaultProps> = (args) => {
   return (
     <>
       <Sidebar
-        brand="/logo-sm.svg"
+        brandSize={args.brandSize}
+        brand={args.brand}
         setToggleSidebar={toggleSidebar}
         toggle={true}
       >
@@ -56,4 +59,6 @@ const Template: StoryFn<DefaultProps> = (args) => {
 export const Default = Template.bind({});
 Default.args = {
   titleSidebar: "Sidebar",
+  brand: "/logo-sm.svg",
+  brandSize: "sm",
 };

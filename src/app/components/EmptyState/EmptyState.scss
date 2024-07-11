@@ -13,13 +13,11 @@
     flex-direction: column;
     text-align: center;
 
-    h1 {
-      font: var(--s-typography-heading-medium);
+    h3 {
       color: var(--s-color-content-default);
     }
 
     p {
-      font: var(--s-typography-paragraph-regular);
       color: var(--s-color-content-light);
     }
   }
