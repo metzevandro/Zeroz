@@ -1,23 +1,40 @@
 import "./DescriptionList.scss";
 import React from "react";
 
-interface DescriptionListProps {
+interface DescriptionItem {
   title: string;
   description?: string;
+}
+
+interface DescriptionListProps {
+  items: DescriptionItem[];
   direction: "row" | "column";
 }
 
 const DescriptionList: React.FC<DescriptionListProps> = ({
-  title,
-  description,
+  items,
   direction,
 }) => {
   return (
     <>
-      <div className={`description-list-root ${direction}`}>
-        <div className="title">{title}</div>
-        <div className="description">{description}</div>
-      </div>
+      {items.map((item, index) => (
+        <React.Fragment key={index}>
+          <div
+            className={`description-list-root ${direction}`}
+            style={
+              index < items.length - 1
+                ? {
+                    borderBottom:
+                      "var(--s-border-width-hairline) solid var(--s-color-border-default)",
+                  }
+                : undefined
+            }
+          >
+            <div className="title">{item.title}</div>
+            <div className="description">{item.description}</div>
+          </div>
+        </React.Fragment>
+      ))}
     </>
   );
 };

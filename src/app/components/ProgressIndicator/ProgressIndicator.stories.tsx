@@ -1,13 +1,77 @@
 import { Meta, StoryFn } from "@storybook/react";
 import ProgressIndicator from "./ProgressIndicator";
 import "../../styles.scss";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
 
-const meta: Meta = {
+const meta: Meta<typeof ProgressIndicator> = {
   title: "Components/Progress Indicator",
   component: ProgressIndicator,
-  argTypes: {},
   parameters: {
-    ProgressIndicator: "padded",
+    layout: "padded",
+    docs: {
+      page: () => (
+        <>
+          <Title />
+          <Subtitle>Component</Subtitle>
+          <p>
+            The <strong>Progress Indicator </strong> is a visual guide showing
+            how far you've come in a process, helping you complete each step.
+          </p>
+          <Primary />
+          <Controls />
+          <Stories />
+        </>
+      ),
+    },
+  },
+  argTypes: {
+    direction: {
+      control: "select",
+      options: ["row", "column"],
+      description: "The direction of the progress indicator steps.",
+      table: {
+        category: "Layout",
+      },
+    },
+    state: {
+      control: "select",
+      options: ["default", "current", "completed", "error", "disable"],
+      description: "The state of the first step.",
+      table: {
+        category: "State",
+      },
+    },
+
+    step: {
+      control: "text",
+      description: "The label for the first step.",
+      table: {
+        category: "Content",
+      },
+    },
+
+    description: {
+      control: "text",
+      description: "The description for the first step.",
+      table: {
+        category: "Content",
+      },
+    },
+
+    widthFull: {
+      control: "boolean",
+      description: "If true, the first step will take the full width.",
+      table: {
+        category: "Layout",
+      },
+    },
+    onClick: {
+      action: "onClick",
+      description: "Callback function for the first step click event.",
+      table: {
+        category: "Events",
+      },
+    },
   },
   tags: ["autodocs"],
 };
@@ -16,26 +80,13 @@ export default meta;
 
 type Args = {
   direction: "row" | "column";
-  state1: "default" | "current" | "completed" | "error" | "disable";
-  state2: "default" | "current" | "completed" | "error" | "disable";
-  state3: "default" | "current" | "completed" | "error" | "disable";
-  state4: "default" | "current" | "completed" | "error" | "disable";
-  state5: "default" | "current" | "completed" | "error" | "disable";
-  step1: string;
-  step2: string;
-  step3: string;
-  step4: string;
-  step5: string;
-  description1: string;
-  description2: string;
-  description3: string;
-  description4: string;
-  description5: string;
-  widthFull1: boolean;
-  widthFull2: boolean;
-  widthFull3: boolean;
-  widthFull4: boolean;
-  widthFull5: boolean;
+  state: "default" | "current" | "completed" | "error" | "disable";
+
+  step: string;
+
+  description: string;
+
+  widthFull: boolean;
 };
 
 const Template: StoryFn<Args> = (args) => {
@@ -45,38 +96,10 @@ const Template: StoryFn<Args> = (args) => {
     >
       <ProgressIndicator
         direction={args.direction}
-        state={args.state1}
-        step={args.step1}
-        description={args.description1}
-        widthFull={args.widthFull1}
-      />
-      <ProgressIndicator
-        direction={args.direction}
-        state={args.state2}
-        step={args.step2}
-        description={args.description2}
-        widthFull={args.widthFull2}
-      />
-      <ProgressIndicator
-        direction={args.direction}
-        state={args.state3}
-        step={args.step3}
-        description={args.description3}
-        widthFull={args.widthFull3}
-      />
-      <ProgressIndicator
-        direction={args.direction}
-        state={args.state4}
-        step={args.step4}
-        description={args.description4}
-        widthFull={args.widthFull4}
-      />
-      <ProgressIndicator
-        direction={args.direction}
-        state={args.state5}
-        step={args.step5}
-        description={args.description5}
-        widthFull={args.widthFull5}
+        state={args.state}
+        step={args.step}
+        description={args.description}
+        widthFull={args.widthFull}
       />
     </div>
   );
@@ -85,49 +108,17 @@ const Template: StoryFn<Args> = (args) => {
 export const Default = Template.bind({});
 Default.args = {
   direction: "row",
-  step1: "Step 1",
-  description1: "Description 1",
-  state1: "completed",
-  widthFull1: false,
-  step2: "Step 2",
-  description2: "Description 2",
-  state2: "current",
-  widthFull2: false,
-  step3: "Step 3",
-  description3: "Description 3",
-  state3: "default",
-  widthFull3: false,
-  step4: "Step 4",
-  description4: "Description 4",
-  state4: "disable",
-  widthFull4: false,
-  step5: "Step 5",
-  description5: "Description 5",
-  state5: "error",
-  widthFull5: false,
+  step: "Step",
+  description: "Description",
+  state: "completed",
+  widthFull: false,
 };
 
 export const WidthFull = Template.bind({});
 WidthFull.args = {
   direction: "row",
-  step1: "Step 1",
-  description1: "Description 1",
-  state1: "completed",
-  widthFull1: true,
-  step2: "Step 2",
-  description2: "Description 2",
-  state2: "current",
-  widthFull2: true,
-  step3: "Step 3",
-  description3: "Description 3",
-  state3: "default",
-  widthFull3: true,
-  step4: "Step 4",
-  description4: "Description 4",
-  state4: "disable",
-  widthFull4: true,
-  step5: "Step 5",
-  description5: "Description 5",
-  state5: "error",
-  widthFull5: true,
+  step: "Step",
+  description: "Description",
+  state: "completed",
+  widthFull: true,
 };

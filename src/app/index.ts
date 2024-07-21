@@ -1,4 +1,3 @@
-import ProgressIndicator from "./components/ProgressIndicator/ProgressIndicator";
 export { default as AppShell } from "./components/AppShell/AppShell";
 export {
   default as Aside,
@@ -8,10 +7,7 @@ export {
 export { default as Avatar } from "./components/Avatar/Avatar";
 export { default as Badge } from "./components/Badge/Badge";
 export { default as Brand } from "./components/Brand/Brand";
-export {
-  default as BreadcrumbRoot,
-  Breadcrumb,
-} from "./components/Breadcrumb/Breadcrumb";
+export { Breadcrumb } from "./components/Breadcrumb/Breadcrumb";
 export { default as Button } from "./components/Button/Button";
 export { default as ButtonGroup } from "./components/ButtonGroup/ButtonGroup";
 export { default as ButtonIcon } from "./components/ButtonIcon/ButtonIcon";
@@ -27,10 +23,10 @@ export { default as DataPicker } from "./components/DataPicker/DataPicker";
 export { default as DataTable } from "./components/DataTable/DataTable";
 export { default as DescriptionList } from "./components/DescriptionList/DescriptionList";
 export {
-  default as DropdownMenu,
-  DropDownMenuItem,
-  DropDownMenuTitle,
-} from "./components/DropdownMenu/DropdownMenu";
+  default as Dropdown,
+  DropdownItem,
+  DropdownTitle,
+} from "./components/Dropdown/Dropdown";
 export { default as EmptyState } from "./components/EmptyState/EmptyState";
 export { default as FileUploader } from "./components/FileUploader/FileUploader";
 export { default as Header, HeaderProfile } from "./components/Header/Header";

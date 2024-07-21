@@ -65,7 +65,7 @@ const InputSearch: React.FC<InputSearchProps> = (props) => {
             <ButtonIcon
               variant="primary"
               typeIcon="close"
-              type="plain"
+              buttonType="plain"
               size="sm"
             />
           </button>

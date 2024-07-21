@@ -2,11 +2,21 @@ import React from "react";
 import "./Card.scss";
 
 interface CardProps {
-  children?: React.ReactNode;
+  content: React.ReactNode;
+  footer?: React.ReactNode;
+  image?: React.ReactNode;
+  header?: React.ReactNode;
 }
 
 export function Card(props: CardProps) {
-  return <div className="card-root">{props.children}</div>;
+  return (
+    <div className="card-root">
+      <div>{props.image}</div>
+      <div>{props.header}</div>
+      <div>{props.content}</div>
+      <div>{props.footer}</div>
+    </div>
+  );
 }
 
 export function CardImage(props: { children: React.ReactNode }) {

@@ -495,7 +495,7 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
                 )} ${currentYear}`}
                 <ButtonIcon
                   size="sm"
-                  type="plain"
+                  buttonType="plain"
                   typeIcon="keyboard_arrow_down"
                   variant="primary"
                 />
@@ -563,7 +563,6 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
       )}
       {calendarOpen && (
         <div className="data-picker-root">
-          <div className="data-picker-ghost" onClick={handleInputClickClose} />
           <div className="data-picker">
             <div className="data-picker-month">
               <div className="data-picker-header" onClick={openSecondModal}>
@@ -572,23 +571,23 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
                 )} ${currentYear}`}
                 <ButtonIcon
                   size="sm"
-                  type="plain"
+                  buttonType="plain"
                   typeIcon="keyboard_arrow_right"
-                  variant="primary"
+                  variant="secondary"
                 />
               </div>
 
               <div style={{ display: "flex", flexDirection: "row" }}>
                 <ButtonIcon
-                  variant="primary"
+                  variant="secondary"
                   size="sm"
                   onClick={handlePrevMonth}
                   typeIcon="keyboard_arrow_left"
-                  type="plain"
+                  buttonType="plain"
                 />
                 <ButtonIcon
-                  variant="primary"
-                  type="plain"
+                  variant="secondary"
+                  buttonType="plain"
                   size="sm"
                   onClick={handleNextMonth}
                   typeIcon="keyboard_arrow_right"

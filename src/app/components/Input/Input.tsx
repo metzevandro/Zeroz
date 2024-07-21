@@ -47,7 +47,7 @@ const Input: React.FC<InputProps> = ({
           <input
             size={0}
             {...rest}
-            value={value || ""}
+            value={value}
             disabled={disabled}
             ref={inputRef}
           />

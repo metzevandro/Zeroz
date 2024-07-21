@@ -1,26 +1,30 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  ButtonHTMLAttributes,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Icon from "../Icon/Icon";
 import "./ButtonIcon.scss";
 import Skeleton from "../Skeleton/Skeleton";
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: "primary" | "secondary" | "success" | "warning" | "on-color";
-  disable?: boolean;
-  type: "plain" | "default";
+  disabled?: boolean;
+  buttonType: "plain" | "default";
   size: "sm" | "md";
   typeIcon: string;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   skeleton?: boolean;
 }
 
 const ButtonIcon: React.FC<ButtonProps> = ({
   size,
-  type,
+  buttonType,
   typeIcon,
   variant,
-  onClick,
-  disable,
+  disabled,
   skeleton,
+  ...rest
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [dimensions, setDimensions] = useState<{
@@ -44,12 +48,17 @@ const ButtonIcon: React.FC<ButtonProps> = ({
         />
       ) : (
         <button
+          {...rest}
           ref={buttonRef}
-          disabled={disable}
-          onClick={onClick}
-          className={`button-icon ${variant} ${size} ${type}`}
+          disabled={disabled}
+          className={`button-icon ${variant} ${size} ${buttonType}`}
         >
-          {typeIcon && <Icon icon={typeIcon} size={size} />}
+          {typeIcon && (
+            <Icon
+              icon={typeIcon}
+              size={buttonType === "default" ? "md" : size}
+            />
+          )}
         </button>
       )}
     </>

@@ -9,11 +9,8 @@ import Input from "../Input/Input";
 import AppShell from "../AppShell/AppShell";
 import Sidebar, { SidebarItem, SidebarTitle } from "../Sidebar/Sidebar";
 import Header, { HeaderProfile } from "../Header/Header";
-import BreadcrumbRoot, { Breadcrumb } from "../Breadcrumb/Breadcrumb";
-import DropDownMenu, {
-  DropDownMenuItem,
-  DropDownMenuTitle,
-} from "../DropdownMenu/DropdownMenu";
+import { Breadcrumb } from "../Breadcrumb/Breadcrumb";
+import Dropdown, { DropdownItem, DropdownTitle } from "../Dropdown/Dropdown";
 import Page from "../Page/Page";
 import InputNumber from "../InputNumber/InputNumber";
 import Layout from "../Layout/Layout";
@@ -57,17 +54,62 @@ const meta: Meta = {
     formChanged: {
       name: "Form Changed",
       description: "Determines if the form content has been changed.",
-      type: "boolean",
+      type: { name: "boolean" },
+      table: {
+        type: { summary: "boolean" },
+        category: "events",
+      },
     },
     handleCancel: {
       name: "Handle Cancel",
       description: "Callback function to handle cancel action.",
       action: "clicked",
+      table: {
+        type: { summary: "function" },
+        category: "events",
+      },
     },
     handleSubmit: {
       name: "Handle Submit",
       description: "Callback function to handle submit action.",
       action: "clicked",
+      table: {
+        type: { summary: "function" },
+        category: "events",
+      },
+    },
+    label: {
+      name: "Label",
+      description: "Text to display for the savebar trigger.",
+      type: { name: "string" },
+      defaultValue: { summary: "Unsaved changes" },
+      table: {
+        type: { summary: "string" },
+        defaultValue: { summary: "Unsaved changes" },
+        category: "content",
+      },
+    },
+    labelCancel: {
+      name: "Label Cancel",
+      description: "Text for the cancel button in the savebar.",
+      type: { name: "string" },
+      defaultValue: { summary: "Cancel" },
+      table: {
+        type: { summary: "string" },
+        defaultValue: { summary: "Cancel" },
+        category: "content",
+      },
+    },
+    labelSave: {
+      name: "Label Save",
+      description: "Text for the save button in the savebar.",
+      type: { name: "string" },
+      defaultValue: { summary: "Save" },
+      table: {
+        type: { summary: "string" },
+        defaultValue: { summary: "Save" },
+        category: "content",
+      },
     },
   },
 };
@@ -230,23 +272,14 @@ const Template: StoryFn<DefaultProps> = (args) => {
             title="Page Name"
           />
         </Sidebar>
-        <Header
-          breadcrumb={
-            <>
-              <BreadcrumbRoot href="" pageName="Breadcrumb">
-                <Breadcrumb href="" pageName="Breadcrumb" />
-              </BreadcrumbRoot>
-            </>
-          }
-          onClick={toggleSidebar}
-        >
+        <Header breadcrumb={<Breadcrumb items={[]} />} onClick={toggleSidebar}>
           <HeaderProfile name="Username">
-            <DropDownMenu dropDownMenu>
-              <DropDownMenuTitle content="Settings" />
-              <DropDownMenuItem content="Item 1" />
-              <DropDownMenuItem content="Item 2" />
-              <DropDownMenuItem content="Settings" typeIcon="settings" />
-            </DropDownMenu>
+            <Dropdown dropdown>
+              <DropdownTitle content="Settings" />
+              <DropdownItem content="Item 1" />
+              <DropdownItem content="Item 2" />
+              <DropdownItem content="Settings" typeIcon="settings" />
+            </Dropdown>
           </HeaderProfile>
         </Header>
         <Page
@@ -258,6 +291,9 @@ const Template: StoryFn<DefaultProps> = (args) => {
           withBackButton
         >
           <SavebarTrigger
+            labelCancel="Cancel"
+            labelSave="Save"
+            label="Unsaved changes"
             formChanged={formChanged}
             handleCancel={handleCancel}
             handleSubmit={handleSubmit}

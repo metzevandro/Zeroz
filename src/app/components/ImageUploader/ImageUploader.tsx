@@ -14,7 +14,7 @@ interface ImageUploaderProps {
   proportion: "9/16" | "16/9" | "1/1";
   description?: string;
   title?: string;
-  disable?: boolean;
+  disabled?: boolean;
   multiple?: boolean;
   maxFileSize?: number;
   labelDropzone: string;
@@ -28,7 +28,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   maxFileSize,
   description,
   title,
-  disable,
+  disabled,
   multiple,
   labelDropzone,
   iconDropzone,
@@ -197,11 +197,11 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                   <div className="delete-button">
                     <ButtonIcon
                       size="sm"
-                      type="default"
+                      buttonType="default"
                       variant="secondary"
                       typeIcon="delete"
                       onClick={() => handleRemoveFile(index)}
-                      disable={disable}
+                      disabled={disabled}
                     />
                   </div>
                 </div>
@@ -224,7 +224,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         {(multiple || !selectedFiles || selectedFiles.length === 0) && (
           <div
             className={`image-uploader-content ${
-              disable ? "image-uploader-content-disabled" : ""
+              disabled ? "image-uploader-content-disabled" : ""
             } ${
               (!multiple && fileRemoved) ||
               (multiple && (!selectedFiles || selectedFiles.length === 0))
@@ -240,7 +240,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
               accept="image/*"
               onChange={handleFileChange}
               ref={fileInputRef}
-              disabled={disable}
+              disabled={disabled}
               style={{ display: "none" }}
               multiple={multiple}
             />
@@ -249,7 +249,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 onClick={handleButtonClick}
                 style={{ aspectRatio: `calc(${proportion})` }}
                 className={`image-uploader-dropzone ${
-                  disable ? "image-uploader-dropzone-disabled" : ""
+                  disabled ? "image-uploader-dropzone-disabled" : ""
                 }`}
               >
                 <Icon icon={iconDropzone} size="md" />

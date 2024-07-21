@@ -1,62 +1,22 @@
 .button-icon {
   display: flex;
   align-items: center;
-  border: none;
-  padding: 0;
+  justify-content: center;
   cursor: pointer;
-  box-sizing: border-box;
-  box-shadow:
-    0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
-    0px 0px 0px 1px var(--b-color-base) inset,
-    0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
-    0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
-    0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
-  &.sm.plain {
-    padding: 4px;
-    height: 24px;
-    box-shadow: none;
-  }
-
-  &.md.plain {
-    padding: 4px;
-    height: 32px;
-    box-shadow: none;
-  }
-
-  &.on-color {
-    background-color: transparent;
-    color: var(--s-color-content-on-color);
-    box-shadow: none;
-
-    &:hover {
-      background-color: rgba(white, 0.16);
-    }
+  &:focus-visible {
+    outline: var(--s-border-width-thin) solid var(--s-color-border-highlight);
+    outline-offset: var(--s-border-width-thin);
   }
 
   &.plain {
+    padding: 4px;
     border-radius: var(--s-border-radius-medium);
     color: var(--s-color-content-default);
     background-color: transparent;
 
     &:hover {
       background-color: var(--s-color-fill-default-hover);
-    }
-
-    &:focus-visible {
-      outline-width: var(--s-border-width-thin);
-      outline-color: var(--s-color-border-highlight);
-      outline-offset: var(--s-border-width-thin);
-      outline-style: solid;
-    }
-
-    &:disabled {
-      cursor: auto;
-      &:hover {
-        color: var(--s-color-content-default);
-        background-color: transparent;
-        box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
-      }
     }
 
     &.on-color {
@@ -70,71 +30,55 @@
     }
   }
 
-  &.sm.default > * {
-    padding: var(--s-spacing-nano);
+  &.sm {
+    &.default {
+      padding: 4px;
+    }
   }
 
-  &.md.default > * {
-    padding: var(--s-spacing-xx-small);
-    font-size: 24px;
+  &.md {
+    &.default {
+      padding: 8px;
+    }
   }
 
   &.default {
-    border-radius: var(--s-border-radius-medium);
-
-    &.md {
-      display: flex;
-      justify-content: center;
-      height: 40px;
-      width: 40px;
-    }
-
-    &:focus-visible {
-      outline-width: var(--s-border-width-thin);
-      outline-color: var(--s-color-border-highlight);
-      outline-offset: var(--s-border-width-thin);
-      outline-style: solid;
-    }
-
     &.primary {
-      background-color: var(--s-color-fill-highlight);
       color: var(--s-color-content-on-color);
+      background-color: var(--s-color-fill-highlight);
+      border-radius: var(--s-border-radius-medium);
+      box-shadow:
+        0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+        0px 0px 0px 1px var(--s-color-fill-highlight) inset,
+        0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+        0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+        0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
       &:hover {
         background-color: var(--s-color-fill-highlight-hover);
       }
-
-      &:disabled {
-        cursor: auto;
-        background-color: var(--s-color-fill-disable);
-        opacity: 0.64;
-      }
     }
 
     &.secondary {
-      border: var(--s-border-width-hairline) solid var(--s-color-border-default);
-      background-color: var(--s-color-fill-default);
       color: var(--s-color-content-default);
-      box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+      background-color: var(--s-color-fill-default);
+      border: var(--s-border-width-hairline) var(--s-color-border-default) solid;
+      border-radius: var(--s-border-radius-medium);
 
       &:hover {
         background-color: var(--s-color-fill-default-hover);
-        border-color: var(--s-color-border-default-hover);
-      }
-
-      &:disabled {
-        cursor: auto;
-        background-color: var(--s-color-fill-disable);
-        opacity: 0.64;
+        border: var(--s-border-width-hairline)
+          var(--s-color-border-default-hover) solid;
       }
     }
 
     &.success {
-      background-color: var(--s-color-fill-success);
       color: var(--s-color-content-on-color);
+      background-color: var(--s-color-fill-success);
+      border-radius: var(--s-border-radius-medium);
       box-shadow:
         0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
-        0px 0px 0px 1px var(--s-color-border-success) inset,
+        0px 0px 0px 1px var(--s-color-fill-success) inset,
         0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
         0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
         0px 1px 2px 0px rgba(14, 21, 36, 0.06);
@@ -142,21 +86,15 @@
       &:hover {
         background-color: var(--s-color-fill-success-hover);
       }
-
-      &:disabled {
-        cursor: auto;
-        background-color: var(--s-color-fill-disable);
-        opacity: 0.64;
-        box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
-      }
     }
 
     &.warning {
-      background-color: var(--s-color-fill-warning);
       color: var(--s-color-content-on-color);
+      background-color: var(--s-color-fill-warning);
+      border-radius: var(--s-border-radius-medium);
       box-shadow:
         0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
-        0px 0px 0px 1px var(--s-color-border-warning) inset,
+        0px 0px 0px 1px var(--s-color-fill-warning) inset,
         0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
         0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
         0px 1px 2px 0px rgba(14, 21, 36, 0.06);
@@ -164,13 +102,14 @@
       &:hover {
         background-color: var(--s-color-fill-warning-hover);
       }
-
-      &:disabled {
-        cursor: auto;
-        background-color: var(--s-color-fill-disable);
-        opacity: 0.64;
-        box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
-      }
     }
+  }
+
+  &:disabled {
+    cursor: auto;
+    border-radius: var(--s-border-radius-medium);
+    background-color: var(--s-color-fill-disable) !important;
+    color: var(--s-color-content-disable) !important;
+    box-shadow: none !important;
   }
 }

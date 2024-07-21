@@ -15,7 +15,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size: "sm" | "md";
   variant: "primary" | "secondary" | "success" | "warning" | "is-loading";
   typeIcon?: string;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   skeleton?: boolean;
 }
 
@@ -24,7 +23,6 @@ const Button: React.FC<ButtonProps> = ({
   label,
   variant,
   typeIcon,
-  onClick,
   size,
   skeleton,
   ...rest
@@ -57,7 +55,6 @@ const Button: React.FC<ButtonProps> = ({
             {...rest}
             ref={buttonRef}
             className={buttonClass}
-            onClick={onClick}
             disabled={disabled}
           >
             {variant === "is-loading" && <Loading variant="default" />}

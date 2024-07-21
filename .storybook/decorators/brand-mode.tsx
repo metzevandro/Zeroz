@@ -17,7 +17,6 @@ export const brand = {
     items: [
       { title: "Zeroz", value: "zeroz" },
       { title: "Whitelabel", value: "whitelabel" },
-      { title: 'IECLB', value: 'IECLB'}
     ],
     dynamicTitle: true,
   },

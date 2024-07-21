@@ -83,6 +83,8 @@
     overflow: hidden;
     font: var(--s-typography-paragraph-regular);
     color: var(--s-color-content-light);
+    border-bottom-left-radius: calc(var(--s-border-radius-small) - 1px);
+    border-bottom-right-radius: calc(var(--s-border-radius-small) - 1px);
 
     &.close {
       height: 0;

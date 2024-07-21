@@ -9,9 +9,10 @@ interface AvatarProps {
   size: IconSize;
   src?: string;
   skeleton?: boolean;
+  letter?: string;
 }
 
-const Avatar: React.FC<AvatarProps> = ({ size, src, skeleton }) => {
+const Avatar: React.FC<AvatarProps> = ({ size, src, skeleton, letter }) => {
   const getSize = (size: IconSize) => {
     switch (size) {
       case "sm":
@@ -27,10 +28,24 @@ const Avatar: React.FC<AvatarProps> = ({ size, src, skeleton }) => {
 
   const sizeInPixels = getSize(size);
 
+  const getLetter = (letter?: string) => {
+    if (letter && letter.includes(" ")) {
+      const [firstName, lastName] = letter.split(" ");
+      return `${firstName.charAt(0)}${lastName.charAt(0)}`;
+    } else if (letter && letter.length > 1) {
+      return letter.charAt(0);
+    }
+    return letter;
+  };
+
   return (
     <div className="avatar">
       {skeleton ? (
-        <Skeleton height={`${sizeInPixels}`} width={`${sizeInPixels}`} />
+        <Skeleton
+          height={`${sizeInPixels}`}
+          circle={true}
+          width={`${sizeInPixels}`}
+        />
       ) : (
         <>
           {src ? (
@@ -38,9 +53,17 @@ const Avatar: React.FC<AvatarProps> = ({ size, src, skeleton }) => {
               <img className={size} src={src} alt="Avatar" />
             </label>
           ) : (
-            <label className={`avatar-icon ${size}`}>
-              <Icon size={size} icon="person" />
-            </label>
+            <>
+              {letter ? (
+                <label className={`avatar-letter ${size}`}>
+                  {getLetter(letter)?.toLocaleUpperCase()}
+                </label>
+              ) : (
+                <label className={`avatar-icon ${size}`}>
+                  <Icon size={size} icon="person" />
+                </label>
+              )}
+            </>
           )}
         </>
       )}

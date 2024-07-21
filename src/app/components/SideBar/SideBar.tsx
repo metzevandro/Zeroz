@@ -54,7 +54,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         <ButtonIcon
           variant="secondary"
           onClick={closeSidebar}
-          type="default"
+          buttonType="default"
           size="md"
           typeIcon="close"
         />

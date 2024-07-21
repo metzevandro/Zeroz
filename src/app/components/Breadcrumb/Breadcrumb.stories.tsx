@@ -1,36 +1,63 @@
 import type { Meta, StoryFn } from "@storybook/react";
-import BreadcrumbRoot, { Breadcrumb } from "./Breadcrumb";
+import { Breadcrumb, BreadcrumbItem } from "./Breadcrumb";
 import "../../styles.scss";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
 
 const meta: Meta = {
   title: "Components/Breadcrumb",
   component: Breadcrumb,
   parameters: {
     layout: "centered",
+    docs: {
+      page: () => (
+        <>
+          <Title />
+          <Subtitle>Component</Subtitle>
+          <p>
+            The <strong>Breadcrumb</strong> is like a helpful trail that shows
+            where you are and lets you go back to previous pages.
+          </p>
+          <Primary />
+          <Controls />
+          <Stories />
+        </>
+      ),
+    },
   },
+  argTypes: {
+    items: {
+      name: "Items",
+      description:
+        "An array of breadcrumb items, where each item represents a step in the breadcrumb trail.",
+      control: "object",
+      table: {
+        category: "Content",
+        type: { summary: "BreadcrumbItem[]" },
+      },
+    },
+  },
+  tags: ["autodocs"],
 };
 
 export default meta;
 
 type Args = {
-  pageName: string;
-  initialPage: string;
-  initialHref: string;
-  href: string;
+  items: BreadcrumbItem[];
 };
 
 const Template: StoryFn<Args> = (args) => {
   return (
     <>
-      <BreadcrumbRoot href={args.initialHref} pageName={args.initialPage}>
-        <Breadcrumb href={args.href} pageName={args.pageName}></Breadcrumb>
-      </BreadcrumbRoot>
+      <Breadcrumb items={args.items} />
     </>
   );
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  pageName: "Breadcrumb",
-  initialPage: "Breadcrumb",
+  items: [
+    { pageName: "Home", href: "/" },
+    { pageName: "Category", href: "/category" },
+    { pageName: "Product", href: "/product" },
+  ],
 };

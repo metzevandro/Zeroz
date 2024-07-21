@@ -2,7 +2,12 @@ import Button from "../Button/Button";
 import "./ButtonGroup.scss";
 import React from "react";
 
-type ButtonVariant = "primary" | "secondary" | "success" | "warning";
+type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "success"
+  | "warning"
+  | "is-loading";
 
 interface ButtonGroupProps {
   disableFirstButton?: boolean;
@@ -16,6 +21,8 @@ interface ButtonGroupProps {
   typeIconSecondButton?: string;
   onClickFirstButton?: (e: React.MouseEvent) => void;
   onClickSecondButton?: (e: React.MouseEvent) => void;
+  skeletonFirstButton?: boolean;
+  skeletonSecondButton?: boolean;
 }
 
 const ButtonGroup: React.FC<ButtonGroupProps> = ({
@@ -30,6 +37,8 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
   contentFirstButton,
   typeIconFirstButton,
   variantFirstButton,
+  skeletonFirstButton,
+  skeletonSecondButton,
 }) => {
   return (
     <>
@@ -41,6 +50,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
           label={contentFirstButton}
           typeIcon={typeIconFirstButton}
           variant={variantFirstButton}
+          skeleton={skeletonFirstButton}
         />
         <Button
           size="md"
@@ -49,6 +59,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
           label={contentSecondButton}
           typeIcon={typeIconSecondButton}
           variant={variantSecondButton}
+          skeleton={skeletonSecondButton}
         />
       </div>
     </>

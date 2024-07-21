@@ -2,12 +2,90 @@ import React, { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import "../../styles.scss";
 import InputNumber from "./InputNumber";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
 
 const meta: Meta = {
   title: "Components/Input Number",
   component: InputNumber,
   parameters: {
     layout: "padded",
+    docs: {
+      page: () => (
+        <>
+          <Title />
+          <Subtitle>Component</Subtitle>
+          <p>
+            The <strong>Number Input</strong> lets users type numbers and
+            increase or decrease using icon buttons.{" "}
+          </p>
+          <Primary />
+          <Controls />
+          <Stories />
+        </>
+      ),
+    },
+  },
+  argTypes: {
+    label: {
+      control: "text",
+      description: "The text label displayed above the input number field.",
+      table: {
+        category: "Text",
+      },
+    },
+    placeholder: {
+      control: "text",
+      description:
+        "The placeholder text displayed inside the input number field when it is empty.",
+      table: {
+        category: "Text",
+      },
+    },
+    disabled: {
+      control: "boolean",
+      description:
+        "If true, the input number field will be disabled and unclickable.",
+      table: {
+        category: "State",
+      },
+    },
+    error: {
+      control: "boolean",
+      description:
+        "If true, the input number field will be styled to indicate an error state.",
+      table: {
+        category: "State",
+      },
+    },
+    textError: {
+      control: "text",
+      description:
+        "The error message text displayed below the input number field when in an error state.",
+      table: {
+        category: "Text",
+      },
+    },
+    max: {
+      control: "number",
+      description: "The maximum value allowed for the input number field.",
+      table: {
+        category: "Validation",
+      },
+    },
+    min: {
+      control: "number",
+      description: "The minimum value allowed for the input number field.",
+      table: {
+        category: "Validation",
+      },
+    },
+    initialValue: {
+      control: "number",
+      description: "The initial value set for the input number field.",
+      table: {
+        category: "Value",
+      },
+    },
   },
 };
 
@@ -25,7 +103,7 @@ type Args = {
 };
 
 const Template: StoryFn<Args> = (args) => {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(args.initialValue.toString());
 
   const handleInputChange = (value: string) => {
     setInputValue(value);

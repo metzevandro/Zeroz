@@ -21,6 +21,8 @@ const preview: Preview = {
     scheme,
     brand,
   },
+
+  tags: ["autodocs", "autodocs"]
 };
 
 export default preview;

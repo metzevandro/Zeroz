@@ -1,7 +1,7 @@
 import "./Header.scss";
 import Avatar from "../Avatar/Avatar";
 import Icon from "../Icon/Icon";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import React from "react";
 import Skeleton from "../Skeleton/Skeleton";
@@ -21,7 +21,7 @@ const Header: React.FC<HeaderProps> = ({ children, onClick, breadcrumb }) => {
           <div className="header-action">
             <ButtonIcon
               variant="primary"
-              type="plain"
+              buttonType="plain"
               size="md"
               typeIcon="menu"
               onClick={onClick}
@@ -40,6 +40,7 @@ interface HeaderProfileProps {
   children: React.ReactNode;
   avatar_src?: string;
   skeleton?: boolean;
+  letter?: string;
 }
 
 export const HeaderProfile: React.FC<HeaderProfileProps> = ({
@@ -47,22 +48,47 @@ export const HeaderProfile: React.FC<HeaderProfileProps> = ({
   children,
   avatar_src,
   skeleton,
+  letter,
 }) => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleDropDown = () => {
     setIsDropDownOpen(!isDropDownOpen);
   };
 
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setIsDropDownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
-      {isDropDownOpen && (
-        <div className="profile-ghost" onClick={toggleDropDown} />
-      )}
       <div className="profile-root">
-        <div className="profile" tabIndex={0} onClick={toggleDropDown}>
+        <div
+          ref={dropdownRef}
+          className="profile"
+          tabIndex={0}
+          onClick={toggleDropDown}
+        >
           <div className="avatar">
-            <Avatar skeleton={skeleton} size="md" src={avatar_src} />
+            <Avatar
+              skeleton={skeleton}
+              size="md"
+              src={avatar_src}
+              letter={letter}
+            />
           </div>
           {skeleton ? (
             <>

@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Page from "./Page";
 import Icon from "../Icon/Icon";
 import "../../styles.scss";
-
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
 
 const meta: Meta<typeof Page> = {
@@ -32,7 +31,7 @@ const meta: Meta<typeof Page> = {
       name: "Children",
       description: "Content rendered inside the page.",
       control: {
-        disable: true, // Disable control as it's handled within the story definition
+        disable: true,
       },
     },
     namePage: {
@@ -62,17 +61,17 @@ const meta: Meta<typeof Page> = {
     onClickActionPrimary: {
       name: "Primary Button Action",
       description: "Callback function for primary button click.",
-      action: "clicked", // Placeholder action for storybook action logger
+      action: "clicked",
     },
     onClickActionSecondary: {
       name: "Secondary Button Action",
       description: "Callback function for secondary button click.",
-      action: "clicked", // Placeholder action for storybook action logger
+      action: "clicked",
     },
     onClickBackButton: {
       name: "Back Button Action",
       description: "Callback function for back button click.",
-      action: "clicked", // Placeholder action for storybook action logger
+      action: "clicked",
     },
     iconButtonPrimary: {
       name: "Primary Button Icon",

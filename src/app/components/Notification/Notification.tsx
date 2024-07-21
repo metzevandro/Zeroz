@@ -53,7 +53,7 @@ const Notification: React.FC<NotificationProps> = ({
                 variant="on-color"
                 size="sm"
                 typeIcon="close"
-                type="plain"
+                buttonType="plain"
                 onClick={handleClickClose}
               />
             )}

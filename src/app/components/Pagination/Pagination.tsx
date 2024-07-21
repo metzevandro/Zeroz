@@ -4,23 +4,23 @@ import React from "react";
 
 interface PaginationItemProps {
   arrow: "left" | "right";
-  disable?: boolean;
+  disabled?: boolean;
   click?: () => void;
 }
 
 const PaginationItem: React.FC<PaginationItemProps> = ({
   arrow,
-  disable,
+  disabled,
   click,
 }) => {
   return (
     <>
       {arrow === "left" ? (
-        <button className="arrow_back" disabled={disable} onClick={click}>
+        <button className="arrow_back" disabled={disabled} onClick={click}>
           <Icon icon="arrow_back" size="sm" />
         </button>
       ) : arrow === "right" ? (
-        <button className="arrow_forward" disabled={disable} onClick={click}>
+        <button className="arrow_forward" disabled={disabled} onClick={click}>
           <Icon icon="arrow_forward" size="sm" />
         </button>
       ) : (
@@ -32,16 +32,16 @@ const PaginationItem: React.FC<PaginationItemProps> = ({
 
 interface PaginationProps {
   variant: "noLabel" | "leftLabel" | "centerLabel";
-  disableLeft?: boolean;
-  disableRight?: boolean;
+  disabledLeft?: boolean;
+  disabledRight?: boolean;
   onClickLeft?: () => void;
   onClickRight?: () => void;
   label: string;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
-  disableRight,
-  disableLeft,
+  disabledRight,
+  disabledLeft,
   variant,
   onClickRight,
   onClickLeft,
@@ -53,12 +53,12 @@ const Pagination: React.FC<PaginationProps> = ({
         <div className="noLabel">
           <PaginationItem
             arrow="left"
-            disable={disableLeft}
+            disabled={disabledLeft}
             click={onClickLeft}
           />
           <PaginationItem
             arrow="right"
-            disable={disableRight}
+            disabled={disabledRight}
             click={onClickRight}
           />
         </div>
@@ -68,12 +68,12 @@ const Pagination: React.FC<PaginationProps> = ({
           <div style={{ display: "flex" }}>
             <PaginationItem
               arrow="left"
-              disable={disableLeft}
+              disabled={disabledLeft}
               click={onClickLeft}
             />
             <PaginationItem
               arrow="right"
-              disable={disableRight}
+              disabled={disabledRight}
               click={onClickRight}
             />
           </div>
@@ -82,13 +82,13 @@ const Pagination: React.FC<PaginationProps> = ({
         <div className="centerLabel">
           <PaginationItem
             arrow="left"
-            disable={disableLeft}
+            disabled={disabledLeft}
             click={onClickLeft}
           />
           <p>{label}</p>
           <PaginationItem
             arrow="right"
-            disable={disableRight}
+            disabled={disabledRight}
             click={onClickRight}
           />
         </div>

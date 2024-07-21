@@ -31,19 +31,85 @@ const meta: Meta = {
     },
   },
   tags: ["autodocs"],
+  argTypes: {
+    buttonLabel: {
+      name: "Button Label",
+      description:
+        "The label of the button that opens/closes the Aside component.",
+      control: "text",
+      table: {
+        category: "Data",
+        type: { summary: "string" },
+      },
+    },
+    isOpen: {
+      name: "Is Open",
+      description: "Indicates whether the Aside component is open or closed.",
+      control: "boolean",
+      table: {
+        category: "State",
+        type: { summary: "boolean" },
+      },
+    },
+    toggleAside: {
+      name: "Toggle Aside",
+      description: "Action to open and close the aside component.",
+      action: "toggled",
+      table: {
+        category: "Events",
+        type: {
+          summary: "(event: React.MouseEvent<HTMLButtonElement>) => void",
+        },
+      },
+    },
+    title: {
+      name: "Title",
+      description: "The title displayed in the Aside component.",
+      control: "text",
+      table: {
+        category: "Data",
+        type: { summary: "string" },
+      },
+    },
+    description: {
+      name: "Description",
+      description: "The description displayed in the Aside component.",
+      control: "text",
+      table: {
+        category: "Data",
+        type: { summary: "string" },
+      },
+    },
+    content: {
+      name: "Content",
+      description: "Content of the aside component.",
+      table: {
+        category: "Content",
+        type: { summary: "React.ReactNode" },
+      },
+    },
+    footer: {
+      name: "Footer",
+      description: "Footer of the aside component.",
+      table: {
+        category: "Content",
+        type: { summary: "React.ReactNode" },
+      },
+    },
+  },
 };
 
 export default meta;
 
 type Args = {
-  isOpenAside: boolean;
+  isOpen: boolean;
   title: string;
   description: string;
   buttonLabel: string;
 };
 
 const Template: StoryFn<Args> = (args: Args) => {
-  const [isOpenAside, setIsOpenAside] = useState(args.isOpenAside);
+  const [isOpenAside, setIsOpenAside] = useState(args.isOpen);
 
   const toggleAside = () => {
     setIsOpenAside(!isOpenAside);
@@ -60,7 +126,7 @@ const Template: StoryFn<Args> = (args: Args) => {
         />
       </div>
       <Aside
-        isOpen={isOpenAside}
+        isOpen={isOpenAside || args.isOpen}
         toggleAside={toggleAside}
         title={args.title}
         description={args.description}
@@ -92,8 +158,8 @@ const Template: StoryFn<Args> = (args: Args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  isOpenAside: false,
   title: "Title aside here!",
   description: "Aside description",
+  isOpen: false,
   buttonLabel: "Click here!",
 };

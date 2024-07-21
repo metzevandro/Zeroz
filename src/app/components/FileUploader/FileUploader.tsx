@@ -227,7 +227,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
                       </div>
                       <ButtonIcon
                         variant="primary"
-                        type="plain"
+                        buttonType="plain"
                         onClick={() => handleRemoveFile(index)}
                         size="sm"
                         typeIcon="close"

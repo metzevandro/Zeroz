@@ -60,7 +60,7 @@ const Page: React.FC<PageProps> = ({
               <ButtonIcon
                 onClick={onClickBackButton}
                 size="md"
-                type="default"
+                buttonType="default"
                 typeIcon="arrow_back"
                 variant="secondary"
               />
@@ -73,7 +73,7 @@ const Page: React.FC<PageProps> = ({
                 <>
                   <div className="button-icon-actions">
                     <ButtonIcon
-                      type="default"
+                      buttonType="default"
                       size="md"
                       typeIcon={`${iconButtonSecondary || "more_vert"}`}
                       variant="secondary"
@@ -97,7 +97,7 @@ const Page: React.FC<PageProps> = ({
                 <>
                   <div className="button-icon-actions">
                     <ButtonIcon
-                      type="default"
+                      buttonType="default"
                       size="md"
                       typeIcon={`${iconButtonPrimary || "add"}`}
                       variant="primary"

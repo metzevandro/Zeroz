@@ -570,7 +570,7 @@ const DataTable: React.FC<DataTableProps> = ({
                   >
                     <ButtonIcon
                       size="md"
-                      type="plain"
+                      buttonType="plain"
                       typeIcon="keyboard_arrow_down"
                       variant="primary"
                       onClick={toggleExpandAllRows}
@@ -630,7 +630,7 @@ const DataTable: React.FC<DataTableProps> = ({
                         >
                           <ButtonIcon
                             size="md"
-                            type="plain"
+                            buttonType="plain"
                             typeIcon="keyboard_arrow_down"
                             variant="primary"
                             onClick={() => handleExpandRow(row.id)}

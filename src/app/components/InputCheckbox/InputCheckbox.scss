@@ -97,7 +97,7 @@
       background-color: transparent;
       box-shadow:
         0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
-        0px 0px 0px 2px var(--s-color-content-disable) inset,
+        0px 0px 0px 2px var(--s-color-fill-disable) inset,
         0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
         0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
         0px 1px 2px 0px rgba(14, 21, 36, 0.06);
@@ -109,15 +109,15 @@
 
     &:hover {
       ~ .ui-form-checkbox-checkmark {
-        background-color: var(--s-color-content-disable);
+        background-color: var(--s-color-fill-disable);
       }
     }
 
     ~ .ui-form-checkbox-checkmark {
-      background-color: var(--s-color-content-disable);
+      background-color: var(--s-color-fill-disable);
 
       &::after {
-        border-color: var(--s-color-fill-disable);
+        border-color: var(--s-color-content-disable);
       }
     }
 
@@ -140,7 +140,7 @@
     justify-content: center;
     box-shadow:
       0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
-      0px 0px 0px 2px var(--s-color-content-default) inset,
+      0px 0px 0px 2px var(--s-color-fill-disable) inset,
       0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
       0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
       0px 1px 2px 0px rgba(14, 21, 36, 0.06);

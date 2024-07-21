@@ -1,4 +1,6 @@
 .card-root {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   border: var(--s-border-width-hairline) solid var(--s-color-border-default);
   border-radius: var(--s-border-radius-medium);
@@ -41,5 +43,7 @@
     border-top: var(--s-border-width-hairline) solid
       var(--s-color-border-default);
     padding: var(--s-spacing-medium);
+    border-bottom-left-radius: calc(var(--s-border-radius-medium) - 2px);
+    border-bottom-right-radius: calc(var(--s-border-radius-medium) - 2px);
   }
 }

@@ -35,7 +35,7 @@ const Modal: React.FC<ModalProps> = ({
                 variant="primary"
                 size="md"
                 typeIcon="close"
-                type="plain"
+                buttonType="plain"
                 onClick={hideModal}
               />
             )}

@@ -12,13 +12,19 @@ interface SavebarTriggerProps {
   formChanged: boolean;
   handleSubmit: () => void;
   handleCancel: () => void;
+  label: string;
+  labelSave: string;
+  labelCancel: string;
 }
 
 const SavebarTrigger: React.FC<SavebarTriggerProps> = ({
   children,
   formChanged,
   handleSubmit,
-  handleCancel: handleCancelProp, // Renomeie handleCancel para evitar conflitos de nomes
+  label,
+  handleCancel: handleCancelProp,
+  labelSave,
+  labelCancel,
 }) => {
   const [formData, setFormData] = useState<FormData>({});
   const [tamanhoPai, setTamanhoPai] = useState<number | null>(null);
@@ -112,7 +118,13 @@ const SavebarTrigger: React.FC<SavebarTriggerProps> = ({
       )}
       <div className="form-register-save-bar" style={estiloFilha}>
         {formChanged && !saving && (
-          <SaveBar onClickCancel={handleCancel} onClickSave={handleSave} />
+          <SaveBar
+            labelCancel={labelCancel}
+            labelSave={labelSave}
+            label={label}
+            onClickCancel={handleCancel}
+            onClickSave={handleSave}
+          />
         )}
       </div>
       <div>{modifiedChildren}</div>

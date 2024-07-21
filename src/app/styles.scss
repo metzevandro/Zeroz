@@ -55,6 +55,11 @@
   background-color: var(--s-color-fill-highlight-light);
 }
 
+.aleatory {
+  height: 250px;
+  overflow-y: hidden !important;
+}
+
 h1 {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -41,27 +41,6 @@
       cursor: auto;
     }
 
-    &.disabled {
-      color: var(--s-color-content-disable);
-      background-color: var(--s-color-fill-disable);
-      cursor: auto;
-      opacity: 0.64;
-      input {
-        &::placeholder {
-          color: var(--s-color-content-disable);
-        }
-      }
-
-      &:hover {
-        background-color: var(--s-color-fill-disable);
-        border-color: var(--s-color-border-default);
-      }
-
-      &:focus-within {
-        outline: none;
-      }
-    }
-
     &.error {
       color: var(--s-color-content-warning);
       background-color: var(--s-color-fill-warning-light);
@@ -106,6 +85,27 @@
 
     .material-symbols-outlined.md {
       font-size: 20px;
+    }
+
+    &.disabled {
+      color: var(--s-color-content-disable);
+      background-color: var(--s-color-fill-disable);
+      cursor: auto;
+      opacity: 0.64;
+      input {
+        &::placeholder {
+          color: var(--s-color-content-disable);
+        }
+      }
+
+      &:hover {
+        background-color: var(--s-color-fill-disable);
+        border-color: var(--s-color-border-default);
+      }
+
+      &:focus-within {
+        outline: none;
+      }
     }
   }
 

@@ -27,7 +27,7 @@ function Tag(props: TagProps) {
           {props.content}
           <span>
             <ButtonIcon
-              type="plain"
+              buttonType="plain"
               size="sm"
               typeIcon="close"
               variant={props.variant === "secondary" ? "primary" : "on-color"}

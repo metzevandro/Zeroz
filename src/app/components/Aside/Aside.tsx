@@ -3,12 +3,12 @@ import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import "./Aside.scss";
 
 interface AsideProps {
+  isOpen: boolean;
   title: string;
   description?: string;
-  footer?: React.ReactNode;
   content?: React.ReactNode;
+  footer?: React.ReactNode;
   toggleAside: () => void;
-  isOpen: boolean;
 }
 
 const Aside: React.FC<AsideProps> = ({
@@ -31,7 +31,7 @@ const Aside: React.FC<AsideProps> = ({
             <div className="aside-title">
               <div>{title}</div>
               <ButtonIcon
-                type="plain"
+                buttonType="plain"
                 variant="primary"
                 typeIcon="close"
                 size="md"
