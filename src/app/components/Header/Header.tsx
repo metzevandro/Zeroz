@@ -75,9 +75,9 @@ export const HeaderProfile: React.FC<HeaderProfileProps> = ({
 
   return (
     <>
-      <div className="profile-root">
+      <div           ref={dropdownRef}
+ className="profile-root">
         <div
-          ref={dropdownRef}
           className="profile"
           tabIndex={0}
           onClick={toggleDropDown}

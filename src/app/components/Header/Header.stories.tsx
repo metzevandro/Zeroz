@@ -123,7 +123,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
           letter={args.letter}
           avatar_src={args.avatar_src}
         >
-          <Dropdown dropDownMenu>
+          <Dropdown dropdown>
             <DropdownTitle content="Settings" />
             <DropdownItem content="Item 1" />
             <DropdownItem content="Item 2" />
