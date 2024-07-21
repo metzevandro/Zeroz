@@ -33,65 +33,110 @@ const meta: Meta<typeof Page> = {
       control: {
         disable: true,
       },
+      table: {
+        category: "Content",
+      },
     },
     namePage: {
       name: "Page Name",
       description: "Name of the page displayed.",
+      table: {
+        category: "Appearance",
+      },
+    },
+    description: {
+      name: "Page Description",
+      description: "Description of the page content.",
+      table: {
+        category: "Appearance",
+      },
     },
     withBackButton: {
       name: "Enable Back Button",
       description: "Determines if the back button is present.",
-    },
-    withActionPrimary: {
-      name: "Enable Primary Action",
-      description: "Determines if the primary action is enabled.",
-    },
-    withActionSecondary: {
-      name: "Enable Secondary Action",
-      description: "Determines if the secondary action is enabled.",
-    },
-    buttonContentPrimary: {
-      name: "Primary Button Content",
-      description: "Text displayed in the primary button.",
-    },
-    buttonContentSecondary: {
-      name: "Secondary Button Content",
-      description: "Text displayed in the secondary button.",
-    },
-    onClickActionPrimary: {
-      name: "Primary Button Action",
-      description: "Callback function for primary button click.",
-      action: "clicked",
-    },
-    onClickActionSecondary: {
-      name: "Secondary Button Action",
-      description: "Callback function for secondary button click.",
-      action: "clicked",
+      table: {
+        category: "Actions",
+      },
     },
     onClickBackButton: {
       name: "Back Button Action",
       description: "Callback function for back button click.",
       action: "clicked",
+      table: {
+        category: "Actions",
+      },
+    },
+    withActionPrimary: {
+      name: "Enable Primary Action",
+      description: "Determines if the primary action is enabled.",
+      table: {
+        category: "Actions",
+      },
+    },
+    onClickActionPrimary: {
+      name: "Primary Button Action",
+      description: "Callback function for primary button click.",
+      action: "clicked",
+      table: {
+        category: "Actions",
+      },
+    },
+    withActionSecondary: {
+      name: "Enable Secondary Action",
+      description: "Determines if the secondary action is enabled.",
+      table: {
+        category: "Actions",
+      },
+    },
+    onClickActionSecondary: {
+      name: "Secondary Button Action",
+      description: "Callback function for secondary button click.",
+      action: "clicked",
+      table: {
+        category: "Actions",
+      },
+    },
+    buttonContentPrimary: {
+      name: "Primary Button Content",
+      description: "Text displayed in the primary button.",
+      table: {
+        category: "Buttons",
+      },
     },
     iconButtonPrimary: {
       name: "Primary Button Icon",
       description: "Icon displayed in the primary button.",
-    },
-    iconButtonSecondary: {
-      name: "Secondary Button Icon",
-      description: "Icon displayed in the secondary button.",
+      table: {
+        category: "Buttons",
+      },
     },
     skeletonButtonPrimary: {
       name: "Primary Button Skeleton",
       description: "Determines if the primary button is in a loading state.",
+      table: {
+        category: "Buttons",
+      },
+    },
+    buttonContentSecondary: {
+      name: "Secondary Button Content",
+      description: "Text displayed in the secondary button.",
+      table: {
+        category: "Buttons",
+      },
+    },
+    iconButtonSecondary: {
+      name: "Secondary Button Icon",
+      description: "Icon displayed in the secondary button.",
+      table: {
+        category: "Buttons",
+      },
     },
     skeletonButtonSecondary: {
       name: "Secondary Button Skeleton",
       description: "Determines if the secondary button is in a loading state.",
-    },
-    description: {
-      name: "Page Description",
-      description: "Description of the page content.",
+      table: {
+        category: "Buttons",
+      },
     },
   },
 };
