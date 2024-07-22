@@ -37,6 +37,10 @@ const Notification: React.FC<NotificationProps> = ({
   const handleClickClose = () => {
     setIsClose(false);
   };
+
+  // Condicional para mostrar a div pai
+  const showContent = withAction || description;
+
   return (
     <>
       {isClose && (
@@ -58,20 +62,22 @@ const Notification: React.FC<NotificationProps> = ({
               />
             )}
           </div>
-          <div className="notification-content">
-            {description && <div className="description">{description}</div>}
-            {withAction && (
-              <div className="notification-with-action">
-                <Button
-                  size="md"
-                  variant={variant}
-                  disabled={disableButton}
-                  label={buttonLabel}
-                  onClick={onClickButton}
-                />
-              </div>
-            )}
-          </div>
+          {showContent && (
+            <div className="notification-content">
+              {description && <div className="description">{description}</div>}
+              {withAction && (
+                <div className="notification-with-action">
+                  <Button
+                    size="md"
+                    variant={variant}
+                    disabled={disableButton}
+                    label={buttonLabel}
+                    onClick={onClickButton}
+                  />
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
     </>

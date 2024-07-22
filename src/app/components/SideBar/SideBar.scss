@@ -40,11 +40,12 @@
     background-color: var(--s-color-fill-default);
     color: var(--s-color-content-light);
     margin: var(--s-spacing-nano) 0;
+    border: var(--s-border-width-hairline) solid transparent;
 
     &.active {
       color: var(--s-color-content-default);
       background-color: var(--s-color-fill-default-hover);
-      border: 1px solid var(--s-color-border-default);
+      border: var(--s-border-width-hairline) solid var(--s-color-border-default);
       box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
     }
   }

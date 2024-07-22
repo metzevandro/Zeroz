@@ -1,4 +1,12 @@
-@import "../../styles.scss";
+.img {
+  background-color: #873bec;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
 
 .welcome {
   position: fixed;

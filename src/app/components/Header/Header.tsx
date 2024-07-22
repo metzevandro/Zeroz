@@ -75,13 +75,8 @@ export const HeaderProfile: React.FC<HeaderProfileProps> = ({
 
   return (
     <>
-      <div           ref={dropdownRef}
- className="profile-root">
-        <div
-          className="profile"
-          tabIndex={0}
-          onClick={toggleDropDown}
-        >
+      <div ref={dropdownRef} className="profile-root">
+        <div className="profile" tabIndex={0} onClick={toggleDropDown}>
           <div className="avatar">
             <Avatar
               skeleton={skeleton}
