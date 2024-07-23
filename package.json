@@ -14,7 +14,8 @@
   "files": [
     "src/app/components",
     "src/scss",
-    "src/app/styles.scss"
+    "src/app/styles.scss",
+    "next.config.js"
   ],
   "peerDependencies": {
     "next": "^14.1.0",
