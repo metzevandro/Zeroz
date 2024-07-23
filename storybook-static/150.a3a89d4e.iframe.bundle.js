@@ -15729,14 +15729,12 @@
                   $ = { type: "text", value: "".concat(k, "\n") };
                 if (0 === T) {
                   var L = v(
-                    p
-                      .slice(f + 1, g)
-                      .concat(
-                        Za({
-                          children: [$],
-                          className: E.properties.className,
-                        }),
-                      ),
+                    p.slice(f + 1, g).concat(
+                      Za({
+                        children: [$],
+                        className: E.properties.className,
+                      }),
+                    ),
                     _,
                   );
                   h.push(L);

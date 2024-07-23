@@ -20,18 +20,6 @@
     color: var(--s-color-content-default);
     box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
 
-    button:hover + input {
-      border-left: none;
-    }
-
-    input:hover + .add {
-      border-left: none;
-    }
-
-    input:hover {
-      border-right: 1px solid var(--s-color-border-default-hover);
-    }
-
     &.disabled {
       border-color: var(--s-color-border-default);
       background-color: var(--s-color-fill-disable);
@@ -60,6 +48,16 @@
       outline-style: solid;
     }
 
+    .add:hover ~ input {
+      border-right: var(--s-color-border-default-hover)
+        var(--s-border-width-hairline) solid ;
+    }
+
+    .subtract:hover ~ input {
+      border-left: var(--s-color-border-default-hover)
+        var(--s-border-width-hairline) solid;
+    }
+
     .add {
       display: flex;
       justify-content: center;
@@ -69,6 +67,8 @@
       border-radius: 0 var(--s-border-radius-medium)
         var(--s-border-radius-medium) 0;
       z-index: 2;
+      border: 1px solid var(--s-color-border-default);
+      border-left: none;
 
       &:active {
         outline-width: var(--s-border-width-thin);
@@ -79,6 +79,7 @@
 
       &:hover {
         border: 1px solid var(--s-color-border-default-hover);
+        border-left: none;
       }
     }
 
@@ -92,6 +93,8 @@
       z-index: 2;
       border-radius: var(--s-border-radius-medium) 0 0
         var(--s-border-radius-medium);
+      border: 1px solid var(--s-color-border-default);
+      border-right: none;
 
       &:active {
         outline-width: var(--s-border-width-thin);
@@ -102,6 +105,7 @@
 
       &:hover {
         border: 1px solid var(--s-color-border-default-hover);
+        border-right: none;
       }
     }
 
@@ -113,8 +117,9 @@
       background-color: var(--s-color-fill-default);
       cursor: pointer;
       color: var(--s-color-content-default);
-      border: var(--s-border-width-hairline) solid var(--s-color-border-default);
-
+      &:hover + .input {
+        background-color: red;
+      }
       &:hover {
         background-color: var(--s-color-fill-default-hover);
       }
@@ -152,7 +157,6 @@
       width: 100%;
       padding: var(--s-spacing-xx-small);
       border: 1px solid var(--s-color-border-default);
-      border-right: none;
       background-color: var(--s-color-fill-default);
 
       &:hover {

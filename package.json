@@ -54,6 +54,7 @@
   "author": "evandrometz",
   "license": "MIT",
   "dependencies": {
-    "sass": "^1.77.8"
+    "sass": "^1.77.8",
+    "ts-loader": "^9.5.1"
   }
 }

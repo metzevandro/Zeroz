@@ -8888,10 +8888,7 @@ y to select."
 a(ky, "getA11yStatusMessage");
 function sc(e, t) {
   return (
-    (e = Array.isArray(e)
-      ? /* istanbul ignore next (preact) */
-        e[0]
-      : e),
+    (e = Array.isArray(e) ? /* istanbul ignore next (preact) */ e[0] : e),
     !e && t ? t : e
   );
 }
@@ -9547,11 +9544,7 @@ var gc = 0,
             I.onPress;
             var k = I.index,
               w = I.item,
-              O =
-                w === void 0
-                  ? /* istanbul ignore next */
-                    void 0
-                  : w,
+              O = w === void 0 ? /* istanbul ignore next */ void 0 : w,
               P = Ce(I, Ry);
             k === void 0
               ? (o.items.push(O), (k = o.items.indexOf(O)))
