@@ -1,32 +1,24 @@
 const path = require("path");
-const withTM = require('next-transpile-modules')(['design-system-zeroz']); // Adicione o nome do seu pacote aqui
+const withTM = require('next-transpile-modules')(['design-system-zeroz']); 
 
 const nextConfig = withTM({
   webpack: (config) => {
     config.module.rules.push({
       test: /\.tsx?$/,
-      include: /design-system-zeroz/,
+      include: [
+        path.resolve(__dirname, "node_modules/design-system-zeroz"),
+        path.resolve(__dirname, "src"),
+      ],
       use: [
         {
           loader: "ts-loader",
           options: {
             allowTsInNodeModules: true,
             transpileOnly: true, 
-            compilerOptions: {
-              target: "es5",
-              lib: ["dom", "dom.iterable", "esnext"],
-              allowJs: true,
-              skipLibCheck: true,
-              strict: true,
-              esModuleInterop: true,
-              module: "esnext",
-              moduleResolution: "node",
-              resolveJsonModule: true,
-              jsx: "react",
-            },
           },
         },
       ],
+      exclude: /node_modules\/(?!design-system-zeroz)/,
     });
 
     config.resolve.alias["@design-system-zeroz"] = path.resolve(
