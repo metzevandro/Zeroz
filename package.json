@@ -2,7 +2,7 @@
   "name": "design-system-zeroz",
   "version": "0.2.40",
   "private": false,
-  "main": "dist/src/app/index.ts",
+  "main": "dist/src/app/index.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
