@@ -6,122 +6,163 @@ import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import "../../styles.scss";
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
 var meta = {
-    title: "Components/Modal",
-    component: Modal,
-    parameters: {
-        layout: "fullscreen",
-        docs: {
-            page: function () { return (<>
-          <Title />
-          <Subtitle>Component</Subtitle>
-          <p>
-            The <strong> Modals </strong> are overlays strategically designed to
-            focus the user's attention on a specific task or piece of
-            information.
-          </p>
-          <Primary />
-          <Controls />
-          <Stories />
-        </>); },
-        },
+  title: "Components/Modal",
+  component: Modal,
+  parameters: {
+    layout: "fullscreen",
+    docs: {
+      page: function () {
+        return (
+          <>
+            <Title />
+            <Subtitle>Component</Subtitle>
+            <p>
+              The <strong> Modals </strong> are overlays strategically designed
+              to focus the user's attention on a specific task or piece of
+              information.
+            </p>
+            <Primary />
+            <Controls />
+            <Stories />
+          </>
+        );
+      },
     },
-    argTypes: {
-        title: {
-            control: "text",
-            description: "The title of the modal.",
-            table: {
-                category: "Content",
-            },
-        },
-        description: {
-            control: "text",
-            description: "The description text displayed in the modal.",
-            table: {
-                category: "Content",
-            },
-        },
-        dismissible: {
-            control: "boolean",
-            description: "If true, the modal can be dismissed by the user.",
-            table: {
-                category: "State",
-            },
-        },
-        content: {
-            control: "object",
-            description: "The content of the modal.",
-            table: {
-                category: "Content",
-            },
-        },
-        footer: {
-            control: "object",
-            description: "The footer of the modal.",
-            table: {
-                category: "Content",
-            },
-        },
-        hideModal: {
-            action: "hideModal",
-            description: "Callback function to hide the modal.",
-            table: {
-                category: "Actions",
-            },
-        },
-        isOpen: {
-            control: "boolean",
-            description: "If true, the modal is open.",
-            table: {
-                category: "State",
-            },
-        },
+  },
+  argTypes: {
+    title: {
+      control: "text",
+      description: "The title of the modal.",
+      table: {
+        category: "Content",
+      },
     },
+    description: {
+      control: "text",
+      description: "The description text displayed in the modal.",
+      table: {
+        category: "Content",
+      },
+    },
+    dismissible: {
+      control: "boolean",
+      description: "If true, the modal can be dismissed by the user.",
+      table: {
+        category: "State",
+      },
+    },
+    content: {
+      control: "object",
+      description: "The content of the modal.",
+      table: {
+        category: "Content",
+      },
+    },
+    footer: {
+      control: "object",
+      description: "The footer of the modal.",
+      table: {
+        category: "Content",
+      },
+    },
+    hideModal: {
+      action: "hideModal",
+      description: "Callback function to hide the modal.",
+      table: {
+        category: "Actions",
+      },
+    },
+    isOpen: {
+      control: "boolean",
+      description: "If true, the modal is open.",
+      table: {
+        category: "State",
+      },
+    },
+  },
 };
 export default meta;
 var Template = function (args) {
-    var _a = useState(false), isOpen = _a[0], setIsOpen = _a[1];
-    var toggleModal = function () {
-        setIsOpen(!isOpen);
-    };
-    return (<div style={{ height: "100vh", padding: "var(--s-spacing-small)" }}>
+  var _a = useState(false),
+    isOpen = _a[0],
+    setIsOpen = _a[1];
+  var toggleModal = function () {
+    setIsOpen(!isOpen);
+  };
+  return (
+    <div style={{ height: "100vh", padding: "var(--s-spacing-small)" }}>
       <div style={{ width: "min-content" }}>
-        <Button size="md" variant="primary" label="Click here!" onClick={toggleModal}/>
+        <Button
+          size="md"
+          variant="primary"
+          label="Click here!"
+          onClick={toggleModal}
+        />
       </div>
 
-      <Modal dismissible={args.dismissible} description={args.description} hideModal={toggleModal} title={args.title} isOpen={isOpen} content={args.content} footer={args.footer}/>
-    </div>);
+      <Modal
+        dismissible={args.dismissible}
+        description={args.description}
+        hideModal={toggleModal}
+        title={args.title}
+        isOpen={isOpen}
+        content={args.content}
+        footer={args.footer}
+      />
+    </div>
+  );
 };
 export var Default = Template.bind({});
 Default.args = {
-    title: "Title",
-    description: "Description",
-    dismissible: false,
-    content: (<ContentModal>
+  title: "Title",
+  description: "Description",
+  dismissible: false,
+  content: (
+    <ContentModal>
       <div className="slot">
-        <Icon icon="refresh" size="md"/>
+        <Icon icon="refresh" size="md" />
         Slot Content
       </div>
-    </ContentModal>),
-    footer: (<FooterModal>
+    </ContentModal>
+  ),
+  footer: (
+    <FooterModal>
       <div style={{ width: "min-content" }}>
-        <ButtonGroup direction="row" variantFirstButton="primary" variantSecondButton="secondary" contentFirstButton="Button" contentSecondButton="Button"/>
+        <ButtonGroup
+          direction="row"
+          variantFirstButton="primary"
+          variantSecondButton="secondary"
+          contentFirstButton="Button"
+          contentSecondButton="Button"
+        />
       </div>
-    </FooterModal>),
+    </FooterModal>
+  ),
 };
 export var Dismissible = Template.bind({});
 Dismissible.args = {
-    title: "Title",
-    description: "Description",
-    dismissible: true,
-    content: (<ContentModal>
+  title: "Title",
+  description: "Description",
+  dismissible: true,
+  content: (
+    <ContentModal>
       <div className="slot">
-        <Icon icon="refresh" size="md"/>
+        <Icon icon="refresh" size="md" />
         Slot Content
       </div>
-    </ContentModal>),
-    footer: (<FooterModal>
+    </ContentModal>
+  ),
+  footer: (
+    <FooterModal>
       <div style={{ width: "min-content" }}>
-        <ButtonGroup direction="row" variantFirstButton="primary" variantSecondButton="secondary" contentFirstButton="Button" contentSecondButton="Button"/>
+        <ButtonGroup
+          direction="row"
+          variantFirstButton="primary"
+          variantSecondButton="secondary"
+          contentFirstButton="Button"
+          contentSecondButton="Button"
+        />
       </div>
-    </FooterModal>),
+    </FooterModal>
+  ),
 };
