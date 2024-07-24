@@ -56,5 +56,6 @@
   "license": "MIT",
   "dependencies": {
     "sass": "^1.77.8"
-  }
+  },
+  "types": "@types/design-system-zeroz.d.ts"
 }
