@@ -1,6 +1,6 @@
 {
   "name": "design-system-zeroz",
-  "version": "0.2.43",
+  "version": "0.2.44",
   "private": false,
   "main": "dist/src/app/index.js",
   "scripts": {
