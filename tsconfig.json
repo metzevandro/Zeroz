@@ -10,7 +10,7 @@
     "skipLibCheck": true,
     "strict": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "preserve",
