@@ -19,7 +19,7 @@
     "tsconfig.json"
   ],
   "peerDependencies": {
-    "next": "^14.1.0",
+    "next": "^14.2.5",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -47,8 +47,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^8.2.4",
-    "typescript": "^5.4.5",
-    "ts-loader": "^9.5.1"
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5"
   },
   "description": "<div align=\"center\">\r   <img src=\"https://zeroz.vercel.app/logo-sm.svg\" alt=\"Zeroz Design System Logo\"/>\r </div>",
   "keywords": [

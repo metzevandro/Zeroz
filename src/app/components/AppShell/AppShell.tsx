@@ -1,15 +1,14 @@
 import React from "react";
 import "./AppShell.scss";
 
-// Props
-interface AppShellProps {
+type AppShellProps = {
   children: React.ReactNode;
 }
 
-// Declaração
-const AppShell: React.FC<AppShellProps> = ({ children }) => {
-  return <div className="app-shell">{children}</div>;
-};
+const AppShellContainer: React.FC<AppShellProps> = ({ children }) => (
+  <div className="app-shell">{children}</div>
+);
 
-// Exportação
+export const AppShell = React.memo(AppShellContainer);
+
 export default AppShell;

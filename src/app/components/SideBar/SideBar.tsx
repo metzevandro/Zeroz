@@ -4,7 +4,7 @@ import Icon from "../Icon/Icon";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import React, { useState } from "react";
 
-interface SidebarProps {
+type SidebarProps = {
   brand: string;
   children: React.ReactNode;
   toggle: boolean;
