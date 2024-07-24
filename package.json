@@ -14,7 +14,7 @@
   "files": [
     "dist/src/app/components",
     "dist/src/scss",
-    "dist/src/app/styles.scss"
+    "src/app/styles.scss"
   ],
   "peerDependencies": {
     "next": "^14.2.5",
