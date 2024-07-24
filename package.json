@@ -1,8 +1,8 @@
 {
   "name": "design-system-zeroz",
-  "version": "0.2.39",
+  "version": "0.2.35",
   "private": false,
-  "main": "dist/src/app/index.js",
+  "main": "dist/src/app/index.ts",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,7 +13,7 @@
   },
   "files": [
     "dist/src/app/components",
-    "dist/src/scss",
+    "src/scss",
     "src/app/styles.scss"
   ],
   "peerDependencies": {

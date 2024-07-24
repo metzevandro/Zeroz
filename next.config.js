@@ -1,10 +1,10 @@
 const path = require("path");
 
 module.exports = {
-  webpack: (config, { isServer }) => {
+  webpack: (config) => {
     config.resolve.alias["@design-system-zeroz"] = path.resolve(
       __dirname,
-      "src/app/components",
+      "dist/src/app/components",
     );
 
     return config;
