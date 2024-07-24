@@ -1,9 +1,8 @@
 const path = require("path");
+const withTM = require('next-transpile-modules')(['design-system-zeroz']); // Adicione o nome do seu pacote aqui
 
-const nextConfig = {
+const nextConfig = withTM({
   webpack: (config) => {
-
-    // Add TypeScript loader for files in 'design-system-zeroz' package
     config.module.rules.push({
       test: /\.tsx?$/,
       include: /design-system-zeroz/,
@@ -12,7 +11,7 @@ const nextConfig = {
           loader: "ts-loader",
           options: {
             allowTsInNodeModules: true,
-            transpileOnly: true, // Apenas transpila, não verifica tipos
+            transpileOnly: true, 
             compilerOptions: {
               target: "es5",
               lib: ["dom", "dom.iterable", "esnext"],
@@ -30,14 +29,13 @@ const nextConfig = {
       ],
     });
 
-    // Add alias for @design-system-zeroz
     config.resolve.alias["@design-system-zeroz"] = path.resolve(
       __dirname,
-      "src/app/components"
+      "node_modules/design-system-zeroz/src/app/components"
     );
 
     return config;
   },
-};
+});
 
 module.exports = nextConfig;
