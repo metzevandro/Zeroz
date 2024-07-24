@@ -29,7 +29,8 @@
       ]
     },
     "noEmit": false,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "outDir": "./dist"
   },
   "include": [
     "next-env.d.ts",

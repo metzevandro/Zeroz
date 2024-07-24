@@ -12,11 +12,9 @@
     "build-storybook": "storybook build"
   },
   "files": [
-    "src/app/components",
-    "src/scss",
-    "src/app/styles.scss",
-    "next.config.js",
-    "tsconfig.json"
+    "dist/src/app/components",
+    "dist/src/scss",
+    "dist/src/app/styles.scss"
   ],
   "peerDependencies": {
     "next": "^14.2.5",
