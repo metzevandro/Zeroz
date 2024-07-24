@@ -23,8 +23,8 @@
       "@/*": ["./src/*"]
     },
     "noEmit": false,
-    "isolatedModules": true
+    "isolatedModules": false
   },
-"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "**/*.scss"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "**/*.scss"],
   "exclude": ["node_modules"]
 }
