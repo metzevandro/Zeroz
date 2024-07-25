@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import "../../styles.scss";
 import TextArea from "./InputTextArea";
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import React from "react";
 
 const meta: Meta<typeof TextArea> = {
   title: "Components/Input TextArea",

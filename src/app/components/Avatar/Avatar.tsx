@@ -31,7 +31,7 @@ const Avatar: React.FC<AvatarProps> = ({ size, src, skeleton, letter }) => {
   const getLetter = (letter?: string) => {
     if (letter && letter.includes(" ")) {
       const [firstName, lastName] = letter.split(" ");
-      return `${firstName.charAt(0)}${lastName.charAt(0)}`;
+      return `${firstName?.charAt(0)}${lastName?.charAt(0)}`;
     } else if (letter && letter.length > 1) {
       return letter.charAt(0);
     }

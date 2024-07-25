@@ -4,6 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardImage } from "./Card";
 import Icon from "../Icon/Icon";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import React from "react";
 
 const meta: Meta = {
   title: "Components/Card",

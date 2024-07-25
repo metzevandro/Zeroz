@@ -2,6 +2,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import ProgressIndicator from "./ProgressIndicator";
 import "../../styles.scss";
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import React from "react";
 
 const meta: Meta<typeof ProgressIndicator> = {
   title: "Components/Progress Indicator",

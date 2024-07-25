@@ -2,6 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import "../../styles.scss";
 import SaveBar from "./SaveBar";
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import React from "react";
 
 const meta: Meta<typeof SaveBar> = {
   title: "Components/Save bar",

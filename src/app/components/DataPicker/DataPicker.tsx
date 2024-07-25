@@ -141,21 +141,25 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
     setInputDate(value);
     const [day, month, year] = value.split("/").map(Number);
 
-    const isValidDate =
-      day > 0 &&
-      month > 0 &&
-      year > 0 &&
-      month <= 12 &&
-      day <= new Date(year, month, 0).getDate();
+    if (day !== undefined && month !== undefined && year !== undefined) {
+      const isValidDate =
+        day > 0 &&
+        month > 0 &&
+        year > 0 &&
+        month <= 12 &&
+        day <= new Date(year, month, 0).getDate();
 
-    if (isValidDate) {
-      const selectedDate = new Date(year, month - 1, day);
-      if (selectedDate.getTime() !== selectedDate.getTime()) {
-        setSelectedDate(selectedDate);
-        setCurrentMonth(selectedDate.getMonth());
-        setCurrentYear(selectedDate.getFullYear());
-        setSelectedDay(selectedDate.getDate());
-        onDateChange(selectedDate);
+      if (isValidDate) {
+        const selectedDate = new Date(year, month - 1, day);
+        if (selectedDate.getTime() !== selectedDate.getTime()) {
+          setSelectedDate(selectedDate);
+          setCurrentMonth(selectedDate.getMonth());
+          setCurrentYear(selectedDate.getFullYear());
+          setSelectedDay(selectedDate.getDate());
+          onDateChange(selectedDate);
+        }
+      } else {
+        console.log("Data inválida!");
       }
     } else {
       console.log("Data inválida!");
@@ -357,47 +361,65 @@ const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
   };
 
   const setSelectedDateFormat = (dateString: string) => {
-    const [day, month, year] = dateString
-      .split(" - ")[0]
-      .split("/")
-      .map(Number);
-
-    const isValidDate =
-      day > 0 &&
-      month > 0 &&
-      year > 0 &&
-      month <= 12 &&
-      day <= new Date(year, month, 0).getDate();
-
-    if (isValidDate) {
-      const selectedDate = new Date(year, month - 1, day);
-      setSelectedDate(selectedDate);
-      setCurrentMonth(selectedDate.getMonth());
-      setCurrentYear(selectedDate.getFullYear());
-      setSelectedDay(selectedDate.getDate());
-    } else {
-      console.error("Data inválida!");
+    if (dateString.split(" - ").length < 2) {
+      console.error("Invalid date format");
+      return;
     }
+
+    const dateParts = dateString.split("/");
+
+    if (dateParts.length !== 3) {
+      console.error("Invalid date format");
+      return;
+    }
+
+    const [day, month, year] = dateParts.map(Number);
+
+    if (
+      day === undefined ||
+      month === undefined ||
+      year === undefined ||
+      day <= 0 ||
+      month <= 0 ||
+      year <= 0 ||
+      month > 12 ||
+      day > new Date(year, month, 0).getDate()
+    ) {
+      console.error("Invalid date");
+      return;
+    }
+
+    const selectedDate = new Date(year, month - 1, day);
+    setSelectedDate(selectedDate);
+    setCurrentMonth(selectedDate.getMonth());
+    setCurrentYear(selectedDate.getFullYear());
   };
 
   const handleInputEnter = () => {
-    const [day, month, year] = inputDate.split(" - ")[0].split("/").map(Number);
+    const [day, month, year] = inputDate.split("/").map(Number);
 
-    const isValidDate =
-      day > 0 &&
-      month > 0 &&
-      year > 0 &&
-      month <= 12 &&
-      day <= new Date(year, month, 0).getDate();
+    if (day !== undefined && month !== undefined && year !== undefined) {
+      const isValidDate =
+        day > 0 &&
+        month > 0 &&
+        year > 0 &&
+        month <= 12 &&
+        day <= new Date(year, month, 0).getDate();
 
-    if (isValidDate) {
-      const selectedDate = new Date(year, month - 1, day);
-      setSelectedDate(selectedDate);
-      setCurrentMonth(selectedDate.getMonth());
-      setCurrentYear(selectedDate.getFullYear());
-      setCalendarOpen(true);
+      if (isValidDate) {
+        const selectedDate = new Date(year, month - 1, day);
+        if (selectedDate.getTime() !== selectedDate.getTime()) {
+          setSelectedDate(selectedDate);
+          setCurrentMonth(selectedDate.getMonth());
+          setCurrentYear(selectedDate.getFullYear());
+          setSelectedDay(selectedDate.getDate());
+          onDateChange(selectedDate);
+        }
+      } else {
+        console.log("Data inválida!");
+      }
     } else {
-      console.error("Data inválida!");
+      console.log("Data inválida!");
     }
   };
 

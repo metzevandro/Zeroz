@@ -3,6 +3,7 @@ import "../../styles.scss";
 import Tooltip from "./Tooltip";
 import Icon from "../Icon/Icon";
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import React from "react";
 
 const meta: Meta<typeof Tooltip> = {
   title: "Components/Tooltip",

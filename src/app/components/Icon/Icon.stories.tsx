@@ -2,6 +2,7 @@ import type { Meta, StoryFn } from "@storybook/react";
 import Icon from "./Icon";
 import "../../styles.scss";
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import React from "react";
 
 const meta: Meta<typeof Icon> = {
   title: "Components/Icon",

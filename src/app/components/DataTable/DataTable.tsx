@@ -434,10 +434,13 @@ const DataTable: React.FC<DataTableProps> = ({
 
   const DEFAULT_SORT_STATE: ColumnSorting = "default";
 
-  const initialSortConfig: SortConfig = columns.reduce(
-    (acc, column) => ({ ...acc, [column]: DEFAULT_SORT_STATE }),
-    {},
-  );
+  const initialSortConfig: SortConfig =
+    columns.length > 0
+      ? columns.reduce(
+          (acc, column) => ({ ...acc, [column]: DEFAULT_SORT_STATE }),
+          {},
+        )
+      : {};
 
   const [sortConfig, setSortConfig] = useState<SortConfig>(initialSortConfig);
 
@@ -652,14 +655,12 @@ const DataTable: React.FC<DataTableProps> = ({
                       {columns.map((_, columnIndex) => (
                         <div
                           key={columnIndex}
-                          className={`fixed ${
-                            columnIndex === 0 ? "sticky-first-column" : ""
-                          }`}
+                          className={`fixed ${columnIndex === 0 ? "sticky-first-column" : ""}`}
                           style={calculateLeft(selectable, expandable)}
                         >
                           <div key={row.id}>
                             <div className="td" key={row.id}>
-                              {row[columns[columnIndex]]}
+                              {row[Number(columnIndex)]}
                             </div>
                           </div>
                         </div>

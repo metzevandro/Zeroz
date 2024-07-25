@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import "../../styles.scss";
 import Progress from "./Progress";
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import React from "react";
 
 const meta: Meta<typeof Progress> = {
   title: "Components/Progress",

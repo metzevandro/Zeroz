@@ -58,20 +58,15 @@ const Slider: React.FC<SliderProps> = ({
     e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
   ) => {
     isDragging.current = true;
-    window.addEventListener("mousemove", handleDragMove);
-    window.addEventListener("touchmove", handleDragMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchmove", handleTouchMove);
     window.addEventListener("mouseup", handleDragEnd);
     window.addEventListener("touchend", handleDragEnd);
 
     if (e instanceof MouseEvent) {
-      const { clientX, clientY } = e;
-      handleDragMove({ clientX, clientY } as MouseEvent);
+      handleMouseMove(e);
     } else if (e instanceof TouchEvent) {
-      const { touches } = e;
-      if (touches.length > 0) {
-        const { clientX, clientY } = touches[0];
-        handleDragMove({ clientX, clientY } as MouseEvent);
-      }
+      handleTouchMove(e);
     }
   };
 
@@ -79,10 +74,19 @@ const Slider: React.FC<SliderProps> = ({
     handleDragStart(e);
   };
 
-  const handleDragMove = (e: MouseEvent | TouchEvent) => {
-    const clientX = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
-    const clientY = e instanceof MouseEvent ? e.clientY : e.touches[0].clientY;
+  const handleMouseMove = (e: MouseEvent) => {
+    if (e.clientX !== undefined) {
+      handleDragMove(e.clientX);
+    }
+  };
 
+  const handleTouchMove = (e: TouchEvent) => {
+    if (e.touches.length > 0) {
+      handleDragMove(e.touches[0]?.clientX ?? 0);
+    }
+  };
+
+  const handleDragMove = (clientX: number) => {
     if (isDragging.current) {
       const slider = document.getElementById("slider-background");
       if (slider) {
@@ -105,8 +109,8 @@ const Slider: React.FC<SliderProps> = ({
 
   const handleDragEnd = () => {
     isDragging.current = false;
-    window.removeEventListener("mousemove", handleDragMove);
-    window.removeEventListener("touchmove", handleDragMove);
+    window.removeEventListener("mousemove", handleMouseMove);
+    window.removeEventListener("touchmove", handleTouchMove);
     window.removeEventListener("mouseup", handleDragEnd);
     window.removeEventListener("touchend", handleDragEnd);
   };

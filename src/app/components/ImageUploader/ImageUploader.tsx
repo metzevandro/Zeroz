@@ -125,7 +125,12 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
     }
   };
 
-  const handleFile = async (file: File): Promise<void> => {
+  const handleFile = async (file: File | undefined): Promise<void> => {
+    if (!file) {
+      throw new Error("File is undefined");
+    }
+
+    // Rest of the function
     return new Promise<void>((resolve, reject) => {
       const reader = new FileReader();
       reader.onloadend = () => {

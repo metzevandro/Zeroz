@@ -1,3 +1,4 @@
+import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import Modal, { ContentModal, FooterModal } from "./Modal";
 import Button from "../Button/Button";
@@ -14,7 +15,7 @@ const meta: Meta<typeof Modal> = {
     layout: "fullscreen",
     docs: {
       page: () => (
-        <>
+        <div>
           <Title />
           <Subtitle>Component</Subtitle>
           <p>
@@ -25,7 +26,7 @@ const meta: Meta<typeof Modal> = {
           <Primary />
           <Controls />
           <Stories />
-        </>
+        </div>
       ),
     },
   },

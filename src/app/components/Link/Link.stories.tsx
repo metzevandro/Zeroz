@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import "../../styles.scss";
 import Link from "./Link";
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import React from "react";
 
 const meta: Meta<typeof Link> = {
   title: "Components/Link",

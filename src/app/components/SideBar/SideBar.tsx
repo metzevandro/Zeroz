@@ -10,7 +10,7 @@ type SidebarProps = {
   toggle: boolean;
   setToggleSidebar: (toggle: boolean) => void;
   brandSize: "sm" | "md" | "lg";
-}
+};
 
 const Sidebar: React.FC<SidebarProps> = ({
   brand,

@@ -24,21 +24,31 @@ const Tabs: React.FC<TabsProps> = ({ tabs, widthFull }) => {
   const tabItemGroupRef = useRef<HTMLDivElement>(null);
 
   const handleTabClick = (index: number) => {
-    setActiveTab(index);
-
-    if (tabItemGroupRef.current) {
-      const tabItemWidth =
-        tabItemGroupRef.current.children[index].getBoundingClientRect().width;
-      const scrollLeft = tabItemGroupRef.current.scrollLeft;
-      const offsetLeft =
-        tabItemGroupRef.current.children[index].getBoundingClientRect().left;
-      const centerScroll =
-        offsetLeft - (tabItemGroupRef.current.clientWidth - tabItemWidth) / 2;
-      tabItemGroupRef.current.scrollTo({
-        left: centerScroll + scrollLeft,
-        behavior: "smooth",
-      });
+    if (!tabItemGroupRef.current) {
+      return;
     }
+
+    const tabItems = tabItemGroupRef.current.children;
+    if (!tabItems || index >= tabItems.length) {
+      return;
+    }
+
+    const activeTabItem = tabItems[index];
+    if (!activeTabItem) {
+      return;
+    }
+
+    const activeTabItemWidth = activeTabItem.getBoundingClientRect().width;
+    const scrollLeft = tabItemGroupRef.current.scrollLeft;
+    const activeTabItemOffsetLeft = activeTabItem.getBoundingClientRect().left;
+    const centerScroll =
+      activeTabItemOffsetLeft -
+      (tabItemGroupRef.current.clientWidth - activeTabItemWidth) / 2;
+
+    tabItemGroupRef.current.scrollTo({
+      left: centerScroll + scrollLeft,
+      behavior: "smooth",
+    });
   };
 
   const customizeWidthFull = (widthFull: boolean = false) => {
@@ -57,14 +67,17 @@ const Tabs: React.FC<TabsProps> = ({ tabs, widthFull }) => {
             style={customizeWidthFull(widthFull)}
             className={`tab-item ${index === activeTab && "tab-item-active"}`}
             key={index}
-            onClick={() => handleTabClick(index)}
+            onClick={() => {
+              setActiveTab(index);
+              handleTabClick(index);
+            }}
           >
             {tab.label}
           </button>
         ))}
       </div>
       <div className="tab-content">
-        <Tab content={tabs[activeTab].content} />
+        {tabs[activeTab] && <Tab content={tabs[activeTab].content} />}
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import Layout from "./Layout";
 import "../../styles.scss";
 import Icon from "../Icon/Icon";
+import React from "react";
 
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
 const meta: Meta = {

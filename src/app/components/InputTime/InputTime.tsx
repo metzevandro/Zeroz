@@ -49,10 +49,13 @@ const InputTime: React.FC<InputTimeProps> = ({
   }, []);
 
   useEffect(() => {
-    if (controlledValue) {
+    if (controlledValue !== undefined) {
       const [hour, minute] = controlledValue.split(":");
-      setSelectedHour(hour);
-      setSelectedMinute(minute);
+      setSelectedHour(hour || "");
+      setSelectedMinute(minute || "");
+    } else {
+      setSelectedHour("");
+      setSelectedMinute("");
     }
   }, [controlledValue]);
 

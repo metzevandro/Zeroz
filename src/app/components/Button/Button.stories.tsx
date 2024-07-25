@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Button from "./Button";
 import "../../styles.scss";
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import React from "react";
 
 const meta: Meta<typeof Button> = {
   title: "Components/Button",

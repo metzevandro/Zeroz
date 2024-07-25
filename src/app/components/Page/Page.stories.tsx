@@ -3,6 +3,7 @@ import Page from "./Page";
 import Icon from "../Icon/Icon";
 import "../../styles.scss";
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import React from "react";
 
 const meta: Meta<typeof Page> = {
   title: "Templates/Page",

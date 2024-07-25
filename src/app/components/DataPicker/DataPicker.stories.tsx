@@ -2,6 +2,7 @@ import type { Meta, StoryFn } from "@storybook/react";
 import "../../styles.scss";
 import DataPicker from "./DataPicker";
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import React from "react";
 
 const meta: Meta<typeof DataPicker> = {
   title: "Components/Data Picker",
