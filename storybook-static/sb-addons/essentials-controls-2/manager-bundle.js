@@ -6083,6 +6083,7 @@ This is deprecated and won't work in Storybook 8 anymore.
             category: "PREVIEW_API",
             code: 12,
             message: De`
+      Incorrect use of mount in the play function.
       
       To use mount in the play function, you must satisfy the following two requirements: 
       

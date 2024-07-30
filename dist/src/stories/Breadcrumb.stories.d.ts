@@ -4,6 +4,9 @@ import "../styles.scss";
 declare const meta: Meta;
 export default meta;
 type Args = {
-    items: BreadcrumbItem[];
+  items: BreadcrumbItem[];
 };
-export declare const Default: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
+export declare const Default: import("@storybook/csf").AnnotatedStoryFn<
+  import("@storybook/react").ReactRenderer,
+  Args
+>;

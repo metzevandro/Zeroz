@@ -1,17 +1,17 @@
 import "./Notification.scss";
 import React from "react";
 interface NotificationProps {
-    icon?: string;
-    title: string;
-    description?: string;
-    variant: "primary" | "secondary" | "warning" | "success";
-    type: "float" | "inline";
-    isOpen?: boolean;
-    dismissible?: boolean;
-    withAction?: boolean;
-    disableButton?: boolean;
-    buttonLabel?: string;
-    onClickButton?: () => void;
+  icon?: string;
+  title: string;
+  description?: string;
+  variant: "primary" | "secondary" | "warning" | "success";
+  type: "float" | "inline";
+  isOpen?: boolean;
+  dismissible?: boolean;
+  withAction?: boolean;
+  disableButton?: boolean;
+  buttonLabel?: string;
+  onClickButton?: () => void;
 }
 declare const Notification: React.FC<NotificationProps>;
 export default Notification;

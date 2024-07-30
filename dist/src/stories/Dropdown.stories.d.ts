@@ -4,6 +4,9 @@ import "../styles.scss";
 declare const meta: Meta<typeof Dropdown>;
 export default meta;
 type DefaultProps = {
-    dropdown: boolean;
+  dropdown: boolean;
 };
-export declare const Default: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
+export declare const Default: import("@storybook/csf").AnnotatedStoryFn<
+  import("@storybook/react").ReactRenderer,
+  DefaultProps
+>;

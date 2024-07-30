@@ -570,6 +570,7 @@ This is deprecated and won't work in Storybook 8 anymore.
             category: "PREVIEW_API",
             code: 12,
             message: xe`
+      Incorrect use of mount in the play function.
       
       To use mount in the play function, you must satisfy the following two requirements: 
       
@@ -16327,14 +16328,16 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             { style: { color: n.base } },
             "[\u2026]",
           );
-        let o = t.slice(0, 3).map((i, s) =>
-            C.createElement(_t, {
-              key: `${s}--${JSON.stringify(i)}`,
-              value: i,
-              nested: !0,
-              callsById: r,
-            }),
-          ),
+        let o = t
+            .slice(0, 3)
+            .map((i, s) =>
+              C.createElement(_t, {
+                key: `${s}--${JSON.stringify(i)}`,
+                value: i,
+                nested: !0,
+                callsById: r,
+              }),
+            ),
           a = Du(o, C.createElement("span", null, ", "));
         return t.length <= 3
           ? C.createElement("span", { style: { color: n.base } }, "[", a, "]")

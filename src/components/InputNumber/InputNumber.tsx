@@ -25,6 +25,8 @@ const InputNumber: React.FC<InputNumberProps> = ({
   textError,
   value: propValue,
 }) => {
+  const [isHover, setIsHover] = useState(false);
+
   const [numero, setNumero] = useState<number | undefined>(() => {
     if (min !== undefined) {
       return min;
@@ -104,6 +106,11 @@ const InputNumber: React.FC<InputNumberProps> = ({
           <Icon size="md" icon="remove" />
         </button>
         <input
+          style={{
+            borderRight: isHover
+              ? "var(--s-border-width-hairline) solid var(--s-color-border-default-hover)"
+              : "",
+          }}
           className={`input ${error ? "error" : ""}`}
           type="number"
           placeholder={placeholder}
@@ -114,7 +121,13 @@ const InputNumber: React.FC<InputNumberProps> = ({
           disabled={disabled}
           inputMode="numeric"
         />
-        <button disabled={disabled} className="add" onClick={addNum}>
+        <button
+          disabled={disabled}
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+          className="add"
+          onClick={addNum}
+        >
           <Icon size="md" icon="add" />
         </button>
       </div>

@@ -64,7 +64,8 @@ Após a instalação, você pode importar os componentes diretamente em seus arq
 
 ```jsx
 import React from "react";
-import "design-system-zeroz/src/app/styles.scss";
+import "design-system-zeroz/dist/index.esm.css";
+import "design-system-zeroz/src/scss/tokens/tokens.scss";
 import { Button } from "design-system-zeroz";
 
 export default function Home() {
@@ -72,7 +73,7 @@ export default function Home() {
 }
 ```
 
-Lembre-se de importar `'design-system-zeroz/src/app/styles.scss'` para ter as estilizações dos componentes.
+Lembre-se de importar `"design-system-zeroz/src/scss/tokens/tokens.scss" e "design-system-zeroz/dist/index.esm.css"` para ter as estilizações dos componentes.
 
 ## Contribuindo
 

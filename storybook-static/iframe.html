@@ -645,24 +645,17 @@
       window["STORIES"] = [
         {
           titlePrefix: "",
-          directory: "./src/app/components/Welcome",
+          directory: "./src/stories/Welcome",
           files: "Welcome.mdx",
           importPathMatcher:
-            "^\\.[\\\\/](?:src[\\\\/]app[\\\\/]components[\\\\/]Welcome[\\\\/]Welcome\\.mdx)$",
+            "^\\.[\\\\/](?:src[\\\\/]stories[\\\\/]Welcome[\\\\/]Welcome\\.mdx)$",
         },
         {
           titlePrefix: "",
-          directory: "./src",
-          files: "**/*/*.mdx",
+          directory: "./src/stories",
+          files: "*.stories.@(js|jsx|mjs|ts|tsx)",
           importPathMatcher:
-            "^\\.[\\\\/](?:src(?:[\\\\/](?!\\.)(?:(?:(?!(?:^|[\\\\/])\\.).)*?)[\\\\/]|[\\\\/]|$)(?!\\.)(?=.)[^\\\\/]*?[\\\\/](?!\\.)(?=.)[^\\\\/]*?\\.mdx)$",
-        },
-        {
-          titlePrefix: "",
-          directory: "./src",
-          files: "**/*/*.stories.@(js|jsx|mjs|ts|tsx)",
-          importPathMatcher:
-            "^\\.[\\\\/](?:src(?:[\\\\/](?!\\.)(?:(?:(?!(?:^|[\\\\/])\\.).)*?)[\\\\/]|[\\\\/]|$)(?!\\.)(?=.)[^\\\\/]*?[\\\\/](?!\\.)(?=.)[^\\\\/]*?\\.stories\\.(js|jsx|mjs|ts|tsx))$",
+            "^\\.[\\\\/](?:src[\\\\/]stories[\\\\/](?!\\.)(?=.)[^\\\\/]*?\\.stories\\.(js|jsx|mjs|ts|tsx))$",
         },
       ];
 
@@ -677,11 +670,11 @@
     <script type="module">
       import "./sb-preview/runtime.js";
 
-      import "./runtime~main.cf24f192.iframe.bundle.js";
+      import "./runtime~main.d857e47f.iframe.bundle.js";
 
-      import "./9618.9be599da.iframe.bundle.js";
+      import "./9444.48c8fa3b.iframe.bundle.js";
 
-      import "./main.2819e108.iframe.bundle.js";
+      import "./main.a39c76e3.iframe.bundle.js";
     </script>
   </body>
 </html>

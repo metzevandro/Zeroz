@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 import Header, { HeaderProfile } from "../components/Header/Header";
-import Dropdown, { DropdownItem, DropdownTitle } from "../components//Dropdown/Dropdown";
+import Dropdown, {
+  DropdownItem,
+  DropdownTitle,
+} from "../components//Dropdown/Dropdown";
 import { Breadcrumb } from "../components//Breadcrumb/Breadcrumb";
 import "../styles.scss";
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";

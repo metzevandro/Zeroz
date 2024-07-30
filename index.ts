@@ -29,7 +29,10 @@ export {
 } from "./src/components/Dropdown/Dropdown";
 export { default as EmptyState } from "./src/components/EmptyState/EmptyState";
 export { default as FileUploader } from "./src/components/FileUploader/FileUploader";
-export { default as Header, HeaderProfile } from "./src/components/Header/Header";
+export {
+  default as Header,
+  HeaderProfile,
+} from "./src/components/Header/Header";
 export { default as Icon } from "./src/components/Icon/Icon";
 export { default as Image } from "./src/components/Image/Image";
 export { default as ImageUploader } from "./src/components/ImageUploader/ImageUploader";

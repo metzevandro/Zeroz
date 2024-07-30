@@ -117,9 +117,7 @@
       background-color: var(--s-color-fill-default);
       cursor: pointer;
       color: var(--s-color-content-default);
-      &:hover + .input {
-        background-color: red;
-      }
+
       &:hover {
         background-color: var(--s-color-fill-default-hover);
       }
