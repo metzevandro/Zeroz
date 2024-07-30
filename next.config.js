@@ -4,7 +4,7 @@ module.exports = {
   webpack: (config) => {
     config.resolve.alias["@design-system-zeroz"] = path.resolve(
       __dirname,
-      "dist/src/app/components",
+      "dist/src/components",
     );
 
     config.module.rules.push({
