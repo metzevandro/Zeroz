@@ -1,6 +1,6 @@
 {
   "name": "design-system-zeroz",
-  "version": "0.2.47",
+  "version": "0.2.48",
   "private": false,
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -64,7 +64,7 @@
   "author": "evandrometz",
   "license": "MIT",
   "dependencies": {
-"react": "^17.0.0",
+    "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "sass": "^1.77.8"
   }
