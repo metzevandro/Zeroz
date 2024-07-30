@@ -1,0 +1,10 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import "../styles.scss";
+import Loading from "../components/Loading/Loading";
+declare const meta: Meta<typeof Loading>;
+export default meta;
+type Story = StoryObj<typeof meta>;
+export declare const Default: Story;
+export declare const Large: Story;
+export declare const Success: Story;
+export declare const Warning: Story;

@@ -1,0 +1,10 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import "../styles.scss";
+import Tag from "../components/Tag/Tag";
+declare const meta: Meta<typeof Tag>;
+export default meta;
+type Story = StoryObj<typeof meta>;
+export declare const primary: Story;
+export declare const Secondary: Story;
+export declare const Success: Story;
+export declare const Warning: Story;
