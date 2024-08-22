@@ -72,3 +72,7 @@ export { default as Tab } from "./src/components/Tab/Tab";
 export { default as TableList } from "./src/components/TableList/TableList";
 export { default as Tag } from "./src/components/Tag/Tag";
 export { default as Tooltip } from "./src/components/Tooltip/Tooltip";
+
+export {default as BarChart} from "./src/charts/BarChart/BarChart";
+export {default as LineChart} from "./src/charts/LineChart/LineChart";
+export {default as PieChart} from "./src/charts/PieChart/PieChart";

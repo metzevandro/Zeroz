@@ -1,0 +1,11 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import "../../styles.scss";
+import Progress from "../../components/Progress/Progress";
+declare const meta: Meta<typeof Progress>;
+export default meta;
+type Story = StoryObj<typeof meta>;
+export declare const Default: Story;
+export declare const Loading: Story;
+export declare const Success: Story;
+export declare const Indeterminate: Story;
+export declare const Error: Story;
