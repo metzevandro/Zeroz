@@ -10,7 +10,6 @@ import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import EmptyState from "../EmptyState/EmptyState";
 import Icon from "../Icon/Icon";
 import Modal, { FooterModal } from "../Modal/Modal";
-
 interface DataTableProps {
   columns: string[];
   data: { id: string; [key: string]: any }[];
@@ -34,9 +33,7 @@ interface DataTableProps {
   labelButtonNoDataFilteredMessage: string;
   descriptionNoDataFilteredMessage: string;
 }
-
 type ColumnSorting = "asc" | "desc" | "default";
-
 const DataTable: React.FC<DataTableProps> = ({
   columns,
   data: originalData,
@@ -61,96 +58,75 @@ const DataTable: React.FC<DataTableProps> = ({
   const itemsPerPage = itemPerPage;
   const [filteredData, setFilteredData] =
     useState<{ id: string; [key: string]: any }[]>(originalData);
-
   const [totalPages, setTotalPages] = useState<number>(0);
-
   useEffect(() => {
     setFilteredData(originalData);
     const totalPages = Math.ceil(originalData.length / itemsPerPage);
     setTotalPages(totalPages);
   }, [originalData, itemsPerPage]);
-
   const label =
     filteredData.length > 0
       ? `${pagesText} ${currentPage} - ${totalPages}`
       : `${pagesText} 0 - 0`;
-
   const handleNextPage = () => {
     setCurrentPage((prevPage) => {
       const nextPage = prevPage + 1;
       return nextPage > totalPages ? prevPage : nextPage;
     });
   };
-
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => {
       const newPage = prevPage - 1;
       return newPage < 1 ? prevPage : newPage;
     });
   };
-
   useEffect(() => {
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     setTotalPages(totalPages);
   }, [originalData, itemsPerPage, filteredData]);
-
   const [originalDataState, setOriginalDataState] =
     useState<{ id: string; [key: string]: any }[]>(originalData);
   const [selectAll, setSelectAll] = useState<boolean>(false);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [expandedRows, setExpandedRows] = useState<string[]>([]);
-
   const [isAnyItemSelected, setIsAnyItemSelected] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState("");
-
   const [contentOverflowed, setContentOverflowed] = useState<boolean>(false);
-
   const contentRef = useRef<HTMLDivElement>(null);
-
   const [isOpenAside, setIsOpenAside] = useState(false);
   const [filterOptions, setFilterOptions] = useState<{
     [key: string]: string[];
   }>(columns.reduce((acc, column) => ({ ...acc, [column]: [] }), {}));
-
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
   const [allItemsExpanded, setAllItemsExpanded] = useState<boolean>(false);
-
   useEffect(() => {
     setIsAnyItemSelected(selectedRows.length > 0);
     setSelectAll(selectedRows.length === filteredData.length);
   }, [selectedRows, filteredData]);
-
   useEffect(() => {
     const checkOverflow = () => {
       const contentElement = contentRef.current;
-
       if (contentElement) {
         setContentOverflowed(
           contentElement.scrollWidth > contentElement.clientWidth,
         );
       }
     };
-
     const resizeObserver = new ResizeObserver(() => {
       checkOverflow();
     });
-
     const contentElement = contentRef.current;
-
     if (contentElement) {
       resizeObserver.observe(contentElement);
       checkOverflow();
     }
-
     return () => {
       if (contentElement) {
         resizeObserver.unobserve(contentElement);
       }
     };
   }, []);
-
   const toggleSelectAll = () => {
     const allIds = filteredData.map((item) => item.id);
     if (isAllSelected()) {
@@ -161,12 +137,10 @@ const DataTable: React.FC<DataTableProps> = ({
       setSelectedRows(allIds);
     }
   };
-
   const isAllSelected = () => {
     const allIds = filteredData.map((item) => item.id);
     return selectedRows.length === allIds.length;
   };
-
   const toggleSelectRow = (rowId: string) => {
     if (selectedRows.includes(rowId)) {
       setSelectedRows(selectedRows.filter((id) => id !== rowId));
@@ -178,12 +152,10 @@ const DataTable: React.FC<DataTableProps> = ({
       }
     }
   };
-
   const isIndeterminate =
     selectedRows.length > 0 &&
     selectedRows.length < filteredData.length &&
     !selectAll;
-
   function calculateGridTemplate(
     selectable: boolean = false,
     expandable: boolean = false,
@@ -200,7 +172,6 @@ const DataTable: React.FC<DataTableProps> = ({
       return {};
     }
   }
-
   function calculateLeft(
     selectable: boolean = false,
     expandable: boolean = false,
@@ -219,7 +190,6 @@ const DataTable: React.FC<DataTableProps> = ({
       };
     }
   }
-
   function calculateLeftToCheckBox(expandable: boolean = false) {
     if (expandable) {
       return {
@@ -231,79 +201,61 @@ const DataTable: React.FC<DataTableProps> = ({
       };
     }
   }
-
   useEffect(() => {
     setIsAnyItemSelected(selectedRows.length > 0);
   }, [selectedRows]);
-
   const toggleAside = () => {
     setIsOpenAside(!isOpenAside);
   };
-
   const [isOpen, setIsOpen] = useState(false);
-
   const removeRow = () => {
     const updatedOriginalData = originalDataState.filter(
       (item) => !selectedRows.includes(item.id),
     );
-
     const updatedFilteredData = filteredData.filter(
       (item) => !selectedRows.includes(item.id),
     );
-
     setFilteredData(updatedFilteredData);
     setSelectedRows([]);
     setIsOpen(false);
-
     // Atualiza os dados originais sem as linhas removidas
     setOriginalDataState(updatedOriginalData);
   };
-
   const toggleModal = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen);
   };
-
   const exportSelectedRowsAsCSV = () => {
     // Filter selected rows from the original data
     const selectedData = originalData.filter((row) =>
       selectedRows.includes(row.id),
     );
-
     // Extract column names
     const columnNames = columns;
-
     // Create the CSV content
     const csvContent = selectedData
       .map((row) => {
         return columnNames.map((column) => row[column]).join(",");
       })
       .join("\n");
-
     // Add column names as the header
     const csvData = columnNames.join(",") + "\n" + csvContent;
-
     // Create a blob with the CSV data
     const csvBlob = new Blob([csvData], {
       type: "text/csv",
     });
-
     // Create a temporary URL for downloading
     const csvURL = window.URL.createObjectURL(csvBlob);
-
     // Create an anchor element for initiating the download
     const downloadLink = document.createElement("a");
     downloadLink.href = csvURL;
     downloadLink.download = "selected_data.csv";
-
     // Simulate a click to trigger the download
     document.body.appendChild(downloadLink);
     downloadLink.click();
-
     // Clean up by removing the temporary URL and anchor element
     window.URL.revokeObjectURL(csvURL);
     document.body.removeChild(downloadLink);
   };
-
   const renderHeader = () => {
     if (isAnyItemSelected) {
       return (
@@ -357,7 +309,6 @@ const DataTable: React.FC<DataTableProps> = ({
       );
     } else {
     }
-
     return (
       <div className="data-table-header">
         <InputSearch
@@ -380,7 +331,6 @@ const DataTable: React.FC<DataTableProps> = ({
       </div>
     );
   };
-
   const handleExpandRow = (rowId: string) => {
     if (expandedRows.includes(rowId)) {
       setExpandedRows(expandedRows.filter((id) => id !== rowId));
@@ -392,7 +342,6 @@ const DataTable: React.FC<DataTableProps> = ({
       }
     }
   };
-
   const toggleExpandAllRows = () => {
     if (allItemsExpanded) {
       setExpandedRows([]);
@@ -403,12 +352,9 @@ const DataTable: React.FC<DataTableProps> = ({
       setAllItemsExpanded(true);
     }
   };
-
   const handleSearchChange = (value: string) => {
     setSearchTerm(value);
-
     let searchedData = [...originalData];
-
     if (value.trim() !== "") {
       searchedData = searchedData.filter((item) => {
         return Object.values(item).some((val) =>
@@ -416,7 +362,6 @@ const DataTable: React.FC<DataTableProps> = ({
         );
       });
     }
-
     Object.entries(filterOptions).forEach(([columnName, selectedValues]) => {
       if (selectedValues.length > 0) {
         searchedData = searchedData.filter((item) =>
@@ -424,30 +369,24 @@ const DataTable: React.FC<DataTableProps> = ({
         );
       }
     });
-
     setFilteredData(searchedData);
   };
-
   interface SortConfig {
     [column: string]: ColumnSorting;
   }
 
   const DEFAULT_SORT_STATE: ColumnSorting = "default";
 
-  const initialSortConfig: SortConfig =
-    columns.length > 0
-      ? columns.reduce(
-          (acc, column) => ({ ...acc, [column]: DEFAULT_SORT_STATE }),
-          {},
-        )
-      : {};
+  const initialSortConfig: SortConfig = columns.reduce(
+    (acc, column) => ({ ...acc, [column]: DEFAULT_SORT_STATE }),
+    {},
+  );
 
   const [sortConfig, setSortConfig] = useState<SortConfig>(initialSortConfig);
-
+  
   const handleSort = (column: string) => {
     const currentSortState = sortConfig[column];
     let nextSortState: ColumnSorting;
-
     if (currentSortState === "asc") {
       nextSortState = "desc";
     } else if (currentSortState === "desc") {
@@ -455,16 +394,12 @@ const DataTable: React.FC<DataTableProps> = ({
     } else {
       nextSortState = "asc";
     }
-
     const updatedSortConfig: SortConfig = {
       ...initialSortConfig,
       [column]: nextSortState,
     };
-
     setSortConfig(updatedSortConfig);
-
     let sortedData = [...filteredData];
-
     if (nextSortState !== "default") {
       sortedData = sortedData.sort((a, b) => {
         if (nextSortState === "asc") {
@@ -486,7 +421,6 @@ const DataTable: React.FC<DataTableProps> = ({
             }
           },
         );
-
         sortedData = filteredOriginalData.sort((a, b) => {
           if (a[column] > b[column]) return 1;
           if (a[column] < b[column]) return -1;
@@ -496,10 +430,8 @@ const DataTable: React.FC<DataTableProps> = ({
         sortedData = [...originalDataState];
       }
     }
-
     setFilteredData(sortedData);
   };
-
   useEffect(() => {
     const defaultSortConfig: SortConfig = columns.reduce(
       (acc, column) => ({ ...acc, [column]: DEFAULT_SORT_STATE }),
@@ -507,20 +439,16 @@ const DataTable: React.FC<DataTableProps> = ({
     );
     setSortConfig(defaultSortConfig);
   }, [filterOptions]);
-
   const handleClearFilters = () => {
     const updatedFilteredData = [...originalData];
-
     const updatedFilterOptions = columns.reduce(
       (acc, column) => ({ ...acc, [column]: [] }),
       {},
     );
-
     setFilteredData(updatedFilteredData);
     setFilterOptions(updatedFilterOptions);
     setSearchTerm("");
   };
-
   const renderNoDataMessage = () => {
     return (
       <div className="render-no-data-message">
@@ -532,7 +460,6 @@ const DataTable: React.FC<DataTableProps> = ({
       </div>
     );
   };
-
   const renderNoDataFilteredMessage = () => (
     <div className="render-no-data-message">
       <EmptyState
@@ -544,11 +471,9 @@ const DataTable: React.FC<DataTableProps> = ({
       />
     </div>
   );
-
   const hasSelectedFilters = Object.values(filterOptions).some(
     (options) => options.length > 0,
   );
-
   return (
     <>
       <div className="data-table-root">
@@ -592,7 +517,6 @@ const DataTable: React.FC<DataTableProps> = ({
                     />
                   </div>
                 )}
-
                 {columns.map((column, columnIndex) => (
                   <div
                     className={`th ${
@@ -655,15 +579,18 @@ const DataTable: React.FC<DataTableProps> = ({
                       {columns.map((_, columnIndex) => (
                         <div
                           key={columnIndex}
-                          className={`fixed ${columnIndex === 0 ? "sticky-first-column" : ""}`}
+                          className={`fixed ${
+                            columnIndex === 0 ? "sticky-first-column" : ""
+                          }`}
                           style={calculateLeft(selectable, expandable)}
                         >
                           <div key={row.id}>
                             <div className="td" key={row.id}>
-                              {row[Number(columnIndex)]}
+                              {row[columns[columnIndex]]}
                             </div>
                           </div>
                         </div>
+  
                       ))}
                     </div>
                     {expandedRows.includes(row.id) && expandedData && (
@@ -707,5 +634,4 @@ const DataTable: React.FC<DataTableProps> = ({
     </>
   );
 };
-
 export default DataTable;

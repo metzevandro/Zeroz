@@ -16,8 +16,9 @@ const meta: Meta = {
           <Title />
           <Subtitle>Graphics</Subtitle>
           <p>
-            This is a BarChart component that visualizes data using bars. It supports different configurations
-            such as stacked bars, legends, labels, and custom line styles.
+            This is a BarChart component that visualizes data using bars. It
+            supports different configurations such as stacked bars, legends,
+            labels, and custom line styles.
           </p>
           <Primary />
           <Controls />
@@ -33,7 +34,9 @@ const meta: Meta = {
       description: "The data to be displayed in the bar chart.",
       table: {
         category: "Data",
-        type: { summary: "Array<{ month: string; desktop: number; mobile: number }>" },
+        type: {
+          summary: "Array<{ month: string; desktop: number; mobile: number }>",
+        },
       },
       control: { type: "object" },
     },
@@ -48,7 +51,8 @@ const meta: Meta = {
     },
     lineStyles: {
       name: "Line Styles",
-      description: "Specify the styles for each bar in the chart, including color.",
+      description:
+        "Specify the styles for each bar in the chart, including color.",
       table: {
         category: "Appearance",
         type: { summary: "Record<string, { color: string }>" },

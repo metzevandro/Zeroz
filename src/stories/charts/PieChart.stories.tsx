@@ -62,7 +62,8 @@ const meta: Meta = {
     },
     labelList: {
       name: "Label List",
-      description: "Whether to display a list of labels for the pie chart segments.",
+      description:
+        "Whether to display a list of labels for the pie chart segments.",
       table: {
         category: "Appearance",
         type: { summary: "boolean" },
@@ -110,9 +111,7 @@ const data = [
   { browser: "Other", visitors: 190, fill: "yellow" },
 ];
 
-const Template: StoryFn<DefaultProps> = (args) => (
-  <PieChart {...args} />
-);
+const Template: StoryFn<DefaultProps> = (args) => <PieChart {...args} />;
 
 export const Pie = Template.bind({});
 Pie.args = {

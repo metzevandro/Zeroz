@@ -34,7 +34,9 @@ const meta: Meta = {
       description: "The data to be displayed in the line chart.",
       table: {
         category: "Data",
-        type: { summary: "Array<{ month: string; desktop: number; mobile: number }>" },
+        type: {
+          summary: "Array<{ month: string; desktop: number; mobile: number }>",
+        },
       },
       control: { type: "object" },
     },
@@ -61,11 +63,31 @@ const meta: Meta = {
       description: "Select the type of curve used for the lines.",
       table: {
         category: "Appearance",
-        type: { summary: "'basis' | 'basisClosed' | 'basisOpen' | 'bumpX' | 'bumpY' | 'bump' | 'linear' | 'linearClosed' | 'natural' | 'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter'" },
+        type: {
+          summary:
+            "'basis' | 'basisClosed' | 'basisOpen' | 'bumpX' | 'bumpY' | 'bump' | 'linear' | 'linearClosed' | 'natural' | 'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter'",
+        },
       },
-      control: { type: "select", options: [
-        "basis", "basisClosed", "basisOpen", "bumpX", "bumpY", "bump", "linear", "linearClosed", "natural", "monotoneX", "monotoneY", "monotone", "step", "stepBefore", "stepAfter"
-      ] },
+      control: {
+        type: "select",
+        options: [
+          "basis",
+          "basisClosed",
+          "basisOpen",
+          "bumpX",
+          "bumpY",
+          "bump",
+          "linear",
+          "linearClosed",
+          "natural",
+          "monotoneX",
+          "monotoneY",
+          "monotone",
+          "step",
+          "stepBefore",
+          "stepAfter",
+        ],
+      },
     },
     label: {
       name: "Label",
@@ -78,7 +100,8 @@ const meta: Meta = {
     },
     lineStyles: {
       name: "Line Styles",
-      description: "Specify the styles for each line in the chart, including color.",
+      description:
+        "Specify the styles for each line in the chart, including color.",
       table: {
         category: "Appearance",
         type: { summary: "Record<string, { color: string }>" },

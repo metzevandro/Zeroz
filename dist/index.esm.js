@@ -1066,12 +1066,10 @@ var DataTable = function (_a) {
         setFilteredData(searchedData);
     };
     var DEFAULT_SORT_STATE = "default";
-    var initialSortConfig = columns.length > 0
-        ? columns.reduce(function (acc, column) {
-            var _a;
-            return (__assign(__assign({}, acc), (_a = {}, _a[column] = DEFAULT_SORT_STATE, _a)));
-        }, {})
-        : {};
+    var initialSortConfig = columns.reduce(function (acc, column) {
+        var _a;
+        return (__assign(__assign({}, acc), (_a = {}, _a[column] = DEFAULT_SORT_STATE, _a)));
+    }, {});
     var _r = useState(initialSortConfig), sortConfig = _r[0], setSortConfig = _r[1];
     var handleSort = function (column) {
         var _a;
@@ -1171,7 +1169,7 @@ var DataTable = function (_a) {
                             React.createElement(InputCheckbox, { modelValue: selectedRows.includes(row.id), onUpdate: function () { return toggleSelectRow(row.id); } }))),
                         columns.map(function (_, columnIndex) { return (React.createElement("div", { key: columnIndex, className: "fixed ".concat(columnIndex === 0 ? "sticky-first-column" : ""), style: calculateLeft(selectable, expandable) },
                             React.createElement("div", { key: row.id },
-                                React.createElement("div", { className: "td", key: row.id }, row[Number(columnIndex)])))); })),
+                                React.createElement("div", { className: "td", key: row.id }, row[columns[columnIndex]])))); })),
                     expandedRows.includes(row.id) && expandedData && (React.createElement("div", { className: "data-table-content-expandable" },
                         React.createElement("div", { className: "space-expanded-content" }),
                         React.createElement("div", { className: "expanded-content" }, expandedData
