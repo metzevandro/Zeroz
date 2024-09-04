@@ -383,7 +383,7 @@ const DataTable: React.FC<DataTableProps> = ({
   );
 
   const [sortConfig, setSortConfig] = useState<SortConfig>(initialSortConfig);
-  
+
   const handleSort = (column: string) => {
     const currentSortState = sortConfig[column];
     let nextSortState: ColumnSorting;
@@ -542,7 +542,7 @@ const DataTable: React.FC<DataTableProps> = ({
               {filteredData
                 .slice(indexOfFirstItem, indexOfLastItem)
                 .map((row) => (
-                  <div className="data-table-wrapper">
+                  <div className="data-table-wrapper" key={row.id}>
                     <div
                       className="data-table-content-body"
                       style={calculateGridTemplate(selectable, expandable)}
@@ -553,7 +553,7 @@ const DataTable: React.FC<DataTableProps> = ({
                           className={`data-table-content-body-expandable ${
                             expandedRows.includes(row.id) ? "up" : "down"
                           }`}
-                          key={row.id}
+                          key={`expandable-${row.id}`}
                         >
                           <ButtonIcon
                             size="md"
@@ -568,7 +568,7 @@ const DataTable: React.FC<DataTableProps> = ({
                         <div
                           className="data-table-content-body-checkbox"
                           style={calculateLeftToCheckBox(expandable)}
-                          key={row.id}
+                          key={`checkbox-${row.id}`}
                         >
                           <InputCheckbox
                             modelValue={selectedRows.includes(row.id)}
@@ -578,19 +578,21 @@ const DataTable: React.FC<DataTableProps> = ({
                       )}
                       {columns.map((_, columnIndex) => (
                         <div
-                          key={columnIndex}
+                          key={`column-${row.id}-${columnIndex}`}
                           className={`fixed ${
                             columnIndex === 0 ? "sticky-first-column" : ""
                           }`}
                           style={calculateLeft(selectable, expandable)}
                         >
-                          <div key={row.id}>
-                            <div className="td" key={row.id}>
+                          <div key={`cell-${row.id}-${columnIndex}`}>
+                            <div
+                              className="td"
+                              key={`td-${row.id}-${columnIndex}`}
+                            >
                               {row[columns[columnIndex]]}
                             </div>
                           </div>
                         </div>
-  
                       ))}
                     </div>
                     {expandedRows.includes(row.id) && expandedData && (
@@ -602,11 +604,15 @@ const DataTable: React.FC<DataTableProps> = ({
                               (expandedItem) => expandedItem.id === row.id,
                             )
                             .map((expandedItem) => (
-                              <div key={expandedItem.id}>
+                              <div key={`expandedItem-${expandedItem.id}`}>
                                 {Object.keys(expandedItem)
                                   .filter((key) => key !== "id")
                                   .map((key) => (
-                                    <div key={key}>{expandedItem[key]}</div>
+                                    <div
+                                      key={`expandedKey-${expandedItem.id}-${key}`}
+                                    >
+                                      {expandedItem[key]}
+                                    </div>
                                   ))}
                               </div>
                             ))}
@@ -635,3 +641,4 @@ const DataTable: React.FC<DataTableProps> = ({
   );
 };
 export default DataTable;
+  

@@ -1163,22 +1163,22 @@ var DataTable = function (_a) {
                         React.createElement("div", { className: "icon" }, sortConfig[column] === "asc" ? (React.createElement(Icon, { icon: "arrow_upward", size: "sm" })) : sortConfig[column] === "desc" ? (React.createElement(Icon, { icon: "arrow_downward", size: "sm" })) : (React.createElement(Icon, { icon: "swap_vert", size: "sm" }))))); })),
                 filteredData
                     .slice(indexOfFirstItem, indexOfLastItem)
-                    .map(function (row) { return (React.createElement("div", { className: "data-table-wrapper" },
+                    .map(function (row) { return (React.createElement("div", { className: "data-table-wrapper", key: row.id },
                     React.createElement("div", { className: "data-table-content-body", style: calculateGridTemplate(selectable, expandable), key: row.id },
-                        expandable && (React.createElement("div", { className: "data-table-content-body-expandable ".concat(expandedRows.includes(row.id) ? "up" : "down"), key: row.id },
+                        expandable && (React.createElement("div", { className: "data-table-content-body-expandable ".concat(expandedRows.includes(row.id) ? "up" : "down"), key: "expandable-".concat(row.id) },
                             React.createElement(ButtonIcon, { size: "md", buttonType: "plain", typeIcon: "keyboard_arrow_down", variant: "primary", onClick: function () { return handleExpandRow(row.id); } }))),
-                        selectable && (React.createElement("div", { className: "data-table-content-body-checkbox", style: calculateLeftToCheckBox(expandable), key: row.id },
+                        selectable && (React.createElement("div", { className: "data-table-content-body-checkbox", style: calculateLeftToCheckBox(expandable), key: "checkbox-".concat(row.id) },
                             React.createElement(InputCheckbox, { modelValue: selectedRows.includes(row.id), onUpdate: function () { return toggleSelectRow(row.id); } }))),
-                        columns.map(function (_, columnIndex) { return (React.createElement("div", { key: columnIndex, className: "fixed ".concat(columnIndex === 0 ? "sticky-first-column" : ""), style: calculateLeft(selectable, expandable) },
-                            React.createElement("div", { key: row.id },
-                                React.createElement("div", { className: "td", key: row.id }, row[columns[columnIndex]])))); })),
+                        columns.map(function (_, columnIndex) { return (React.createElement("div", { key: "column-".concat(row.id, "-").concat(columnIndex), className: "fixed ".concat(columnIndex === 0 ? "sticky-first-column" : ""), style: calculateLeft(selectable, expandable) },
+                            React.createElement("div", { key: "cell-".concat(row.id, "-").concat(columnIndex) },
+                                React.createElement("div", { className: "td", key: "td-".concat(row.id, "-").concat(columnIndex) }, row[columns[columnIndex]])))); })),
                     expandedRows.includes(row.id) && expandedData && (React.createElement("div", { className: "data-table-content-expandable" },
                         React.createElement("div", { className: "space-expanded-content" }),
                         React.createElement("div", { className: "expanded-content" }, expandedData
                             .filter(function (expandedItem) { return expandedItem.id === row.id; })
-                            .map(function (expandedItem) { return (React.createElement("div", { key: expandedItem.id }, Object.keys(expandedItem)
+                            .map(function (expandedItem) { return (React.createElement("div", { key: "expandedItem-".concat(expandedItem.id) }, Object.keys(expandedItem)
                             .filter(function (key) { return key !== "id"; })
-                            .map(function (key) { return (React.createElement("div", { key: key }, expandedItem[key])); }))); })))))); }))) : hasSelectedFilters || searchTerm ? (renderNoDataFilteredMessage()) : (renderNoDataMessage())),
+                            .map(function (key) { return (React.createElement("div", { key: "expandedKey-".concat(expandedItem.id, "-").concat(key) }, expandedItem[key])); }))); })))))); }))) : hasSelectedFilters || searchTerm ? (renderNoDataFilteredMessage()) : (renderNoDataMessage())),
             React.createElement("div", { className: "data-table-footer" },
                 React.createElement(Pagination, { label: label, variant: "leftLabel", onClickRight: handleNextPage, onClickLeft: handlePrevPage })))));
 };
