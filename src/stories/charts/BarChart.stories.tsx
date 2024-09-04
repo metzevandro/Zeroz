@@ -83,6 +83,33 @@ const meta: Meta = {
       },
       control: { type: "boolean" },
     },
+    height: {
+      name: "Height",
+      description: "The height of the chart.",
+      table: {
+        category: "Layout",
+        type: { summary: "number" },
+      },
+      control: { type: "number" },
+    },
+    width: {
+      name: "Width",
+      description: "The width of the chart.",
+      table: {
+        category: "Layout",
+        type: { summary: "number" },
+      },
+      control: { type: "number" },
+    },
+    tooltipFormatter: {
+      name: "Tooltip Formatter",
+      description: "Function to format the tooltip content.",
+      table: {
+        category: "Functionality",
+        type: { summary: "(data) => string" },
+      },
+      control: { type: "object" },
+    },
   },
 };
 
@@ -94,6 +121,9 @@ type DefaultProps = {
   lineStyles: Record<string, { color: string }>;
   legend: boolean;
   label: boolean;
+  height: number;
+  width: number;
+  tooltipFormatter?: (data: any) => string;
 };
 
 const lineStyles = {
@@ -123,6 +153,9 @@ const Template: StoryFn<DefaultProps> = (args) => (
     stacked={args.stacked}
     lineStyles={args.lineStyles}
     legend={args.legend}
+    height={args.height}
+    width={args.width}
+    tooltipFormatter={args.tooltipFormatter}
   />
 );
 
@@ -133,6 +166,9 @@ Default.args = {
   stacked: false,
   data: data,
   lineStyles: lineStyles,
+  height: 400,
+  width: 600,
+  tooltipFormatter: (data) => `${data} units`,
 };
 
 export const Stacked = Template.bind({});
@@ -142,6 +178,9 @@ Stacked.args = {
   stacked: true,
   data: data,
   lineStyles: lineStyles,
+  height: 400,
+  width: 600,
+  tooltipFormatter: (data) => `${data} units`,
 };
 
 export const WithLabel = Template.bind({});
@@ -151,6 +190,9 @@ WithLabel.args = {
   stacked: false,
   data: data,
   lineStyles: lineStyles,
+  height: 400,
+  width: 600,
+  tooltipFormatter: (data) => `${data} units`,
 };
 
 export const WithLegend = Template.bind({});
@@ -160,4 +202,7 @@ WithLegend.args = {
   stacked: false,
   data: data,
   lineStyles: lineStyles,
+  height: 400,
+  width: 600,
+  tooltipFormatter: (data) => `${data} units`,
 };

@@ -10,6 +10,9 @@ type DefaultProps = {
     innerRadius: number;
     outerRadius: number;
     type: "donut" | "pie";
+    tooltipFormatter?: (data: any) => string;
+    height: number;
+    width: number;
 };
 export declare const Pie: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
 export declare const Donut: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;

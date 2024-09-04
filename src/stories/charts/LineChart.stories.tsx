@@ -100,8 +100,7 @@ const meta: Meta = {
     },
     lineStyles: {
       name: "Line Styles",
-      description:
-        "Specify the styles for each line in the chart, including color.",
+      description: "Specify the styles for each line in the chart, including color.",
       table: {
         category: "Appearance",
         type: { summary: "Record<string, { color: string }>" },
@@ -113,6 +112,33 @@ const meta: Meta = {
           mobile: { color: "var(--s-color-fill-success)" },
         },
       },
+    },
+    tooltipFormatter: {
+      name: "Tooltip Formatter",
+      description: "Function to format the tooltip content.",
+      table: {
+        category: "Functionality",
+        type: { summary: "(data) => string" },
+      },
+      control: { type: "object" },
+    },
+    height: {
+      name: "Height",
+      description: "Height of the chart.",
+      table: {
+        category: "Dimensions",
+        type: { summary: "number" },
+      },
+      control: { type: "number" },
+    },
+    width: {
+      name: "Width",
+      description: "Width of the chart.",
+      table: {
+        category: "Dimensions",
+        type: { summary: "number" },
+      },
+      control: { type: "number" },
     },
   },
 };
@@ -141,6 +167,9 @@ type DefaultProps = {
     | "stepAfter";
   label: boolean;
   lineStyles: Record<string, { color: string }>;
+  tooltipFormatter?: (data: any) => string;
+  height: number;
+  width: number;
 };
 
 const data = [
@@ -166,6 +195,9 @@ const Template: StoryFn<DefaultProps> = (args) => (
     dots={args.dots}
     type={args.type}
     label={args.label}
+    height={args.height}
+    width={args.width}
+    tooltipFormatter={args.tooltipFormatter}
   />
 );
 
@@ -180,6 +212,9 @@ Default.args = {
     desktop: { color: "var(--s-color-fill-warning)" },
     mobile: { color: "var(--s-color-fill-success)" },
   },
+  height: 400,
+  width: 600,
+  tooltipFormatter: (data) => `${data} units`,
 };
 
 export const withDots = Template.bind({});
@@ -193,6 +228,9 @@ withDots.args = {
     desktop: { color: "var(--s-color-fill-warning)" },
     mobile: { color: "var(--s-color-fill-success)" },
   },
+  height: 400,
+  width: 600,
+  tooltipFormatter: (data) => `${data} units`,
 };
 
 export const withLabel = Template.bind({});
@@ -206,4 +244,7 @@ withLabel.args = {
     desktop: { color: "var(--s-color-fill-warning)" },
     mobile: { color: "var(--s-color-fill-success)" },
   },
+  height: 400,
+  width: 600,
+  tooltipFormatter: (data) => `${data} units`,
 };

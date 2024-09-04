@@ -12,17 +12,19 @@ import CustomTooltip from "../Tooltip/Tooltip";
 import CustomLegend from "../Legend/Legend";
 
 import "./BarChart.scss";
-
 interface BarChartProps {
   stacked?: boolean;
   data: any[];
   lineStyles: { [key: string]: { color: string } };
   legend?: boolean;
   label?: boolean;
+  tooltipFormatter?: (value: any) => string;
+  height: number;
+  width: number;
 }
 
 export default function BarChart(props: BarChartProps) {
-  const { data, stacked, lineStyles, legend, label } = props;
+  const { data, stacked, lineStyles, legend, label, tooltipFormatter, width, height } = props;
   const keys =
     data.length > 0
       ? Object.keys(data[0]).filter((key) => key !== "month")
@@ -32,8 +34,8 @@ export default function BarChart(props: BarChartProps) {
     <Chart
       accessibilityLayer
       data={data}
-      height={300}
-      width={800}
+      height={height}
+      width={width}
       margin={{
         top: 20,
         left: 20,
@@ -50,12 +52,7 @@ export default function BarChart(props: BarChartProps) {
         style={{ font: "var(--s-typography-caption-regular)" }}
         stroke="var(--s-color-content-light)"
       />
-      <Tooltip
-        formatter={(value: number) =>
-          `R$ ${value.toFixed(2).replace(".", ",")}`
-        }
-        content={<CustomTooltip />}
-      />
+      <Tooltip formatter={tooltipFormatter} content={<CustomTooltip />} />
       {legend && <Legend content={<CustomLegend />} />}
       {keys.map((key, index) => {
         let radius: [number, number, number, number];

@@ -15,6 +15,9 @@ type DefaultProps = {
     lineStyles: Record<string, {
         color: string;
     }>;
+    tooltipFormatter?: (data: any) => string;
+    height: number;
+    width: number;
 };
 export declare const Default: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
 export declare const withDots: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;

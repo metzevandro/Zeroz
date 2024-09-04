@@ -62,8 +62,7 @@ const meta: Meta = {
     },
     labelList: {
       name: "Label List",
-      description:
-        "Whether to display a list of labels for the pie chart segments.",
+      description: "Whether to display a list of labels for the pie chart segments.",
       table: {
         category: "Appearance",
         type: { summary: "boolean" },
@@ -88,6 +87,32 @@ const meta: Meta = {
       },
       control: { type: "radio", options: ["pie", "donut"] },
     },
+    tooltipFormatter: {
+      name: "Tooltip Formatter",
+      description: "Function to format the tooltip content.",
+      table: {
+        category: "Functionality",
+        type: { summary: "(data) => string" },
+      },
+    },
+    height: {
+      name: "Height",
+      description: "Height of the chart.",
+      table: {
+        category: "Dimensions",
+        type: { summary: "number" },
+      },
+      control: { type: "number" },
+    },
+    width: {
+      name: "Width",
+      description: "Width of the chart.",
+      table: {
+        category: "Dimensions",
+        type: { summary: "number" },
+      },
+      control: { type: "number" },
+    },
   },
 };
 
@@ -101,6 +126,9 @@ type DefaultProps = {
   innerRadius: number;
   outerRadius: number;
   type: "donut" | "pie";
+  tooltipFormatter?: (data: any) => string;
+  height: number;
+  width: number;
 };
 
 const data = [
@@ -122,6 +150,9 @@ Pie.args = {
   label: "Visitors",
   labelList: false,
   legend: false,
+  height: 400,
+  width: 400,
+  tooltipFormatter: (data) => `${data}`,
 };
 
 export const Donut = Template.bind({});
@@ -132,6 +163,9 @@ Donut.args = {
   data: data,
   label: "Visitors",
   labelList: false,
+  height: 400,
+  width: 400,
+  tooltipFormatter: (data) => `${data}`,
 };
 
 export const withLegend = Template.bind({});
@@ -143,4 +177,7 @@ withLegend.args = {
   data: data,
   label: "Visitors",
   labelList: false,
+  height: 400,
+  width: 400,
+  tooltipFormatter: (data) => `${data}`,
 };

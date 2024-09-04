@@ -10,6 +10,9 @@ interface BarChartProps {
     };
     legend?: boolean;
     label?: boolean;
+    tooltipFormatter?: (value: any) => string;
+    height: number;
+    width: number;
 }
 export default function BarChart(props: BarChartProps): React.JSX.Element;
 export {};

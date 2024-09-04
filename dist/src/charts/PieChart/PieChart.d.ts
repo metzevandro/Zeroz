@@ -13,6 +13,9 @@ interface PieChartProps {
     innerRadius: number;
     outerRadius: number;
     type: "donut" | "pie";
+    tooltipFormatter?: (value: any) => string;
+    height: number;
+    width: number;
 }
-export default function PieChart({ data, labelList, label, legend, innerRadius, outerRadius, type, }: PieChartProps): React.JSX.Element;
+export default function PieChart({ data, labelList, label, legend, innerRadius, outerRadius, type, tooltipFormatter, height, width, }: PieChartProps): React.JSX.Element;
 export {};

@@ -26,6 +26,9 @@ interface PieChartProps {
   innerRadius: number;
   outerRadius: number;
   type: "donut" | "pie";
+  tooltipFormatter?: (value: any) => string;
+  height: number;
+  width: number;
 }
 
 export default function PieChart({
@@ -36,6 +39,9 @@ export default function PieChart({
   innerRadius,
   outerRadius,
   type,
+  tooltipFormatter,
+  height,
+  width,
 }: PieChartProps) {
   const totalVisitors = React.useMemo(() => {
     return data.reduce((acc, curr) => acc + curr.visitors, 0);
@@ -63,7 +69,12 @@ export default function PieChart({
 
   const renderTooltip = () => {
     if (!labelList) {
-      return <ChartTooltip content={<CustomTooltip />} />;
+      return (
+        <ChartTooltip
+          formatter={tooltipFormatter}
+          content={<CustomTooltip />}
+        />
+      );
     }
   };
 
@@ -111,8 +122,8 @@ export default function PieChart({
 
   return (
     <Chart
-      height={400}
-      width={250}
+      height={height}
+      width={width}
       margin={{
         top: 20,
         left: 20,

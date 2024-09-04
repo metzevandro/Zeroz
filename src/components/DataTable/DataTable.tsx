@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState, useEffect, useRef } from "react";
 import InputSearch from "../InputSearch/InputSearch";
 import Button from "../Button/Button";
@@ -641,4 +641,3 @@ const DataTable: React.FC<DataTableProps> = ({
   );
 };
 export default DataTable;
-  

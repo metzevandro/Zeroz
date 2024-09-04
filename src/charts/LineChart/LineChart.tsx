@@ -17,6 +17,9 @@ interface LineChartProps {
   lineStyles: { [key: string]: { color: string } };
   dots?: boolean;
   label?: boolean;
+  tooltipFormatter?: (value: any) => string;
+  height: number;
+  width: number;
   type?:
     | "basis"
     | "basisClosed"
@@ -36,7 +39,8 @@ interface LineChartProps {
 }
 
 export default function LineChart(props: LineChartProps) {
-  const { legend, dots, label, type, data, lineStyles } = props;
+  const { legend, dots, label, type, data, lineStyles, tooltipFormatter, height, width } =
+    props;
 
   if (!data || data.length === 0) {
     return null;
@@ -50,8 +54,8 @@ export default function LineChart(props: LineChartProps) {
 
   return (
     <Chart
-      height={300}
-      width={800}
+      height={height}
+      width={width}
       accessibilityLayer
       data={data}
       margin={{
@@ -71,7 +75,11 @@ export default function LineChart(props: LineChartProps) {
         stroke="var(--s-color-content-light)"
       />
       {legend && <Legend content={<CustomLegend />} />}
-      <Tooltip cursor={false} content={<CustomTooltip />} />
+      <Tooltip
+        cursor={false}
+        formatter={tooltipFormatter}
+        content={<CustomTooltip />}
+      />
       {keys.map((key) => {
         const lineStyle = lineStyles[key] || {};
         return (
