@@ -7,8 +7,8 @@ export const Colors = () => {
     <>
       <img className="img" src="/favicon.svg" alt="" />
       <div className="colors">
-          <h1>Colors</h1>
-          <h2>🛠️ In progress 🛠️</h2>
+        <h1>Colors</h1>
+        <h2>🛠️ In progress 🛠️</h2>
       </div>
     </>
   );

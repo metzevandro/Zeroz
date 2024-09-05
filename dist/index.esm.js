@@ -30185,7 +30185,7 @@ function CustomLegend(_a) {
 }
 
 function BarChart(props) {
-    var data = props.data, stacked = props.stacked, lineStyles = props.lineStyles, legend = props.legend, label = props.label, tooltipFormatter = props.tooltipFormatter, width = props.width, height = props.height;
+    var data = props.data, stacked = props.stacked, lineStyles = props.lineStyles, legend = props.legend, label = props.label, tooltipFormatter = props.tooltipFormatter, XAxisFormatter = props.XAxisFormatter, width = props.width, height = props.height;
     var keys = data.length > 0
         ? Object.keys(data[0]).filter(function (key) { return key !== "month"; })
         : [];
@@ -30195,7 +30195,7 @@ function BarChart(props) {
             right: 20,
         } },
         React.createElement(CartesianGrid, { vertical: false, stroke: "var(--s-color-border-default)" }),
-        React.createElement(XAxis, { dataKey: "month", tickLine: false, tickMargin: 10, axisLine: false, tickFormatter: function (value) { return value.slice(0, 3); }, style: { font: "var(--s-typography-caption-regular)" }, stroke: "var(--s-color-content-light)" }),
+        React.createElement(XAxis, { dataKey: "month", tickLine: false, tickMargin: 10, axisLine: false, tickFormatter: XAxisFormatter, style: { font: "var(--s-typography-caption-regular)" }, stroke: "var(--s-color-content-light)" }),
         React.createElement(Tooltip, { formatter: tooltipFormatter, content: React.createElement(CustomTooltip, null) }),
         legend && React.createElement(Legend, { content: React.createElement(CustomLegend, null) }),
         keys.map(function (key, index) {
@@ -30220,7 +30220,7 @@ function BarChart(props) {
 }
 
 function LineChart(props) {
-    var legend = props.legend, dots = props.dots, label = props.label, type = props.type, data = props.data, lineStyles = props.lineStyles, tooltipFormatter = props.tooltipFormatter, height = props.height, width = props.width;
+    var legend = props.legend, dots = props.dots, label = props.label, type = props.type, data = props.data, lineStyles = props.lineStyles, tooltipFormatter = props.tooltipFormatter, XAxisFormatter = props.XAxisFormatter, height = props.height, width = props.width;
     if (!data || data.length === 0) {
         return null;
     }
@@ -30234,7 +30234,7 @@ function LineChart(props) {
             right: 20,
         } },
         React.createElement(CartesianGrid, { vertical: false }),
-        React.createElement(XAxis, { dataKey: "month", tickLine: false, tickMargin: 10, axisLine: false, tickFormatter: function (value) { return (value ? value.slice(0, 3) : ""); }, style: { font: "var(--s-typography-caption-regular)" }, stroke: "var(--s-color-content-light)" }),
+        React.createElement(XAxis, { dataKey: "month", tickLine: false, tickMargin: 10, axisLine: false, tickFormatter: XAxisFormatter, style: { font: "var(--s-typography-caption-regular)" }, stroke: "var(--s-color-content-light)" }),
         legend && React.createElement(Legend, { content: React.createElement(CustomLegend, null) }),
         React.createElement(Tooltip, { cursor: false, formatter: tooltipFormatter, content: React.createElement(CustomTooltip, null) }),
         keys.map(function (key) {
@@ -30244,7 +30244,7 @@ function LineChart(props) {
 }
 
 function PieChart(_a) {
-    var data = _a.data, labelList = _a.labelList, label = _a.label, legend = _a.legend, innerRadius = _a.innerRadius, outerRadius = _a.outerRadius, type = _a.type, tooltipFormatter = _a.tooltipFormatter, height = _a.height, width = _a.width;
+    var data = _a.data, labelList = _a.labelList, label = _a.label, legend = _a.legend, innerRadius = _a.innerRadius, outerRadius = _a.outerRadius, type = _a.type, tooltipFormatter = _a.tooltipFormatter, height = _a.height, width = _a.width, dataKey = _a.dataKey, nameKey = _a.nameKey;
     var totalVisitors = React.useMemo(function () {
         return data.reduce(function (acc, curr) { return acc + curr.visitors; }, 0);
     }, [data]);
@@ -30288,7 +30288,7 @@ function PieChart(_a) {
         } },
         renderTooltip(),
         renderLegend(),
-        React.createElement(Pie, { data: data, dataKey: "visitors", nameKey: "browser", innerRadius: type === "donut" ? innerRadius : 0, outerRadius: outerRadius, strokeWidth: 1 },
+        React.createElement(Pie, { data: data, dataKey: dataKey, nameKey: nameKey, innerRadius: type === "donut" ? innerRadius : 0, outerRadius: outerRadius, strokeWidth: 1 },
             renderLabelList(),
             data.map(function (entry, index) { return (React.createElement(Cell, { key: "cell-".concat(index), fill: entry.fill, stroke: entry.fill })); }),
             renderLabel())));

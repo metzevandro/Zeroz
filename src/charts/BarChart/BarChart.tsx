@@ -19,12 +19,23 @@ interface BarChartProps {
   legend?: boolean;
   label?: boolean;
   tooltipFormatter?: (value: any) => string;
+  XAxisFormatter?: (value: any) => string;
   height: number;
   width: number;
 }
 
 export default function BarChart(props: BarChartProps) {
-  const { data, stacked, lineStyles, legend, label, tooltipFormatter, width, height } = props;
+  const {
+    data,
+    stacked,
+    lineStyles,
+    legend,
+    label,
+    tooltipFormatter,
+    XAxisFormatter,
+    width,
+    height,
+  } = props;
   const keys =
     data.length > 0
       ? Object.keys(data[0]).filter((key) => key !== "month")
@@ -48,7 +59,7 @@ export default function BarChart(props: BarChartProps) {
         tickLine={false}
         tickMargin={10}
         axisLine={false}
-        tickFormatter={(value) => value.slice(0, 3)}
+        tickFormatter={XAxisFormatter}
         style={{ font: "var(--s-typography-caption-regular)" }}
         stroke="var(--s-color-content-light)"
       />

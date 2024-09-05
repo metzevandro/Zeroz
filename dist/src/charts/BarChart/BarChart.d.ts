@@ -11,6 +11,7 @@ interface BarChartProps {
     legend?: boolean;
     label?: boolean;
     tooltipFormatter?: (value: any) => string;
+    XAxisFormatter?: (value: any) => string;
     height: number;
     width: number;
 }

@@ -10,6 +10,7 @@ interface LineChartProps {
     dots?: boolean;
     label?: boolean;
     tooltipFormatter?: (value: any) => string;
+    XAxisFormatter?: (value: any) => string;
     height: number;
     width: number;
     type?: "basis" | "basisClosed" | "basisOpen" | "bumpX" | "bumpY" | "bump" | "linear" | "linearClosed" | "natural" | "monotoneX" | "monotoneY" | "monotone" | "step" | "stepBefore" | "stepAfter";

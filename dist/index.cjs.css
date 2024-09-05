@@ -3587,10 +3587,6 @@
   right: 115%;
   transform: translateY(-50%);
 }
-button {
-  all: unset;
-}
-
 .TooltipContent {
   border: var(--s-border-width-hairline) solid var(--s-color-border-default);
   min-width: 120px;

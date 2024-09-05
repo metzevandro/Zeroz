@@ -18,6 +18,8 @@ interface LineChartProps {
   dots?: boolean;
   label?: boolean;
   tooltipFormatter?: (value: any) => string;
+  XAxisFormatter?: (value: any) => string;
+
   height: number;
   width: number;
   type?:
@@ -39,8 +41,18 @@ interface LineChartProps {
 }
 
 export default function LineChart(props: LineChartProps) {
-  const { legend, dots, label, type, data, lineStyles, tooltipFormatter, height, width } =
-    props;
+  const {
+    legend,
+    dots,
+    label,
+    type,
+    data,
+    lineStyles,
+    tooltipFormatter,
+    XAxisFormatter,
+    height,
+    width,
+  } = props;
 
   if (!data || data.length === 0) {
     return null;
@@ -70,7 +82,7 @@ export default function LineChart(props: LineChartProps) {
         tickLine={false}
         tickMargin={10}
         axisLine={false}
-        tickFormatter={(value) => (value ? value.slice(0, 3) : "")}
+        tickFormatter={XAxisFormatter}
         style={{ font: "var(--s-typography-caption-regular)" }}
         stroke="var(--s-color-content-light)"
       />

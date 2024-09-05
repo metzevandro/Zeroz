@@ -17,6 +17,7 @@ type DefaultProps = {
     height: number;
     width: number;
     tooltipFormatter?: (data: any) => string;
+    XAxisFormatter?: (data: any) => string;
 };
 export declare const Default: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
 export declare const Stacked: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;

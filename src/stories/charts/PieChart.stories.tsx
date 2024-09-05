@@ -33,6 +33,26 @@ const meta: Meta = {
       },
       control: { type: "object" },
     },
+    dataKey: {
+      name: "Data Key",
+      description:
+        "The key in the data objects that contains the values to be represented (e.g., visitors).",
+      table: {
+        category: "Data",
+        type: { summary: "string" },
+      },
+      control: { type: "text" },
+    },
+    nameKey: {
+      name: "Name Key",
+      description:
+        "The key in the data objects that contains the names or labels (e.g., browser).",
+      table: {
+        category: "Data",
+        type: { summary: "string" },
+      },
+      control: { type: "text" },
+    },
     innerRadius: {
       name: "Inner Radius",
       description: "The inner radius of the pie chart.",
@@ -62,7 +82,8 @@ const meta: Meta = {
     },
     labelList: {
       name: "Label List",
-      description: "Whether to display a list of labels for the pie chart segments.",
+      description:
+        "Whether to display a list of labels for the pie chart segments.",
       table: {
         category: "Appearance",
         type: { summary: "boolean" },
@@ -120,6 +141,8 @@ export default meta;
 
 type DefaultProps = {
   data: any[];
+  dataKey: string;
+  nameKey: string;
   label: string;
   labelList: boolean;
   legend: boolean;
@@ -147,6 +170,8 @@ Pie.args = {
   innerRadius: 60,
   outerRadius: 100,
   data: data,
+  dataKey: "visitors",
+  nameKey: "browser",
   label: "Visitors",
   labelList: false,
   legend: false,
@@ -161,6 +186,8 @@ Donut.args = {
   innerRadius: 60,
   outerRadius: 100,
   data: data,
+  dataKey: "visitors",
+  nameKey: "browser",
   label: "Visitors",
   labelList: false,
   height: 400,
@@ -175,6 +202,8 @@ withLegend.args = {
   innerRadius: 60,
   outerRadius: 100,
   data: data,
+  dataKey: "visitors",
+  nameKey: "browser",
   label: "Visitors",
   labelList: false,
   height: 400,

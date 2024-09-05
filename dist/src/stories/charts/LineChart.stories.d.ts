@@ -16,6 +16,7 @@ type DefaultProps = {
         color: string;
     }>;
     tooltipFormatter?: (data: any) => string;
+    XAxisFormatter?: (data: any) => string;
     height: number;
     width: number;
 };

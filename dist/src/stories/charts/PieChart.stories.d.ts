@@ -4,6 +4,8 @@ declare const meta: Meta;
 export default meta;
 type DefaultProps = {
     data: any[];
+    dataKey: string;
+    nameKey: string;
     label: string;
     labelList: boolean;
     legend: boolean;

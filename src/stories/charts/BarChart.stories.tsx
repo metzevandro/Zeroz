@@ -110,6 +110,15 @@ const meta: Meta = {
       },
       control: { type: "object" },
     },
+    XAxisFormatter: {
+      name: "X Axis Formatter",
+      description: "Function to format the X-axis labels.",
+      table: {
+        category: "Functionality",
+        type: { summary: "(data) => string" },
+      },
+      control: { type: "object" },
+    },
   },
 };
 
@@ -124,6 +133,7 @@ type DefaultProps = {
   height: number;
   width: number;
   tooltipFormatter?: (data: any) => string;
+  XAxisFormatter?: (data: any) => string;
 };
 
 const lineStyles = {
@@ -156,6 +166,7 @@ const Template: StoryFn<DefaultProps> = (args) => (
     height={args.height}
     width={args.width}
     tooltipFormatter={args.tooltipFormatter}
+    XAxisFormatter={args.XAxisFormatter}
   />
 );
 
@@ -169,6 +180,7 @@ Default.args = {
   height: 400,
   width: 600,
   tooltipFormatter: (data) => `${data} units`,
+  XAxisFormatter: (data) => `${data.slice(0, 3)}`,
 };
 
 export const Stacked = Template.bind({});
@@ -181,6 +193,7 @@ Stacked.args = {
   height: 400,
   width: 600,
   tooltipFormatter: (data) => `${data} units`,
+  XAxisFormatter: (data) => `${data.slice(0, 3)}`,
 };
 
 export const WithLabel = Template.bind({});
@@ -193,6 +206,7 @@ WithLabel.args = {
   height: 400,
   width: 600,
   tooltipFormatter: (data) => `${data} units`,
+  XAxisFormatter: (data) => `${data.slice(0, 3)}`,
 };
 
 export const WithLegend = Template.bind({});
@@ -205,4 +219,5 @@ WithLegend.args = {
   height: 400,
   width: 600,
   tooltipFormatter: (data) => `${data} units`,
+  XAxisFormatter: (data) => `${data.slice(0, 3)}`,
 };

@@ -29,6 +29,8 @@ interface PieChartProps {
   tooltipFormatter?: (value: any) => string;
   height: number;
   width: number;
+  dataKey: string;
+  nameKey: string;
 }
 
 export default function PieChart({
@@ -42,6 +44,8 @@ export default function PieChart({
   tooltipFormatter,
   height,
   width,
+  dataKey,
+  nameKey,
 }: PieChartProps) {
   const totalVisitors = React.useMemo(() => {
     return data.reduce((acc, curr) => acc + curr.visitors, 0);
@@ -134,8 +138,8 @@ export default function PieChart({
       {renderLegend()}
       <Pie
         data={data}
-        dataKey="visitors"
-        nameKey="browser"
+        dataKey={dataKey}
+        nameKey={nameKey}
         innerRadius={type === "donut" ? innerRadius : 0}
         outerRadius={outerRadius}
         strokeWidth={1}

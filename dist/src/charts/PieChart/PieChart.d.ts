@@ -16,6 +16,8 @@ interface PieChartProps {
     tooltipFormatter?: (value: any) => string;
     height: number;
     width: number;
+    dataKey: string;
+    nameKey: string;
 }
-export default function PieChart({ data, labelList, label, legend, innerRadius, outerRadius, type, tooltipFormatter, height, width, }: PieChartProps): React.JSX.Element;
+export default function PieChart({ data, labelList, label, legend, innerRadius, outerRadius, type, tooltipFormatter, height, width, dataKey, nameKey, }: PieChartProps): React.JSX.Element;
 export {};

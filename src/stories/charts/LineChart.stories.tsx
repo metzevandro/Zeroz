@@ -4,7 +4,6 @@ import "../../styles.scss";
 import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
 
 import LineChart from "../../charts/LineChart/LineChart";
-
 const meta: Meta = {
   title: "Charts/LineChart",
   component: LineChart,
@@ -100,7 +99,8 @@ const meta: Meta = {
     },
     lineStyles: {
       name: "Line Styles",
-      description: "Specify the styles for each line in the chart, including color.",
+      description:
+        "Specify the styles for each line in the chart, including color.",
       table: {
         category: "Appearance",
         type: { summary: "Record<string, { color: string }>" },
@@ -116,6 +116,15 @@ const meta: Meta = {
     tooltipFormatter: {
       name: "Tooltip Formatter",
       description: "Function to format the tooltip content.",
+      table: {
+        category: "Functionality",
+        type: { summary: "(data) => string" },
+      },
+      control: { type: "object" },
+    },
+    XAxisFormatter: {
+      name: "X Axis Formatter",
+      description: "Function to format the X-axis labels.",
       table: {
         category: "Functionality",
         type: { summary: "(data) => string" },
@@ -168,6 +177,7 @@ type DefaultProps = {
   label: boolean;
   lineStyles: Record<string, { color: string }>;
   tooltipFormatter?: (data: any) => string;
+  XAxisFormatter?: (data: any) => string;
   height: number;
   width: number;
 };
@@ -198,6 +208,7 @@ const Template: StoryFn<DefaultProps> = (args) => (
     height={args.height}
     width={args.width}
     tooltipFormatter={args.tooltipFormatter}
+    XAxisFormatter={args.XAxisFormatter}
   />
 );
 
@@ -215,6 +226,7 @@ Default.args = {
   height: 400,
   width: 600,
   tooltipFormatter: (data) => `${data} units`,
+  XAxisFormatter: (data) => `${data.slice(0, 3)}`,
 };
 
 export const withDots = Template.bind({});
@@ -231,6 +243,7 @@ withDots.args = {
   height: 400,
   width: 600,
   tooltipFormatter: (data) => `${data} units`,
+  XAxisFormatter: (data) => `${data.slice(0, 3)}`,
 };
 
 export const withLabel = Template.bind({});
@@ -247,4 +260,5 @@ withLabel.args = {
   height: 400,
   width: 600,
   tooltipFormatter: (data) => `${data} units`,
+  XAxisFormatter: (data) => `${data.slice(0, 3)}`,
 };
