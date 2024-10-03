@@ -48,6 +48,56 @@ body {
   }
 }
 
+h1 {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font: var(--s-typography-heading-x-large);
+}
+
+h2 {
+  font: var(--s-typography-heading-large);
+}
+
+h3 {
+  font: var(--s-typography-heading-medium);
+}
+
+h4 {
+  font: var(--s-typography-heading-small);
+}
+
+h5 {
+  font: var(--s-typography-heading-x-small);
+}
+
+h6 {
+  font: var(--s-typography-label-large);
+}
+
+label {
+  font: var(--s-typography-label-medium);
+}
+
+p {
+  font: var(--s-typography-paragraph-regular);
+}
+
+strong {
+  font: var(--s-typography-paragraph-strong);
+}
+
+small {
+  font: var(--s-typography-caption-regular);
+}
+
 * {
   box-sizing: border-box;
   border: 0;

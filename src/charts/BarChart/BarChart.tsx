@@ -25,17 +25,7 @@ interface BarChartProps {
 }
 
 export default function BarChart(props: BarChartProps) {
-  const {
-    data,
-    stacked,
-    lineStyles,
-    legend,
-    label,
-    tooltipFormatter,
-    XAxisFormatter,
-    width,
-    height,
-  } = props;
+  const { data, stacked, lineStyles, legend, label, tooltipFormatter, XAxisFormatter, width, height } = props;
   const keys =
     data.length > 0
       ? Object.keys(data[0]).filter((key) => key !== "month")
