@@ -90,9 +90,9 @@ const meta: Meta = {
       },
       control: { type: "boolean" },
     },
-    legend: {
-      name: "Legend",
-      description: "Whether to display a legend for the pie chart or not.",
+    caption: {
+      name: "Caption",
+      description: "Whether to display a caption for the pie chart or not.",
       table: {
         category: "Appearance",
         type: { summary: "boolean" },
@@ -145,7 +145,7 @@ type DefaultProps = {
   nameKey: string;
   label: string;
   labelList: boolean;
-  legend: boolean;
+  caption: boolean;
   innerRadius: number;
   outerRadius: number;
   type: "donut" | "pie";
@@ -174,7 +174,7 @@ Pie.args = {
   nameKey: "browser",
   label: "Visitors",
   labelList: false,
-  legend: false,
+  caption: false,
   height: 400,
   width: 400,
   tooltipFormatter: (data) => `${data}`,
@@ -198,7 +198,7 @@ Donut.args = {
 export const withLegend = Template.bind({});
 withLegend.args = {
   type: "donut",
-  legend: true,
+  caption: true,
   innerRadius: 60,
   outerRadius: 100,
   data: data,

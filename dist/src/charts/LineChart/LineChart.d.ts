@@ -1,7 +1,7 @@
 import React from "react";
 interface LineChartProps {
     data: any;
-    legend?: boolean;
+    caption?: boolean;
     lineStyles: {
         [key: string]: {
             color: string;

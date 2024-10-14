@@ -8,7 +8,7 @@ type DefaultProps = {
     nameKey: string;
     label: string;
     labelList: boolean;
-    legend: boolean;
+    caption: boolean;
     innerRadius: number;
     outerRadius: number;
     type: "donut" | "pie";

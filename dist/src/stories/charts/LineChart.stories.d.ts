@@ -9,7 +9,7 @@ type DefaultProps = {
         mobile: number;
     }[];
     dots: boolean;
-    legend: boolean;
+    caption: boolean;
     type: "basis" | "basisClosed" | "basisOpen" | "bumpX" | "bumpY" | "bump" | "linear" | "linearClosed" | "natural" | "monotoneX" | "monotoneY" | "monotone" | "step" | "stepBefore" | "stepAfter";
     label: boolean;
     lineStyles: Record<string, {

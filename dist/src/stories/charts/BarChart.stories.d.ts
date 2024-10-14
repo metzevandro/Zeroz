@@ -12,7 +12,7 @@ type DefaultProps = {
     lineStyles: Record<string, {
         color: string;
     }>;
-    legend: boolean;
+    caption: boolean;
     label: boolean;
     height: number;
     width: number;

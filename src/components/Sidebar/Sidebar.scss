@@ -201,6 +201,10 @@
     width: 100%;
     justify-content: end;
     padding: var(--s-spacing-small);
+
+    button {
+      height: fit-content;
+    }
   }
 
   .Sidebar-overlay.close {

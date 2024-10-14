@@ -9,14 +9,14 @@ import {
   LabelList,
 } from "recharts";
 import CustomTooltip from "../Tooltip/Tooltip";
-import CustomLegend from "../Legend/Legend";
+import CustomCaption from "../Caption/Caption";
 
 import "./BarChart.scss";
 interface BarChartProps {
   stacked?: boolean;
   data: any[];
   lineStyles: { [key: string]: { color: string } };
-  legend?: boolean;
+  caption?: boolean;
   label?: boolean;
   tooltipFormatter?: (value: any) => string;
   XAxisFormatter?: (value: any) => string;
@@ -25,7 +25,17 @@ interface BarChartProps {
 }
 
 export default function BarChart(props: BarChartProps) {
-  const { data, stacked, lineStyles, legend, label, tooltipFormatter, XAxisFormatter, width, height } = props;
+  const {
+    data,
+    stacked,
+    lineStyles,
+    caption,
+    label,
+    tooltipFormatter,
+    XAxisFormatter,
+    width,
+    height,
+  } = props;
   const keys =
     data.length > 0
       ? Object.keys(data[0]).filter((key) => key !== "month")
@@ -54,7 +64,7 @@ export default function BarChart(props: BarChartProps) {
         stroke="var(--s-color-content-light)"
       />
       <Tooltip formatter={tooltipFormatter} content={<CustomTooltip />} />
-      {legend && <Legend content={<CustomLegend />} />}
+      {caption && <Legend content={<CustomCaption />} />}
       {keys.map((key, index) => {
         let radius: [number, number, number, number];
         if (stacked) {

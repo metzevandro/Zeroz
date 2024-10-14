@@ -9,7 +9,7 @@ interface PieChartProps {
     data: PieData[];
     labelList: boolean;
     label: string;
-    legend: boolean;
+    caption: boolean;
     innerRadius: number;
     outerRadius: number;
     type: "donut" | "pie";
@@ -19,5 +19,5 @@ interface PieChartProps {
     dataKey: string;
     nameKey: string;
 }
-export default function PieChart({ data, labelList, label, legend, innerRadius, outerRadius, type, tooltipFormatter, height, width, dataKey, nameKey, }: PieChartProps): React.JSX.Element;
+export default function PieChart({ data, labelList, label, caption, innerRadius, outerRadius, type, tooltipFormatter, height, width, dataKey, nameKey, }: PieChartProps): React.JSX.Element;
 export {};

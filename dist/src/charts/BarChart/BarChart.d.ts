@@ -8,7 +8,7 @@ interface BarChartProps {
             color: string;
         };
     };
-    legend?: boolean;
+    caption?: boolean;
     label?: boolean;
     tooltipFormatter?: (value: any) => string;
     XAxisFormatter?: (value: any) => string;

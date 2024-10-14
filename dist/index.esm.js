@@ -30159,7 +30159,7 @@ var CustomTooltip = function (_a) {
     return null;
 };
 
-function CustomLegend(_a) {
+function CustomCaption(_a) {
     var _b = _a.payload, payload = _b === void 0 ? [] : _b;
     return (React.createElement("div", { style: {
             display: "flex",
@@ -30185,7 +30185,7 @@ function CustomLegend(_a) {
 }
 
 function BarChart(props) {
-    var data = props.data, stacked = props.stacked, lineStyles = props.lineStyles, legend = props.legend, label = props.label, tooltipFormatter = props.tooltipFormatter, XAxisFormatter = props.XAxisFormatter, width = props.width, height = props.height;
+    var data = props.data, stacked = props.stacked, lineStyles = props.lineStyles, caption = props.caption, label = props.label, tooltipFormatter = props.tooltipFormatter, XAxisFormatter = props.XAxisFormatter, width = props.width, height = props.height;
     var keys = data.length > 0
         ? Object.keys(data[0]).filter(function (key) { return key !== "month"; })
         : [];
@@ -30197,7 +30197,7 @@ function BarChart(props) {
         React.createElement(CartesianGrid, { vertical: false, stroke: "var(--s-color-border-default)" }),
         React.createElement(XAxis, { dataKey: "month", tickLine: false, tickMargin: 10, axisLine: false, tickFormatter: XAxisFormatter, style: { font: "var(--s-typography-caption-regular)" }, stroke: "var(--s-color-content-light)" }),
         React.createElement(Tooltip, { formatter: tooltipFormatter, content: React.createElement(CustomTooltip, null) }),
-        legend && React.createElement(Legend, { content: React.createElement(CustomLegend, null) }),
+        caption && React.createElement(Legend, { content: React.createElement(CustomCaption, null) }),
         keys.map(function (key, index) {
             var _a, _b;
             var radius;
@@ -30220,7 +30220,7 @@ function BarChart(props) {
 }
 
 function LineChart(props) {
-    var legend = props.legend, dots = props.dots, label = props.label, type = props.type, data = props.data, lineStyles = props.lineStyles, tooltipFormatter = props.tooltipFormatter, XAxisFormatter = props.XAxisFormatter, height = props.height, width = props.width;
+    var caption = props.caption, dots = props.dots, label = props.label, type = props.type, data = props.data, lineStyles = props.lineStyles, tooltipFormatter = props.tooltipFormatter, XAxisFormatter = props.XAxisFormatter, height = props.height, width = props.width;
     if (!data || data.length === 0) {
         return null;
     }
@@ -30235,7 +30235,7 @@ function LineChart(props) {
         } },
         React.createElement(CartesianGrid, { vertical: false }),
         React.createElement(XAxis, { dataKey: "month", tickLine: false, tickMargin: 10, axisLine: false, tickFormatter: XAxisFormatter, style: { font: "var(--s-typography-caption-regular)" }, stroke: "var(--s-color-content-light)" }),
-        legend && React.createElement(Legend, { content: React.createElement(CustomLegend, null) }),
+        caption && React.createElement(Legend, { content: React.createElement(CustomCaption, null) }),
         React.createElement(Tooltip, { cursor: false, formatter: tooltipFormatter, content: React.createElement(CustomTooltip, null) }),
         keys.map(function (key) {
             var lineStyle = lineStyles[key] || {};
@@ -30244,7 +30244,7 @@ function LineChart(props) {
 }
 
 function PieChart(_a) {
-    var data = _a.data, labelList = _a.labelList, label = _a.label, legend = _a.legend, innerRadius = _a.innerRadius, outerRadius = _a.outerRadius, type = _a.type, tooltipFormatter = _a.tooltipFormatter, height = _a.height, width = _a.width, dataKey = _a.dataKey, nameKey = _a.nameKey;
+    var data = _a.data, labelList = _a.labelList, label = _a.label, caption = _a.caption, innerRadius = _a.innerRadius, outerRadius = _a.outerRadius, type = _a.type, tooltipFormatter = _a.tooltipFormatter, height = _a.height, width = _a.width, dataKey = _a.dataKey, nameKey = _a.nameKey;
     var totalVisitors = React.useMemo(function () {
         return data.reduce(function (acc, curr) { return acc + curr.visitors; }, 0);
     }, [data]);
@@ -30254,8 +30254,8 @@ function PieChart(_a) {
         }
     };
     var renderLegend = function () {
-        if (legend) {
-            return React.createElement(Legend, { content: React.createElement(CustomLegend, null) });
+        if (caption) {
+            return React.createElement(Legend, { content: React.createElement(CustomCaption, null) });
         }
     };
     var renderTooltip = function () {

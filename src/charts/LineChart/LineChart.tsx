@@ -9,11 +9,11 @@ import {
   LabelList,
 } from "recharts";
 import CustomTooltip from "../Tooltip/Tooltip";
-import CustomLegend from "../Legend/Legend";
+import CustomCaption from "../Caption/Caption";
 
 interface LineChartProps {
   data: any;
-  legend?: boolean;
+  caption?: boolean;
   lineStyles: { [key: string]: { color: string } };
   dots?: boolean;
   label?: boolean;
@@ -42,7 +42,7 @@ interface LineChartProps {
 
 export default function LineChart(props: LineChartProps) {
   const {
-    legend,
+    caption,
     dots,
     label,
     type,
@@ -86,7 +86,7 @@ export default function LineChart(props: LineChartProps) {
         style={{ font: "var(--s-typography-caption-regular)" }}
         stroke="var(--s-color-content-light)"
       />
-      {legend && <Legend content={<CustomLegend />} />}
+      {caption && <Legend content={<CustomCaption />} />}
       <Tooltip
         cursor={false}
         formatter={tooltipFormatter}

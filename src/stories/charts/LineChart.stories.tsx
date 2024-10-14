@@ -48,9 +48,9 @@ const meta: Meta = {
       },
       control: { type: "boolean" },
     },
-    legend: {
-      name: "Legend",
-      description: "Toggle visibility of the legend.",
+    caption: {
+      name: "Caption",
+      description: "Toggle visibility of the caption.",
       table: {
         category: "Appearance",
         type: { summary: "boolean" },
@@ -157,7 +157,7 @@ export default meta;
 type DefaultProps = {
   data: { month: string; desktop: number; mobile: number }[];
   dots: boolean;
-  legend: boolean;
+  caption: boolean;
   type:
     | "basis"
     | "basisClosed"
@@ -200,7 +200,7 @@ const data = [
 const Template: StoryFn<DefaultProps> = (args) => (
   <LineChart
     data={args.data}
-    legend={args.legend}
+    caption={args.caption}
     lineStyles={args.lineStyles}
     dots={args.dots}
     type={args.type}
@@ -215,7 +215,7 @@ const Template: StoryFn<DefaultProps> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   dots: false,
-  legend: true,
+  caption: true,
   label: false,
   data: data,
   type: "natural",
@@ -232,7 +232,7 @@ Default.args = {
 export const withDots = Template.bind({});
 withDots.args = {
   dots: true,
-  legend: true,
+  caption: true,
   label: false,
   data: data,
   type: "natural",
@@ -249,7 +249,7 @@ withDots.args = {
 export const withLabel = Template.bind({});
 withLabel.args = {
   dots: false,
-  legend: true,
+  caption: true,
   label: true,
   data: data,
   type: "natural",

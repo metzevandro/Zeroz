@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import CustomTooltip from "../Tooltip/Tooltip";
 import "./PieChart.scss";
-import CustomLegend from "../Legend/Legend";
+import CustomCaption from "../Caption/Caption";
 
 interface PieData {
   visitors: number;
@@ -22,7 +22,7 @@ interface PieChartProps {
   data: PieData[];
   labelList: boolean;
   label: string;
-  legend: boolean;
+  caption: boolean;
   innerRadius: number;
   outerRadius: number;
   type: "donut" | "pie";
@@ -37,7 +37,7 @@ export default function PieChart({
   data,
   labelList,
   label,
-  legend,
+  caption,
   innerRadius,
   outerRadius,
   type,
@@ -66,8 +66,8 @@ export default function PieChart({
   };
 
   const renderLegend = () => {
-    if (legend) {
-      return <Legend content={<CustomLegend />} />;
+    if (caption) {
+      return <Legend content={<CustomCaption />} />;
     }
   };
 

@@ -65,9 +65,9 @@ const meta: Meta = {
         },
       },
     },
-    legend: {
-      name: "Legend",
-      description: "Toggle visibility of the legend.",
+    caption: {
+      name: "Caption",
+      description: "Toggle visibility of the caption.",
       table: {
         category: "Appearance",
         type: { summary: "boolean" },
@@ -128,7 +128,7 @@ type DefaultProps = {
   data: { month: string; desktop: number; mobile: number }[];
   stacked?: boolean;
   lineStyles: Record<string, { color: string }>;
-  legend: boolean;
+  caption: boolean;
   label: boolean;
   height: number;
   width: number;
@@ -162,7 +162,7 @@ const Template: StoryFn<DefaultProps> = (args) => (
     data={args.data}
     stacked={args.stacked}
     lineStyles={args.lineStyles}
-    legend={args.legend}
+    caption={args.caption}
     height={args.height}
     width={args.width}
     tooltipFormatter={args.tooltipFormatter}
@@ -173,7 +173,7 @@ const Template: StoryFn<DefaultProps> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   label: false,
-  legend: false,
+  caption: false,
   stacked: false,
   data: data,
   lineStyles: lineStyles,
@@ -186,7 +186,7 @@ Default.args = {
 export const Stacked = Template.bind({});
 Stacked.args = {
   label: false,
-  legend: false,
+  caption: false,
   stacked: true,
   data: data,
   lineStyles: lineStyles,
@@ -199,7 +199,7 @@ Stacked.args = {
 export const WithLabel = Template.bind({});
 WithLabel.args = {
   label: true,
-  legend: false,
+  caption: false,
   stacked: false,
   data: data,
   lineStyles: lineStyles,
@@ -212,7 +212,7 @@ WithLabel.args = {
 export const WithLegend = Template.bind({});
 WithLegend.args = {
   label: false,
-  legend: true,
+  caption: true,
   stacked: false,
   data: data,
   lineStyles: lineStyles,

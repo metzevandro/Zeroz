@@ -3154,6 +3154,9 @@
     justify-content: end;
     padding: var(--s-spacing-small);
   }
+  .Sidebar-overlay button {
+    height: fit-content;
+  }
   .Sidebar-overlay.close {
     transition: 0.3s;
     opacity: 0;
