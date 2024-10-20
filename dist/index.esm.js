@@ -30176,7 +30176,7 @@ function CustomCaption(_a) {
                 width: 8,
                 height: 8,
                 borderRadius: "100%",
-                marginRight: 5,
+                marginRight: "var(--s-spacing-nano)",
             } }),
         React.createElement("small", { style: {
                 color: "var(--s-color-content-default)",

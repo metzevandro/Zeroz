@@ -26,7 +26,7 @@ export default function CustomCaption({ payload = [] }: LegendProps) {
               width: 8,
               height: 8,
               borderRadius: "100%",
-              marginRight: 5,
+              marginRight: "var(--s-spacing-nano)",
             }}
           />
           <small

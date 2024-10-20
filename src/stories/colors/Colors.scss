@@ -1,9 +1,28 @@
 .colors {
-  padding: 32px 32px;
+  padding: var(--s-spacing-xx-large) var(--s-spacing-xx-large);
   display: flex;
   flex-direction: column;
-  gap: var(--s-spacing-medium);
+  gap: var(--s-spacing-xx-large);
   color: var(--s-color-content-default);
+
+  pre {
+    background-color: var(--s-color-fill-default-hover);
+    padding: var(--s-spacing-xx-small);
+    border-radius: var(--s-border-radius-medium);
+    color: var(--s-color-content-default);
+  }
+
+  .colors-list {
+    display: flex;
+    gap: var(--s-spacing-small);
+
+    .color-square {
+      border: var(--s-border-width-thin) solid var(--s-color-border-default);
+      height: 48px;
+      width: 48px;
+      border-radius: var(--s-border-radius-small);
+    }
+  }
 
   header {
     display: flex;
@@ -18,10 +37,13 @@
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: var(--s-spacing-xx-small);
 
         a {
+          display: flex;
+          align-items: center;
           text-decoration: none;
+          gap: var(--s-spacing-xx-small);
+
           color: var(--s-color-content-default);
         }
       }
@@ -31,6 +53,12 @@
   section {
     display: flex;
     flex-direction: column;
-    gap: var(--s-spacing-xx-small);
+    gap: var(--s-spacing-x-small);
+
+    .themes {
+      display: grid;
+      gap: var(--s-spacing-small);
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 }
