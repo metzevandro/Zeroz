@@ -23,7 +23,7 @@ export const Colors: React.FC<ColorsProps> = () => {
     {
       title: "Semantic Token",
       description:
-        "A semantic token is a simplified representation of the primitive token, in a more abstract way. For example, $semantic-spacing-quark is the same as $p-spacing-2px.",
+        "A semantic token is a simplified representation of the primitive token, in a more abstract way. For example, $--s-spacing-quark is the same as $p-spacing-2px.",
     },
     {
       title: "Theme",
@@ -88,12 +88,6 @@ export const Colors: React.FC<ColorsProps> = () => {
               <h4>Themes</h4>
             </a>
           </li>
-          <li>
-            <a href="#tokens" target="_self">
-              <Icon icon="subdirectory_arrow_right" size="sm" />
-              <h4>Tokens</h4>
-            </a>
-          </li>
         </ul>
       </header>
       <section id="introduction">
@@ -148,12 +142,7 @@ export const Colors: React.FC<ColorsProps> = () => {
         </p>
         <div className="themes">
           <Card
-            header={
-              <CardHeader
-                title="ZeroZ"
-                description="The standard theme of ZeroZ, reflecting the brand's visual identity."
-              />
-            }
+            header={<CardHeader title="ZeroZ" description="" />}
             content={
               <CardContent>
                 <Image
@@ -166,12 +155,7 @@ export const Colors: React.FC<ColorsProps> = () => {
           />
 
           <Card
-            header={
-              <CardHeader
-                title="WhiteLabel"
-                description="A customizable theme that allows for adaptation of visual identity."
-              />
-            }
+            header={<CardHeader title="WhiteLabel" description="" />}
             content={
               <CardContent>
                 <Image
@@ -204,11 +188,6 @@ export const Colors: React.FC<ColorsProps> = () => {
     --b-color-lightness: #123123;
   }`}
         </pre>
-      </section>
-
-      <section id="tokens">
-        <h2>Tokens</h2>
-        {/* Conteúdo da seção */}
       </section>
     </div>
   );

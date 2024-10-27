@@ -22,7 +22,7 @@ const preview: Preview = {
     brand,
   },
 
-  tags: ["autodocs", "autodocs"],
+  tags: ["autodocs", "autodocs", "autodocs"],
 };
 
 export default preview;
