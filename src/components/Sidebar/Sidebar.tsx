@@ -95,7 +95,7 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
   };
 
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <div
         className={`Sidebar-item ${children ? "with-sub-item" : ""} ${
           children ? "" : isActive ? "active" : ""
@@ -122,8 +122,15 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
           </div>
         )}
       </div>
-      {isActive && <div>{children}</div>}
-    </>
+      <div
+        style={{
+          visibility: isActive ? "visible" : "hidden",
+          display: isActive ? "block" : "none",
+        }}
+      >
+        {children}
+      </div>
+    </div>
   );
 };
 
@@ -139,18 +146,16 @@ export const SidebarSubItem: React.FC<SidebarSubItemProps> = ({
   active,
 }) => {
   return (
-    <>
-      <div
-        className={`Sidebar-sub-item ${active && "active"}`}
-        tabIndex={0}
-        onClick={onClick}
-      >
-        <div style={active === true ? { opacity: 1 } : undefined}>
-          <Icon size="sm" icon="subdirectory_arrow_right" fill={true} />
-        </div>
-        <div>{title}</div>
+    <div
+      className={`Sidebar-sub-item ${active ? "active animated" : ""}`}
+      tabIndex={0}
+      onClick={onClick}
+    >
+      <div>
+        <Icon size="sm" icon="subdirectory_arrow_right" fill={true} />
       </div>
-    </>
+      <div>{title}</div>
+    </div>
   );
 };
 

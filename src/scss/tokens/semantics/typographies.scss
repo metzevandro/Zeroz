@@ -29,16 +29,16 @@ $semantic-line-height: (
 );
 
 $semantic-typographies: (
-  heading-x-large: baseFont(semibold, 2.3, 32),
-  heading-large: baseFont(semibold, 1.7),
-  heading-medium: baseFont(semibold, 1.4),
-  heading-small: baseFont(semibold, 1.1),
-  heading-x-small: baseFont(semibold, 1),
+  heading-x-large: baseFont(medium, 2.3, 32),
+  heading-large: baseFont(medium, 1.7),
+  heading-medium: baseFont(medium, 1.4),
+  heading-small: baseFont(medium, 1.1),
+  heading-x-small: baseFont(medium, 1),
   label-small: baseFont(medium, 0.9),
   label-medium: baseFont(medium, 1),
   label-large: baseFont(medium, 1.1),
   paragraph-regular: baseFont(regular),
-  paragraph-strong: baseFont(semibold),
+  paragraph-strong: baseFont(medium),
   caption-regular: baseFont(regular, 0.8),
-  caption-strong: baseFont(bold, 0.8),
+  caption-strong: baseFont(medium, 0.8),
 );

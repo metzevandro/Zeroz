@@ -2047,7 +2047,7 @@ var SidebarItem = function (_a) {
             onClick === null || onClick === void 0 ? void 0 : onClick();
         }
     };
-    return (React.createElement(React.Fragment, null,
+    return (React.createElement("div", { style: { display: "flex", flexDirection: "column" } },
         React.createElement("div", { className: "Sidebar-item ".concat(children ? "with-sub-item" : "", " ").concat(children ? "" : isActive ? "active" : ""), onClick: onClick, tabIndex: 0, onKeyDown: handleKeyPress },
             React.createElement("div", { className: "Sidebar-item-header" },
                 React.createElement(Icon, { size: "sm", icon: icon, fill: fillIcon }),
@@ -2056,15 +2056,14 @@ var SidebarItem = function (_a) {
                     ? "Sidebar-item-with-action-open"
                     : "Sidebar-item-with-action-close") },
                 React.createElement(Icon, { size: "sm", icon: "keyboard_arrow_down" })))),
-        isActive && React.createElement("div", null, children)));
+        React.createElement("div", { style: { visibility: isActive ? 'visible' : 'hidden', display: isActive ? 'block' : 'none' } }, children)));
 };
 var SidebarSubItem = function (_a) {
     var title = _a.title, onClick = _a.onClick, active = _a.active;
-    return (React.createElement(React.Fragment, null,
-        React.createElement("div", { className: "Sidebar-sub-item ".concat(active && "active"), tabIndex: 0, onClick: onClick },
-            React.createElement("div", { style: active === true ? { opacity: 1 } : undefined },
-                React.createElement(Icon, { size: "sm", icon: "subdirectory_arrow_right", fill: true })),
-            React.createElement("div", null, title))));
+    return (React.createElement("div", { className: "Sidebar-sub-item ".concat(active ? "active animated" : ""), tabIndex: 0, onClick: onClick },
+        React.createElement("div", null,
+            React.createElement(Icon, { size: "sm", icon: "subdirectory_arrow_right", fill: true })),
+        React.createElement("div", null, title)));
 };
 
 var Slider = function (_a) {
