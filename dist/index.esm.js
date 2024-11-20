@@ -30274,7 +30274,9 @@ function PieChart(_a) {
                             React.createElement("tspan", { style: {
                                     font: "var(--s-typography-heading-x-large)",
                                     fill: "var(--s-color-content-default)",
-                                }, x: viewBox.cx, y: viewBox.cy }, labelFormatter ? labelFormatter(totalQuantity) : totalQuantity),
+                                }, x: viewBox.cx, y: viewBox.cy }, labelFormatter
+                                ? labelFormatter(totalQuantity)
+                                : totalQuantity),
                             React.createElement("tspan", { style: {
                                     font: "var(--s-typography-caption-regular)",
                                     fill: "var(--s-color-content-light)",

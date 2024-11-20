@@ -1,4 +1,5 @@
 import React from "react";
+import "./BarChar.scss";
 interface BarChartProps {
     stacked?: boolean;
     data: any[];

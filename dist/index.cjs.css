@@ -3668,6 +3668,9 @@
     transform: translateX(0);
   }
 }
+.recharts-rectangle.recharts-tooltip-cursor {
+  fill: var(--s-color-fill-default-hover);
+}
 .label {
   font: var(--s-typography-label-medium);
   color: var(--s-color-content-default);

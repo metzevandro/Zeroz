@@ -105,8 +105,9 @@ export default function PieChart({
                     x={viewBox.cx}
                     y={viewBox.cy}
                   >
-                  {labelFormatter ? labelFormatter(totalQuantity) : totalQuantity}
-         
+                    {labelFormatter
+                      ? labelFormatter(totalQuantity)
+                      : totalQuantity}
                   </tspan>
                   <tspan
                     style={{

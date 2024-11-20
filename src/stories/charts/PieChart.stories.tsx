@@ -122,7 +122,7 @@ const meta: Meta = {
       table: {
         category: "Functionality",
         type: { summary: "(data) => string" },
-      }
+      },
     },
     height: {
       name: "Height",
