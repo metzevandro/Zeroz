@@ -2054,7 +2054,10 @@ var SidebarItem = function (_a) {
                     ? "Sidebar-item-with-action-open"
                     : "Sidebar-item-with-action-close") },
                 React.createElement(Icon, { size: "sm", icon: "keyboard_arrow_down" })))),
-        React.createElement("div", { style: { visibility: isActive ? 'visible' : 'hidden', display: isActive ? 'block' : 'none' } }, children)));
+        React.createElement("div", { style: {
+                visibility: isActive ? "visible" : "hidden",
+                display: isActive ? "block" : "none",
+            } }, children)));
 };
 var SidebarSubItem = function (_a) {
     var title = _a.title, onClick = _a.onClick, active = _a.active;
@@ -30232,7 +30235,7 @@ function LineChart(props) {
             left: 20,
             right: 20,
         } },
-        React.createElement(CartesianGrid, { vertical: false }),
+        React.createElement(CartesianGrid, { vertical: false, stroke: "var(--s-color-border-default)" }),
         React.createElement(XAxis, { dataKey: "month", tickLine: false, tickMargin: 10, axisLine: false, tickFormatter: XAxisFormatter, style: { font: "var(--s-typography-caption-regular)" }, stroke: "var(--s-color-content-light)" }),
         caption && React.createElement(Legend, { content: React.createElement(CustomCaption, null) }),
         React.createElement(Tooltip, { cursor: false, formatter: tooltipFormatter, content: React.createElement(CustomTooltip, null) }),
@@ -30243,9 +30246,9 @@ function LineChart(props) {
 }
 
 function PieChart(_a) {
-    var data = _a.data, labelList = _a.labelList, label = _a.label, caption = _a.caption, innerRadius = _a.innerRadius, outerRadius = _a.outerRadius, type = _a.type, tooltipFormatter = _a.tooltipFormatter, height = _a.height, width = _a.width, dataKey = _a.dataKey, nameKey = _a.nameKey;
-    var totalVisitors = React.useMemo(function () {
-        return data.reduce(function (acc, curr) { return acc + curr.visitors; }, 0);
+    var data = _a.data, labelList = _a.labelList, label = _a.label, caption = _a.caption, innerRadius = _a.innerRadius, outerRadius = _a.outerRadius, type = _a.type, tooltipFormatter = _a.tooltipFormatter, labelFormatter = _a.labelFormatter, height = _a.height, width = _a.width, dataKey = _a.dataKey, nameKey = _a.nameKey;
+    var totalQuantity = React.useMemo(function () {
+        return data.reduce(function (acc, curr) { return acc + curr.quantity; }, 0);
     }, [data]);
     var renderLabelList = function () {
         if (labelList) {
@@ -30271,7 +30274,7 @@ function PieChart(_a) {
                             React.createElement("tspan", { style: {
                                     font: "var(--s-typography-heading-x-large)",
                                     fill: "var(--s-color-content-default)",
-                                }, x: viewBox.cx, y: viewBox.cy }, totalVisitors.toLocaleString("pt-BR")),
+                                }, x: viewBox.cx, y: viewBox.cy }, labelFormatter ? labelFormatter(totalQuantity) : totalQuantity),
                             React.createElement("tspan", { style: {
                                     font: "var(--s-typography-caption-regular)",
                                     fill: "var(--s-color-content-light)",

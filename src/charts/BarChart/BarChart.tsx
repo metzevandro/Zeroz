@@ -11,7 +11,6 @@ import {
 import CustomTooltip from "../Tooltip/Tooltip";
 import CustomCaption from "../Caption/Caption";
 
-import "./BarChart.scss";
 interface BarChartProps {
   stacked?: boolean;
   data: any[];

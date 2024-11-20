@@ -13,8 +13,8 @@ import "./PieChart.scss";
 import CustomCaption from "../Caption/Caption";
 
 interface PieData {
-  visitors: number;
-  browser: string;
+  quantity: number;
+  keyName: string;
   fill: string;
 }
 
@@ -27,6 +27,7 @@ interface PieChartProps {
   outerRadius: number;
   type: "donut" | "pie";
   tooltipFormatter?: (value: any) => string;
+  labelFormatter?: (value: any) => string;
   height: number;
   width: number;
   dataKey: string;
@@ -42,13 +43,14 @@ export default function PieChart({
   outerRadius,
   type,
   tooltipFormatter,
+  labelFormatter,
   height,
   width,
   dataKey,
   nameKey,
 }: PieChartProps) {
-  const totalVisitors = React.useMemo(() => {
-    return data.reduce((acc, curr) => acc + curr.visitors, 0);
+  const totalQuantity = React.useMemo(() => {
+    return data.reduce((acc, curr) => acc + curr.quantity, 0);
   }, [data]);
 
   const renderLabelList = () => {
@@ -103,7 +105,8 @@ export default function PieChart({
                     x={viewBox.cx}
                     y={viewBox.cy}
                   >
-                    {totalVisitors.toLocaleString("pt-BR")}
+                  {labelFormatter ? labelFormatter(totalQuantity) : totalQuantity}
+         
                   </tspan>
                   <tspan
                     style={{

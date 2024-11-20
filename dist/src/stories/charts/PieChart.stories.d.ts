@@ -13,6 +13,7 @@ type DefaultProps = {
     outerRadius: number;
     type: "donut" | "pie";
     tooltipFormatter?: (data: any) => string;
+    labelFormatter?: (data: any) => string;
     height: number;
     width: number;
 };

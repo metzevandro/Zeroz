@@ -76,7 +76,7 @@ export default function LineChart(props: LineChartProps) {
         right: 20,
       }}
     >
-      <CartesianGrid vertical={false} />
+      <CartesianGrid vertical={false} stroke="var(--s-color-border-default)" />
       <XAxis
         dataKey="month"
         tickLine={false}

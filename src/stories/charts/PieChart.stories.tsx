@@ -116,6 +116,14 @@ const meta: Meta = {
         type: { summary: "(data) => string" },
       },
     },
+    labelFormatter: {
+      name: "Label Formatter",
+      description: "Function to format the label content.",
+      table: {
+        category: "Functionality",
+        type: { summary: "(data) => string" },
+      }
+    },
     height: {
       name: "Height",
       description: "Height of the chart.",
@@ -150,16 +158,17 @@ type DefaultProps = {
   outerRadius: number;
   type: "donut" | "pie";
   tooltipFormatter?: (data: any) => string;
+  labelFormatter?: (data: any) => string;
   height: number;
   width: number;
 };
 
 const data = [
-  { browser: "Chrome", visitors: 275, fill: "blue" },
-  { browser: "Safari", visitors: 200, fill: "red" },
-  { browser: "Firefox", visitors: 287, fill: "green" },
-  { browser: "Edge", visitors: 173, fill: "orange" },
-  { browser: "Other", visitors: 190, fill: "yellow" },
+  { keyName: "Chrome", quantity: 275, fill: "blue" },
+  { keyName: "Safari", quantity: 200, fill: "red" },
+  { keyName: "Firefox", quantity: 287, fill: "green" },
+  { keyName: "Edge", quantity: 173, fill: "orange" },
+  { keyName: "Other", quantity: 190, fill: "yellow" },
 ];
 
 const Template: StoryFn<DefaultProps> = (args) => <PieChart {...args} />;
@@ -170,14 +179,15 @@ Pie.args = {
   innerRadius: 60,
   outerRadius: 100,
   data: data,
-  dataKey: "visitors",
-  nameKey: "browser",
+  dataKey: "quantity",
+  nameKey: "keyName",
   label: "Visitors",
   labelList: false,
   caption: false,
   height: 400,
   width: 400,
   tooltipFormatter: (data) => `${data}`,
+  labelFormatter: (data) => `${data}`,
 };
 
 export const Donut = Template.bind({});
@@ -186,13 +196,14 @@ Donut.args = {
   innerRadius: 60,
   outerRadius: 100,
   data: data,
-  dataKey: "visitors",
-  nameKey: "browser",
+  dataKey: "quantity",
+  nameKey: "keyName",
   label: "Visitors",
   labelList: false,
   height: 400,
   width: 400,
   tooltipFormatter: (data) => `${data}`,
+  labelFormatter: (data) => `${data}`,
 };
 
 export const withLegend = Template.bind({});
@@ -202,11 +213,12 @@ withLegend.args = {
   innerRadius: 60,
   outerRadius: 100,
   data: data,
-  dataKey: "visitors",
-  nameKey: "browser",
+  dataKey: "quantity",
+  nameKey: "keyName",
   label: "Visitors",
   labelList: false,
   height: 400,
   width: 400,
   tooltipFormatter: (data) => `${data}`,
+  labelFormatter: (data) => `${data}`,
 };

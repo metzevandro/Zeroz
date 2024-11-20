@@ -1,8 +1,8 @@
 import React from "react";
 import "./PieChart.scss";
 interface PieData {
-    visitors: number;
-    browser: string;
+    quantity: number;
+    keyName: string;
     fill: string;
 }
 interface PieChartProps {
@@ -14,10 +14,11 @@ interface PieChartProps {
     outerRadius: number;
     type: "donut" | "pie";
     tooltipFormatter?: (value: any) => string;
+    labelFormatter?: (value: any) => string;
     height: number;
     width: number;
     dataKey: string;
     nameKey: string;
 }
-export default function PieChart({ data, labelList, label, caption, innerRadius, outerRadius, type, tooltipFormatter, height, width, dataKey, nameKey, }: PieChartProps): React.JSX.Element;
+export default function PieChart({ data, labelList, label, caption, innerRadius, outerRadius, type, tooltipFormatter, labelFormatter, height, width, dataKey, nameKey, }: PieChartProps): React.JSX.Element;
 export {};
