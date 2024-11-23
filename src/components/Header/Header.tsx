@@ -73,6 +73,17 @@ export const HeaderProfile: React.FC<HeaderProfileProps> = ({
     };
   }, []);
 
+  const [height, setHeight] = useState(0);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isDropDownOpen && contentRef.current) {
+      setHeight(contentRef.current.scrollHeight);
+    } else {
+      setHeight(0);
+    }
+  }, [isDropDownOpen]);
+
   return (
     <>
       <div ref={dropdownRef} className="profile-root">
@@ -99,7 +110,11 @@ export const HeaderProfile: React.FC<HeaderProfileProps> = ({
             <Icon size="sm" icon="keyboard_arrow_down" />
           </div>
         </div>
-        <div className={`dropdown ${isDropDownOpen ? "open" : "close"}`}>
+        <div
+          className={`dropdown ${isDropDownOpen ? "open" : "close"}`}
+          ref={contentRef}
+          style={{ maxHeight: isDropDownOpen ? `${height}px` : "0px" }}
+        >
           {children}
         </div>
       </div>

@@ -1378,6 +1378,16 @@ var HeaderProfile = function (_a) {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+    var _c = React.useState(0), height = _c[0], setHeight = _c[1];
+    var contentRef = React.useRef(null);
+    React.useEffect(function () {
+        if (isDropDownOpen && contentRef.current) {
+            setHeight(contentRef.current.scrollHeight);
+        }
+        else {
+            setHeight(0);
+        }
+    }, [isDropDownOpen]);
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { ref: dropdownRef, className: "profile-root" },
             React.createElement("div", { className: "profile", tabIndex: 0, onClick: toggleDropDown },
@@ -1388,7 +1398,7 @@ var HeaderProfile = function (_a) {
                     React.createElement("h1", { className: "name" }, name))),
                 React.createElement("div", { className: "icon ".concat(isDropDownOpen ? "open" : "close") },
                     React.createElement(Icon, { size: "sm", icon: "keyboard_arrow_down" }))),
-            React.createElement("div", { className: "dropdown ".concat(isDropDownOpen ? "open" : "close") }, children))));
+            React.createElement("div", { className: "dropdown ".concat(isDropDownOpen ? "open" : "close"), ref: contentRef, style: { maxHeight: isDropDownOpen ? "".concat(height, "px") : "0px" } }, children))));
 };
 
 var Image = function (_a) {
@@ -2047,6 +2057,16 @@ var SidebarItem = function (_a) {
             onClick === null || onClick === void 0 ? void 0 : onClick();
         }
     };
+    var _b = React.useState(0), height = _b[0], setHeight = _b[1];
+    var contentRef = React.useRef(null);
+    React.useEffect(function () {
+        if (isActive && contentRef.current) {
+            setHeight(contentRef.current.scrollHeight);
+        }
+        else {
+            setHeight(0);
+        }
+    }, [isActive]);
     return (React.createElement("div", { style: { display: "flex", flexDirection: "column" } },
         React.createElement("div", { className: "Sidebar-item ".concat(children ? "with-sub-item" : "", " ").concat(children ? "" : isActive ? "active" : ""), onClick: onClick, tabIndex: 0, onKeyDown: handleKeyPress },
             React.createElement("div", { className: "Sidebar-item-header" },
@@ -2056,10 +2076,7 @@ var SidebarItem = function (_a) {
                     ? "Sidebar-item-with-action-open"
                     : "Sidebar-item-with-action-close") },
                 React.createElement(Icon, { size: "sm", icon: "keyboard_arrow_down" })))),
-        React.createElement("div", { style: {
-                visibility: isActive ? "visible" : "hidden",
-                display: isActive ? "block" : "none",
-            } }, children)));
+        React.createElement("div", { className: "Sidebar-item-children ".concat(isActive ? "active" : ""), style: { maxHeight: isActive ? "".concat(height, "px") : "0px" }, ref: contentRef }, children)));
 };
 var SidebarSubItem = function (_a) {
     var title = _a.title, onClick = _a.onClick, active = _a.active;
@@ -30252,6 +30269,18 @@ function PieChart(_a) {
     var totalQuantity = React.useMemo(function () {
         return data.reduce(function (acc, curr) { return acc + curr.quantity; }, 0);
     }, [data]);
+    var defaultColors = [
+        "var(--s-color-chart-1)",
+        "var(--s-color-chart-2)",
+        "var(--s-color-chart-3)",
+        "var(--s-color-chart-4)",
+        "var(--s-color-chart-5)",
+        "var(--s-color-chart-6)",
+        "var(--s-color-chart-7)",
+        "var(--s-color-chart-8)",
+        "var(--s-color-chart-9)",
+        "var(--s-color-chart-10)",
+    ];
     var renderLabelList = function () {
         if (labelList) {
             return (React.createElement(LabelList, { style: { font: "var(--s-typography-caption-regular)" }, offset: 12, dataKey: "browser", stroke: "none", fill: "var(--s-color-content-on-color)" }));
@@ -30296,7 +30325,7 @@ function PieChart(_a) {
         renderLegend(),
         React.createElement(Pie, { data: data, dataKey: dataKey, nameKey: nameKey, innerRadius: type === "donut" ? innerRadius : 0, outerRadius: outerRadius, strokeWidth: 1 },
             renderLabelList(),
-            data.map(function (entry, index) { return (React.createElement(Cell, { key: "cell-".concat(index), fill: entry.fill, stroke: entry.fill })); }),
+            data.map(function (entry, index) { return (React.createElement(Cell, { key: "cell-".concat(index), fill: entry.fill || defaultColors[index % defaultColors.length], stroke: entry.fill || defaultColors[index % defaultColors.length] })); }),
             renderLabel())));
 }
 

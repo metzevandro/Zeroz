@@ -67,6 +67,18 @@ $semantic-color-light: (
     success: tokens.getPrimitiveVar($p-color, green, 600),
     warning: tokens.getPrimitiveVar($p-color, orange, 600),
   ),
+  chart: (
+    1: tokens.getPrimitiveVar($p-color, blue, 500),
+    2: tokens.getPrimitiveVar($p-color, purple, 500),
+    3: tokens.getPrimitiveVar($p-color, teal, 500),
+    4: tokens.getPrimitiveVar($p-color, pink, 500),
+    5: tokens.getPrimitiveVar($p-color, orange, 500),
+    6: tokens.getPrimitiveVar($p-color, green, 500),
+    7: tokens.getPrimitiveVar($p-color, ocean, 500),
+    8: tokens.getPrimitiveVar($p-color, neutral, 500),
+    9: tokens.getPrimitiveVar($p-color, red, 500),
+    10: tokens.getPrimitiveVar($p-color, yellow, 400),
+  ),
 );
 
 $semantic-color-dark: (
@@ -110,5 +122,17 @@ $semantic-color-dark: (
     highlight-light: var(--b-color-light),
     success: tokens.getPrimitiveVar($p-color, green, 100),
     warning: tokens.getPrimitiveVar($p-color, orange, 100),
+  ),
+  chart: (
+    1: tokens.getPrimitiveVar($p-color, blue, 500),
+    2: tokens.getPrimitiveVar($p-color, purple, 500),
+    3: tokens.getPrimitiveVar($p-color, teal, 500),
+    4: tokens.getPrimitiveVar($p-color, pink, 500),
+    5: tokens.getPrimitiveVar($p-color, orange, 500),
+    6: tokens.getPrimitiveVar($p-color, green, 500),
+    7: tokens.getPrimitiveVar($p-color, ocean, 500),
+    8: tokens.getPrimitiveVar($p-color, neutral, 500),
+    9: tokens.getPrimitiveVar($p-color, red, 500),
+    10: tokens.getPrimitiveVar($p-color, yellow, 400),
   ),
 );

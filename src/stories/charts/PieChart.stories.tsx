@@ -164,11 +164,11 @@ type DefaultProps = {
 };
 
 const data = [
-  { keyName: "Chrome", quantity: 275, fill: "blue" },
-  { keyName: "Safari", quantity: 200, fill: "red" },
-  { keyName: "Firefox", quantity: 287, fill: "green" },
-  { keyName: "Edge", quantity: 173, fill: "orange" },
-  { keyName: "Other", quantity: 190, fill: "yellow" },
+  { keyName: "Chrome", quantity: 275 },
+  { keyName: "Safari", quantity: 200 },
+  { keyName: "Firefox", quantity: 287 },
+  { keyName: "Edge", quantity: 173 },
+  { keyName: "Other", quantity: 190 },
 ];
 
 const Template: StoryFn<DefaultProps> = (args) => <PieChart {...args} />;

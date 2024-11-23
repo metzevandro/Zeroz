@@ -69,7 +69,19 @@
 
   .dropdown {
     &.close {
-      display: none;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition:
+        opacity 0.3s ease-in-out,
+        max-height 0.3s ease-in-out;
+    }
+
+    &.open {
+      opacity: 1;
+      transition:
+        opacity 0.3s ease-in-out,
+        max-height 0.3s ease-in-out;
     }
   }
 }

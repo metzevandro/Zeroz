@@ -53,6 +53,19 @@ export default function PieChart({
     return data.reduce((acc, curr) => acc + curr.quantity, 0);
   }, [data]);
 
+  const defaultColors = [
+    "var(--s-color-chart-1)",
+    "var(--s-color-chart-2)",
+    "var(--s-color-chart-3)",
+    "var(--s-color-chart-4)",
+    "var(--s-color-chart-5)",
+    "var(--s-color-chart-6)",
+    "var(--s-color-chart-7)",
+    "var(--s-color-chart-8)",
+    "var(--s-color-chart-9)",
+    "var(--s-color-chart-10)",
+  ];
+
   const renderLabelList = () => {
     if (labelList) {
       return (
@@ -150,7 +163,11 @@ export default function PieChart({
       >
         {renderLabelList()}
         {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={entry.fill} stroke={entry.fill} />
+          <Cell
+            key={`cell-${index}`}
+            fill={entry.fill || defaultColors[index % defaultColors.length]}
+            stroke={entry.fill || defaultColors[index % defaultColors.length]}
+          />
         ))}
         {renderLabel()}
       </Pie>

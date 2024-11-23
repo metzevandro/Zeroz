@@ -2,7 +2,7 @@ import "./Sidebar.scss";
 import Brand from "../Brand/Brand";
 import Icon from "../Icon/Icon";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 type SidebarProps = {
   brand: string;
@@ -94,6 +94,17 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
     }
   };
 
+  const [height, setHeight] = useState(0);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isActive && contentRef.current) {
+      setHeight(contentRef.current.scrollHeight);
+    } else {
+      setHeight(0);
+    }
+  }, [isActive]);
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div
@@ -123,10 +134,9 @@ export const SidebarItem: React.FC<SidebarItemsProps> = ({
         )}
       </div>
       <div
-        style={{
-          visibility: isActive ? "visible" : "hidden",
-          display: isActive ? "block" : "none",
-        }}
+        className={`Sidebar-item-children ${isActive ? "active" : ""}`}
+        style={{ maxHeight: isActive ? `${height}px` : "0px" }}
+        ref={contentRef}
       >
         {children}
       </div>
