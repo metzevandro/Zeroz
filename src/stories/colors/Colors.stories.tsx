@@ -18,12 +18,12 @@ export const Colors: React.FC<ColorsProps> = () => {
     {
       title: "Primitive Token",
       description:
-        "A primitive token is the pure definition of a color, spacing, or other property. For example, $p-spacing-2px, $p-typographies-font-weight-thin, $p-color-purple-400.",
+        "A primitive token is the pure definition of a color. For example, $p-color-purple-400, $p-color-red-100, $p-color-blue-600.",
     },
     {
       title: "Semantic Token",
       description:
-        "A semantic token is a simplified representation of the primitive token, in a more abstract way. For example, $--s-spacing-quark is the same as $p-spacing-2px.",
+        "A semantic token is a simplified representation of the primitive token, in a more abstract way. For example, $--s-color-fill-success is the same as $p-color-green-600.",
     },
     {
       title: "Theme",
@@ -47,6 +47,19 @@ export const Colors: React.FC<ColorsProps> = () => {
     { hex: "var(--s-color-fill-warning-hover)" },
     { hex: "var(--s-color-fill-warning-light)" },
   ];
+
+  const colorsCharts = [
+    { hex: "var(--s-color-chart-1)" },
+    { hex: "var(--s-color-chart-2)" },
+    { hex: "var(--s-color-chart-3)" },
+    { hex: "var(--s-color-chart-4)" },
+    { hex: "var(--s-color-chart-5)" },
+    { hex: "var(--s-color-chart-6)" },
+    { hex: "var(--s-color-chart-7)" },
+    { hex: "var(--s-color-chart-8)" },
+    { hex: "var(--s-color-chart-9)" },
+    { hex: "var(--s-color-chart-10)" },
+  ]
 
   const ColorSquare: React.FC<{ color: string }> = ({ color }) => {
     return <div className="color-square" style={{ backgroundColor: color }} />;
@@ -77,6 +90,12 @@ export const Colors: React.FC<ColorsProps> = () => {
             </a>
           </li>
           <li>
+            <a href="#chart-colors" target="_self">
+              <Icon icon="subdirectory_arrow_right" size="sm" />
+              <h4>Chart Colors</h4>
+            </a>
+          </li>
+          <li>
             <a href="#implementing-color" target="_self">
               <Icon icon="subdirectory_arrow_right" size="sm" />
               <h4>Implementing color</h4>
@@ -99,7 +118,7 @@ export const Colors: React.FC<ColorsProps> = () => {
           with the ZeroZ component library in the context of dark and light
           themes.
         </p>
-        <Image src="/colors.jpeg" width="400px" height="auto" />
+        <Image src="/colors.jpeg" width="auto" height="auto" />
       </section>
       <section id="color-anatomy">
         <h2>Color anatomy</h2>
@@ -122,6 +141,32 @@ export const Colors: React.FC<ColorsProps> = () => {
           ))}
         </div>
       </section>
+      <section id="chart-colors">
+        <h2>Chart Colors</h2>
+        <p>
+          The ZeroZ design system includes a dedicated set of colors for
+          creating clear and visually appealing charts. These colors are
+          designed to maintain consistency and accessibility while offering
+          flexibility for various types of data visualizations.
+        </p>
+        <p>
+          The chart color palette consists of 10 predefined colors, which can be
+          applied by referencing their corresponding CSS variables. These
+          variables are named sequentially, ranging from{" "}
+          <code>--s-color-chart-1</code> to <code>--s-color-chart-10</code>.
+          This allows for easy implementation and ensures harmony across
+          different chart components.
+        </p>
+        <p>Below is an example about these colors:</p>
+        <div className="colors-list">
+        {colorsCharts.map((colorItem, index) => (
+            <div key={index} className="color-item">
+              <ColorSquare color={colorItem.hex} />
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section id="implementing-color">
         <h2>Implementing color</h2>
         <p>

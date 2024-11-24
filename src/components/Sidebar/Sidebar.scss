@@ -161,6 +161,19 @@
   }
 }
 
+.Sidebar-item-children {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    opacity 0.3s ease-in-out,
+    max-height 0.3s ease-in-out;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
 .Sidebar .Sidebar-item:hover .Sidebar-item-with-action-close {
   opacity: 1;
 }
@@ -226,17 +239,4 @@
     transition: 0.3s;
     opacity: 1;
   }
-}
-
-.Sidebar-item-children {
-  opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  transition:
-    opacity 0.3s ease-in-out,
-    max-height 0.3s ease-in-out;
-}
-
-.Sidebar-item-children.active {
-  opacity: 1;
 }

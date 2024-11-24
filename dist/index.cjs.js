@@ -284,6 +284,16 @@ var CardDropdown = function (_a) {
     var toggleDropDown = function () {
         setIsOpen(!isOpen);
     };
+    var _c = React.useState(0), contentHeight = _c[0], setContentHeight = _c[1];
+    var contentRef = React.useRef(null);
+    React.useEffect(function () {
+        if (isOpen && contentRef.current) {
+            setContentHeight(contentRef.current.scrollHeight);
+        }
+        else {
+            setContentHeight(0);
+        }
+    }, [isOpen]);
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { className: "card-dropdown" },
             React.createElement("div", { className: "card-dropdown-header", onClick: toggleDropDown },
@@ -292,8 +302,9 @@ var CardDropdown = function (_a) {
                     React.createElement("div", { className: "card-dropdown-button ".concat(isOpen ? "open" : "close") },
                         React.createElement(Icon, { size: "md", icon: "keyboard_arrow_down" }))),
                 React.createElement("div", null, description && React.createElement("p", null, description))),
-            content && (React.createElement("div", { className: "card-dropdown-content ".concat(isOpen ? "open" : "close") }, content)),
-            footer && (React.createElement("div", { className: "card-dropdown-footer ".concat(isOpen ? "open" : "close") }, footer)))));
+            React.createElement("div", { className: "card-dropdown-children ".concat(isOpen ? "open" : "close"), style: { height: isOpen ? "".concat(contentHeight, "px") : "0" }, ref: contentRef },
+                content && (React.createElement("div", { className: "card-dropdown-content ".concat(isOpen ? "open" : "close") }, content)),
+                footer && (React.createElement("div", { className: "card-dropdown-footer ".concat(isOpen ? "open" : "close") }, footer))))));
 };
 
 var Input = function (_a) {
@@ -1398,7 +1409,7 @@ var HeaderProfile = function (_a) {
                     React.createElement("h1", { className: "name" }, name))),
                 React.createElement("div", { className: "icon ".concat(isDropDownOpen ? "open" : "close") },
                     React.createElement(Icon, { size: "sm", icon: "keyboard_arrow_down" }))),
-            React.createElement("div", { className: "dropdown ".concat(isDropDownOpen ? "open" : "close"), ref: contentRef, style: { maxHeight: isDropDownOpen ? "".concat(height, "px") : "0px" } }, children))));
+            React.createElement("div", { className: "dropdown ".concat(isDropDownOpen ? "open" : "close"), ref: contentRef, style: { maxHeight: isDropDownOpen ? "".concat(height, "px") : "0" } }, children))));
 };
 
 var Image = function (_a) {

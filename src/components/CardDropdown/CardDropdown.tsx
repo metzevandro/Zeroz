@@ -1,5 +1,5 @@
 import "./CardDropdown.scss";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Icon from "../Icon/Icon";
 import React from "react";
 
@@ -21,6 +21,17 @@ const CardDropdown: React.FC<CardDropdownProps> = ({
     setIsOpen(!isOpen);
   };
 
+  const [contentHeight, setContentHeight] = useState(0);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen && contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight);
+    } else {
+      setContentHeight(0);
+    }
+  }, [isOpen]);
+
   return (
     <>
       <div className="card-dropdown">
@@ -35,16 +46,26 @@ const CardDropdown: React.FC<CardDropdownProps> = ({
           </div>
           <div>{description && <p>{description}</p>}</div>
         </div>
-        {content && (
-          <div className={`card-dropdown-content ${isOpen ? "open" : "close"}`}>
-            {content}
-          </div>
-        )}
-        {footer && (
-          <div className={`card-dropdown-footer ${isOpen ? "open" : "close"}`}>
-            {footer}
-          </div>
-        )}
+        <div
+          className={`card-dropdown-children ${isOpen ? "open" : "close"}`}
+          style={{ height: isOpen ? `${contentHeight}px` : "0" }}
+          ref={contentRef}
+        >
+          {content && (
+            <div
+              className={`card-dropdown-content ${isOpen ? "open" : "close"}`}
+            >
+              {content}
+            </div>
+          )}
+          {footer && (
+            <div
+              className={`card-dropdown-footer ${isOpen ? "open" : "close"}`}
+            >
+              {footer}
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

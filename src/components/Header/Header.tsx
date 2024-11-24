@@ -113,7 +113,7 @@ export const HeaderProfile: React.FC<HeaderProfileProps> = ({
         <div
           className={`dropdown ${isDropDownOpen ? "open" : "close"}`}
           ref={contentRef}
-          style={{ maxHeight: isDropDownOpen ? `${height}px` : "0px" }}
+          style={{ maxHeight: isDropDownOpen ? `${height}px` : "0" }}
         >
           {children}
         </div>

@@ -682,43 +682,33 @@
   transform: rotate(0deg);
   transition: transform 0.3s linear;
 }
-.card-dropdown .card-dropdown-content {
-  transition: padding 0.3s ease-out, opacity 0.3s ease-out;
+.card-dropdown .card-dropdown-children {
+  height: 0;
+}
+.card-dropdown .card-dropdown-children.close {
+  opacity: 0;
   overflow: hidden;
+  transition: opacity 0.5s ease-in-out, height 0.3s ease-in-out;
+}
+.card-dropdown .card-dropdown-children.open {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out, height 0.3s ease-in-out;
+}
+.card-dropdown .card-dropdown-children .card-dropdown-content {
   font: var(--s-typography-paragraph-regular);
   color: var(--s-color-content-light);
   margin-left: var(--s-spacing-medium);
   margin-right: var(--s-spacing-medium);
-}
-.card-dropdown .card-dropdown-content.close {
-  height: 0;
-  padding: 0;
-  opacity: 0;
-}
-.card-dropdown .card-dropdown-content.open {
-  opacity: 1;
   padding-bottom: var(--s-spacing-medium);
 }
-.card-dropdown .card-dropdown-footer {
+.card-dropdown .card-dropdown-children .card-dropdown-footer {
   background-color: var(--s-color-fill-default-light);
   border-top: var(--s-border-width-hairline) solid var(--s-color-border-default);
   padding: var(--s-spacing-medium);
-  transition: visible 0.3s ease-out, opacity 0.3s ease-out;
-  overflow: hidden;
   font: var(--s-typography-paragraph-regular);
   color: var(--s-color-content-light);
-  border-bottom-left-radius: calc(var(--s-border-radius-small) - 1px);
-  border-bottom-right-radius: calc(var(--s-border-radius-small) - 1px);
-}
-.card-dropdown .card-dropdown-footer.close {
-  height: 0;
-  opacity: 0;
-  visibility: hidden;
-  padding: 0;
-}
-.card-dropdown .card-dropdown-footer.open {
-  opacity: 1;
-  visibility: visible;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
   padding-bottom: var(--s-spacing-medium);
 }
 .data-picker-root {
@@ -3120,6 +3110,16 @@
   transition: 0.3s ease-out;
 }
 
+.Sidebar-item-children {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+}
+.Sidebar-item-children.active {
+  opacity: 1;
+}
+
 .Sidebar .Sidebar-item:hover .Sidebar-item-with-action-close {
   opacity: 1;
 }
@@ -3178,16 +3178,6 @@
     transition: 0.3s;
     opacity: 1;
   }
-}
-.Sidebar-item-children {
-  opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
-}
-
-.Sidebar-item-children.active {
-  opacity: 1;
 }
 .slider {
   display: flex;

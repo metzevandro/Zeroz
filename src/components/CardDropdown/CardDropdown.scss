@@ -50,52 +50,42 @@
       }
     }
   }
-  .card-dropdown-content {
-    transition:
-      padding 0.3s ease-out,
-      opacity 0.3s ease-out;
-    overflow: hidden;
-    font: var(--s-typography-paragraph-regular);
-    color: var(--s-color-content-light);
-    margin-left: var(--s-spacing-medium);
-    margin-right: var(--s-spacing-medium);
 
+  .card-dropdown-children {
+    height: 0;
     &.close {
-      height: 0;
-      padding: 0;
       opacity: 0;
+      overflow: hidden;
+      transition:
+        opacity 0.5s ease-in-out,
+        height 0.3s ease-in-out;
     }
 
     &.open {
       opacity: 1;
+      transition:
+        opacity 0.5s ease-in-out,
+        height 0.3s ease-in-out;
+    }
+
+    .card-dropdown-content {
+      font: var(--s-typography-paragraph-regular);
+      color: var(--s-color-content-light);
+      margin-left: var(--s-spacing-medium);
+      margin-right: var(--s-spacing-medium);
+
       padding-bottom: var(--s-spacing-medium);
     }
-  }
 
-  .card-dropdown-footer {
-    background-color: var(--s-color-fill-default-light);
-    border-top: var(--s-border-width-hairline) solid
-      var(--s-color-border-default);
-    padding: var(--s-spacing-medium);
-    transition:
-      visible 0.3s ease-out,
-      opacity 0.3s ease-out;
-    overflow: hidden;
-    font: var(--s-typography-paragraph-regular);
-    color: var(--s-color-content-light);
-    border-bottom-left-radius: calc(var(--s-border-radius-small) - 1px);
-    border-bottom-right-radius: calc(var(--s-border-radius-small) - 1px);
-
-    &.close {
-      height: 0;
-      opacity: 0;
-      visibility: hidden;
-      padding: 0;
-    }
-
-    &.open {
-      opacity: 1;
-      visibility: visible;
+    .card-dropdown-footer {
+      background-color: var(--s-color-fill-default-light);
+      border-top: var(--s-border-width-hairline) solid
+        var(--s-color-border-default);
+      padding: var(--s-spacing-medium);
+      font: var(--s-typography-paragraph-regular);
+      color: var(--s-color-content-light);
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
       padding-bottom: var(--s-spacing-medium);
     }
   }
