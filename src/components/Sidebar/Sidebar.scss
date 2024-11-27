@@ -33,6 +33,7 @@
   }
 
   .Sidebar-item {
+    margin: 1px 1px;
     user-select: none;
     cursor: pointer;
     display: flex;
@@ -42,7 +43,6 @@
     border-radius: var(--s-border-radius-medium);
     background-color: var(--s-color-fill-default);
     color: var(--s-color-content-light);
-    margin: 1px 0;
     border: var(--s-border-width-hairline) solid transparent;
 
     &.active {
@@ -91,6 +91,7 @@
     }
 
     .Sidebar-sub-item {
+      margin: 1px 1px;
       user-select: none;
       cursor: pointer;
       display: flex;
@@ -123,7 +124,6 @@
         outline-offset: -1px;
 
         box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
-        margin: 1px 0;
 
         div:first-child {
           opacity: 1;
