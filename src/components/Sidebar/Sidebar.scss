@@ -38,7 +38,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--s-spacing-xx-small);
+    padding: var(--s-spacing-nano) var(--s-spacing-xx-small);
     border-radius: var(--s-border-radius-medium);
     background-color: var(--s-color-fill-default);
     color: var(--s-color-content-light);
@@ -47,7 +47,7 @@
 
     &.active {
       color: var(--s-color-content-default);
-      background-color: var(--s-color-fill-default-hover);
+      background-color: var(--s-color-fill-default-light);
       outline: var(--s-border-width-hairline) solid
         var(--s-color-border-default);
       outline-offset: -1px;
@@ -93,11 +93,10 @@
     .Sidebar-sub-item {
       user-select: none;
       cursor: pointer;
-      padding: var(--s-spacing-xx-small);
       display: flex;
       gap: var(--s-spacing-xx-small);
       align-items: center;
-      padding: var(--s-spacing-xx-small);
+      padding: var(--s-spacing-nano) var(--s-spacing-xx-small);
       border-radius: var(--s-border-radius-medium);
       font: var(--s-typography-paragraph-regular);
       color: var(--s-color-content-light);
@@ -110,6 +109,12 @@
         opacity: 0;
       }
 
+      &:hover {
+        div:first-child {
+          opacity: 1;
+        }
+      }
+
       &.active {
         color: var(--s-color-content-default);
         background-color: var(--s-color-fill-default-light);
@@ -119,14 +124,15 @@
 
         box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
         margin: 1px 0;
+
+        div:first-child {
+          opacity: 1;
+        }
       }
     }
 
-    .Sidebar-sub-item:hover {
+    .Sidebar-sub-item:hover:not(.active) {
       background-color: var(--s-color-fill-default-hover);
-      div:first-child {
-        opacity: 1;
-      }
     }
 
     .Sidebar-sub-item:focus-visible {
@@ -139,10 +145,6 @@
 
     .Sidebar-sub-item:active {
       opacity: 1;
-    }
-
-    .Sidebar-sub-item:hover {
-      background-color: var(--s-color-fill-default-hover);
     }
 
     .Sidebar-item-with-action-open {

@@ -59,7 +59,7 @@ export const Colors: React.FC<ColorsProps> = () => {
     { hex: "var(--s-color-chart-8)" },
     { hex: "var(--s-color-chart-9)" },
     { hex: "var(--s-color-chart-10)" },
-  ]
+  ];
 
   const ColorSquare: React.FC<{ color: string }> = ({ color }) => {
     return <div className="color-square" style={{ backgroundColor: color }} />;
@@ -159,7 +159,7 @@ export const Colors: React.FC<ColorsProps> = () => {
         </p>
         <p>Below is an example about these colors:</p>
         <div className="colors-list">
-        {colorsCharts.map((colorItem, index) => (
+          {colorsCharts.map((colorItem, index) => (
             <div key={index} className="color-item">
               <ColorSquare color={colorItem.hex} />
             </div>
