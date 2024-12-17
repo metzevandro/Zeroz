@@ -3,6 +3,10 @@
   flex-direction: column;
   gap: var(--s-spacing-nano);
 
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px var(--s-color-fill-default) inset;
+}
+
   .input-header {
     font: var(--s-typography-label-medium);
     color: var(--s-color-content-default);
