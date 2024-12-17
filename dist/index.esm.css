@@ -987,6 +987,9 @@
 .input-root .input-content input:disabled {
   color: var(--s-color-content-disable);
 }
+.input-root .input-content input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px var(--s-color-fill-default) inset;
+}
 .input-root .input-content .material-symbols-outlined.md {
   font-size: 20px;
 }
