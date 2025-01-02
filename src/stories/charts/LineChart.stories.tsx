@@ -149,6 +149,15 @@ const meta: Meta = {
       },
       control: { type: "number" },
     },
+    skeleton: {
+      name: "Skeleton",
+      description: "A loading skeleton for the chart.",
+      table: {
+        category: "Appearance",
+        type: { summary: "boolean" },
+      },
+      control: { type: "boolean" },
+    },
   },
 };
 
@@ -180,6 +189,7 @@ type DefaultProps = {
   XAxisFormatter?: (data: any) => string;
   height: number;
   width: number;
+  skeleton: boolean;
 };
 
 const data = [
@@ -199,6 +209,7 @@ const data = [
 
 const Template: StoryFn<DefaultProps> = (args) => (
   <LineChart
+    skeleton={args.skeleton}
     data={args.data}
     caption={args.caption}
     lineStyles={args.lineStyles}
@@ -227,6 +238,7 @@ Default.args = {
   width: 600,
   tooltipFormatter: (data) => `${data} units`,
   XAxisFormatter: (data) => `${data.slice(0, 3)}`,
+  skeleton: false,
 };
 
 export const withDots = Template.bind({});
@@ -244,6 +256,7 @@ withDots.args = {
   width: 600,
   tooltipFormatter: (data) => `${data} units`,
   XAxisFormatter: (data) => `${data.slice(0, 3)}`,
+  skeleton: false,
 };
 
 export const withLabel = Template.bind({});
@@ -261,4 +274,23 @@ withLabel.args = {
   width: 600,
   tooltipFormatter: (data) => `${data} units`,
   XAxisFormatter: (data) => `${data.slice(0, 3)}`,
+  skeleton: false,
+};
+
+export const Skeleton = Template.bind({});
+Skeleton.args = {
+  dots: false,
+  caption: true,
+  label: false,
+  data: data,
+  type: "natural",
+  lineStyles: {
+    desktop: { color: "var(--s-color-fill-warning)" },
+    mobile: { color: "var(--s-color-fill-success)" },
+  },
+  height: 400,
+  width: 600,
+  tooltipFormatter: (data) => `${data} units`,
+  XAxisFormatter: (data) => `${data.slice(0, 3)}`,
+  skeleton: true,
 };

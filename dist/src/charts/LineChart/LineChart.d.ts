@@ -14,6 +14,7 @@ interface LineChartProps {
     height: number;
     width: number;
     type?: "basis" | "basisClosed" | "basisOpen" | "bumpX" | "bumpY" | "bump" | "linear" | "linearClosed" | "natural" | "monotoneX" | "monotoneY" | "monotone" | "step" | "stepBefore" | "stepAfter";
+    skeleton?: boolean;
 }
 export default function LineChart(props: LineChartProps): React.JSX.Element | null;
 export {};

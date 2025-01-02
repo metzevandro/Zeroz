@@ -7,7 +7,6 @@ interface PieData {
 }
 interface PieChartProps {
     data: PieData[];
-    labelList: boolean;
     label: string;
     caption: boolean;
     innerRadius: number;
@@ -19,6 +18,7 @@ interface PieChartProps {
     width: number;
     dataKey: string;
     nameKey: string;
+    skeleton?: boolean;
 }
-export default function PieChart({ data, labelList, label, caption, innerRadius, outerRadius, type, tooltipFormatter, labelFormatter, height, width, dataKey, nameKey, }: PieChartProps): React.JSX.Element;
+export default function PieChart({ data, label, caption, innerRadius, outerRadius, type, tooltipFormatter, labelFormatter, height, width, dataKey, nameKey, skeleton, }: PieChartProps): React.JSX.Element;
 export {};

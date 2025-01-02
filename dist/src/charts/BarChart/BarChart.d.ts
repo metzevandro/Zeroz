@@ -14,6 +14,7 @@ interface BarChartProps {
     XAxisFormatter?: (value: any) => string;
     height: number;
     width: number;
+    skeleton?: boolean;
 }
 export default function BarChart(props: BarChartProps): React.JSX.Element;
 export {};

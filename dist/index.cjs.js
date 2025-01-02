@@ -30217,19 +30217,38 @@ function CustomCaption(_a) {
 }
 
 function BarChart(props) {
-    var data = props.data, stacked = props.stacked, lineStyles = props.lineStyles, caption = props.caption, label = props.label, tooltipFormatter = props.tooltipFormatter, XAxisFormatter = props.XAxisFormatter, width = props.width, height = props.height;
-    var keys = data.length > 0
-        ? Object.keys(data[0]).filter(function (key) { return key !== "month"; })
+    var data = props.data, stacked = props.stacked, lineStyles = props.lineStyles, caption = props.caption, label = props.label, tooltipFormatter = props.tooltipFormatter, XAxisFormatter = props.XAxisFormatter, width = props.width, height = props.height, skeleton = props.skeleton;
+    var _a = React.useState(data), randomData = _a[0], setRandomData = _a[1];
+    React.useEffect(function () {
+        var interval = setInterval(function () {
+            var newRandomData = data.map(function (item) {
+                var randomValues = Object.keys(item).reduce(function (acc, key) {
+                    if (key === "month") {
+                        acc[key] = item[key];
+                    }
+                    else {
+                        acc[key] = Math.floor(Math.random() * 100);
+                    }
+                    return acc;
+                }, {});
+                return randomValues;
+            });
+            setRandomData(newRandomData);
+        }, 2000);
+        return function () { return clearInterval(interval); };
+    }, [skeleton, data]);
+    var keys = randomData.length > 0
+        ? Object.keys(randomData[0]).filter(function (key) { return key !== "month"; })
         : [];
-    return (React.createElement(BarChart$1, { accessibilityLayer: true, data: data, height: height, width: width, margin: {
+    return (React.createElement(BarChart$1, { accessibilityLayer: true, data: randomData, height: height, width: width, margin: {
             top: 20,
             left: 20,
             right: 20,
         } },
         React.createElement(CartesianGrid, { vertical: false, stroke: "var(--s-color-border-default)" }),
         React.createElement(XAxis, { dataKey: "month", tickLine: false, tickMargin: 10, axisLine: false, tickFormatter: XAxisFormatter, style: { font: "var(--s-typography-caption-regular)" }, stroke: "var(--s-color-content-light)" }),
-        React.createElement(Tooltip, { formatter: tooltipFormatter, content: React.createElement(CustomTooltip, null) }),
-        caption && React.createElement(Legend, { content: React.createElement(CustomCaption, null) }),
+        !skeleton && (React.createElement(Tooltip, { formatter: tooltipFormatter, content: React.createElement(CustomTooltip, null) })),
+        !skeleton && caption && React.createElement(Legend, { content: React.createElement(CustomCaption, null) }),
         keys.map(function (key, index) {
             var _a, _b;
             var radius;
@@ -30247,36 +30266,55 @@ function BarChart(props) {
             else {
                 radius = [4, 4, 4, 4];
             }
-            return (React.createElement(Bar, { key: key, dataKey: key, stackId: stacked ? "a" : undefined, fill: ((_a = lineStyles[key]) === null || _a === void 0 ? void 0 : _a.color) || "black", stroke: ((_b = lineStyles[key]) === null || _b === void 0 ? void 0 : _b.color) || "black", radius: radius }, label && (React.createElement(LabelList, { position: "top", style: { font: "var(--s-typography-caption-regular)" }, fill: "var(--s-color-content-light)", offset: 12 }))));
+            return (React.createElement(Bar, { key: key, dataKey: key, stackId: stacked ? "a" : undefined, fill: skeleton
+                    ? "var(--s-color-fill-default-light)"
+                    : ((_a = lineStyles[key]) === null || _a === void 0 ? void 0 : _a.color) || "black", stroke: skeleton
+                    ? "var(--s-color-fill-default-light)"
+                    : ((_b = lineStyles[key]) === null || _b === void 0 ? void 0 : _b.color) || "black", radius: radius }, label && (React.createElement(LabelList, { position: "top", style: { font: "var(--s-typography-caption-regular)" }, fill: "var(--s-color-content-light)", offset: 12 }))));
         })));
 }
 
 function LineChart(props) {
-    var caption = props.caption, dots = props.dots, label = props.label, type = props.type, data = props.data, lineStyles = props.lineStyles, tooltipFormatter = props.tooltipFormatter, XAxisFormatter = props.XAxisFormatter, height = props.height, width = props.width;
-    if (!data || data.length === 0) {
+    var caption = props.caption, dots = props.dots, label = props.label, type = props.type, data = props.data, lineStyles = props.lineStyles, tooltipFormatter = props.tooltipFormatter, XAxisFormatter = props.XAxisFormatter, height = props.height, width = props.width, skeleton = props.skeleton;
+    var _a = React.useState([]), randomData = _a[0], setRandomData = _a[1];
+    var displayData = skeleton ? randomData : data;
+    React.useEffect(function () {
+        var interval = setInterval(function () {
+            var generatedData = Array.from({ length: 10 }, function (_, index) { return ({
+                month: "",
+                "": Math.floor(Math.random() * 100),
+                " ": Math.floor(Math.random() * 100),
+            }); });
+            setRandomData(generatedData);
+        }, 2000);
+        return function () { return clearInterval(interval); };
+    }, [skeleton]);
+    if (!displayData || displayData.length === 0) {
         return null;
     }
-    var keys = Object.keys(data[0]).filter(function (key) { return key !== "month"; });
+    var keys = Object.keys(displayData[0]).filter(function (key) { return key !== "month"; });
     if (keys.length === 0) {
         return null;
     }
-    return (React.createElement(LineChart$1, { height: height, width: width, accessibilityLayer: true, data: data, margin: {
+    return (React.createElement(LineChart$1, { height: height, width: width, accessibilityLayer: true, data: displayData, margin: {
             top: 20,
             left: 20,
             right: 20,
         } },
         React.createElement(CartesianGrid, { vertical: false, stroke: "var(--s-color-border-default)" }),
         React.createElement(XAxis, { dataKey: "month", tickLine: false, tickMargin: 10, axisLine: false, tickFormatter: XAxisFormatter, style: { font: "var(--s-typography-caption-regular)" }, stroke: "var(--s-color-content-light)" }),
-        caption && React.createElement(Legend, { content: React.createElement(CustomCaption, null) }),
-        React.createElement(Tooltip, { cursor: false, formatter: tooltipFormatter, content: React.createElement(CustomTooltip, null) }),
+        !skeleton && caption && React.createElement(Legend, { content: React.createElement(CustomCaption, null) }),
+        !skeleton && (React.createElement(Tooltip, { cursor: false, formatter: tooltipFormatter, content: React.createElement(CustomTooltip, null) })),
         keys.map(function (key) {
-            var lineStyle = lineStyles[key] || {};
+            var lineStyle = skeleton
+                ? { color: "var(--s-color-fill-disable)" }
+                : lineStyles[key] || {};
             return (React.createElement(Line, { key: key, dataKey: key, type: type || "natural", stroke: lineStyle.color || "black", strokeWidth: 2, dot: dots }, label && (React.createElement(LabelList, { dataKey: key, position: "top", style: { font: "var(--s-typography-caption-regular)" }, fill: "var(--s-color-content-light)", offset: 12 }))));
         })));
 }
 
 function PieChart(_a) {
-    var data = _a.data, labelList = _a.labelList, label = _a.label, caption = _a.caption, innerRadius = _a.innerRadius, outerRadius = _a.outerRadius, type = _a.type, tooltipFormatter = _a.tooltipFormatter, labelFormatter = _a.labelFormatter, height = _a.height, width = _a.width, dataKey = _a.dataKey, nameKey = _a.nameKey;
+    var data = _a.data, label = _a.label, caption = _a.caption, innerRadius = _a.innerRadius, outerRadius = _a.outerRadius, type = _a.type, tooltipFormatter = _a.tooltipFormatter, labelFormatter = _a.labelFormatter, height = _a.height, width = _a.width, dataKey = _a.dataKey, nameKey = _a.nameKey, _b = _a.skeleton, skeleton = _b === void 0 ? false : _b;
     var totalQuantity = React.useMemo(function () {
         return data.reduce(function (acc, curr) { return acc + curr.quantity; }, 0);
     }, [data]);
@@ -30292,22 +30330,17 @@ function PieChart(_a) {
         "var(--s-color-chart-9)",
         "var(--s-color-chart-10)",
     ];
-    var renderLabelList = function () {
-        if (labelList) {
-            return (React.createElement(LabelList, { style: { font: "var(--s-typography-caption-regular)" }, offset: 12, dataKey: "browser", stroke: "none", fill: "var(--s-color-content-on-color)" }));
-        }
-    };
     var renderLegend = function () {
-        if (caption) {
+        if (caption && !skeleton) {
             return React.createElement(Legend, { content: React.createElement(CustomCaption, null) });
         }
     };
     var renderTooltip = function () {
-        if (!labelList) {
+        if (!skeleton) {
             return (React.createElement(Tooltip, { formatter: tooltipFormatter, content: React.createElement(CustomTooltip, null) }));
         }
     };
-    var renderLabel = function () {
+    var renderLabel = function (skeleton) {
         if (type === "donut") {
             return (React.createElement(Label, { content: function (_a) {
                     var viewBox = _a.viewBox;
@@ -30316,17 +30349,38 @@ function PieChart(_a) {
                             React.createElement("tspan", { style: {
                                     font: "var(--s-typography-heading-x-large)",
                                     fill: "var(--s-color-content-default)",
-                                }, x: viewBox.cx, y: viewBox.cy }, labelFormatter
-                                ? labelFormatter(totalQuantity)
-                                : totalQuantity),
+                                }, x: viewBox.cx, y: viewBox.cy }, skeleton
+                                ? ""
+                                : labelFormatter
+                                    ? labelFormatter(totalQuantity)
+                                    : totalQuantity),
                             React.createElement("tspan", { style: {
                                     font: "var(--s-typography-caption-regular)",
                                     fill: "var(--s-color-content-light)",
-                                }, x: viewBox.cx, y: (viewBox.cy || 0) + 24 }, label)));
+                                }, x: viewBox.cx, y: (viewBox.cy || 0) + 24 }, skeleton ? "" : label)));
                     }
                 } }));
         }
     };
+    var _c = React.useState([]), randomData = _c[0], setRandomData = _c[1];
+    React.useEffect(function () {
+        var toggle = true;
+        var interval = setInterval(function () {
+            var generatedData = Array.from({ length: 2 }, function (_, index) { return ({
+                quantity: index === 0 ? (toggle ? 0 : 100) : toggle ? 100 : 0,
+                keyName: "Item ".concat(index + 1),
+                fill: index % 2 === 0
+                    ? "var(--s-color-fill-default-light)"
+                    : "var(--s-color-fill-disable)",
+                stroke: index % 2 === 0
+                    ? "var(--s-color-fill-default-light)"
+                    : "var(--s-color-fill-disable)",
+            }); });
+            setRandomData(generatedData);
+            toggle = !toggle;
+        }, 2000);
+        return function () { return clearInterval(interval); };
+    }, [skeleton]);
     return (React.createElement(PieChart$1, { height: height, width: width, margin: {
             top: 20,
             left: 20,
@@ -30334,10 +30388,9 @@ function PieChart(_a) {
         } },
         renderTooltip(),
         renderLegend(),
-        React.createElement(Pie, { data: data, dataKey: dataKey, nameKey: nameKey, innerRadius: type === "donut" ? innerRadius : 0, outerRadius: outerRadius, strokeWidth: 1 },
-            renderLabelList(),
-            data.map(function (entry, index) { return (React.createElement(Cell, { key: "cell-".concat(index), fill: entry.fill || defaultColors[index % defaultColors.length], stroke: entry.fill || defaultColors[index % defaultColors.length] })); }),
-            renderLabel())));
+        React.createElement(Pie, { data: skeleton ? randomData : data, dataKey: dataKey, nameKey: nameKey, innerRadius: skeleton ? 0 : type === "donut" ? innerRadius : 0, outerRadius: outerRadius, strokeWidth: 1 },
+            skeleton ? (React.createElement(Cell, { fill: "var(--s-color-fill-default-light)", stroke: "var(--s-color-fill-default-light)" })) : (React.createElement(React.Fragment, null, data.map(function (entry, index) { return (React.createElement(Cell, { key: "cell-".concat(index), fill: entry.fill || defaultColors[index % defaultColors.length], stroke: entry.fill || defaultColors[index % defaultColors.length] })); }))),
+            renderLabel(skeleton))));
 }
 
 exports.AppShell = AppShell;

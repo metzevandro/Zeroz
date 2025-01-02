@@ -119,6 +119,15 @@ const meta: Meta = {
       },
       control: { type: "object" },
     },
+    skeleton: {
+      name: "Skeleton",
+      description: "A loading skeleton for the chart.",
+      table: {
+        category: "Appearance",
+        type: { summary: "boolean" },
+      },
+      control: { type: "boolean" },
+    },
   },
 };
 
@@ -134,6 +143,7 @@ type DefaultProps = {
   width: number;
   tooltipFormatter?: (data: any) => string;
   XAxisFormatter?: (data: any) => string;
+  skeleton: boolean;
 };
 
 const lineStyles = {
@@ -158,6 +168,7 @@ const data = [
 
 const Template: StoryFn<DefaultProps> = (args) => (
   <BarChart
+    skeleton={args.skeleton}
     label={args.label}
     data={args.data}
     stacked={args.stacked}
@@ -181,6 +192,7 @@ Default.args = {
   width: 600,
   tooltipFormatter: (data) => `${data} units`,
   XAxisFormatter: (data) => `${data.slice(0, 3)}`,
+  skeleton: false,
 };
 
 export const Stacked = Template.bind({});
@@ -194,6 +206,7 @@ Stacked.args = {
   width: 600,
   tooltipFormatter: (data) => `${data} units`,
   XAxisFormatter: (data) => `${data.slice(0, 3)}`,
+  skeleton: false,
 };
 
 export const WithLabel = Template.bind({});
@@ -207,10 +220,11 @@ WithLabel.args = {
   width: 600,
   tooltipFormatter: (data) => `${data} units`,
   XAxisFormatter: (data) => `${data.slice(0, 3)}`,
+  skeleton: false,
 };
 
-export const WithLegend = Template.bind({});
-WithLegend.args = {
+export const withCaption = Template.bind({});
+withCaption.args = {
   label: false,
   caption: true,
   stacked: false,
@@ -220,4 +234,19 @@ WithLegend.args = {
   width: 600,
   tooltipFormatter: (data) => `${data} units`,
   XAxisFormatter: (data) => `${data.slice(0, 3)}`,
+  skeleton: false,
+};
+
+export const Skeleton = Template.bind({});
+Skeleton.args = {
+  label: false,
+  caption: false,
+  stacked: false,
+  data: data,
+  lineStyles: lineStyles,
+  height: 400,
+  width: 600,
+  tooltipFormatter: (data) => `${data} units`,
+  XAxisFormatter: (data) => `${data.slice(0, 3)}`,
+  skeleton: true,
 };

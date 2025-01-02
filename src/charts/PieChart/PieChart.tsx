@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   PieChart as Chart,
   Pie,
@@ -7,10 +7,12 @@ import {
   Label,
   Cell,
   LabelList,
+  Sector,
 } from "recharts";
 import CustomTooltip from "../Tooltip/Tooltip";
 import "./PieChart.scss";
 import CustomCaption from "../Caption/Caption";
+import Skeleton from "../../components/Skeleton/Skeleton";
 
 interface PieData {
   quantity: number;
@@ -20,7 +22,6 @@ interface PieData {
 
 interface PieChartProps {
   data: PieData[];
-  labelList: boolean;
   label: string;
   caption: boolean;
   innerRadius: number;
@@ -32,11 +33,11 @@ interface PieChartProps {
   width: number;
   dataKey: string;
   nameKey: string;
+  skeleton?: boolean;
 }
 
 export default function PieChart({
   data,
-  labelList,
   label,
   caption,
   innerRadius,
@@ -48,6 +49,7 @@ export default function PieChart({
   width,
   dataKey,
   nameKey,
+  skeleton = false,
 }: PieChartProps) {
   const totalQuantity = React.useMemo(() => {
     return data.reduce((acc, curr) => acc + curr.quantity, 0);
@@ -66,28 +68,14 @@ export default function PieChart({
     "var(--s-color-chart-10)",
   ];
 
-  const renderLabelList = () => {
-    if (labelList) {
-      return (
-        <LabelList
-          style={{ font: "var(--s-typography-caption-regular)" }}
-          offset={12}
-          dataKey="browser"
-          stroke="none"
-          fill="var(--s-color-content-on-color)"
-        />
-      );
-    }
-  };
-
   const renderLegend = () => {
-    if (caption) {
+    if (caption && !skeleton) {
       return <Legend content={<CustomCaption />} />;
     }
   };
 
   const renderTooltip = () => {
-    if (!labelList) {
+    if (!skeleton) {
       return (
         <ChartTooltip
           formatter={tooltipFormatter}
@@ -97,7 +85,7 @@ export default function PieChart({
     }
   };
 
-  const renderLabel = () => {
+  const renderLabel = (skeleton: boolean) => {
     if (type === "donut") {
       return (
         <Label
@@ -118,10 +106,13 @@ export default function PieChart({
                     x={viewBox.cx}
                     y={viewBox.cy}
                   >
-                    {labelFormatter
-                      ? labelFormatter(totalQuantity)
-                      : totalQuantity}
+                    {skeleton
+                      ? ""
+                      : labelFormatter
+                        ? labelFormatter(totalQuantity)
+                        : totalQuantity}
                   </tspan>
+
                   <tspan
                     style={{
                       font: "var(--s-typography-caption-regular)",
@@ -130,7 +121,7 @@ export default function PieChart({
                     x={viewBox.cx}
                     y={(viewBox.cy || 0) + 24}
                   >
-                    {label}
+                    {skeleton ? "" : label}
                   </tspan>
                 </text>
               );
@@ -140,6 +131,31 @@ export default function PieChart({
       );
     }
   };
+
+  const [randomData, setRandomData] = useState<PieData[]>([]);
+
+  useEffect(() => {
+    let toggle = true;
+    const interval = setInterval(() => {
+      const generatedData = Array.from({ length: 2 }, (_, index) => ({
+        quantity: index === 0 ? (toggle ? 0 : 100) : toggle ? 100 : 0,
+        keyName: `Item ${index + 1}`,
+        fill:
+          index % 2 === 0
+            ? "var(--s-color-fill-default-light)"
+            : "var(--s-color-fill-disable)",
+        stroke:
+          index % 2 === 0
+            ? "var(--s-color-fill-default-light)"
+            : "var(--s-color-fill-disable)",
+      }));
+
+      setRandomData(generatedData);
+      toggle = !toggle;
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [skeleton]);
 
   return (
     <Chart
@@ -154,22 +170,33 @@ export default function PieChart({
       {renderTooltip()}
       {renderLegend()}
       <Pie
-        data={data}
+        data={skeleton ? randomData : data}
         dataKey={dataKey}
         nameKey={nameKey}
-        innerRadius={type === "donut" ? innerRadius : 0}
+        innerRadius={skeleton ? 0 : type === "donut" ? innerRadius : 0}
         outerRadius={outerRadius}
         strokeWidth={1}
       >
-        {renderLabelList()}
-        {data.map((entry, index) => (
+        {skeleton ? (
           <Cell
-            key={`cell-${index}`}
-            fill={entry.fill || defaultColors[index % defaultColors.length]}
-            stroke={entry.fill || defaultColors[index % defaultColors.length]}
+            fill="var(--s-color-fill-default-light)"
+            stroke="var(--s-color-fill-default-light)"
           />
-        ))}
-        {renderLabel()}
+        ) : (
+          <>
+            {data.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={entry.fill || defaultColors[index % defaultColors.length]}
+                stroke={
+                  entry.fill || defaultColors[index % defaultColors.length]
+                }
+              />
+            ))}
+          </>
+        )}
+
+        {renderLabel(skeleton)}
       </Pie>
     </Chart>
   );

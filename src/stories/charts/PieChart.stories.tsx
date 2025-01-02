@@ -80,16 +80,6 @@ const meta: Meta = {
       },
       control: { type: "boolean" },
     },
-    labelList: {
-      name: "Label List",
-      description:
-        "Whether to display a list of labels for the pie chart segments.",
-      table: {
-        category: "Appearance",
-        type: { summary: "boolean" },
-      },
-      control: { type: "boolean" },
-    },
     caption: {
       name: "Caption",
       description: "Whether to display a caption for the pie chart or not.",
@@ -142,6 +132,15 @@ const meta: Meta = {
       },
       control: { type: "number" },
     },
+    skeleton: {
+      name: "Skeleton",
+      description: "A loading skeleton for the chart.",
+      table: {
+        category: "Appearance",
+        type: { summary: "boolean" },
+      },
+      control: { type: "boolean" },
+    },
   },
 };
 
@@ -152,7 +151,6 @@ type DefaultProps = {
   dataKey: string;
   nameKey: string;
   label: string;
-  labelList: boolean;
   caption: boolean;
   innerRadius: number;
   outerRadius: number;
@@ -161,6 +159,7 @@ type DefaultProps = {
   labelFormatter?: (data: any) => string;
   height: number;
   width: number;
+  skeleton: boolean;
 };
 
 const data = [
@@ -182,12 +181,12 @@ Pie.args = {
   dataKey: "quantity",
   nameKey: "keyName",
   label: "Visitors",
-  labelList: false,
   caption: false,
   height: 400,
   width: 400,
   tooltipFormatter: (data) => `${data}`,
   labelFormatter: (data) => `${data}`,
+  skeleton: false,
 };
 
 export const Donut = Template.bind({});
@@ -199,15 +198,15 @@ Donut.args = {
   dataKey: "quantity",
   nameKey: "keyName",
   label: "Visitors",
-  labelList: false,
   height: 400,
   width: 400,
   tooltipFormatter: (data) => `${data}`,
   labelFormatter: (data) => `${data}`,
+  skeleton: false,
 };
 
-export const withLegend = Template.bind({});
-withLegend.args = {
+export const withCaption = Template.bind({});
+withCaption.args = {
   type: "donut",
   caption: true,
   innerRadius: 60,
@@ -216,9 +215,26 @@ withLegend.args = {
   dataKey: "quantity",
   nameKey: "keyName",
   label: "Visitors",
-  labelList: false,
   height: 400,
   width: 400,
   tooltipFormatter: (data) => `${data}`,
   labelFormatter: (data) => `${data}`,
+  skeleton: false,
+};
+
+export const Skeleton = Template.bind({});
+Skeleton.args = {
+  type: "donut",
+  caption: true,
+  innerRadius: 60,
+  outerRadius: 100,
+  data: data,
+  dataKey: "quantity",
+  nameKey: "keyName",
+  label: "Visitors",
+  height: 400,
+  width: 400,
+  tooltipFormatter: (data) => `${data}`,
+  labelFormatter: (data) => `${data}`,
+  skeleton: true,
 };

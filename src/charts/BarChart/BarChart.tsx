@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Bar,
   BarChart as Chart,
@@ -23,6 +23,7 @@ interface BarChartProps {
   XAxisFormatter?: (value: any) => string;
   height: number;
   width: number;
+  skeleton?: boolean;
 }
 
 export default function BarChart(props: BarChartProps) {
@@ -36,16 +37,40 @@ export default function BarChart(props: BarChartProps) {
     XAxisFormatter,
     width,
     height,
+    skeleton,
   } = props;
+
+  const [randomData, setRandomData] = useState(data);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newRandomData = data.map((item) => {
+        const randomValues = Object.keys(item).reduce((acc, key) => {
+          if (key === "month") {
+            acc[key] = item[key];
+          } else {
+            acc[key] = Math.floor(Math.random() * 100);
+          }
+          return acc;
+        }, {} as any);
+
+        return randomValues;
+      });
+      setRandomData(newRandomData);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [skeleton, data]);
+
   const keys =
-    data.length > 0
-      ? Object.keys(data[0]).filter((key) => key !== "month")
+    randomData.length > 0
+      ? Object.keys(randomData[0]).filter((key) => key !== "month")
       : [];
 
   return (
     <Chart
       accessibilityLayer
-      data={data}
+      data={randomData}
       height={height}
       width={width}
       margin={{
@@ -64,8 +89,10 @@ export default function BarChart(props: BarChartProps) {
         style={{ font: "var(--s-typography-caption-regular)" }}
         stroke="var(--s-color-content-light)"
       />
-      <Tooltip formatter={tooltipFormatter} content={<CustomTooltip />} />
-      {caption && <Legend content={<CustomCaption />} />}
+      {!skeleton && (
+        <Tooltip formatter={tooltipFormatter} content={<CustomTooltip />} />
+      )}
+      {!skeleton && caption && <Legend content={<CustomCaption />} />}
       {keys.map((key, index) => {
         let radius: [number, number, number, number];
         if (stacked) {
@@ -85,8 +112,16 @@ export default function BarChart(props: BarChartProps) {
             key={key}
             dataKey={key}
             stackId={stacked ? "a" : undefined}
-            fill={lineStyles[key]?.color || "black"}
-            stroke={lineStyles[key]?.color || "black"}
+            fill={
+              skeleton
+                ? "var(--s-color-fill-default-light)"
+                : lineStyles[key]?.color || "black"
+            }
+            stroke={
+              skeleton
+                ? "var(--s-color-fill-default-light)"
+                : lineStyles[key]?.color || "black"
+            }
             radius={radius}
           >
             {label && (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   CartesianGrid,
   Line,
@@ -19,7 +19,6 @@ interface LineChartProps {
   label?: boolean;
   tooltipFormatter?: (value: any) => string;
   XAxisFormatter?: (value: any) => string;
-
   height: number;
   width: number;
   type?:
@@ -38,6 +37,7 @@ interface LineChartProps {
     | "step"
     | "stepBefore"
     | "stepAfter";
+  skeleton?: boolean;
 }
 
 export default function LineChart(props: LineChartProps) {
@@ -52,13 +52,30 @@ export default function LineChart(props: LineChartProps) {
     XAxisFormatter,
     height,
     width,
+    skeleton,
   } = props;
+  const [randomData, setRandomData] = useState<any[]>([]);
 
-  if (!data || data.length === 0) {
+  const displayData = skeleton ? randomData : data;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const generatedData = Array.from({ length: 10 }, (_, index) => ({
+        month: ``,
+        "": Math.floor(Math.random() * 100),
+        " ": Math.floor(Math.random() * 100),
+      }));
+      setRandomData(generatedData);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [skeleton]);
+
+  if (!displayData || displayData.length === 0) {
     return null;
   }
 
-  const keys = Object.keys(data[0]).filter((key) => key !== "month");
+  const keys = Object.keys(displayData[0]).filter((key) => key !== "month");
 
   if (keys.length === 0) {
     return null;
@@ -69,7 +86,7 @@ export default function LineChart(props: LineChartProps) {
       height={height}
       width={width}
       accessibilityLayer
-      data={data}
+      data={displayData}
       margin={{
         top: 20,
         left: 20,
@@ -86,14 +103,19 @@ export default function LineChart(props: LineChartProps) {
         style={{ font: "var(--s-typography-caption-regular)" }}
         stroke="var(--s-color-content-light)"
       />
-      {caption && <Legend content={<CustomCaption />} />}
-      <Tooltip
-        cursor={false}
-        formatter={tooltipFormatter}
-        content={<CustomTooltip />}
-      />
+      {!skeleton && caption && <Legend content={<CustomCaption />} />}
+      {!skeleton && (
+        <Tooltip
+          cursor={false}
+          formatter={tooltipFormatter}
+          content={<CustomTooltip />}
+        />
+      )}
+
       {keys.map((key) => {
-        const lineStyle = lineStyles[key] || {};
+        const lineStyle = skeleton
+          ? { color: "var(--s-color-fill-disable)" }
+          : lineStyles[key] || {};
         return (
           <Line
             key={key}

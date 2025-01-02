@@ -7,7 +7,6 @@ type DefaultProps = {
     dataKey: string;
     nameKey: string;
     label: string;
-    labelList: boolean;
     caption: boolean;
     innerRadius: number;
     outerRadius: number;
@@ -16,7 +15,9 @@ type DefaultProps = {
     labelFormatter?: (data: any) => string;
     height: number;
     width: number;
+    skeleton: boolean;
 };
 export declare const Pie: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
 export declare const Donut: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
-export declare const withLegend: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
+export declare const withCaption: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
+export declare const Skeleton: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
