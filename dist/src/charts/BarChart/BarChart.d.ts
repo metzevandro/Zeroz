@@ -16,5 +16,5 @@ interface BarChartProps {
     width: number;
     skeleton?: boolean;
 }
-export default function BarChart(props: BarChartProps): React.JSX.Element;
+export default function BarChart(props: BarChartProps): React.JSX.Element | null;
 export {};

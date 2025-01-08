@@ -38,7 +38,6 @@ const Notification: React.FC<NotificationProps> = ({
     setIsClose(false);
   };
 
-  // Condicional para mostrar a div pai
   const showContent = withAction || description;
 
   return (

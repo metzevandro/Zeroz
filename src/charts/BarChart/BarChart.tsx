@@ -39,38 +39,37 @@ export default function BarChart(props: BarChartProps) {
     height,
     skeleton,
   } = props;
+  const [randomData, setRandomData] = useState<any[]>([]);
 
-  const [randomData, setRandomData] = useState(data);
+  const displayData = skeleton ? randomData : data;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newRandomData = data.map((item) => {
-        const randomValues = Object.keys(item).reduce((acc, key) => {
-          if (key === "month") {
-            acc[key] = item[key];
-          } else {
-            acc[key] = Math.floor(Math.random() * 100);
-          }
-          return acc;
-        }, {} as any);
-
-        return randomValues;
-      });
-      setRandomData(newRandomData);
+      const generatedData = Array.from({ length: 10 }, (_, index) => ({
+        month: ``,
+        "": Math.floor(Math.random() * 100),
+        " ": Math.floor(Math.random() * 100),
+      }));
+      setRandomData(generatedData);
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [skeleton, data]);
+  }, [skeleton]);
 
-  const keys =
-    randomData.length > 0
-      ? Object.keys(randomData[0]).filter((key) => key !== "month")
-      : [];
+  if (!displayData || displayData.length === 0) {
+    return null;
+  }
+
+  const keys = Object.keys(displayData[0]).filter((key) => key !== "month");
+
+  if (keys.length === 0) {
+    return null;
+  }
 
   return (
     <Chart
       accessibilityLayer
-      data={randomData}
+      data={displayData}
       height={height}
       width={width}
       margin={{

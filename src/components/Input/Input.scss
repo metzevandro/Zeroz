@@ -50,6 +50,11 @@
         &::placeholder {
           color: var(--s-color-content-warning);
         }
+
+        &:-webkit-autofill {
+          -webkit-box-shadow: 0 0 0 30px var(--s-color-fill-warning-light) inset;
+          -webkit-text-fill-color: var(--s-color-content-default) !important;
+        }
       }
 
       &:hover {
@@ -100,6 +105,11 @@
       input {
         &::placeholder {
           color: var(--s-color-content-disable);
+        }
+
+        &:-webkit-autofill {
+          -webkit-box-shadow: 0 0 0 30px var(--s-color-fill-disable) inset;
+          -webkit-text-fill-color: var(--s-color-content-default) !important;
         }
       }
 

@@ -1856,7 +1856,6 @@ var Notification = function (_a) {
     var handleClickClose = function () {
         setIsClose(false);
     };
-    // Condicional para mostrar a div pai
     var showContent = withAction || description;
     return (React.createElement(React.Fragment, null, isClose && (React.createElement("div", { className: "notification ".concat(variant, " ").concat(type, " ").concat(dismissible && "dismissible", " ").concat(isOpen ? "open" : "") },
         React.createElement("div", { className: "notification-title ".concat(variant) },
@@ -30216,29 +30215,27 @@ function CustomCaption(_a) {
 
 function BarChart(props) {
     var data = props.data, stacked = props.stacked, lineStyles = props.lineStyles, caption = props.caption, label = props.label, tooltipFormatter = props.tooltipFormatter, XAxisFormatter = props.XAxisFormatter, width = props.width, height = props.height, skeleton = props.skeleton;
-    var _a = useState(data), randomData = _a[0], setRandomData = _a[1];
+    var _a = useState([]), randomData = _a[0], setRandomData = _a[1];
+    var displayData = skeleton ? randomData : data;
     useEffect(function () {
         var interval = setInterval(function () {
-            var newRandomData = data.map(function (item) {
-                var randomValues = Object.keys(item).reduce(function (acc, key) {
-                    if (key === "month") {
-                        acc[key] = item[key];
-                    }
-                    else {
-                        acc[key] = Math.floor(Math.random() * 100);
-                    }
-                    return acc;
-                }, {});
-                return randomValues;
-            });
-            setRandomData(newRandomData);
+            var generatedData = Array.from({ length: 10 }, function (_, index) { return ({
+                month: "",
+                "": Math.floor(Math.random() * 100),
+                " ": Math.floor(Math.random() * 100),
+            }); });
+            setRandomData(generatedData);
         }, 2000);
         return function () { return clearInterval(interval); };
-    }, [skeleton, data]);
-    var keys = randomData.length > 0
-        ? Object.keys(randomData[0]).filter(function (key) { return key !== "month"; })
-        : [];
-    return (React.createElement(BarChart$1, { accessibilityLayer: true, data: randomData, height: height, width: width, margin: {
+    }, [skeleton]);
+    if (!displayData || displayData.length === 0) {
+        return null;
+    }
+    var keys = Object.keys(displayData[0]).filter(function (key) { return key !== "month"; });
+    if (keys.length === 0) {
+        return null;
+    }
+    return (React.createElement(BarChart$1, { accessibilityLayer: true, data: displayData, height: height, width: width, margin: {
             top: 20,
             left: 20,
             right: 20,

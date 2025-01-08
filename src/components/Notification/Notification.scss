@@ -5,6 +5,7 @@
   border-radius: var(--s-border-radius-medium);
   border: var(--s-border-width-hairline) solid var(--s-color-border-default);
   overflow: hidden;
+  z-index: 99;
 
   &.float {
     max-width: 368px;
