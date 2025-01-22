@@ -1,6 +1,7 @@
 import "./Pagination.scss";
 import Icon from "../Icon/Icon";
 import React from "react";
+import Skeleton from "../Skeleton/Skeleton";
 
 interface PaginationItemProps {
   arrow: "left" | "right";
@@ -37,6 +38,7 @@ interface PaginationProps {
   onClickLeft?: () => void;
   onClickRight?: () => void;
   label: string;
+  skeleton?: boolean;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -46,6 +48,7 @@ const Pagination: React.FC<PaginationProps> = ({
   onClickRight,
   onClickLeft,
   label,
+  skeleton,
 }) => {
   return (
     <div className="Pagination">
@@ -53,27 +56,27 @@ const Pagination: React.FC<PaginationProps> = ({
         <div className="noLabel">
           <PaginationItem
             arrow="left"
-            disabled={disabledLeft}
+            disabled={skeleton || disabledRight}
             click={onClickLeft}
           />
           <PaginationItem
             arrow="right"
-            disabled={disabledRight}
+            disabled={skeleton || disabledRight}
             click={onClickRight}
           />
         </div>
       ) : variant === "leftLabel" ? (
         <div className="leftLabel">
-          <p>{label}</p>
+          {skeleton ? <Skeleton height="24" width="160" /> : <p>{label}</p>}
           <div style={{ display: "flex" }}>
             <PaginationItem
               arrow="left"
-              disabled={disabledLeft}
+              disabled={skeleton || disabledLeft}
               click={onClickLeft}
             />
             <PaginationItem
               arrow="right"
-              disabled={disabledRight}
+              disabled={skeleton || disabledRight}
               click={onClickRight}
             />
           </div>
@@ -82,13 +85,13 @@ const Pagination: React.FC<PaginationProps> = ({
         <div className="centerLabel">
           <PaginationItem
             arrow="left"
-            disabled={disabledLeft}
+            disabled={skeleton || disabledLeft}
             click={onClickLeft}
           />
-          <p>{label}</p>
+          {skeleton ? <Skeleton height="24" width="160" /> : <p>{label}</p>}
           <PaginationItem
             arrow="right"
-            disabled={disabledRight}
+            disabled={skeleton || disabledRight}
             click={onClickRight}
           />
         </div>

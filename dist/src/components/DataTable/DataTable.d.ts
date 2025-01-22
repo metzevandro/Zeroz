@@ -30,6 +30,7 @@ interface DataTableProps {
     titleNoDataFilteredMessage: string;
     labelButtonNoDataFilteredMessage: string;
     descriptionNoDataFilteredMessage: string;
+    skeleton?: boolean;
 }
 declare const DataTable: React.FC<DataTableProps>;
 export default DataTable;

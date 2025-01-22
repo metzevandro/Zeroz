@@ -59,14 +59,19 @@ export default function LineChart(props: LineChartProps) {
   const displayData = skeleton ? randomData : data;
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const generatedData = Array.from({ length: 10 }, (_, index) => ({
-        month: ``,
-        "": Math.floor(Math.random() * 100),
-        " ": Math.floor(Math.random() * 100),
+    const generateData = () =>
+      Array.from({ length: 10 }, (_, index) => ({
+        month: `Month ${index + 1}`,
+        value1: Math.floor(Math.random() * 100),
+        value2: Math.floor(Math.random() * 100),
       }));
-      setRandomData(generatedData);
-    }, 2000);
+
+    const generatedData = generateData();
+    setRandomData(generatedData);
+
+    const interval = setInterval(() => {
+      setRandomData(generateData());
+    }, 1500);
 
     return () => clearInterval(interval);
   }, [skeleton]);

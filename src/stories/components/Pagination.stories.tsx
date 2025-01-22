@@ -26,6 +26,14 @@ const meta: Meta<typeof Pagination> = {
     },
   },
   argTypes: {
+    skeleton: {
+      control: "boolean",
+      description:
+        "If true, the pagination component is rendered as a skeleton.",
+      table: {
+        category: "State",
+      },
+    },
     label: {
       control: "text",
       description: "The label for the pagination component.",
@@ -84,24 +92,7 @@ export const Default: Story = {
     variant: "noLabel",
     disabledLeft: false,
     disabledRight: false,
-  },
-};
-
-export const Disable: Story = {
-  args: {
-    label: "Pagination",
-    variant: "noLabel",
-    disabledLeft: true,
-    disabledRight: true,
-  },
-};
-
-export const LeftLabel: Story = {
-  args: {
-    label: "Pagination",
-    variant: "leftLabel",
-    disabledLeft: false,
-    disabledRight: false,
+    skeleton: false,
   },
 };
 
@@ -111,5 +102,36 @@ export const CenterLabel: Story = {
     variant: "centerLabel",
     disabledLeft: false,
     disabledRight: false,
+    skeleton: false,
+  },
+};
+
+export const LeftLabel: Story = {
+  args: {
+    label: "Pagination",
+    variant: "leftLabel",
+    disabledLeft: false,
+    disabledRight: false,
+    skeleton: false,
+  },
+};
+
+export const Disable: Story = {
+  args: {
+    label: "Pagination",
+    variant: "leftLabel",
+    disabledLeft: true,
+    disabledRight: true,
+    skeleton: false,
+  },
+};
+
+export const Skeleton: Story = {
+  args: {
+    label: "Pagination",
+    variant: "leftLabel",
+    disabledLeft: true,
+    disabledRight: true,
+    skeleton: true,
   },
 };

@@ -7,6 +7,7 @@ interface PaginationProps {
     onClickLeft?: () => void;
     onClickRight?: () => void;
     label: string;
+    skeleton?: boolean;
 }
 declare const Pagination: React.FC<PaginationProps>;
 export default Pagination;

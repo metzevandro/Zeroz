@@ -44,14 +44,18 @@ export default function BarChart(props: BarChartProps) {
   const displayData = skeleton ? randomData : data;
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const generatedData = Array.from({ length: 10 }, (_, index) => ({
+    const generateData = () =>
+      Array.from({ length: 10 }, (_, index) => ({
         month: ``,
         "": Math.floor(Math.random() * 100),
         " ": Math.floor(Math.random() * 100),
       }));
-      setRandomData(generatedData);
-    }, 2000);
+
+    setRandomData(generateData());
+
+    const interval = setInterval(() => {
+      setRandomData(generateData());
+    }, 1500);
 
     return () => clearInterval(interval);
   }, [skeleton]);

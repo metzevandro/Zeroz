@@ -32,6 +32,7 @@ interface DataTableProps {
   titleNoDataFilteredMessage: string;
   labelButtonNoDataFilteredMessage: string;
   descriptionNoDataFilteredMessage: string;
+  skeleton?: boolean;
 }
 type ColumnSorting = "asc" | "desc" | "default";
 const DataTable: React.FC<DataTableProps> = ({
@@ -53,6 +54,7 @@ const DataTable: React.FC<DataTableProps> = ({
   titleNoDataFilteredMessage,
   descriptionNoDataFilteredMessage,
   pagesText,
+  skeleton,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = itemPerPage;
@@ -254,7 +256,6 @@ const DataTable: React.FC<DataTableProps> = ({
     downloadLink.click();
     // Clean up by removing the temporary URL and anchor element
     window.URL.revokeObjectURL(csvURL);
-    document.body.removeChild(downloadLink);
   };
   const renderHeader = () => {
     if (isAnyItemSelected) {

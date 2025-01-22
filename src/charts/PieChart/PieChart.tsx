@@ -136,8 +136,9 @@ export default function PieChart({
 
   useEffect(() => {
     let toggle = true;
-    const interval = setInterval(() => {
-      const generatedData = Array.from({ length: 2 }, (_, index) => ({
+
+    const generateData = () =>
+      Array.from({ length: 2 }, (_, index) => ({
         quantity: index === 0 ? (toggle ? 0 : 100) : toggle ? 100 : 0,
         keyName: `Item ${index + 1}`,
         fill:
@@ -150,12 +151,15 @@ export default function PieChart({
             : "var(--s-color-fill-disable)",
       }));
 
-      setRandomData(generatedData);
+    setRandomData(generateData());
+
+    const interval = setInterval(() => {
       toggle = !toggle;
+      setRandomData(generateData());
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [skeleton]);
+  }, []);
 
   return (
     <Chart

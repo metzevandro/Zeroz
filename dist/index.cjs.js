@@ -82,7 +82,7 @@ function __generator(thisArg, body) {
             }
             op = body.call(thisArg, _);
         } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : undefined, done: true };
     }
 }
 
@@ -173,7 +173,7 @@ var Avatar = function (_a) {
     var getLetter = function (letter) {
         if (letter && letter.includes(" ")) {
             var _a = letter.split(" "), firstName = _a[0], lastName = _a[1];
-            return "".concat(firstName === null || firstName === void 0 ? void 0 : firstName.charAt(0)).concat(lastName === null || lastName === void 0 ? void 0 : lastName.charAt(0));
+            return "".concat(firstName === null || firstName === undefined ? undefined : firstName.charAt(0)).concat(lastName === null || lastName === undefined ? undefined : lastName.charAt(0));
         }
         else if (letter && letter.length > 1) {
             return letter.charAt(0);
@@ -181,7 +181,7 @@ var Avatar = function (_a) {
         return letter;
     };
     return (React.createElement("div", { className: "avatar" }, skeleton ? (React.createElement(Skeleton, { height: "".concat(sizeInPixels), circle: true, width: "".concat(sizeInPixels) })) : (React.createElement(React.Fragment, null, src ? (React.createElement("label", { className: "avatar-image" },
-        React.createElement("img", { className: size, src: src, alt: "Avatar" }))) : (React.createElement(React.Fragment, null, letter ? (React.createElement("label", { className: "avatar-letter ".concat(size) }, (_b = getLetter(letter)) === null || _b === void 0 ? void 0 : _b.toLocaleUpperCase())) : (React.createElement("label", { className: "avatar-icon ".concat(size) },
+        React.createElement("img", { className: size, src: src, alt: "Avatar" }))) : (React.createElement(React.Fragment, null, letter ? (React.createElement("label", { className: "avatar-letter ".concat(size) }, (_b = getLetter(letter)) === null || _b === undefined ? undefined : _b.toLocaleUpperCase())) : (React.createElement("label", { className: "avatar-icon ".concat(size) },
         React.createElement(Icon, { size: size, icon: "person" })))))))));
 };
 
@@ -414,7 +414,7 @@ var DataPickerCalendar = function (_a) {
         setCurrentMonth(selectedMonth - 1);
         updateSelectedDateFormat(selectedMonth, selectedYear, selectedDay);
         var selectedMonthElement = document.querySelector(".month-item[data-month=\"".concat(selectedMonth, "\"]"));
-        selectedMonthElement === null || selectedMonthElement === void 0 ? void 0 : selectedMonthElement.scrollIntoView({
+        selectedMonthElement === null || selectedMonthElement === undefined ? undefined : selectedMonthElement.scrollIntoView({
             behavior: "smooth",
             block: "center",
         });
@@ -425,7 +425,7 @@ var DataPickerCalendar = function (_a) {
         setCurrentYear(selectedYear);
         updateSelectedDateFormat(selectedMonth, selectedYear, selectedDay);
         var selectedYearElement = document.querySelector(".year-item[data-year=\"".concat(selectedYear, "\"]"));
-        selectedYearElement === null || selectedYearElement === void 0 ? void 0 : selectedYearElement.scrollIntoView({
+        selectedYearElement === null || selectedYearElement === undefined ? undefined : selectedYearElement.scrollIntoView({
             behavior: "smooth",
             block: "center",
         });
@@ -732,23 +732,23 @@ var PaginationItem = function (_a) {
         React.createElement(Icon, { icon: "arrow_forward", size: "sm" }))) : ("error")));
 };
 var Pagination = function (_a) {
-    var disabledRight = _a.disabledRight, disabledLeft = _a.disabledLeft, variant = _a.variant, onClickRight = _a.onClickRight, onClickLeft = _a.onClickLeft, label = _a.label;
+    var disabledRight = _a.disabledRight, disabledLeft = _a.disabledLeft, variant = _a.variant, onClickRight = _a.onClickRight, onClickLeft = _a.onClickLeft, label = _a.label, skeleton = _a.skeleton;
     return (React.createElement("div", { className: "Pagination" }, variant === "noLabel" ? (React.createElement("div", { className: "noLabel" },
-        React.createElement(PaginationItem, { arrow: "left", disabled: disabledLeft, click: onClickLeft }),
-        React.createElement(PaginationItem, { arrow: "right", disabled: disabledRight, click: onClickRight }))) : variant === "leftLabel" ? (React.createElement("div", { className: "leftLabel" },
-        React.createElement("p", null, label),
+        React.createElement(PaginationItem, { arrow: "left", disabled: skeleton || disabledRight, click: onClickLeft }),
+        React.createElement(PaginationItem, { arrow: "right", disabled: skeleton || disabledRight, click: onClickRight }))) : variant === "leftLabel" ? (React.createElement("div", { className: "leftLabel" },
+        skeleton ? React.createElement(Skeleton, { height: "24", width: "160" }) : React.createElement("p", null, label),
         React.createElement("div", { style: { display: "flex" } },
-            React.createElement(PaginationItem, { arrow: "left", disabled: disabledLeft, click: onClickLeft }),
-            React.createElement(PaginationItem, { arrow: "right", disabled: disabledRight, click: onClickRight })))) : variant === "centerLabel" ? (React.createElement("div", { className: "centerLabel" },
-        React.createElement(PaginationItem, { arrow: "left", disabled: disabledLeft, click: onClickLeft }),
-        React.createElement("p", null, label),
-        React.createElement(PaginationItem, { arrow: "right", disabled: disabledRight, click: onClickRight }))) : ("error")));
+            React.createElement(PaginationItem, { arrow: "left", disabled: skeleton || disabledLeft, click: onClickLeft }),
+            React.createElement(PaginationItem, { arrow: "right", disabled: skeleton || disabledRight, click: onClickRight })))) : variant === "centerLabel" ? (React.createElement("div", { className: "centerLabel" },
+        React.createElement(PaginationItem, { arrow: "left", disabled: skeleton || disabledLeft, click: onClickLeft }),
+        skeleton ? React.createElement(Skeleton, { height: "24", width: "160" }) : React.createElement("p", null, label),
+        React.createElement(PaginationItem, { arrow: "right", disabled: skeleton || disabledRight, click: onClickRight }))) : ("error")));
 };
 
 var InputCheckbox = function (_a) {
     var modelValue = _a.modelValue, value = _a.value, label = _a.label, id = _a.id, name = _a.name, required = _a.required, indeterminate = _a.indeterminate, noEvents = _a.noEvents, disabled = _a.disabled, onUpdate = _a.onUpdate;
-    var _b = React.useState(modelValue !== null && modelValue !== void 0 ? modelValue : false), checked = _b[0], setChecked = _b[1];
-    var uid = React.useMemo(function () { return id !== null && id !== void 0 ? id : "ui-form-checkbox-".concat(Math.random().toString(36).substr(2, 9)); }, [id]);
+    var _b = React.useState(modelValue !== null && modelValue !== undefined ? modelValue : false), checked = _b[0], setChecked = _b[1];
+    var uid = React.useMemo(function () { return id !== null && id !== undefined ? id : "ui-form-checkbox-".concat(Math.random().toString(36).substr(2, 9)); }, [id]);
     React.useEffect(function () {
         if (modelValue !== checked) {
             setChecked(modelValue);
@@ -758,7 +758,7 @@ var InputCheckbox = function (_a) {
     var handleChange = function () {
         var newValue = !checked;
         setChecked(newValue);
-        onUpdate === null || onUpdate === void 0 ? void 0 : onUpdate(newValue);
+        onUpdate === null || onUpdate === undefined ? undefined : onUpdate(newValue);
     };
     var handleKeyDown = function (event) {
         if (event.key === "Enter") {
@@ -770,7 +770,7 @@ var InputCheckbox = function (_a) {
     return (React.createElement("label", { tabIndex: 0, className: "ui-form-checkbox ".concat(classList), htmlFor: uid, onKeyDown: handleKeyDown },
         React.createElement("input", { type: "checkbox", id: uid, value: value, required: required, ref: function (el) {
                 if (el)
-                    el.indeterminate = indeterminate !== null && indeterminate !== void 0 ? indeterminate : false;
+                    el.indeterminate = indeterminate !== null && indeterminate !== undefined ? indeterminate : false;
             }, name: name, disabled: disabled, checked: checked, onChange: handleChange, tabIndex: -1 }),
         React.createElement("span", { className: "ui-form-checkbox-checkmark" }),
         label && React.createElement("div", { className: "ui-form-checkbox-text" }, label)));
@@ -816,7 +816,7 @@ var FooterModal = function (_a) {
 };
 
 var DataTable = function (_a) {
-    var columns = _a.columns, originalData = _a.data, expandable = _a.expandable, selectable = _a.selectable, expandedData = _a.expandedData, itemPerPage = _a.itemPerPage, inputPlaceholder = _a.inputPlaceholder, selectableLabelSecondButton = _a.selectableLabelSecondButton, labelSecondButton = _a.labelSecondButton, typeIconSecondButton = _a.typeIconSecondButton, titleNoDataMessage = _a.titleNoDataMessage, labelButtonNoDataFilteredMessage = _a.labelButtonNoDataFilteredMessage, descriptionNoDataMessage = _a.descriptionNoDataMessage, selectableIconSecondButton = _a.selectableIconSecondButton, filters = _a.filters, titleNoDataFilteredMessage = _a.titleNoDataFilteredMessage, descriptionNoDataFilteredMessage = _a.descriptionNoDataFilteredMessage, pagesText = _a.pagesText;
+    var columns = _a.columns, originalData = _a.data, expandable = _a.expandable, selectable = _a.selectable, expandedData = _a.expandedData, itemPerPage = _a.itemPerPage, inputPlaceholder = _a.inputPlaceholder, selectableLabelSecondButton = _a.selectableLabelSecondButton, labelSecondButton = _a.labelSecondButton, typeIconSecondButton = _a.typeIconSecondButton, titleNoDataMessage = _a.titleNoDataMessage, labelButtonNoDataFilteredMessage = _a.labelButtonNoDataFilteredMessage, descriptionNoDataMessage = _a.descriptionNoDataMessage, selectableIconSecondButton = _a.selectableIconSecondButton, filters = _a.filters, titleNoDataFilteredMessage = _a.titleNoDataFilteredMessage, descriptionNoDataFilteredMessage = _a.descriptionNoDataFilteredMessage, pagesText = _a.pagesText; _a.skeleton;
     var _b = React.useState(1), currentPage = _b[0], setCurrentPage = _b[1];
     var itemsPerPage = itemPerPage;
     var _c = React.useState(originalData), filteredData = _c[0], setFilteredData = _c[1];
@@ -917,8 +917,8 @@ var DataTable = function (_a) {
         selectedRows.length < filteredData.length &&
         !selectAll;
     function calculateGridTemplate(selectable, expandable) {
-        if (selectable === void 0) { selectable = false; }
-        if (expandable === void 0) { expandable = false; }
+        if (selectable === undefined) { selectable = false; }
+        if (expandable === undefined) { expandable = false; }
         if (selectable && expandable) {
             return {
                 gridTemplateColumns: "56px 56px repeat(auto-fit, minmax(120px, 1fr))",
@@ -934,8 +934,8 @@ var DataTable = function (_a) {
         }
     }
     function calculateLeft(selectable, expandable) {
-        if (selectable === void 0) { selectable = false; }
-        if (expandable === void 0) { expandable = false; }
+        if (selectable === undefined) { selectable = false; }
+        if (expandable === undefined) { expandable = false; }
         if (selectable && expandable) {
             return {
                 left: "112px",
@@ -953,7 +953,7 @@ var DataTable = function (_a) {
         }
     }
     function calculateLeftToCheckBox(expandable) {
-        if (expandable === void 0) { expandable = false; }
+        if (expandable === undefined) { expandable = false; }
         if (expandable) {
             return {
                 left: "56px",
@@ -1014,7 +1014,6 @@ var DataTable = function (_a) {
         downloadLink.click();
         // Clean up by removing the temporary URL and anchor element
         window.URL.revokeObjectURL(csvURL);
-        document.body.removeChild(downloadLink);
     };
     var renderHeader = function () {
         if (isAnyItemSelected) {
@@ -1255,7 +1254,7 @@ var FileUploader = function (_a) {
             setSelectedFiles([]); // Limpa a lista de arquivos se o valor for nulo ou vazio
         }
     }, [value, maxFileSizeBytes]);
-    var handleFileChange = function (event) { return __awaiter(void 0, void 0, void 0, function () {
+    var handleFileChange = function (event) { return __awaiter(undefined, undefined, undefined, function () {
         var files, updatedFiles_2, updatedFileList_1;
         return __generator(this, function (_a) {
             files = event.target.files;
@@ -1461,9 +1460,9 @@ var ImageUploader = function (_a) {
     }, [selectedFiles]);
     var handleButtonClick = function () {
         var _a;
-        (_a = fileInputRef.current) === null || _a === void 0 ? void 0 : _a.click();
+        (_a = fileInputRef.current) === null || _a === undefined ? undefined : _a.click();
     };
-    var handleFileChange = function (event) { return __awaiter(void 0, void 0, void 0, function () {
+    var handleFileChange = function (event) { return __awaiter(undefined, undefined, undefined, function () {
         var files, updatedFiles_1, promises, newFileList_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -1476,7 +1475,7 @@ var ImageUploader = function (_a) {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, 4, 5]);
-                    promises = Array.from(files).map(function (file) { return __awaiter(void 0, void 0, void 0, function () {
+                    promises = Array.from(files).map(function (file) { return __awaiter(undefined, undefined, undefined, function () {
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
@@ -1512,7 +1511,7 @@ var ImageUploader = function (_a) {
             }
         });
     }); };
-    var handleFile = function (file) { return __awaiter(void 0, void 0, void 0, function () {
+    var handleFile = function (file) { return __awaiter(undefined, undefined, undefined, function () {
         return __generator(this, function (_a) {
             if (!file) {
                 throw new Error("File is undefined");
@@ -1740,7 +1739,7 @@ var InputSelect = function (_a) {
 };
 
 var TextArea = function (_a) {
-    var placeholder = _a.placeholder, label = _a.label, disabled = _a.disabled, error = _a.error, errorText = _a.errorText, onChange = _a.onChange, _b = _a.value, value = _b === void 0 ? "" : _b;
+    var placeholder = _a.placeholder, label = _a.label, disabled = _a.disabled, error = _a.error, errorText = _a.errorText, onChange = _a.onChange, _b = _a.value, value = _b === undefined ? "" : _b;
     var _c = React.useState(value), internalValue = _c[0], setInternalValue = _c[1];
     var textareaRef = React.useRef(null);
     React.useEffect(function () {
@@ -1922,7 +1921,7 @@ var ProgressIndicator = function (_a) {
     var step = _a.step, description = _a.description, state = _a.state, direction = _a.direction, onClick = _a.onClick, widthFull = _a.widthFull;
     var displayName = stateNames[state] || state;
     var customizeWidthFull = function (widthFull) {
-        if (widthFull === void 0) { widthFull = false; }
+        if (widthFull === undefined) { widthFull = false; }
         if (widthFull) {
             return {
                 width: "100%",
@@ -2064,7 +2063,7 @@ var SidebarItem = function (_a) {
     var title = _a.title, icon = _a.icon, fillIcon = _a.fillIcon, children = _a.children, onClick = _a.onClick, isActive = _a.isActive;
     var handleKeyPress = function (event) {
         if (event.key === "Enter" && children) {
-            onClick === null || onClick === void 0 ? void 0 : onClick();
+            onClick === null || onClick === undefined ? undefined : onClick();
         }
     };
     var _b = React.useState(0), height = _b[0], setHeight = _b[1];
@@ -2148,7 +2147,7 @@ var Slider = function (_a) {
     var handleTouchMove = function (e) {
         var _a, _b;
         if (e.touches.length > 0) {
-            handleDragMove((_b = (_a = e.touches[0]) === null || _a === void 0 ? void 0 : _a.clientX) !== null && _b !== void 0 ? _b : 0);
+            handleDragMove((_b = (_a = e.touches[0]) === null || _a === undefined ? undefined : _a.clientX) !== null && _b !== undefined ? _b : 0);
         }
     };
     var handleDragMove = function (clientX) {
@@ -2201,8 +2200,8 @@ var Slider = function (_a) {
 
 var Switch = function (_a) {
     var modelValue = _a.modelValue, value = _a.value, label = _a.label, id = _a.id, name = _a.name, required = _a.required, noEvents = _a.noEvents, disabled = _a.disabled, onUpdate = _a.onUpdate;
-    var _b = React.useState(modelValue !== null && modelValue !== void 0 ? modelValue : false), checked = _b[0], setChecked = _b[1];
-    var uid = React.useMemo(function () { return id !== null && id !== void 0 ? id : "ui-form-switch-".concat(Math.random().toString(36).substr(2, 9)); }, [id]);
+    var _b = React.useState(modelValue !== null && modelValue !== undefined ? modelValue : false), checked = _b[0], setChecked = _b[1];
+    var uid = React.useMemo(function () { return id !== null && id !== undefined ? id : "ui-form-switch-".concat(Math.random().toString(36).substr(2, 9)); }, [id]);
     React.useEffect(function () {
         if (modelValue !== checked) {
             setChecked(modelValue);
@@ -2219,7 +2218,7 @@ var Switch = function (_a) {
     var handleChange = function () {
         var newValue = !checked;
         setChecked(newValue);
-        onUpdate === null || onUpdate === void 0 ? void 0 : onUpdate(newValue);
+        onUpdate === null || onUpdate === undefined ? undefined : onUpdate(newValue);
     };
     var handleKeyDown = function (event) {
         if (event.key === "Enter") {
@@ -2266,7 +2265,7 @@ var Tabs = function (_a) {
         });
     };
     var customizeWidthFull = function (widthFull) {
-        if (widthFull === void 0) { widthFull = false; }
+        if (widthFull === undefined) { widthFull = false; }
         if (widthFull) {
             return {
                 width: "100%",
@@ -3505,9 +3504,6 @@ var Symbol$4 = _Symbol,
     isArray$d = isArray_1,
     isSymbol$4 = isSymbol_1;
 
-/** Used as references for various `Number` constants. */
-var INFINITY$3 = 1 / 0;
-
 /** Used to convert symbols to primitives and strings. */
 var symbolProto$1 = Symbol$4 ? Symbol$4.prototype : undefined,
     symbolToString = symbolProto$1 ? symbolProto$1.toString : undefined;
@@ -3533,7 +3529,7 @@ function baseToString$1(value) {
     return symbolToString ? symbolToString.call(value) : '';
   }
   var result = (value + '');
-  return (result == '0' && (1 / value) == -INFINITY$3) ? '-0' : result;
+  return (result == '0' && (1 / value) == -Infinity) ? '-0' : result;
 }
 
 var _baseToString = baseToString$1;
@@ -3591,9 +3587,6 @@ var _castPath = castPath$2;
 
 var isSymbol$3 = isSymbol_1;
 
-/** Used as references for various `Number` constants. */
-var INFINITY$2 = 1 / 0;
-
 /**
  * Converts `value` to a string key if it's not a string or symbol.
  *
@@ -3606,7 +3599,7 @@ function toKey$4(value) {
     return value;
   }
   var result = (value + '');
-  return (result == '0' && (1 / value) == -INFINITY$2) ? '-0' : result;
+  return (result == '0' && (1 / value) == -Infinity) ? '-0' : result;
 }
 
 var _toKey = toKey$4;
@@ -4365,7 +4358,7 @@ function findAllByType(children, type) {
  */
 function findChildByType(children, type) {
   var result = findAllByType(children, type);
-  return result && result[0];
+  return result[0];
 }
 
 /**
@@ -4408,7 +4401,7 @@ var isValidSpreadableProp = function isValidSpreadableProp(property, key, includ
    * to determine if there are attributes that should only exist on that element type.
    * @todo Add an internal cjs version of https://github.com/wooorm/svg-element-attributes for full coverage.
    */
-  var matchingElementTypeKeys = (_FilteredElementKeyMa = FilteredElementKeyMap === null || FilteredElementKeyMap === void 0 ? void 0 : FilteredElementKeyMap[svgElementType]) !== null && _FilteredElementKeyMa !== void 0 ? _FilteredElementKeyMa : [];
+  var matchingElementTypeKeys = (_FilteredElementKeyMa = FilteredElementKeyMap === null || FilteredElementKeyMap === undefined ? undefined : FilteredElementKeyMap[svgElementType]) !== null && _FilteredElementKeyMa !== undefined ? _FilteredElementKeyMa : [];
   return !isFunction$3(property) && (svgElementType && matchingElementTypeKeys.includes(key) || SVGElementPropKeys.includes(key)) || includeEvents && EventKeys.includes(key);
 };
 var filterProps = function filterProps(props, includeEvents, svgElementType) {
@@ -4433,7 +4426,7 @@ var filterProps = function filterProps(props, includeEvents, svgElementType) {
    */
   Object.keys(inputProps).forEach(function (key) {
     var _inputProps;
-    if (isValidSpreadableProp((_inputProps = inputProps) === null || _inputProps === void 0 ? void 0 : _inputProps[key], key, includeEvents, svgElementType)) {
+    if (isValidSpreadableProp((_inputProps = inputProps) === null || _inputProps === undefined ? undefined : _inputProps[key], key, includeEvents, svgElementType)) {
       out[key] = inputProps[key];
     }
   });
@@ -5881,10 +5874,10 @@ function _typeof$G(o) { "@babel/helpers - typeof"; return _typeof$G = "function"
 var _excluded$g = ["type", "size", "sizeType"];
 function _extends$s() { _extends$s = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$s.apply(this, arguments); }
 function ownKeys$B(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$B(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$B(Object(t), !0).forEach(function (r) { _defineProperty$E(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$B(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$B(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$B(Object(t), true).forEach(function (r) { _defineProperty$E(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$B(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$E(obj, key, value) { key = _toPropertyKey$E(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$E(t) { var i = _toPrimitive$E(t, "string"); return "symbol" == _typeof$G(i) ? i : String(i); }
-function _toPrimitive$E(t, r) { if ("object" != _typeof$G(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$G(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$E(t, r) { if ("object" != _typeof$G(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$G(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _objectWithoutProperties$g(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$g(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 function _objectWithoutPropertiesLoose$g(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 var symbolFactories = {
@@ -5930,11 +5923,11 @@ var registerSymbol = function registerSymbol(key, factory) {
 };
 var Symbols = function Symbols(_ref) {
   var _ref$type = _ref.type,
-    type = _ref$type === void 0 ? 'circle' : _ref$type,
+    type = _ref$type === undefined ? 'circle' : _ref$type,
     _ref$size = _ref.size,
-    size = _ref$size === void 0 ? 64 : _ref$size,
+    size = _ref$size === undefined ? 64 : _ref$size,
     _ref$sizeType = _ref.sizeType,
-    sizeType = _ref$sizeType === void 0 ? 'area' : _ref$sizeType,
+    sizeType = _ref$sizeType === undefined ? 'area' : _ref$sizeType,
     rest = _objectWithoutProperties$g(_ref, _excluded$g);
   var props = _objectSpread$B(_objectSpread$B({}, rest), {}, {
     type: type,
@@ -5969,20 +5962,20 @@ Symbols.registerSymbol = registerSymbol;
 function _typeof$F(o) { "@babel/helpers - typeof"; return _typeof$F = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$F(o); }
 function _extends$r() { _extends$r = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$r.apply(this, arguments); }
 function ownKeys$A(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$A(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$A(Object(t), !0).forEach(function (r) { _defineProperty$D(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$A(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$A(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$A(Object(t), true).forEach(function (r) { _defineProperty$D(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$A(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _classCallCheck$f(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties$f(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey$D(descriptor.key), descriptor); } }
-function _createClass$f(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$f(Constructor.prototype, protoProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _createClass$f(Constructor, protoProps, staticProps) { _defineProperties$f(Constructor.prototype, protoProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _callSuper$b(t, o, e) { return o = _getPrototypeOf$c(o), _possibleConstructorReturn$c(t, _isNativeReflectConstruct$c() ? Reflect.construct(o, e || [], _getPrototypeOf$c(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn$c(self, call) { if (call && (_typeof$F(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$c(self); }
-function _assertThisInitialized$c(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _possibleConstructorReturn$c(self, call) { if (call && (_typeof$F(call) === "object" || typeof call === "function")) { return call; } else if (call !== undefined) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$c(self); }
+function _assertThisInitialized$c(self) { if (self === undefined) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct$c() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$c = function _isNativeReflectConstruct() { return !!t; })(); }
 function _getPrototypeOf$c(o) { _getPrototypeOf$c = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$c(o); }
 function _inherits$c(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf$c(subClass, superClass); }
 function _setPrototypeOf$c(o, p) { _setPrototypeOf$c = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$c(o, p); }
 function _defineProperty$D(obj, key, value) { key = _toPropertyKey$D(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$D(t) { var i = _toPrimitive$D(t, "string"); return "symbol" == _typeof$F(i) ? i : String(i); }
-function _toPrimitive$D(t, r) { if ("object" != _typeof$F(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$F(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$D(t, r) { if ("object" != _typeof$F(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$F(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var SIZE = 32;
 var DefaultLegendContent = /*#__PURE__*/function (_PureComponent) {
   _inherits$c(DefaultLegendContent, _PureComponent);
@@ -6030,7 +6023,7 @@ var DefaultLegendContent = /*#__PURE__*/function (_PureComponent) {
         return /*#__PURE__*/React.createElement("path", {
           stroke: "none",
           fill: color,
-          d: "M0,".concat(SIZE / 8, "h").concat(SIZE, "v").concat(SIZE * 3 / 4, "h").concat(-SIZE, "z"),
+          d: "M0,".concat(SIZE / 8, "h").concat(SIZE, "v").concat(SIZE * 3 / 4, "h").concat(-32, "z"),
           className: "recharts-legend-icon"
         });
       }
@@ -8301,20 +8294,20 @@ function getUniqPayload(payload, option, defaultUniqBy) {
 function _typeof$E(o) { "@babel/helpers - typeof"; return _typeof$E = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$E(o); }
 var _excluded$f = ["ref"];
 function ownKeys$z(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$z(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$z(Object(t), !0).forEach(function (r) { _defineProperty$C(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$z(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$z(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$z(Object(t), true).forEach(function (r) { _defineProperty$C(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$z(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _classCallCheck$e(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties$e(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey$C(descriptor.key), descriptor); } }
-function _createClass$e(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$e(Constructor.prototype, protoProps); if (staticProps) _defineProperties$e(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _callSuper$a(t, o, e) { return o = _getPrototypeOf$b(o), _possibleConstructorReturn$b(t, _isNativeReflectConstruct$b() ? Reflect.construct(o, e || [], _getPrototypeOf$b(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn$b(self, call) { if (call && (_typeof$E(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$b(self); }
+function _createClass$e(Constructor, protoProps, staticProps) { _defineProperties$e(Constructor.prototype, protoProps); _defineProperties$e(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _callSuper$a(t, o, e) { return o = _getPrototypeOf$b(o), _possibleConstructorReturn$b(t, _isNativeReflectConstruct$b() ? Reflect.construct(o, e, _getPrototypeOf$b(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn$b(self, call) { if (call && (_typeof$E(call) === "object" || typeof call === "function")) { return call; } else if (call !== undefined) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$b(self); }
 function _isNativeReflectConstruct$b() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$b = function _isNativeReflectConstruct() { return !!t; })(); }
 function _getPrototypeOf$b(o) { _getPrototypeOf$b = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$b(o); }
-function _assertThisInitialized$b(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _assertThisInitialized$b(self) { if (self === undefined) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inherits$b(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf$b(subClass, superClass); }
 function _setPrototypeOf$b(o, p) { _setPrototypeOf$b = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$b(o, p); }
 function _defineProperty$C(obj, key, value) { key = _toPropertyKey$C(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$C(t) { var i = _toPrimitive$C(t, "string"); return "symbol" == _typeof$E(i) ? i : String(i); }
-function _toPrimitive$C(t, r) { if ("object" != _typeof$E(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$E(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$C(t, r) { if ("object" != _typeof$E(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$E(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _objectWithoutProperties$f(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$f(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 function _objectWithoutPropertiesLoose$f(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 function defaultUniqBy$1(entry) {
@@ -9129,25 +9122,25 @@ function _slicedToArray$b(arr, i) { return _arrayWithHoles$c(arr) || _iterableTo
 function _nonIterableRest$c() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray$k(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$k(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$k(o, minLen); }
 function _arrayLikeToArray$k(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit$b(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _iterableToArrayLimit$b(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = true, o = false; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = true, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles$c(arr) { if (Array.isArray(arr)) return arr; }
 function ownKeys$y(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$y(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$y(Object(t), !0).forEach(function (r) { _defineProperty$A(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$y(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$y(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$y(Object(t), true).forEach(function (r) { _defineProperty$A(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$y(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$A(obj, key, value) { key = _toPropertyKey$B(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$B(t) { var i = _toPrimitive$B(t, "string"); return "symbol" == _typeof$D(i) ? i : String(i); }
-function _toPrimitive$B(t, r) { if ("object" != _typeof$D(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$D(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$B(t, r) { if ("object" != _typeof$D(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$D(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function defaultFormatter(value) {
   return Array.isArray(value) && isNumOrStr(value[0]) && isNumOrStr(value[1]) ? value.join(' ~ ') : value;
 }
 var DefaultTooltipContent = function DefaultTooltipContent(props) {
   var _props$separator = props.separator,
-    separator = _props$separator === void 0 ? ' : ' : _props$separator,
+    separator = _props$separator === undefined ? ' : ' : _props$separator,
     _props$contentStyle = props.contentStyle,
-    contentStyle = _props$contentStyle === void 0 ? {} : _props$contentStyle,
+    contentStyle = _props$contentStyle === undefined ? {} : _props$contentStyle,
     _props$itemStyle = props.itemStyle,
-    itemStyle = _props$itemStyle === void 0 ? {} : _props$itemStyle,
+    itemStyle = _props$itemStyle === undefined ? {} : _props$itemStyle,
     _props$labelStyle = props.labelStyle,
-    labelStyle = _props$labelStyle === void 0 ? {} : _props$labelStyle,
+    labelStyle = _props$labelStyle === undefined ? {} : _props$labelStyle,
     payload = props.payload,
     formatter = props.formatter,
     itemSorter = props.itemSorter,
@@ -9156,7 +9149,7 @@ var DefaultTooltipContent = function DefaultTooltipContent(props) {
     label = props.label,
     labelFormatter = props.labelFormatter,
     _props$accessibilityL = props.accessibilityLayer,
-    accessibilityLayer = _props$accessibilityL === void 0 ? false : _props$accessibilityL;
+    accessibilityLayer = _props$accessibilityL === undefined ? false : _props$accessibilityL;
   var renderContent = function renderContent() {
     if (payload && payload.length) {
       var listStyle = {
@@ -9178,7 +9171,7 @@ var DefaultTooltipContent = function DefaultTooltipContent(props) {
           name = entry.name;
         var finalValue = value;
         var finalName = name;
-        if (finalFormatter && finalValue != null && finalName != null) {
+        if (finalValue != null && finalName != null) {
           var formatted = finalFormatter(value, name, entry, i, payload);
           if (Array.isArray(formatted)) {
             var _formatted = _slicedToArray$b(formatted, 2);
@@ -9246,7 +9239,7 @@ var DefaultTooltipContent = function DefaultTooltipContent(props) {
 function _typeof$C(o) { "@babel/helpers - typeof"; return _typeof$C = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$C(o); }
 function _defineProperty$z(obj, key, value) { key = _toPropertyKey$A(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$A(t) { var i = _toPrimitive$A(t, "string"); return "symbol" == _typeof$C(i) ? i : String(i); }
-function _toPrimitive$A(t, r) { if ("object" != _typeof$C(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$C(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$A(t, r) { if ("object" != _typeof$C(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$C(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var CSS_CLASS_PREFIX = 'recharts-tooltip-wrapper';
 var TOOLTIP_HIDDEN = {
   visibility: 'hidden'
@@ -9351,20 +9344,20 @@ function getTooltipTranslate(_ref4) {
 
 function _typeof$B(o) { "@babel/helpers - typeof"; return _typeof$B = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$B(o); }
 function ownKeys$x(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$x(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$x(Object(t), !0).forEach(function (r) { _defineProperty$y(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$x(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$x(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$x(Object(t), true).forEach(function (r) { _defineProperty$y(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$x(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _classCallCheck$d(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties$d(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey$z(descriptor.key), descriptor); } }
-function _createClass$d(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$d(Constructor.prototype, protoProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _callSuper$9(t, o, e) { return o = _getPrototypeOf$a(o), _possibleConstructorReturn$a(t, _isNativeReflectConstruct$a() ? Reflect.construct(o, e || [], _getPrototypeOf$a(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn$a(self, call) { if (call && (_typeof$B(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$a(self); }
+function _createClass$d(Constructor, protoProps, staticProps) { _defineProperties$d(Constructor.prototype, protoProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _callSuper$9(t, o, e) { return o = _getPrototypeOf$a(o), _possibleConstructorReturn$a(t, _isNativeReflectConstruct$a() ? Reflect.construct(o, e, _getPrototypeOf$a(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn$a(self, call) { if (call && (_typeof$B(call) === "object" || typeof call === "function")) { return call; } else if (call !== undefined) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$a(self); }
 function _isNativeReflectConstruct$a() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$a = function _isNativeReflectConstruct() { return !!t; })(); }
 function _getPrototypeOf$a(o) { _getPrototypeOf$a = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$a(o); }
-function _assertThisInitialized$a(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _assertThisInitialized$a(self) { if (self === undefined) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inherits$a(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf$a(subClass, superClass); }
 function _setPrototypeOf$a(o, p) { _setPrototypeOf$a = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$a(o, p); }
 function _defineProperty$y(obj, key, value) { key = _toPropertyKey$z(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$z(t) { var i = _toPrimitive$z(t, "string"); return "symbol" == _typeof$B(i) ? i : String(i); }
-function _toPrimitive$z(t, r) { if ("object" != _typeof$B(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$B(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$z(t, r) { if ("object" != _typeof$B(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$B(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var EPSILON = 1;
 var TooltipBoundingBox = /*#__PURE__*/function (_PureComponent) {
   _inherits$a(TooltipBoundingBox, _PureComponent);
@@ -9392,8 +9385,8 @@ var TooltipBoundingBox = /*#__PURE__*/function (_PureComponent) {
         _this.setState({
           dismissed: true,
           dismissedAtCoordinate: {
-            x: (_this$props$coordinat = (_this$props$coordinat2 = _this.props.coordinate) === null || _this$props$coordinat2 === void 0 ? void 0 : _this$props$coordinat2.x) !== null && _this$props$coordinat !== void 0 ? _this$props$coordinat : 0,
-            y: (_this$props$coordinat3 = (_this$props$coordinat4 = _this.props.coordinate) === null || _this$props$coordinat4 === void 0 ? void 0 : _this$props$coordinat4.y) !== null && _this$props$coordinat3 !== void 0 ? _this$props$coordinat3 : 0
+            x: (_this$props$coordinat = (_this$props$coordinat2 = _this.props.coordinate) === null || _this$props$coordinat2 === undefined ? undefined : _this$props$coordinat2.x) !== null && _this$props$coordinat !== undefined ? _this$props$coordinat : 0,
+            y: (_this$props$coordinat3 = (_this$props$coordinat4 = _this.props.coordinate) === null || _this$props$coordinat4 === undefined ? undefined : _this$props$coordinat4.y) !== null && _this$props$coordinat3 !== undefined ? _this$props$coordinat3 : 0
           }
         });
       }
@@ -9443,7 +9436,7 @@ var TooltipBoundingBox = /*#__PURE__*/function (_PureComponent) {
       if (!this.state.dismissed) {
         return;
       }
-      if (((_this$props$coordinat5 = this.props.coordinate) === null || _this$props$coordinat5 === void 0 ? void 0 : _this$props$coordinat5.x) !== this.state.dismissedAtCoordinate.x || ((_this$props$coordinat6 = this.props.coordinate) === null || _this$props$coordinat6 === void 0 ? void 0 : _this$props$coordinat6.y) !== this.state.dismissedAtCoordinate.y) {
+      if (((_this$props$coordinat5 = this.props.coordinate) === null || _this$props$coordinat5 === undefined ? undefined : _this$props$coordinat5.x) !== this.state.dismissedAtCoordinate.x || ((_this$props$coordinat6 = this.props.coordinate) === null || _this$props$coordinat6 === undefined ? undefined : _this$props$coordinat6.y) !== this.state.dismissedAtCoordinate.y) {
         this.state.dismissed = false;
       }
     }
@@ -9529,20 +9522,20 @@ var Global = {
 
 function _typeof$A(o) { "@babel/helpers - typeof"; return _typeof$A = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$A(o); }
 function ownKeys$w(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$w(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$w(Object(t), !0).forEach(function (r) { _defineProperty$x(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$w(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$w(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$w(Object(t), true).forEach(function (r) { _defineProperty$x(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$w(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _classCallCheck$c(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties$c(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey$y(descriptor.key), descriptor); } }
-function _createClass$c(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$c(Constructor.prototype, protoProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _createClass$c(Constructor, protoProps, staticProps) { _defineProperties$c(Constructor.prototype, protoProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _callSuper$8(t, o, e) { return o = _getPrototypeOf$9(o), _possibleConstructorReturn$9(t, _isNativeReflectConstruct$9() ? Reflect.construct(o, e || [], _getPrototypeOf$9(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn$9(self, call) { if (call && (_typeof$A(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$9(self); }
-function _assertThisInitialized$9(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _possibleConstructorReturn$9(self, call) { if (call && (_typeof$A(call) === "object" || typeof call === "function")) { return call; } else if (call !== undefined) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$9(self); }
+function _assertThisInitialized$9(self) { if (self === undefined) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct$9() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$9 = function _isNativeReflectConstruct() { return !!t; })(); }
 function _getPrototypeOf$9(o) { _getPrototypeOf$9 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$9(o); }
 function _inherits$9(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf$9(subClass, superClass); }
 function _setPrototypeOf$9(o, p) { _setPrototypeOf$9 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$9(o, p); }
 function _defineProperty$x(obj, key, value) { key = _toPropertyKey$y(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$y(t) { var i = _toPrimitive$y(t, "string"); return "symbol" == _typeof$A(i) ? i : String(i); }
-function _toPrimitive$y(t, r) { if ("object" != _typeof$A(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$A(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$y(t, r) { if ("object" != _typeof$A(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$A(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function defaultUniqBy(entry) {
   return entry.dataKey;
 }
@@ -9582,7 +9575,7 @@ var Tooltip = /*#__PURE__*/function (_PureComponent) {
         useTranslate3d = _this$props.useTranslate3d,
         viewBox = _this$props.viewBox,
         wrapperStyle = _this$props.wrapperStyle;
-      var finalPayload = payload !== null && payload !== void 0 ? payload : [];
+      var finalPayload = payload !== null && payload !== undefined ? payload : [];
       if (filterNull && finalPayload.length) {
         finalPayload = getUniqPayload(payload.filter(function (entry) {
           return entry.value != null && (entry.hide !== true || _this.props.includeHidden);
@@ -10052,10 +10045,10 @@ Cell.displayName = 'Cell';
 
 function _typeof$z(o) { "@babel/helpers - typeof"; return _typeof$z = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$z(o); }
 function ownKeys$v(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$v(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$v(Object(t), !0).forEach(function (r) { _defineProperty$w(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$v(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$v(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$v(Object(t), true).forEach(function (r) { _defineProperty$w(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$v(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$w(obj, key, value) { key = _toPropertyKey$x(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$x(t) { var i = _toPrimitive$x(t, "string"); return "symbol" == _typeof$z(i) ? i : String(i); }
-function _toPrimitive$x(t, r) { if ("object" != _typeof$z(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$z(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$x(t, r) { if ("object" != _typeof$z(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$z(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var stringCache = {
   widthCache: {},
   cacheCount: 0
@@ -10139,13 +10132,13 @@ function _slicedToArray$a(arr, i) { return _arrayWithHoles$b(arr) || _iterableTo
 function _nonIterableRest$b() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray$j(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$j(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$j(o, minLen); }
 function _arrayLikeToArray$j(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit$a(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _iterableToArrayLimit$a(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = true, o = false; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = true, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles$b(arr) { if (Array.isArray(arr)) return arr; }
 function _classCallCheck$b(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties$b(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey$w(descriptor.key), descriptor); } }
-function _createClass$b(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$b(Constructor.prototype, protoProps); if (staticProps) _defineProperties$b(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _createClass$b(Constructor, protoProps, staticProps) { _defineProperties$b(Constructor.prototype, protoProps); _defineProperties$b(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _toPropertyKey$w(t) { var i = _toPrimitive$w(t, "string"); return "symbol" == _typeof$y(i) ? i : String(i); }
-function _toPrimitive$w(t, r) { if ("object" != _typeof$y(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r); if ("object" != _typeof$y(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return (String )(t); }
+function _toPrimitive$w(t, r) { if ("object" != _typeof$y(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r); if ("object" != _typeof$y(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return (String )(t); }
 var MULTIPLY_OR_DIVIDE_REGEX = /(-?\d+(?:\.\d+)?[a-zA-Z%]*)([*/])(-?\d+(?:\.\d+)?[a-zA-Z%]*)/;
 var ADD_OR_SUBTRACT_REGEX = /(-?\d+(?:\.\d+)?[a-zA-Z%]*)([+-])(-?\d+(?:\.\d+)?[a-zA-Z%]*)/;
 var CSS_LENGTH_UNIT_REGEX = /^px|cm|vh|vw|em|rem|%|mm|in|pt|pc|ex|ch|vmin|vmax|Q$/;
@@ -10229,11 +10222,11 @@ var DecimalCSS = /*#__PURE__*/function () {
     key: "parse",
     value: function parse(str) {
       var _NUM_SPLIT_REGEX$exec;
-      var _ref = (_NUM_SPLIT_REGEX$exec = NUM_SPLIT_REGEX.exec(str)) !== null && _NUM_SPLIT_REGEX$exec !== void 0 ? _NUM_SPLIT_REGEX$exec : [],
+      var _ref = (_NUM_SPLIT_REGEX$exec = NUM_SPLIT_REGEX.exec(str)) !== null && _NUM_SPLIT_REGEX$exec !== undefined ? _NUM_SPLIT_REGEX$exec : [],
         _ref2 = _slicedToArray$a(_ref, 3),
         numStr = _ref2[1],
         unit = _ref2[2];
-      return new DecimalCSS(parseFloat(numStr), unit !== null && unit !== void 0 ? unit : '');
+      return new DecimalCSS(parseFloat(numStr), unit !== null && unit !== undefined ? unit : '');
     }
   }]);
   return DecimalCSS;
@@ -10245,13 +10238,13 @@ function calculateArithmetic(expr) {
   var newExpr = expr;
   while (newExpr.includes('*') || newExpr.includes('/')) {
     var _MULTIPLY_OR_DIVIDE_R;
-    var _ref3 = (_MULTIPLY_OR_DIVIDE_R = MULTIPLY_OR_DIVIDE_REGEX.exec(newExpr)) !== null && _MULTIPLY_OR_DIVIDE_R !== void 0 ? _MULTIPLY_OR_DIVIDE_R : [],
+    var _ref3 = (_MULTIPLY_OR_DIVIDE_R = MULTIPLY_OR_DIVIDE_REGEX.exec(newExpr)) !== null && _MULTIPLY_OR_DIVIDE_R !== undefined ? _MULTIPLY_OR_DIVIDE_R : [],
       _ref4 = _slicedToArray$a(_ref3, 4),
       leftOperand = _ref4[1],
       operator = _ref4[2],
       rightOperand = _ref4[3];
-    var lTs = DecimalCSS.parse(leftOperand !== null && leftOperand !== void 0 ? leftOperand : '');
-    var rTs = DecimalCSS.parse(rightOperand !== null && rightOperand !== void 0 ? rightOperand : '');
+    var lTs = DecimalCSS.parse(leftOperand !== null && leftOperand !== undefined ? leftOperand : '');
+    var rTs = DecimalCSS.parse(rightOperand !== null && rightOperand !== undefined ? rightOperand : '');
     var result = operator === '*' ? lTs.multiply(rTs) : lTs.divide(rTs);
     if (result.isNaN()) {
       return STR_NAN;
@@ -10260,13 +10253,13 @@ function calculateArithmetic(expr) {
   }
   while (newExpr.includes('+') || /.-\d+(?:\.\d+)?/.test(newExpr)) {
     var _ADD_OR_SUBTRACT_REGE;
-    var _ref5 = (_ADD_OR_SUBTRACT_REGE = ADD_OR_SUBTRACT_REGEX.exec(newExpr)) !== null && _ADD_OR_SUBTRACT_REGE !== void 0 ? _ADD_OR_SUBTRACT_REGE : [],
+    var _ref5 = (_ADD_OR_SUBTRACT_REGE = ADD_OR_SUBTRACT_REGEX.exec(newExpr)) !== null && _ADD_OR_SUBTRACT_REGE !== undefined ? _ADD_OR_SUBTRACT_REGE : [],
       _ref6 = _slicedToArray$a(_ref5, 4),
       _leftOperand = _ref6[1],
       _operator = _ref6[2],
       _rightOperand = _ref6[3];
-    var _lTs = DecimalCSS.parse(_leftOperand !== null && _leftOperand !== void 0 ? _leftOperand : '');
-    var _rTs = DecimalCSS.parse(_rightOperand !== null && _rightOperand !== void 0 ? _rightOperand : '');
+    var _lTs = DecimalCSS.parse(_leftOperand !== null && _leftOperand !== undefined ? _leftOperand : '');
+    var _rTs = DecimalCSS.parse(_rightOperand !== null && _rightOperand !== undefined ? _rightOperand : '');
     var _result = _operator === '+' ? _lTs.add(_rTs) : _lTs.subtract(_rTs);
     if (_result.isNaN()) {
       return STR_NAN;
@@ -10318,7 +10311,7 @@ function _slicedToArray$9(arr, i) { return _arrayWithHoles$a(arr) || _iterableTo
 function _nonIterableRest$a() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray$i(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$i(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$i(o, minLen); }
 function _arrayLikeToArray$i(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit$9(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _iterableToArrayLimit$9(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = true, o = false; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = true, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles$a(arr) { if (Array.isArray(arr)) return arr; }
 var BREAKING_SPACES = /[ \f\n\r\t\v\u2028\u2029]+/;
 var calculateWordWidths = function calculateWordWidths(_ref) {
@@ -10470,21 +10463,21 @@ var getWordsByLines = function getWordsByLines(_ref4) {
 var DEFAULT_FILL = '#808080';
 var Text = function Text(_ref5) {
   var _ref5$x = _ref5.x,
-    propsX = _ref5$x === void 0 ? 0 : _ref5$x,
+    propsX = _ref5$x === undefined ? 0 : _ref5$x,
     _ref5$y = _ref5.y,
-    propsY = _ref5$y === void 0 ? 0 : _ref5$y,
+    propsY = _ref5$y === undefined ? 0 : _ref5$y,
     _ref5$lineHeight = _ref5.lineHeight,
-    lineHeight = _ref5$lineHeight === void 0 ? '1em' : _ref5$lineHeight,
+    lineHeight = _ref5$lineHeight === undefined ? '1em' : _ref5$lineHeight,
     _ref5$capHeight = _ref5.capHeight,
-    capHeight = _ref5$capHeight === void 0 ? '0.71em' : _ref5$capHeight,
+    capHeight = _ref5$capHeight === undefined ? '0.71em' : _ref5$capHeight,
     _ref5$scaleToFit = _ref5.scaleToFit,
-    scaleToFit = _ref5$scaleToFit === void 0 ? false : _ref5$scaleToFit,
+    scaleToFit = _ref5$scaleToFit === undefined ? false : _ref5$scaleToFit,
     _ref5$textAnchor = _ref5.textAnchor,
-    textAnchor = _ref5$textAnchor === void 0 ? 'start' : _ref5$textAnchor,
+    textAnchor = _ref5$textAnchor === undefined ? 'start' : _ref5$textAnchor,
     _ref5$verticalAnchor = _ref5.verticalAnchor,
-    verticalAnchor = _ref5$verticalAnchor === void 0 ? 'end' : _ref5$verticalAnchor,
+    verticalAnchor = _ref5$verticalAnchor === undefined ? 'end' : _ref5$verticalAnchor,
     _ref5$fill = _ref5.fill,
-    fill = _ref5$fill === void 0 ? DEFAULT_FILL : _ref5$fill,
+    fill = _ref5$fill === undefined ? DEFAULT_FILL : _ref5$fill,
     props = _objectWithoutProperties$e(_ref5, _excluded$e);
   var wordsByLines = React.useMemo(function () {
     return getWordsByLines({
@@ -12701,7 +12694,7 @@ function timeInterval(floori, offseti, count, field) {
         if (step < 0) while (++step <= 0) {
           while (offseti(date, -1), !test(date)) {} // eslint-disable-line no-empty
         } else while (--step >= 0) {
-          while (offseti(date, +1), !test(date)) {} // eslint-disable-line no-empty
+          while (offseti(date, 1), !test(date)) {} // eslint-disable-line no-empty
         }
       }
     });
@@ -14642,7 +14635,7 @@ P.logarithm = P.log = function (base) {
     wpr = pr + 5;
 
   // Default base is 10.
-  if (base === void 0) {
+  if (base === undefined) {
     base = new Ctor(10);
   } else {
     base = new Ctor(base);
@@ -14763,7 +14756,7 @@ P.precision = P.sd = function (z) {
   var e, sd, w,
     x = this;
 
-  if (z !== void 0 && z !== !!z && z !== 1 && z !== 0) throw Error(invalidArgument + z);
+  if (z !== undefined && z !== !!z && z !== 1 && z !== 0) throw Error(invalidArgument + z);
 
   e = getBase10Exponent(x) + 1;
   w = x.d.length - 1;
@@ -14940,11 +14933,11 @@ P.toDecimalPlaces = P.todp = function (dp, rm) {
     Ctor = x.constructor;
 
   x = new Ctor(x);
-  if (dp === void 0) return x;
+  if (dp === undefined) return x;
 
   checkInt32(dp, 0, MAX_DIGITS);
 
-  if (rm === void 0) rm = Ctor.rounding;
+  if (rm === undefined) rm = Ctor.rounding;
   else checkInt32(rm, 0, 8);
 
   return round(x, dp + getBase10Exponent(x) + 1, rm);
@@ -14964,12 +14957,12 @@ P.toExponential = function (dp, rm) {
     x = this,
     Ctor = x.constructor;
 
-  if (dp === void 0) {
+  if (dp === undefined) {
     str = toString(x, true);
   } else {
     checkInt32(dp, 0, MAX_DIGITS);
 
-    if (rm === void 0) rm = Ctor.rounding;
+    if (rm === undefined) rm = Ctor.rounding;
     else checkInt32(rm, 0, 8);
 
     x = round(new Ctor(x), dp + 1, rm);
@@ -15001,11 +14994,11 @@ P.toFixed = function (dp, rm) {
     x = this,
     Ctor = x.constructor;
 
-  if (dp === void 0) return toString(x);
+  if (dp === undefined) return toString(x);
 
   checkInt32(dp, 0, MAX_DIGITS);
 
-  if (rm === void 0) rm = Ctor.rounding;
+  if (rm === undefined) rm = Ctor.rounding;
   else checkInt32(rm, 0, 8);
 
   y = round(new Ctor(x), dp + getBase10Exponent(x) + 1, rm);
@@ -15146,13 +15139,13 @@ P.toPrecision = function (sd, rm) {
     x = this,
     Ctor = x.constructor;
 
-  if (sd === void 0) {
+  if (sd === undefined) {
     e = getBase10Exponent(x);
     str = toString(x, e <= Ctor.toExpNeg || e >= Ctor.toExpPos);
   } else {
     checkInt32(sd, 1, MAX_DIGITS);
 
-    if (rm === void 0) rm = Ctor.rounding;
+    if (rm === undefined) rm = Ctor.rounding;
     else checkInt32(rm, 0, 8);
 
     x = round(new Ctor(x), sd, rm);
@@ -15177,13 +15170,13 @@ P.toSignificantDigits = P.tosd = function (sd, rm) {
   var x = this,
     Ctor = x.constructor;
 
-  if (sd === void 0) {
+  if (sd === undefined) {
     sd = Ctor.precision;
     rm = Ctor.rounding;
   } else {
     checkInt32(sd, 1, MAX_DIGITS);
 
-    if (rm === void 0) rm = Ctor.rounding;
+    if (rm === undefined) rm = Ctor.rounding;
     else checkInt32(rm, 0, 8);
   }
 
@@ -15569,7 +15562,7 @@ var divide = (function () {
           remL = 1;
         }
 
-      } while ((xi++ < xL || rem[0] !== void 0) && sd--);
+      } while ((xi++ < xL || rem[0] !== undefined) && sd--);
     }
 
     // Leading zero?
@@ -15904,14 +15897,14 @@ function parseDecimal(x, str) {
     j = i - LOG_BASE + n;
   }
 
-  if (rm !== void 0) {
+  if (rm !== undefined) {
     k = mathpow(10, n - j - 1);
 
     // Get the rounding digit at index j of w.
     rd = w / k % 10 | 0;
 
     // Are there any non-zero digits after the rounding digit?
-    doRound = sd < 0 || xd[xdi + 1] !== void 0 || w % k;
+    doRound = sd < 0 || xd[xdi + 1] !== undefined || w % k;
 
     // The expression `w % mathpow(10, n - j - 1)` returns all the digits of w to the right of the
     // digit at (left-to-right) index j, e.g. if w is 908714 and j is 2, the expression will give
@@ -16246,7 +16239,7 @@ function clone(obj) {
   Decimal.clone = clone;
   Decimal.config = Decimal.set = config;
 
-  if (obj === void 0) obj = {};
+  if (obj === undefined) obj = {};
   if (obj) {
     ps = ['precision', 'rounding', 'toExpNeg', 'toExpPos', 'LN10'];
     for (i = 0; i < ps.length;) if (!obj.hasOwnProperty(p = ps[i++])) obj[p] = this[p];
@@ -16284,13 +16277,13 @@ function config(obj) {
     ];
 
   for (i = 0; i < ps.length; i += 3) {
-    if ((v = obj[p = ps[i]]) !== void 0) {
+    if ((v = obj[p = ps[i]]) !== undefined) {
       if (mathfloor(v) === v && v >= ps[i + 1] && v <= ps[i + 2]) this[p] = v;
       else throw Error(invalidArgument + p + ': ' + v);
     }
   }
 
-  if ((v = obj[p = 'LN10']) !== void 0) {
+  if ((v = obj[p = 'LN10']) !== undefined) {
       if (v == Math.LN10) this[p] = new this(v);
       else throw Error(invalidArgument + p + ': ' + v);
   }
@@ -16337,7 +16330,7 @@ var curry0 = function curry0(fn) {
       return _curried;
     }
 
-    return fn.apply(void 0, arguments);
+    return fn.apply(undefined, arguments);
   };
 };
 
@@ -16356,7 +16349,7 @@ var curryN = function curryN(n, fn) {
     }).length;
 
     if (argsLength >= n) {
-      return fn.apply(void 0, args);
+      return fn.apply(undefined, args);
     }
 
     return curryN(n - argsLength, curry0(function () {
@@ -16367,7 +16360,7 @@ var curryN = function curryN(n, fn) {
       var newArgs = args.map(function (arg) {
         return isPlaceHolder(arg) ? restArgs.shift() : arg;
       });
-      return fn.apply(void 0, _toConsumableArray$b(newArgs).concat(restArgs));
+      return fn.apply(undefined, _toConsumableArray$b(newArgs).concat(restArgs));
     }));
   });
 };
@@ -16409,7 +16402,7 @@ var compose = function compose() {
   return function () {
     return tailsFn.reduce(function (res, fn) {
       return fn(res);
-    }, firstFn.apply(void 0, arguments));
+    }, firstFn.apply(undefined, arguments));
   };
 };
 var reverse = function reverse(arr) {
@@ -16435,7 +16428,7 @@ var memoize = function memoize(fn) {
     }
 
     lastArgs = args;
-    lastResult = fn.apply(void 0, args);
+    lastResult = fn.apply(undefined, args);
     return lastResult;
   };
 };
@@ -16814,7 +16807,7 @@ function _slicedToArray$7(arr, i) { return _arrayWithHoles$8(arr) || _iterableTo
 function _nonIterableRest$8() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray$f(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$f(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$f(o, minLen); }
 function _arrayLikeToArray$f(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit$7(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _iterableToArrayLimit$7(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = true, o = false; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = true, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles$8(arr) { if (Array.isArray(arr)) return arr; }
 function _objectWithoutProperties$d(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$d(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 function _objectWithoutPropertiesLoose$d(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
@@ -16829,7 +16822,7 @@ function ErrorBar(props) {
     yAxis = props.yAxis,
     others = _objectWithoutProperties$d(props, _excluded$d);
   var svgProps = filterProps(others, false);
-  !!(props.direction === 'x' && xAxis.type !== 'number') ? process.env.NODE_ENV !== "production" ? invariant(false, 'ErrorBar requires Axis type property to be "number".') : invariant() : void 0;
+  !!(props.direction === 'x' && xAxis.type !== 'number') ? process.env.NODE_ENV !== "production" ? invariant(false, 'ErrorBar requires Axis type property to be "number".') : invariant() : undefined;
   var errorBars = data.map(function (entry) {
     var _dataPointFormatter = dataPointFormatter(entry, dataKey),
       x = _dataPointFormatter.x,
@@ -16935,10 +16928,10 @@ ErrorBar.displayName = 'ErrorBar';
 
 function _typeof$x(o) { "@babel/helpers - typeof"; return _typeof$x = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$x(o); }
 function ownKeys$u(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$u(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$u(Object(t), !0).forEach(function (r) { _defineProperty$v(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$u(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$u(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$u(Object(t), true).forEach(function (r) { _defineProperty$v(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$u(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$v(obj, key, value) { key = _toPropertyKey$v(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$v(t) { var i = _toPrimitive$v(t, "string"); return "symbol" == _typeof$x(i) ? i : String(i); }
-function _toPrimitive$v(t, r) { if ("object" != _typeof$x(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$x(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$v(t, r) { if ("object" != _typeof$x(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$x(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var getLegendProps = function getLegendProps(_ref) {
   var children = _ref.children,
     formattedGraphicalItems = _ref.formattedGraphicalItems,
@@ -16992,10 +16985,10 @@ var getLegendProps = function getLegendProps(_ref) {
 
 function _typeof$w(o) { "@babel/helpers - typeof"; return _typeof$w = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$w(o); }
 function ownKeys$t(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$t(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$t(Object(t), !0).forEach(function (r) { _defineProperty$u(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$t(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$t(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$t(Object(t), true).forEach(function (r) { _defineProperty$u(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$t(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$u(obj, key, value) { key = _toPropertyKey$u(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$u(t) { var i = _toPrimitive$u(t, "string"); return "symbol" == _typeof$w(i) ? i : String(i); }
-function _toPrimitive$u(t, r) { if ("object" != _typeof$w(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$w(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$u(t, r) { if ("object" != _typeof$w(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$w(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _toConsumableArray$9(arr) { return _arrayWithoutHoles$9(arr) || _iterableToArray$a(arr) || _unsupportedIterableToArray$e(arr) || _nonIterableSpread$9(); }
 function _nonIterableSpread$9() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray$e(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$e(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$e(o, minLen); }
@@ -17048,7 +17041,7 @@ var calculateActiveTickIndex = function calculateActiveTickIndex(coordinate) {
   var unsortedTicks = arguments.length > 2 ? arguments[2] : undefined;
   var axis = arguments.length > 3 ? arguments[3] : undefined;
   var index = -1;
-  var len = (_ticks$length = ticks === null || ticks === void 0 ? void 0 : ticks.length) !== null && _ticks$length !== void 0 ? _ticks$length : 0;
+  var len = (_ticks$length = ticks === null || ticks === undefined ? undefined : ticks.length) !== null && _ticks$length !== undefined ? _ticks$length : 0;
 
   // if there are 1 or less ticks ticks then the active tick is at index 0
   if (len <= 1) {
@@ -17061,7 +17054,7 @@ var calculateActiveTickIndex = function calculateActiveTickIndex(coordinate) {
       var before = i > 0 ? unsortedTicks[i - 1].coordinate : unsortedTicks[len - 1].coordinate;
       var cur = unsortedTicks[i].coordinate;
       var after = i >= len - 1 ? unsortedTicks[0].coordinate : unsortedTicks[i + 1].coordinate;
-      var sameDirectionCoord = void 0;
+      var sameDirectionCoord = undefined;
       if (mathSign(cur - before) !== mathSign(after - cur)) {
         var diffInterval = [];
         if (mathSign(after - cur) === mathSign(range[1] - range[0])) {
@@ -17136,7 +17129,7 @@ var getBarSizeList = function getBarSizeList(_ref2) {
   var globalSize = _ref2.barSize,
     totalSize = _ref2.totalSize,
     _ref2$stackGroups = _ref2.stackGroups,
-    stackGroups = _ref2$stackGroups === void 0 ? {} : _ref2$stackGroups;
+    stackGroups = _ref2$stackGroups === undefined ? {} : _ref2$stackGroups;
   if (!stackGroups) {
     return {};
   }
@@ -17186,7 +17179,7 @@ var getBarPosition = function getBarPosition(_ref3) {
     barCategoryGap = _ref3.barCategoryGap,
     bandSize = _ref3.bandSize,
     _ref3$sizeList = _ref3.sizeList,
-    sizeList = _ref3$sizeList === void 0 ? [] : _ref3$sizeList,
+    sizeList = _ref3$sizeList === undefined ? [] : _ref3$sizeList,
     maxBarSize = _ref3.maxBarSize;
   var len = sizeList.length;
   if (len < 1) return null;
@@ -17444,7 +17437,7 @@ var getTicksOfAxis = function getTicksOfAxis(axis, isGrid, isAll) {
     range = axis.range;
   var offsetForBand = axis.realScaleType === 'scaleBand' ? scale.bandwidth() / 2 : 2;
   var offset = (isGrid || isAll) && type === 'category' && scale.bandwidth ? scale.bandwidth() / offsetForBand : 0;
-  offset = axis.axisType === 'angleAxis' && (range === null || range === void 0 ? void 0 : range.length) >= 2 ? mathSign(range[0] - range[1]) * 2 * offset : offset;
+  offset = axis.axisType === 'angleAxis' && (range === null || range === undefined ? undefined : range.length) >= 2 ? mathSign(range[0] - range[1]) * 2 * offset : offset;
 
   // The ticks set by user should only affect the ticks adjacent to axis line
   if (isGrid && (axis.ticks || axis.niceTicks)) {
@@ -17515,8 +17508,8 @@ var combineEventHandlers = function combineEventHandlers(defaultHandler, childHa
     return childWeakMap.get(childHandler);
   }
   var combineHandler = function combineHandler() {
-    defaultHandler.apply(void 0, arguments);
-    childHandler.apply(void 0, arguments);
+    defaultHandler.apply(undefined, arguments);
+    childHandler.apply(undefined, arguments);
   };
   childWeakMap.set(childHandler, combineHandler);
   return combineHandler;
@@ -18024,15 +18017,15 @@ var getTooltipItem = function getTooltipItem(graphicalItem, payload) {
 
 function _typeof$v(o) { "@babel/helpers - typeof"; return _typeof$v = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$v(o); }
 function ownKeys$s(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$s(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$s(Object(t), !0).forEach(function (r) { _defineProperty$t(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$s(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$s(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$s(Object(t), true).forEach(function (r) { _defineProperty$t(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$s(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$t(obj, key, value) { key = _toPropertyKey$t(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$t(t) { var i = _toPrimitive$t(t, "string"); return "symbol" == _typeof$v(i) ? i : String(i); }
-function _toPrimitive$t(t, r) { if ("object" != _typeof$v(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$v(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$t(t, r) { if ("object" != _typeof$v(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$v(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _slicedToArray$6(arr, i) { return _arrayWithHoles$7(arr) || _iterableToArrayLimit$6(arr, i) || _unsupportedIterableToArray$d(arr, i) || _nonIterableRest$7(); }
 function _nonIterableRest$7() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray$d(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$d(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$d(o, minLen); }
 function _arrayLikeToArray$d(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit$6(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _iterableToArrayLimit$6(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = true, o = false; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = true, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles$7(arr) { if (Array.isArray(arr)) return arr; }
 var RADIAN$1 = Math.PI / 180;
 var radianToDegree = function radianToDegree(angleInRadian) {
@@ -18234,10 +18227,10 @@ function _arrayLikeToArray$c(arr, len) { if (len == null || len > arr.length) le
 function _objectWithoutProperties$c(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$c(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 function _objectWithoutPropertiesLoose$c(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 function ownKeys$r(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$r(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$r(Object(t), !0).forEach(function (r) { _defineProperty$s(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$r(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$r(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$r(Object(t), true).forEach(function (r) { _defineProperty$s(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$r(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$s(obj, key, value) { key = _toPropertyKey$s(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$s(t) { var i = _toPrimitive$s(t, "string"); return "symbol" == _typeof$u(i) ? i : String(i); }
-function _toPrimitive$s(t, r) { if ("object" != _typeof$u(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$u(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$s(t, r) { if ("object" != _typeof$u(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$u(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _extends$n() { _extends$n = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$n.apply(this, arguments); }
 var getLabel = function getLabel(props) {
   var value = props.value,
@@ -18511,7 +18504,7 @@ var isPolar = function isPolar(viewBox) {
 };
 function Label(_ref4) {
   var _ref4$offset = _ref4.offset,
-    offset = _ref4$offset === void 0 ? 5 : _ref4$offset,
+    offset = _ref4$offset === undefined ? 5 : _ref4$offset,
     restProps = _objectWithoutProperties$c(_ref4, _excluded$c);
   var props = _objectSpread$r({
     offset: offset
@@ -18522,7 +18515,7 @@ function Label(_ref4) {
     children = props.children,
     content = props.content,
     _props$className = props.className,
-    className = _props$className === void 0 ? '' : _props$className,
+    className = _props$className === undefined ? '' : _props$className,
     textBreakAll = props.textBreakAll;
   if (!viewBox || isNil$1(value) && isNil$1(children) && ! /*#__PURE__*/React.isValidElement(content) && !isFunction$3(content)) {
     return null;
@@ -18719,10 +18712,10 @@ function _arrayWithoutHoles$7(arr) { if (Array.isArray(arr)) return _arrayLikeTo
 function _arrayLikeToArray$b(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _extends$m() { _extends$m = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$m.apply(this, arguments); }
 function ownKeys$q(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$q(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$q(Object(t), !0).forEach(function (r) { _defineProperty$r(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$q(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$q(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$q(Object(t), true).forEach(function (r) { _defineProperty$r(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$q(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$r(obj, key, value) { key = _toPropertyKey$r(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$r(t) { var i = _toPrimitive$r(t, "string"); return "symbol" == _typeof$t(i) ? i : String(i); }
-function _toPrimitive$r(t, r) { if ("object" != _typeof$t(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$t(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$r(t, r) { if ("object" != _typeof$t(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$t(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _objectWithoutProperties$b(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$b(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 function _objectWithoutPropertiesLoose$b(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 var defaultAccessor = function defaultAccessor(entry) {
@@ -18730,7 +18723,7 @@ var defaultAccessor = function defaultAccessor(entry) {
 };
 function LabelList(_ref) {
   var _ref$valueAccessor = _ref.valueAccessor,
-    valueAccessor = _ref$valueAccessor === void 0 ? defaultAccessor : _ref$valueAccessor,
+    valueAccessor = _ref$valueAccessor === undefined ? defaultAccessor : _ref$valueAccessor,
     restProps = _objectWithoutProperties$b(_ref, _excluded$b);
   var data = restProps.data,
     dataKey = restProps.dataKey,
@@ -18812,10 +18805,10 @@ LabelList.renderCallByParent = renderCallByParent;
 function _typeof$s(o) { "@babel/helpers - typeof"; return _typeof$s = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$s(o); }
 function _extends$l() { _extends$l = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$l.apply(this, arguments); }
 function ownKeys$p(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$p(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$p(Object(t), !0).forEach(function (r) { _defineProperty$q(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$p(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$p(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$p(Object(t), true).forEach(function (r) { _defineProperty$q(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$p(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$q(obj, key, value) { key = _toPropertyKey$q(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$q(t) { var i = _toPrimitive$q(t, "string"); return "symbol" == _typeof$s(i) ? i : String(i); }
-function _toPrimitive$q(t, r) { if ("object" != _typeof$s(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$s(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$q(t, r) { if ("object" != _typeof$s(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$s(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var getDeltaAngle = function getDeltaAngle(startAngle, endAngle) {
   var sign = mathSign(endAngle - startAngle);
   var deltaAngle = Math.min(Math.abs(endAngle - startAngle), 359.999);
@@ -19018,10 +19011,10 @@ var Sector = function Sector(sectorProps) {
 function _typeof$r(o) { "@babel/helpers - typeof"; return _typeof$r = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$r(o); }
 function _extends$k() { _extends$k = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$k.apply(this, arguments); }
 function ownKeys$o(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$o(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$o(Object(t), !0).forEach(function (r) { _defineProperty$p(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$o(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$o(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$o(Object(t), true).forEach(function (r) { _defineProperty$p(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$o(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$p(obj, key, value) { key = _toPropertyKey$p(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$p(t) { var i = _toPrimitive$p(t, "string"); return "symbol" == _typeof$r(i) ? i : String(i); }
-function _toPrimitive$p(t, r) { if ("object" != _typeof$r(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$r(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$p(t, r) { if ("object" != _typeof$r(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$r(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var CURVE_FACTORIES = {
   curveBasisClosed: curveBasisClosed,
   curveBasisOpen: curveBasisOpen,
@@ -19062,13 +19055,13 @@ var getCurveFactory = function getCurveFactory(type, layout) {
  */
 var getPath$1 = function getPath(_ref) {
   var _ref$type = _ref.type,
-    type = _ref$type === void 0 ? 'linear' : _ref$type,
+    type = _ref$type === undefined ? 'linear' : _ref$type,
     _ref$points = _ref.points,
-    points = _ref$points === void 0 ? [] : _ref$points,
+    points = _ref$points === undefined ? [] : _ref$points,
     baseLine = _ref.baseLine,
     layout = _ref.layout,
     _ref$connectNulls = _ref.connectNulls,
-    connectNulls = _ref$connectNulls === void 0 ? false : _ref$connectNulls;
+    connectNulls = _ref$connectNulls === undefined ? false : _ref$connectNulls;
   var curveFactory = getCurveFactory(type, layout);
   var formatPoints = connectNulls ? points.filter(function (entry) {
     return defined(entry);
@@ -19966,7 +19959,7 @@ function requireFactoryWithTypeCheckers () {
 
 	  function createUnionTypeChecker(arrayOfTypeCheckers) {
 	    if (!Array.isArray(arrayOfTypeCheckers)) {
-	      process.env.NODE_ENV !== 'production' ? printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
+	      process.env.NODE_ENV !== 'production' ? printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') : undefined;
 	      return emptyFunctionThatReturnsNull;
 	    }
 
@@ -20746,7 +20739,7 @@ function createIsEqual(_a) {
     var circular = _a.circular, comparator = _a.comparator, createState = _a.createState, equals = _a.equals, strict = _a.strict;
     if (createState) {
         return function isEqual(a, b) {
-            var _a = createState(), _b = _a.cache, cache = _b === void 0 ? circular ? new WeakMap() : undefined : _b, meta = _a.meta;
+            var _a = createState(), _b = _a.cache, cache = _b === undefined ? circular ? new WeakMap() : undefined : _b, meta = _a.meta;
             return comparator(a, b, {
                 cache: cache,
                 equals: equals,
@@ -20834,8 +20827,8 @@ createCustomEqual({
  * `RegExp.prototype.flags` out of the box.
  */
 function createCustomEqual(options) {
-    if (options === void 0) { options = {}; }
-    var _a = options.circular, circular = _a === void 0 ? false : _a, createCustomInternalComparator = options.createInternalComparator, createState = options.createState, _b = options.strict, strict = _b === void 0 ? false : _b;
+    if (options === undefined) { options = {}; }
+    var _a = options.circular, circular = _a === undefined ? false : _a, createCustomInternalComparator = options.createInternalComparator, createState = options.createState, _b = options.strict, strict = _b === undefined ? false : _b;
     var config = createEqualityComparatorConfig(options);
     var comparator = createEqualityComparator(config);
     var equals = createCustomInternalComparator
@@ -20926,7 +20919,7 @@ function createAnimateManager() {
 
 function _typeof$p(o) { "@babel/helpers - typeof"; return _typeof$p = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$p(o); }
 function ownKeys$n(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$n(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$n(Object(t), !0).forEach(function (r) { _defineProperty$o(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$n(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$n(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$n(Object(t), true).forEach(function (r) { _defineProperty$o(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$n(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$o(obj, key, value) { key = _toPropertyKey$o(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$o(arg) { var key = _toPrimitive$o(arg, "string"); return _typeof$p(key) === "symbol" ? key : String(key); }
 function _toPrimitive$o(input, hint) { if (_typeof$p(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof$p(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
@@ -20989,7 +20982,7 @@ var warn = function warn(condition, format, a, b, c, d, e, f) {
 
 function _slicedToArray$5(arr, i) { return _arrayWithHoles$5(arr) || _iterableToArrayLimit$5(arr, i) || _unsupportedIterableToArray$9(arr, i) || _nonIterableRest$5(); }
 function _nonIterableRest$5() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArrayLimit$5(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _iterableToArrayLimit$5(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = true, o = false; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = true, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles$5(arr) { if (Array.isArray(arr)) return arr; }
 function _toConsumableArray$6(arr) { return _arrayWithoutHoles$6(arr) || _iterableToArray$6(arr) || _unsupportedIterableToArray$9(arr) || _nonIterableSpread$6(); }
 function _nonIterableSpread$6() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -21117,11 +21110,11 @@ var configBezier = function configBezier() {
 var configSpring = function configSpring() {
   var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var _config$stiff = config.stiff,
-    stiff = _config$stiff === void 0 ? 100 : _config$stiff,
+    stiff = _config$stiff === undefined ? 100 : _config$stiff,
     _config$damping = config.damping,
-    damping = _config$damping === void 0 ? 8 : _config$damping,
+    damping = _config$damping === undefined ? 8 : _config$damping,
     _config$dt = config.dt,
-    dt = _config$dt === void 0 ? 17 : _config$dt;
+    dt = _config$dt === undefined ? 17 : _config$dt;
   var stepper = function stepper(currX, destX, currV) {
     var FSpring = -(currX - destX) * stiff;
     var FDamping = currV * damping;
@@ -21171,7 +21164,7 @@ function _nonIterableSpread$5() { throw new TypeError("Invalid attempt to spread
 function _iterableToArray$5(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 function _arrayWithoutHoles$5(arr) { if (Array.isArray(arr)) return _arrayLikeToArray$8(arr); }
 function ownKeys$m(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$m(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$m(Object(t), !0).forEach(function (r) { _defineProperty$n(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$m(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$m(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$m(Object(t), true).forEach(function (r) { _defineProperty$n(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$m(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$n(obj, key, value) { key = _toPropertyKey$n(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$n(arg) { var key = _toPrimitive$n(arg, "string"); return _typeof$o(key) === "symbol" ? key : String(key); }
 function _toPrimitive$n(input, hint) { if (_typeof$o(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof$o(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
@@ -21179,7 +21172,7 @@ function _slicedToArray$4(arr, i) { return _arrayWithHoles$4(arr) || _iterableTo
 function _nonIterableRest$4() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray$8(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$8(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$8(o, minLen); }
 function _arrayLikeToArray$8(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit$4(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _iterableToArrayLimit$4(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = true, o = false; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = true, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles$4(arr) { if (Array.isArray(arr)) return arr; }
 var alpha = function alpha(begin, end, k) {
   return begin + (end - begin) * k;
@@ -21273,7 +21266,7 @@ var configUpdate = (function (from, to, easing, duration, render) {
     }
     var t = (now - beginTime) / duration;
     var currStyle = mapObject(function (key, val) {
-      return alpha.apply(void 0, _toConsumableArray$5(val).concat([easing(t)]));
+      return alpha.apply(undefined, _toConsumableArray$5(val).concat([easing(t)]));
     }, timingStyle);
 
     // get union set and add compatible prefix
@@ -21282,7 +21275,7 @@ var configUpdate = (function (from, to, easing, duration, render) {
       cafId = requestAnimationFrame(update);
     } else {
       var finalStyle = mapObject(function (key, val) {
-        return alpha.apply(void 0, _toConsumableArray$5(val).concat([easing(1)]));
+        return alpha.apply(undefined, _toConsumableArray$5(val).concat([easing(1)]));
       }, timingStyle);
       render(_objectSpread$m(_objectSpread$m(_objectSpread$m({}, from), to), finalStyle));
     }
@@ -21311,18 +21304,18 @@ function _iterableToArray$4(iter) { if (typeof Symbol !== "undefined" && iter[Sy
 function _arrayWithoutHoles$4(arr) { if (Array.isArray(arr)) return _arrayLikeToArray$7(arr); }
 function _arrayLikeToArray$7(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function ownKeys$l(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$l(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$l(Object(t), !0).forEach(function (r) { _defineProperty$m(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$l(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$l(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$l(Object(t), true).forEach(function (r) { _defineProperty$m(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$l(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$m(obj, key, value) { key = _toPropertyKey$m(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _classCallCheck$a(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties$a(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey$m(descriptor.key), descriptor); } }
-function _createClass$a(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$a(Constructor.prototype, protoProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _createClass$a(Constructor, protoProps, staticProps) { _defineProperties$a(Constructor.prototype, protoProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _toPropertyKey$m(arg) { var key = _toPrimitive$m(arg, "string"); return _typeof$n(key) === "symbol" ? key : String(key); }
 function _toPrimitive$m(input, hint) { if (_typeof$n(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof$n(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _inherits$8(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf$8(subClass, superClass); }
 function _setPrototypeOf$8(o, p) { _setPrototypeOf$8 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$8(o, p); }
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$8(); return function _createSuperInternal() { var Super = _getPrototypeOf$8(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf$8(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$8(this, result); }; }
-function _possibleConstructorReturn$8(self, call) { if (call && (_typeof$n(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$8(self); }
-function _assertThisInitialized$8(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _possibleConstructorReturn$8(self, call) { if (call && (_typeof$n(call) === "object" || typeof call === "function")) { return call; } else if (call !== undefined) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$8(self); }
+function _assertThisInitialized$8(self) { if (self === undefined) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct$8() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function _getPrototypeOf$8(o) { _getPrototypeOf$8 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$8(o); }
 var Animate = /*#__PURE__*/function (_PureComponent) {
@@ -21499,14 +21492,14 @@ var Animate = /*#__PURE__*/function (_PureComponent) {
       var _steps$ = steps[0],
         initialStyle = _steps$.style,
         _steps$$duration = _steps$.duration,
-        initialTime = _steps$$duration === void 0 ? 0 : _steps$$duration;
+        initialTime = _steps$$duration === undefined ? 0 : _steps$$duration;
       var addStyle = function addStyle(sequence, nextItem, index) {
         if (index === 0) {
           return sequence;
         }
         var duration = nextItem.duration,
           _nextItem$easing = nextItem.easing,
-          easing = _nextItem$easing === void 0 ? 'ease' : _nextItem$easing,
+          easing = _nextItem$easing === undefined ? 'ease' : _nextItem$easing,
           style = nextItem.style,
           nextProperties = nextItem.properties,
           onAnimationEnd = nextItem.onAnimationEnd;
@@ -21589,7 +21582,7 @@ var Animate = /*#__PURE__*/function (_PureComponent) {
       var cloneContainer = function cloneContainer(container) {
         var _container$props = container.props,
           _container$props$styl = _container$props.style,
-          style = _container$props$styl === void 0 ? {} : _container$props$styl,
+          style = _container$props$styl === undefined ? {} : _container$props$styl,
           className = _container$props.className;
         var res = /*#__PURE__*/React.cloneElement(container, _objectSpread$l(_objectSpread$l({}, others), {}, {
           style: _objectSpread$l(_objectSpread$l({}, style), stateStyle),
@@ -21668,13 +21661,13 @@ function _slicedToArray$3(arr, i) { return _arrayWithHoles$3(arr) || _iterableTo
 function _nonIterableRest$3() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray$6(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$6(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$6(o, minLen); }
 function _arrayLikeToArray$6(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit$3(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _iterableToArrayLimit$3(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = true, o = false; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = true, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles$3(arr) { if (Array.isArray(arr)) return arr; }
 function ownKeys$k(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$k(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$k(Object(t), !0).forEach(function (r) { _defineProperty$l(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$k(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$k(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$k(Object(t), true).forEach(function (r) { _defineProperty$l(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$k(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$l(obj, key, value) { key = _toPropertyKey$l(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$l(t) { var i = _toPrimitive$l(t, "string"); return "symbol" == _typeof$m(i) ? i : String(i); }
-function _toPrimitive$l(t, r) { if ("object" != _typeof$m(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$m(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$l(t, r) { if ("object" != _typeof$m(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$m(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var getRectanglePath = function getRectanglePath(x, y, width, height, radius) {
   var maxRadius = Math.min(Math.abs(width) / 2, Math.abs(height) / 2);
   var ySign = height >= 0 ? 1 : -1;
@@ -21931,10 +21924,10 @@ function _typeof$l(o) { "@babel/helpers - typeof"; return _typeof$l = "function"
 var _excluded$8 = ["x", "y", "top", "left", "width", "height", "className"];
 function _extends$g() { _extends$g = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$g.apply(this, arguments); }
 function ownKeys$j(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$j(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$j(Object(t), !0).forEach(function (r) { _defineProperty$k(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$j(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$j(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$j(Object(t), true).forEach(function (r) { _defineProperty$k(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$j(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$k(obj, key, value) { key = _toPropertyKey$k(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$k(t) { var i = _toPrimitive$k(t, "string"); return "symbol" == _typeof$l(i) ? i : String(i); }
-function _toPrimitive$k(t, r) { if ("object" != _typeof$l(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$l(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$k(t, r) { if ("object" != _typeof$l(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$l(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _objectWithoutProperties$8(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$8(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 function _objectWithoutPropertiesLoose$8(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 var getPath = function getPath(x, y, width, height, top, left) {
@@ -21942,17 +21935,17 @@ var getPath = function getPath(x, y, width, height, top, left) {
 };
 var Cross = function Cross(_ref) {
   var _ref$x = _ref.x,
-    x = _ref$x === void 0 ? 0 : _ref$x,
+    x = _ref$x === undefined ? 0 : _ref$x,
     _ref$y = _ref.y,
-    y = _ref$y === void 0 ? 0 : _ref$y,
+    y = _ref$y === undefined ? 0 : _ref$y,
     _ref$top = _ref.top,
-    top = _ref$top === void 0 ? 0 : _ref$top,
+    top = _ref$top === undefined ? 0 : _ref$top,
     _ref$left = _ref.left,
-    left = _ref$left === void 0 ? 0 : _ref$left,
+    left = _ref$left === undefined ? 0 : _ref$left,
     _ref$width = _ref.width,
-    width = _ref$width === void 0 ? 0 : _ref$width,
+    width = _ref$width === undefined ? 0 : _ref$width,
     _ref$height = _ref.height,
-    height = _ref$height === void 0 ? 0 : _ref$height,
+    height = _ref$height === undefined ? 0 : _ref$height,
     className = _ref.className,
     rest = _objectWithoutProperties$8(_ref, _excluded$8);
   var props = _objectSpread$j({
@@ -22051,22 +22044,22 @@ var _excluded$7 = ["cx", "cy", "angle", "ticks", "axisLine"],
 function _typeof$k(o) { "@babel/helpers - typeof"; return _typeof$k = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$k(o); }
 function _extends$f() { _extends$f = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$f.apply(this, arguments); }
 function ownKeys$i(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$i(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$i(Object(t), !0).forEach(function (r) { _defineProperty$j(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$i(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$i(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$i(Object(t), true).forEach(function (r) { _defineProperty$j(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$i(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _objectWithoutProperties$7(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$7(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 function _objectWithoutPropertiesLoose$7(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 function _classCallCheck$9(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties$9(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey$j(descriptor.key), descriptor); } }
-function _createClass$9(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$9(Constructor.prototype, protoProps); if (staticProps) _defineProperties$9(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _createClass$9(Constructor, protoProps, staticProps) { _defineProperties$9(Constructor.prototype, protoProps); _defineProperties$9(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _callSuper$7(t, o, e) { return o = _getPrototypeOf$7(o), _possibleConstructorReturn$7(t, _isNativeReflectConstruct$7() ? Reflect.construct(o, e || [], _getPrototypeOf$7(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn$7(self, call) { if (call && (_typeof$k(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$7(self); }
-function _assertThisInitialized$7(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _possibleConstructorReturn$7(self, call) { if (call && (_typeof$k(call) === "object" || typeof call === "function")) { return call; } else if (call !== undefined) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$7(self); }
+function _assertThisInitialized$7(self) { if (self === undefined) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct$7() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$7 = function _isNativeReflectConstruct() { return !!t; })(); }
 function _getPrototypeOf$7(o) { _getPrototypeOf$7 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$7(o); }
 function _inherits$7(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf$7(subClass, superClass); }
 function _setPrototypeOf$7(o, p) { _setPrototypeOf$7 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$7(o, p); }
 function _defineProperty$j(obj, key, value) { key = _toPropertyKey$j(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$j(t) { var i = _toPrimitive$j(t, "string"); return "symbol" == _typeof$k(i) ? i : String(i); }
-function _toPrimitive$j(t, r) { if ("object" != _typeof$k(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$k(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$j(t, r) { if ("object" != _typeof$k(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$k(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var PolarRadiusAxis = /*#__PURE__*/function (_PureComponent) {
   _inherits$7(PolarRadiusAxis, _PureComponent);
   function PolarRadiusAxis() {
@@ -22246,20 +22239,20 @@ _defineProperty$j(PolarRadiusAxis, "defaultProps", {
 function _typeof$j(o) { "@babel/helpers - typeof"; return _typeof$j = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$j(o); }
 function _extends$e() { _extends$e = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$e.apply(this, arguments); }
 function ownKeys$h(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$h(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$h(Object(t), !0).forEach(function (r) { _defineProperty$i(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$h(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$h(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$h(Object(t), true).forEach(function (r) { _defineProperty$i(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$h(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _classCallCheck$8(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties$8(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey$i(descriptor.key), descriptor); } }
-function _createClass$8(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$8(Constructor.prototype, protoProps); if (staticProps) _defineProperties$8(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _createClass$8(Constructor, protoProps, staticProps) { _defineProperties$8(Constructor.prototype, protoProps); _defineProperties$8(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _callSuper$6(t, o, e) { return o = _getPrototypeOf$6(o), _possibleConstructorReturn$6(t, _isNativeReflectConstruct$6() ? Reflect.construct(o, e || [], _getPrototypeOf$6(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn$6(self, call) { if (call && (_typeof$j(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$6(self); }
-function _assertThisInitialized$6(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _possibleConstructorReturn$6(self, call) { if (call && (_typeof$j(call) === "object" || typeof call === "function")) { return call; } else if (call !== undefined) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$6(self); }
+function _assertThisInitialized$6(self) { if (self === undefined) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct$6() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$6 = function _isNativeReflectConstruct() { return !!t; })(); }
 function _getPrototypeOf$6(o) { _getPrototypeOf$6 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$6(o); }
 function _inherits$6(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf$6(subClass, superClass); }
 function _setPrototypeOf$6(o, p) { _setPrototypeOf$6 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$6(o, p); }
 function _defineProperty$i(obj, key, value) { key = _toPropertyKey$i(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$i(t) { var i = _toPrimitive$i(t, "string"); return "symbol" == _typeof$j(i) ? i : String(i); }
-function _toPrimitive$i(t, r) { if ("object" != _typeof$j(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$j(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$i(t, r) { if ("object" != _typeof$j(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$j(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var RADIAN = Math.PI / 180;
 var eps = 1e-5;
 var PolarAngleAxis = /*#__PURE__*/function (_PureComponent) {
@@ -22309,7 +22302,7 @@ var PolarAngleAxis = /*#__PURE__*/function (_PureComponent) {
       var textAnchor;
       if (cos > eps) {
         textAnchor = orientation === 'outer' ? 'start' : 'end';
-      } else if (cos < -eps) {
+      } else if (cos < -1e-5) {
         textAnchor = orientation === 'outer' ? 'end' : 'start';
       } else {
         textAnchor = 'middle';
@@ -22546,13 +22539,13 @@ function _slicedToArray$2(arr, i) { return _arrayWithHoles$2(arr) || _iterableTo
 function _nonIterableRest$2() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray$4(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$4(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$4(o, minLen); }
 function _arrayLikeToArray$4(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit$2(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _iterableToArrayLimit$2(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = true, o = false; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = true, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles$2(arr) { if (Array.isArray(arr)) return arr; }
 function ownKeys$g(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$g(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$g(Object(t), !0).forEach(function (r) { _defineProperty$h(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$g(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$g(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$g(Object(t), true).forEach(function (r) { _defineProperty$h(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$g(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$h(obj, key, value) { key = _toPropertyKey$h(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$h(t) { var i = _toPrimitive$h(t, "string"); return "symbol" == _typeof$i(i) ? i : String(i); }
-function _toPrimitive$h(t, r) { if ("object" != _typeof$i(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$i(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$h(t, r) { if ("object" != _typeof$i(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$i(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var getTrapezoidPath = function getTrapezoidPath(x, y, upperWidth, lowerWidth, height) {
   var widthGap = upperWidth - lowerWidth;
   var path;
@@ -22659,10 +22652,10 @@ function _typeof$h(o) { "@babel/helpers - typeof"; return _typeof$h = "function"
 function _objectWithoutProperties$6(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$6(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 function _objectWithoutPropertiesLoose$6(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 function ownKeys$f(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$f(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$f(Object(t), !0).forEach(function (r) { _defineProperty$g(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$f(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$f(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$f(Object(t), true).forEach(function (r) { _defineProperty$g(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$f(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$g(obj, key, value) { key = _toPropertyKey$g(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$g(t) { var i = _toPrimitive$g(t, "string"); return "symbol" == _typeof$h(i) ? i : String(i); }
-function _toPrimitive$g(t, r) { if ("object" != _typeof$h(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$h(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$g(t, r) { if ("object" != _typeof$h(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$h(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 /**
  * This is an abstraction for rendering a user defined prop for a customized shape in several forms.
@@ -22713,9 +22706,9 @@ function Shape(_ref2) {
   var option = _ref2.option,
     shapeType = _ref2.shapeType,
     _ref2$propTransformer = _ref2.propTransformer,
-    propTransformer = _ref2$propTransformer === void 0 ? defaultPropTransformer : _ref2$propTransformer,
+    propTransformer = _ref2$propTransformer === undefined ? defaultPropTransformer : _ref2$propTransformer,
     _ref2$activeClassName = _ref2.activeClassName,
-    activeClassName = _ref2$activeClassName === void 0 ? 'recharts-active-shape' : _ref2$activeClassName,
+    activeClassName = _ref2$activeClassName === undefined ? 'recharts-active-shape' : _ref2$activeClassName,
     isActive = _ref2.isActive,
     props = _objectWithoutProperties$6(_ref2, _excluded$6);
   var shape;
@@ -22759,8 +22752,8 @@ function isScatter(graphicalItem, _item) {
 }
 function compareFunnel(shapeData, activeTooltipItem) {
   var _activeTooltipItem$la, _activeTooltipItem$la2;
-  var xMatches = shapeData.x === (activeTooltipItem === null || activeTooltipItem === void 0 || (_activeTooltipItem$la = activeTooltipItem.labelViewBox) === null || _activeTooltipItem$la === void 0 ? void 0 : _activeTooltipItem$la.x) || shapeData.x === activeTooltipItem.x;
-  var yMatches = shapeData.y === (activeTooltipItem === null || activeTooltipItem === void 0 || (_activeTooltipItem$la2 = activeTooltipItem.labelViewBox) === null || _activeTooltipItem$la2 === void 0 ? void 0 : _activeTooltipItem$la2.y) || shapeData.y === activeTooltipItem.y;
+  var xMatches = shapeData.x === (activeTooltipItem === null || activeTooltipItem === undefined || (_activeTooltipItem$la = activeTooltipItem.labelViewBox) === null || _activeTooltipItem$la === undefined ? undefined : _activeTooltipItem$la.x) || shapeData.x === activeTooltipItem.x;
+  var yMatches = shapeData.y === (activeTooltipItem === null || activeTooltipItem === undefined || (_activeTooltipItem$la2 = activeTooltipItem.labelViewBox) === null || _activeTooltipItem$la2 === undefined ? undefined : _activeTooltipItem$la2.y) || shapeData.y === activeTooltipItem.y;
   return xMatches && yMatches;
 }
 function comparePie(shapeData, activeTooltipItem) {
@@ -22799,11 +22792,11 @@ function getShapeDataKey(graphicalItem, activeItem) {
 function getActiveShapeTooltipPayload(graphicalItem, activeItem) {
   if (isFunnel(graphicalItem, activeItem)) {
     var _activeItem$tooltipPa;
-    return (_activeItem$tooltipPa = activeItem.tooltipPayload) === null || _activeItem$tooltipPa === void 0 || (_activeItem$tooltipPa = _activeItem$tooltipPa[0]) === null || _activeItem$tooltipPa === void 0 || (_activeItem$tooltipPa = _activeItem$tooltipPa.payload) === null || _activeItem$tooltipPa === void 0 ? void 0 : _activeItem$tooltipPa.payload;
+    return (_activeItem$tooltipPa = activeItem.tooltipPayload) === null || _activeItem$tooltipPa === undefined || (_activeItem$tooltipPa = _activeItem$tooltipPa[0]) === null || _activeItem$tooltipPa === undefined || (_activeItem$tooltipPa = _activeItem$tooltipPa.payload) === null || _activeItem$tooltipPa === undefined ? undefined : _activeItem$tooltipPa.payload;
   }
   if (isPie(graphicalItem, activeItem)) {
     var _activeItem$tooltipPa2;
-    return (_activeItem$tooltipPa2 = activeItem.tooltipPayload) === null || _activeItem$tooltipPa2 === void 0 || (_activeItem$tooltipPa2 = _activeItem$tooltipPa2[0]) === null || _activeItem$tooltipPa2 === void 0 || (_activeItem$tooltipPa2 = _activeItem$tooltipPa2.payload) === null || _activeItem$tooltipPa2 === void 0 ? void 0 : _activeItem$tooltipPa2.payload;
+    return (_activeItem$tooltipPa2 = activeItem.tooltipPayload) === null || _activeItem$tooltipPa2 === undefined || (_activeItem$tooltipPa2 = _activeItem$tooltipPa2[0]) === null || _activeItem$tooltipPa2 === undefined || (_activeItem$tooltipPa2 = _activeItem$tooltipPa2.payload) === null || _activeItem$tooltipPa2 === undefined ? undefined : _activeItem$tooltipPa2.payload;
   }
   if (isScatter(graphicalItem, activeItem)) {
     return activeItem.payload;
@@ -22848,20 +22841,20 @@ var _Pie;
 function _typeof$g(o) { "@babel/helpers - typeof"; return _typeof$g = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$g(o); }
 function _extends$c() { _extends$c = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$c.apply(this, arguments); }
 function ownKeys$e(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$e(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$e(Object(t), !0).forEach(function (r) { _defineProperty$f(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$e(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$e(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$e(Object(t), true).forEach(function (r) { _defineProperty$f(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$e(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _classCallCheck$7(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties$7(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey$f(descriptor.key), descriptor); } }
-function _createClass$7(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$7(Constructor.prototype, protoProps); if (staticProps) _defineProperties$7(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _callSuper$5(t, o, e) { return o = _getPrototypeOf$5(o), _possibleConstructorReturn$5(t, _isNativeReflectConstruct$5() ? Reflect.construct(o, e || [], _getPrototypeOf$5(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn$5(self, call) { if (call && (_typeof$g(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$5(self); }
+function _createClass$7(Constructor, protoProps, staticProps) { _defineProperties$7(Constructor.prototype, protoProps); _defineProperties$7(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _callSuper$5(t, o, e) { return o = _getPrototypeOf$5(o), _possibleConstructorReturn$5(t, _isNativeReflectConstruct$5() ? Reflect.construct(o, e, _getPrototypeOf$5(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn$5(self, call) { if (call && (_typeof$g(call) === "object" || typeof call === "function")) { return call; } else if (call !== undefined) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$5(self); }
 function _isNativeReflectConstruct$5() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$5 = function _isNativeReflectConstruct() { return !!t; })(); }
 function _getPrototypeOf$5(o) { _getPrototypeOf$5 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$5(o); }
-function _assertThisInitialized$5(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _assertThisInitialized$5(self) { if (self === undefined) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inherits$5(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf$5(subClass, superClass); }
 function _setPrototypeOf$5(o, p) { _setPrototypeOf$5 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$5(o, p); }
 function _defineProperty$f(obj, key, value) { key = _toPropertyKey$f(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$f(t) { var i = _toPrimitive$f(t, "string"); return "symbol" == _typeof$g(i) ? i : String(i); }
-function _toPrimitive$f(t, r) { if ("object" != _typeof$g(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$g(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$f(t, r) { if ("object" != _typeof$g(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$g(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var Pie = /*#__PURE__*/function (_PureComponent) {
   _inherits$5(Pie, _PureComponent);
   function Pie(props) {
@@ -22973,7 +22966,7 @@ var Pie = /*#__PURE__*/function (_PureComponent) {
         blendStroke = _this$props2.blendStroke,
         inactiveShapeProp = _this$props2.inactiveShape;
       return sectors.map(function (entry, i) {
-        if ((entry === null || entry === void 0 ? void 0 : entry.startAngle) === 0 && (entry === null || entry === void 0 ? void 0 : entry.endAngle) === 0 && sectors.length !== 1) return null;
+        if ((entry === null || entry === undefined ? undefined : entry.startAngle) === 0 && (entry === null || entry === undefined ? undefined : entry.endAngle) === 0 && sectors.length !== 1) return null;
         var isActive = _this2.isActiveIndex(i);
         var inactiveShape = inactiveShapeProp && _this2.hasActiveIndex() ? inactiveShapeProp : null;
         var sectorOptions = isActive ? activeShape : inactiveShape;
@@ -22991,7 +22984,7 @@ var Pie = /*#__PURE__*/function (_PureComponent) {
           className: "recharts-pie-sector"
         }, adaptEventsOfChild(_this2.props, entry, i), {
           // eslint-disable-next-line react/no-array-index-key
-          key: "sector-".concat(entry === null || entry === void 0 ? void 0 : entry.startAngle, "-").concat(entry === null || entry === void 0 ? void 0 : entry.endAngle, "-").concat(entry.midAngle, "-").concat(i)
+          key: "sector-".concat(entry === null || entry === undefined ? undefined : entry.startAngle, "-").concat(entry === null || entry === undefined ? undefined : entry.endAngle, "-").concat(entry.midAngle, "-").concat(i)
         }), /*#__PURE__*/React.createElement(Shape, _extends$c({
           option: sectorOptions,
           isActive: isActive,
@@ -23258,10 +23251,10 @@ _defineProperty$f(Pie, "getRealPieData", function (item) {
     return data.map(function (entry, index) {
       return _objectSpread$e(_objectSpread$e(_objectSpread$e({
         payload: entry
-      }, presentationProps), entry), cells && cells[index] && cells[index].props);
+      }, presentationProps), entry), cells[index] && cells[index].props);
     });
   }
-  if (cells && cells.length) {
+  if (cells.length) {
     return cells.map(function (cell) {
       return _objectSpread$e(_objectSpread$e({}, presentationProps), cell.props);
     });
@@ -23436,7 +23429,7 @@ function toFinite$2(value) {
     return value === 0 ? value : 0;
   }
   value = toNumber(value);
-  if (value === INFINITY || value === -INFINITY) {
+  if (value === INFINITY || value === -Infinity) {
     var sign = (value < 0 ? -1 : 1);
     return sign * MAX_INTEGER;
   }
@@ -23527,10 +23520,10 @@ var range$1 = /*@__PURE__*/getDefaultExportFromCjs(range_1);
 
 function _typeof$f(o) { "@babel/helpers - typeof"; return _typeof$f = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$f(o); }
 function ownKeys$d(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$d(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$d(Object(t), !0).forEach(function (r) { _defineProperty$e(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$d(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$d(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$d(Object(t), true).forEach(function (r) { _defineProperty$e(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$d(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$e(obj, key, value) { key = _toPropertyKey$e(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$e(t) { var i = _toPrimitive$e(t, "string"); return "symbol" == _typeof$f(i) ? i : String(i); }
-function _toPrimitive$e(t, r) { if ("object" != _typeof$f(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$f(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$e(t, r) { if ("object" != _typeof$f(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$f(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var PREFIX_LIST = ['Webkit', 'Moz', 'O', 'ms'];
 var generatePrefixStyle = function generatePrefixStyle(name, value) {
   var camelName = name.replace(/(\w)/, function (v) {
@@ -23546,20 +23539,20 @@ var generatePrefixStyle = function generatePrefixStyle(name, value) {
 function _typeof$e(o) { "@babel/helpers - typeof"; return _typeof$e = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$e(o); }
 function _extends$b() { _extends$b = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$b.apply(this, arguments); }
 function ownKeys$c(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$c(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$c(Object(t), !0).forEach(function (r) { _defineProperty$d(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$c(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$c(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$c(Object(t), true).forEach(function (r) { _defineProperty$d(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$c(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _classCallCheck$6(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties$6(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey$d(descriptor.key), descriptor); } }
-function _createClass$6(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$6(Constructor.prototype, protoProps); if (staticProps) _defineProperties$6(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _callSuper$4(t, o, e) { return o = _getPrototypeOf$4(o), _possibleConstructorReturn$4(t, _isNativeReflectConstruct$4() ? Reflect.construct(o, e || [], _getPrototypeOf$4(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn$4(self, call) { if (call && (_typeof$e(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$4(self); }
+function _createClass$6(Constructor, protoProps, staticProps) { _defineProperties$6(Constructor.prototype, protoProps); _defineProperties$6(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _callSuper$4(t, o, e) { return o = _getPrototypeOf$4(o), _possibleConstructorReturn$4(t, _isNativeReflectConstruct$4() ? Reflect.construct(o, e, _getPrototypeOf$4(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn$4(self, call) { if (call && (_typeof$e(call) === "object" || typeof call === "function")) { return call; } else if (call !== undefined) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$4(self); }
 function _isNativeReflectConstruct$4() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$4 = function _isNativeReflectConstruct() { return !!t; })(); }
 function _getPrototypeOf$4(o) { _getPrototypeOf$4 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$4(o); }
-function _assertThisInitialized$4(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _assertThisInitialized$4(self) { if (self === undefined) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inherits$4(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf$4(subClass, superClass); }
 function _setPrototypeOf$4(o, p) { _setPrototypeOf$4 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$4(o, p); }
 function _defineProperty$d(obj, key, value) { key = _toPropertyKey$d(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$d(t) { var i = _toPrimitive$d(t, "string"); return "symbol" == _typeof$e(i) ? i : String(i); }
-function _toPrimitive$d(t, r) { if ("object" != _typeof$e(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$e(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$d(t, r) { if ("object" != _typeof$e(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$e(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var createScale = function createScale(_ref) {
   var data = _ref.data,
     startIndex = _ref.startIndex,
@@ -23620,7 +23613,7 @@ var Brush = /*#__PURE__*/function (_PureComponent) {
           endIndex = _this$props.endIndex,
           onDragEnd = _this$props.onDragEnd,
           startIndex = _this$props.startIndex;
-        onDragEnd === null || onDragEnd === void 0 || onDragEnd({
+        onDragEnd === null || onDragEnd === undefined || onDragEnd({
           endIndex: endIndex,
           startIndex: startIndex
         });
@@ -23898,7 +23891,7 @@ var Brush = /*#__PURE__*/function (_PureComponent) {
         width: travellerWidth,
         height: height
       });
-      var ariaLabelBrush = ariaLabel || "Min value: ".concat((_data$startIndex = data[startIndex]) === null || _data$startIndex === void 0 ? void 0 : _data$startIndex.name, ", Max value: ").concat((_data$endIndex = data[endIndex]) === null || _data$endIndex === void 0 ? void 0 : _data$endIndex.name);
+      var ariaLabelBrush = ariaLabel || "Min value: ".concat((_data$startIndex = data[startIndex]) === null || _data$startIndex === undefined ? undefined : _data$startIndex.name, ", Max value: ").concat((_data$endIndex = data[endIndex]) === null || _data$endIndex === undefined ? undefined : _data$endIndex.name);
       return /*#__PURE__*/React.createElement(Layer, {
         tabIndex: 0,
         role: "slider",
@@ -24420,10 +24413,10 @@ var _excluded$5 = ["x", "y"];
 function _typeof$d(o) { "@babel/helpers - typeof"; return _typeof$d = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$d(o); }
 function _extends$a() { _extends$a = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$a.apply(this, arguments); }
 function ownKeys$b(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$b(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$b(Object(t), !0).forEach(function (r) { _defineProperty$c(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$b(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$b(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$b(Object(t), true).forEach(function (r) { _defineProperty$c(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$b(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$c(obj, key, value) { key = _toPropertyKey$c(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$c(t) { var i = _toPrimitive$c(t, "string"); return "symbol" == _typeof$d(i) ? i : String(i); }
-function _toPrimitive$c(t, r) { if ("object" != _typeof$d(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$d(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$c(t, r) { if ("object" != _typeof$d(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$d(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _objectWithoutProperties$5(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$5(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 function _objectWithoutPropertiesLoose$5(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
@@ -24476,7 +24469,7 @@ var minPointSizeCallback = function minPointSizeCallback(minPointSize) {
     if (isValueNumber) {
       return minPointSize(value, index);
     }
-    !isValueNumber ? process.env.NODE_ENV !== "production" ? invariant(false, "minPointSize callback function received a value with type of ".concat(_typeof$d(value), ". Currently only numbers are supported.")) : invariant() : void 0;
+    !isValueNumber ? process.env.NODE_ENV !== "production" ? invariant(false, "minPointSize callback function received a value with type of ".concat(_typeof$d(value), ". Currently only numbers are supported.")) : invariant() : undefined;
     return defaultValue;
   };
 };
@@ -24488,20 +24481,20 @@ function _objectWithoutProperties$4(source, excluded) { if (source == null) retu
 function _objectWithoutPropertiesLoose$4(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 function _extends$9() { _extends$9 = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$9.apply(this, arguments); }
 function ownKeys$a(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$a(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$a(Object(t), !0).forEach(function (r) { _defineProperty$b(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$a(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$a(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$a(Object(t), true).forEach(function (r) { _defineProperty$b(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$a(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _classCallCheck$5(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties$5(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey$b(descriptor.key), descriptor); } }
-function _createClass$5(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$5(Constructor.prototype, protoProps); if (staticProps) _defineProperties$5(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _callSuper$3(t, o, e) { return o = _getPrototypeOf$3(o), _possibleConstructorReturn$3(t, _isNativeReflectConstruct$3() ? Reflect.construct(o, e || [], _getPrototypeOf$3(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn$3(self, call) { if (call && (_typeof$c(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$3(self); }
+function _createClass$5(Constructor, protoProps, staticProps) { _defineProperties$5(Constructor.prototype, protoProps); _defineProperties$5(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _callSuper$3(t, o, e) { return o = _getPrototypeOf$3(o), _possibleConstructorReturn$3(t, _isNativeReflectConstruct$3() ? Reflect.construct(o, e, _getPrototypeOf$3(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn$3(self, call) { if (call && (_typeof$c(call) === "object" || typeof call === "function")) { return call; } else if (call !== undefined) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$3(self); }
 function _isNativeReflectConstruct$3() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$3 = function _isNativeReflectConstruct() { return !!t; })(); }
 function _getPrototypeOf$3(o) { _getPrototypeOf$3 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$3(o); }
-function _assertThisInitialized$3(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _assertThisInitialized$3(self) { if (self === undefined) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inherits$3(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf$3(subClass, superClass); }
 function _setPrototypeOf$3(o, p) { _setPrototypeOf$3 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$3(o, p); }
 function _defineProperty$b(obj, key, value) { key = _toPropertyKey$b(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$b(t) { var i = _toPrimitive$b(t, "string"); return "symbol" == _typeof$c(i) ? i : String(i); }
-function _toPrimitive$b(t, r) { if ("object" != _typeof$c(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$c(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$b(t, r) { if ("object" != _typeof$c(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$c(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var Bar = /*#__PURE__*/function (_PureComponent) {
   _inherits$3(Bar, _PureComponent);
   function Bar() {
@@ -24559,7 +24552,7 @@ var Bar = /*#__PURE__*/function (_PureComponent) {
         return /*#__PURE__*/React.createElement(Layer, _extends$9({
           className: "recharts-bar-rectangle"
         }, adaptEventsOfChild(_this2.props, entry, i), {
-          key: "rectangle-".concat(entry === null || entry === void 0 ? void 0 : entry.x, "-").concat(entry === null || entry === void 0 ? void 0 : entry.y, "-").concat(entry === null || entry === void 0 ? void 0 : entry.value)
+          key: "rectangle-".concat(entry === null || entry === undefined ? undefined : entry.x, "-").concat(entry === null || entry === undefined ? undefined : entry.y, "-").concat(entry === null || entry === undefined ? undefined : entry.value)
         }), /*#__PURE__*/React.createElement(BarRectangle, props));
       });
     }
@@ -24849,7 +24842,7 @@ _defineProperty$b(Bar, "getComposedData", function (_ref2) {
         entry: entry,
         index: index
       });
-      y = (_ref4 = currentValueScale !== null && currentValueScale !== void 0 ? currentValueScale : baseValueScale) !== null && _ref4 !== void 0 ? _ref4 : undefined;
+      y = (_ref4 = currentValueScale !== null && currentValueScale !== undefined ? currentValueScale : baseValueScale) !== null && _ref4 !== undefined ? _ref4 : undefined;
       width = pos.size;
       var computedHeight = baseValueScale - currentValueScale;
       height = Number.isNaN(computedHeight) ? 0 : computedHeight;
@@ -24898,7 +24891,7 @@ _defineProperty$b(Bar, "getComposedData", function (_ref2) {
       value: stackedData ? value : value[1],
       payload: entry,
       background: background
-    }, cells && cells[index] && cells[index].props), {}, {
+    }, cells[index] && cells[index].props), {}, {
       tooltipPayload: [getTooltipItem(item, entry)],
       tooltipPosition: {
         x: x + width / 2,
@@ -24915,12 +24908,12 @@ _defineProperty$b(Bar, "getComposedData", function (_ref2) {
 function _typeof$b(o) { "@babel/helpers - typeof"; return _typeof$b = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$b(o); }
 function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties$4(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey$a(descriptor.key), descriptor); } }
-function _createClass$4(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$4(Constructor.prototype, protoProps); if (staticProps) _defineProperties$4(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _createClass$4(Constructor, protoProps, staticProps) { _defineProperties$4(Constructor.prototype, protoProps); _defineProperties$4(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function ownKeys$9(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$9(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$9(Object(t), !0).forEach(function (r) { _defineProperty$a(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$9(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$9(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$9(Object(t), true).forEach(function (r) { _defineProperty$a(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$9(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$a(obj, key, value) { key = _toPropertyKey$a(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$a(t) { var i = _toPrimitive$a(t, "string"); return "symbol" == _typeof$b(i) ? i : String(i); }
-function _toPrimitive$a(t, r) { if ("object" != _typeof$b(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$b(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$a(t, r) { if ("object" != _typeof$b(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$b(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 /**
  * Calculate the scale function, position, width, height of axes
@@ -24953,7 +24946,7 @@ var formatAxisMap = function formatAxisMap(props, axisMap, offset, axisType, cha
     var orientation = axis.orientation,
       domain = axis.domain,
       _axis$padding = axis.padding,
-      padding = _axis$padding === void 0 ? {} : _axis$padding,
+      padding = _axis$padding === undefined ? {} : _axis$padding,
       mirror = axis.mirror,
       reversed = axis.reversed;
     var offsetKey = "".concat(orientation).concat(mirror ? 'Mirror' : '');
@@ -25453,9 +25446,9 @@ function getKeysForDebug(object) {
  */
 var useXAxisOrThrow = function useXAxisOrThrow(xAxisId) {
   var xAxisMap = React.useContext(XAxisContext);
-  !(xAxisMap != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'Could not find Recharts context; are you sure this is rendered inside a Recharts wrapper component?') : invariant() : void 0;
+  !(xAxisMap != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'Could not find Recharts context; are you sure this is rendered inside a Recharts wrapper component?') : invariant() : undefined;
   var xAxis = xAxisMap[xAxisId];
-  !(xAxis != null) ? process.env.NODE_ENV !== "production" ? invariant(false, "Could not find xAxis by id \"".concat(xAxisId, "\" [").concat(_typeof$a(xAxisId), "]. ").concat(getKeysForDebug(xAxisMap))) : invariant() : void 0;
+  !(xAxis != null) ? process.env.NODE_ENV !== "production" ? invariant(false, "Could not find xAxis by id \"".concat(xAxisId, "\" [").concat(_typeof$a(xAxisId), "]. ").concat(getKeysForDebug(xAxisMap))) : invariant() : undefined;
   return xAxis;
 };
 
@@ -25497,9 +25490,9 @@ var useYAxisWithFiniteDomainOrRandom = function useYAxisWithFiniteDomainOrRandom
  */
 var useYAxisOrThrow = function useYAxisOrThrow(yAxisId) {
   var yAxisMap = React.useContext(YAxisContext);
-  !(yAxisMap != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'Could not find Recharts context; are you sure this is rendered inside a Recharts wrapper component?') : invariant() : void 0;
+  !(yAxisMap != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'Could not find Recharts context; are you sure this is rendered inside a Recharts wrapper component?') : invariant() : undefined;
   var yAxis = yAxisMap[yAxisId];
-  !(yAxis != null) ? process.env.NODE_ENV !== "production" ? invariant(false, "Could not find yAxis by id \"".concat(yAxisId, "\" [").concat(_typeof$a(yAxisId), "]. ").concat(getKeysForDebug(yAxisMap))) : invariant() : void 0;
+  !(yAxis != null) ? process.env.NODE_ENV !== "production" ? invariant(false, "Could not find yAxis by id \"".concat(yAxisId, "\" [").concat(_typeof$a(yAxisId), "]. ").concat(getKeysForDebug(yAxisMap))) : invariant() : undefined;
   return yAxis;
 };
 var useViewBox = function useViewBox() {
@@ -25518,15 +25511,15 @@ var useChartHeight = function useChartHeight() {
 
 function _typeof$9(o) { "@babel/helpers - typeof"; return _typeof$9 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$9(o); }
 function ownKeys$8(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$8(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$8(Object(t), !0).forEach(function (r) { _defineProperty$9(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$8(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$8(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$8(Object(t), true).forEach(function (r) { _defineProperty$9(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$8(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$9(obj, key, value) { key = _toPropertyKey$9(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$9(t) { var i = _toPrimitive$9(t, "string"); return "symbol" == _typeof$9(i) ? i : String(i); }
-function _toPrimitive$9(t, r) { if ("object" != _typeof$9(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$9(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$9(t, r) { if ("object" != _typeof$9(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$9(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _slicedToArray$1(arr, i) { return _arrayWithHoles$1(arr) || _iterableToArrayLimit$1(arr, i) || _unsupportedIterableToArray$3(arr, i) || _nonIterableRest$1(); }
 function _nonIterableRest$1() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray$3(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$3(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$3(o, minLen); }
 function _arrayLikeToArray$3(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit$1(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _iterableToArrayLimit$1(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = true, o = false; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = true, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles$1(arr) { if (Array.isArray(arr)) return arr; }
 function _extends$8() { _extends$8 = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$8.apply(this, arguments); }
 
@@ -25675,10 +25668,10 @@ ReferenceLine.defaultProps = {
 function _typeof$8(o) { "@babel/helpers - typeof"; return _typeof$8 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$8(o); }
 function _extends$7() { _extends$7 = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$7.apply(this, arguments); }
 function ownKeys$7(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$7(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$7(Object(t), !0).forEach(function (r) { _defineProperty$8(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$7(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$7(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$7(Object(t), true).forEach(function (r) { _defineProperty$8(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$7(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$8(obj, key, value) { key = _toPropertyKey$8(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$8(t) { var i = _toPrimitive$8(t, "string"); return "symbol" == _typeof$8(i) ? i : String(i); }
-function _toPrimitive$8(t, r) { if ("object" != _typeof$8(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$8(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$8(t, r) { if ("object" != _typeof$8(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$8(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var getCoordinate = function getCoordinate(props) {
   var x = props.x,
     y = props.y,
@@ -25766,10 +25759,10 @@ ReferenceDot.renderDot = function (option, props) {
 function _typeof$7(o) { "@babel/helpers - typeof"; return _typeof$7 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$7(o); }
 function _extends$6() { _extends$6 = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$6.apply(this, arguments); }
 function ownKeys$6(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$6(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$6(Object(t), !0).forEach(function (r) { _defineProperty$7(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$6(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$6(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$6(Object(t), true).forEach(function (r) { _defineProperty$7(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$6(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$7(obj, key, value) { key = _toPropertyKey$7(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$7(t) { var i = _toPrimitive$7(t, "string"); return "symbol" == _typeof$7(i) ? i : String(i); }
-function _toPrimitive$7(t, r) { if ("object" != _typeof$7(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$7(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$7(t, r) { if ("object" != _typeof$7(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$7(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var getRect = function getRect(hasX1, hasX2, hasY1, hasY2, props) {
   var xValue1 = props.x1,
     xValue2 = props.x2,
@@ -25932,7 +25925,7 @@ function getEquidistantTicks(sign, boundaries, getTickSize, ticks, minTickGap) {
       // Given stepsize, evaluate whether every stepsize-th tick can be shown.
       // If it can not, then increase the stepsize by 1, and try again.
 
-      var entry = ticks === null || ticks === void 0 ? void 0 : ticks[index];
+      var entry = ticks === null || ticks === undefined ? undefined : ticks[index];
 
       // Break condition - If we have evaluate all the ticks, then we are done.
       if (entry === undefined) {
@@ -25975,10 +25968,10 @@ function getEquidistantTicks(sign, boundaries, getTickSize, ticks, minTickGap) {
 
 function _typeof$6(o) { "@babel/helpers - typeof"; return _typeof$6 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$6(o); }
 function ownKeys$5(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$5(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$5(Object(t), !0).forEach(function (r) { _defineProperty$6(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$5(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$5(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$5(Object(t), true).forEach(function (r) { _defineProperty$6(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$5(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$6(obj, key, value) { key = _toPropertyKey$6(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$6(t) { var i = _toPrimitive$6(t, "string"); return "symbol" == _typeof$6(i) ? i : String(i); }
-function _toPrimitive$6(t, r) { if ("object" != _typeof$6(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$6(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$6(t, r) { if ("object" != _typeof$6(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$6(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function getTicksEnd(sign, boundaries, getTickSize, ticks, minTickGap) {
   var result = (ticks || []).slice();
   var len = result.length;
@@ -26129,22 +26122,22 @@ var _excluded$3 = ["viewBox"],
 function _typeof$5(o) { "@babel/helpers - typeof"; return _typeof$5 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$5(o); }
 function _extends$5() { _extends$5 = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$5.apply(this, arguments); }
 function ownKeys$4(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$4(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$4(Object(t), !0).forEach(function (r) { _defineProperty$5(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$4(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$4(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$4(Object(t), true).forEach(function (r) { _defineProperty$5(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$4(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _objectWithoutProperties$3(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$3(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 function _objectWithoutPropertiesLoose$3(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties$3(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey$5(descriptor.key), descriptor); } }
-function _createClass$3(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$3(Constructor.prototype, protoProps); if (staticProps) _defineProperties$3(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _callSuper$2(t, o, e) { return o = _getPrototypeOf$2(o), _possibleConstructorReturn$2(t, _isNativeReflectConstruct$2() ? Reflect.construct(o, e || [], _getPrototypeOf$2(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn$2(self, call) { if (call && (_typeof$5(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$2(self); }
-function _assertThisInitialized$2(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _createClass$3(Constructor, protoProps, staticProps) { _defineProperties$3(Constructor.prototype, protoProps); _defineProperties$3(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _callSuper$2(t, o, e) { return o = _getPrototypeOf$2(o), _possibleConstructorReturn$2(t, _isNativeReflectConstruct$2() ? Reflect.construct(o, e, _getPrototypeOf$2(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn$2(self, call) { if (call && (_typeof$5(call) === "object" || typeof call === "function")) { return call; } else if (call !== undefined) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$2(self); }
+function _assertThisInitialized$2(self) { if (self === undefined) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct$2() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$2 = function _isNativeReflectConstruct() { return !!t; })(); }
 function _getPrototypeOf$2(o) { _getPrototypeOf$2 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$2(o); }
 function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf$2(subClass, superClass); }
 function _setPrototypeOf$2(o, p) { _setPrototypeOf$2 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$2(o, p); }
 function _defineProperty$5(obj, key, value) { key = _toPropertyKey$5(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$5(t) { var i = _toPrimitive$5(t, "string"); return "symbol" == _typeof$5(i) ? i : String(i); }
-function _toPrimitive$5(t, r) { if ("object" != _typeof$5(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$5(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$5(t, r) { if ("object" != _typeof$5(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$5(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 /** The orientation of the axis in correspondence to the chart */
 
@@ -26467,10 +26460,10 @@ var _excluded$2 = ["x1", "y1", "x2", "y2", "key"],
   _excluded2$1 = ["offset"];
 function _typeof$4(o) { "@babel/helpers - typeof"; return _typeof$4 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$4(o); }
 function ownKeys$3(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$3(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$3(Object(t), !0).forEach(function (r) { _defineProperty$4(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$3(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$3(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$3(Object(t), true).forEach(function (r) { _defineProperty$4(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$3(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$4(obj, key, value) { key = _toPropertyKey$4(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$4(t) { var i = _toPrimitive$4(t, "string"); return "symbol" == _typeof$4(i) ? i : String(i); }
-function _toPrimitive$4(t, r) { if ("object" != _typeof$4(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$4(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$4(t, r) { if ("object" != _typeof$4(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$4(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _extends$4() { _extends$4 = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$4.apply(this, arguments); }
 function _objectWithoutProperties$2(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$2(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 function _objectWithoutPropertiesLoose$2(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
@@ -26532,7 +26525,7 @@ function HorizontalGridLines(props) {
   var x = props.x,
     width = props.width,
     _props$horizontal = props.horizontal,
-    horizontal = _props$horizontal === void 0 ? true : _props$horizontal,
+    horizontal = _props$horizontal === undefined ? true : _props$horizontal,
     horizontalPoints = props.horizontalPoints;
   if (!horizontal || !horizontalPoints || !horizontalPoints.length) {
     return null;
@@ -26556,7 +26549,7 @@ function VerticalGridLines(props) {
   var y = props.y,
     height = props.height,
     _props$vertical = props.vertical,
-    vertical = _props$vertical === void 0 ? true : _props$vertical,
+    vertical = _props$vertical === undefined ? true : _props$vertical,
     verticalPoints = props.verticalPoints;
   if (!vertical || !verticalPoints || !verticalPoints.length) {
     return null;
@@ -26585,7 +26578,7 @@ function HorizontalStripes(props) {
     height = props.height,
     horizontalPoints = props.horizontalPoints,
     _props$horizontal2 = props.horizontal,
-    horizontal = _props$horizontal2 === void 0 ? true : _props$horizontal2;
+    horizontal = _props$horizontal2 === undefined ? true : _props$horizontal2;
   if (!horizontal || !horizontalFill || !horizontalFill.length) {
     return null;
   }
@@ -26627,7 +26620,7 @@ function HorizontalStripes(props) {
 }
 function VerticalStripes(props) {
   var _props$vertical2 = props.vertical,
-    vertical = _props$vertical2 === void 0 ? true : _props$vertical2,
+    vertical = _props$vertical2 === undefined ? true : _props$vertical2,
     verticalFill = props.verticalFill,
     fillOpacity = props.fillOpacity,
     x = props.x,
@@ -26719,12 +26712,12 @@ function CartesianGrid(props) {
   var chartHeight = useChartHeight();
   var offset = useOffset();
   var propsIncludingDefaults = _objectSpread$3(_objectSpread$3({}, props), {}, {
-    stroke: (_props$stroke = props.stroke) !== null && _props$stroke !== void 0 ? _props$stroke : defaultProps.stroke,
-    fill: (_props$fill = props.fill) !== null && _props$fill !== void 0 ? _props$fill : defaultProps.fill,
-    horizontal: (_props$horizontal3 = props.horizontal) !== null && _props$horizontal3 !== void 0 ? _props$horizontal3 : defaultProps.horizontal,
-    horizontalFill: (_props$horizontalFill = props.horizontalFill) !== null && _props$horizontalFill !== void 0 ? _props$horizontalFill : defaultProps.horizontalFill,
-    vertical: (_props$vertical3 = props.vertical) !== null && _props$vertical3 !== void 0 ? _props$vertical3 : defaultProps.vertical,
-    verticalFill: (_props$verticalFill = props.verticalFill) !== null && _props$verticalFill !== void 0 ? _props$verticalFill : defaultProps.verticalFill,
+    stroke: (_props$stroke = props.stroke) !== null && _props$stroke !== undefined ? _props$stroke : defaultProps.stroke,
+    fill: (_props$fill = props.fill) !== null && _props$fill !== undefined ? _props$fill : defaultProps.fill,
+    horizontal: (_props$horizontal3 = props.horizontal) !== null && _props$horizontal3 !== undefined ? _props$horizontal3 : defaultProps.horizontal,
+    horizontalFill: (_props$horizontalFill = props.horizontalFill) !== null && _props$horizontalFill !== undefined ? _props$horizontalFill : defaultProps.horizontalFill,
+    vertical: (_props$vertical3 = props.vertical) !== null && _props$vertical3 !== undefined ? _props$vertical3 : defaultProps.vertical,
+    verticalFill: (_props$verticalFill = props.verticalFill) !== null && _props$verticalFill !== undefined ? _props$verticalFill : defaultProps.verticalFill,
     x: isNumber(props.x) ? props.x : offset.left,
     y: isNumber(props.y) ? props.y : offset.top,
     width: isNumber(props.width) ? props.width : offset.width,
@@ -26824,7 +26817,7 @@ function _objectWithoutProperties$1(source, excluded) { if (source == null) retu
 function _objectWithoutPropertiesLoose$1(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 function _extends$3() { _extends$3 = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$3.apply(this, arguments); }
 function ownKeys$2(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$2(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$2(Object(t), !0).forEach(function (r) { _defineProperty$3(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$2(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$2(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$2(Object(t), true).forEach(function (r) { _defineProperty$3(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$2(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _toConsumableArray$2(arr) { return _arrayWithoutHoles$2(arr) || _iterableToArray$2(arr) || _unsupportedIterableToArray$2(arr) || _nonIterableSpread$2(); }
 function _nonIterableSpread$2() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray$2(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$2(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$2(o, minLen); }
@@ -26833,17 +26826,17 @@ function _arrayWithoutHoles$2(arr) { if (Array.isArray(arr)) return _arrayLikeTo
 function _arrayLikeToArray$2(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties$2(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey$3(descriptor.key), descriptor); } }
-function _createClass$2(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$2(Constructor.prototype, protoProps); if (staticProps) _defineProperties$2(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _callSuper$1(t, o, e) { return o = _getPrototypeOf$1(o), _possibleConstructorReturn$1(t, _isNativeReflectConstruct$1() ? Reflect.construct(o, e || [], _getPrototypeOf$1(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn$1(self, call) { if (call && (_typeof$3(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$1(self); }
+function _createClass$2(Constructor, protoProps, staticProps) { _defineProperties$2(Constructor.prototype, protoProps); _defineProperties$2(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _callSuper$1(t, o, e) { return o = _getPrototypeOf$1(o), _possibleConstructorReturn$1(t, _isNativeReflectConstruct$1() ? Reflect.construct(o, e, _getPrototypeOf$1(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn$1(self, call) { if (call && (_typeof$3(call) === "object" || typeof call === "function")) { return call; } else if (call !== undefined) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized$1(self); }
 function _isNativeReflectConstruct$1() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$1 = function _isNativeReflectConstruct() { return !!t; })(); }
 function _getPrototypeOf$1(o) { _getPrototypeOf$1 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$1(o); }
-function _assertThisInitialized$1(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _assertThisInitialized$1(self) { if (self === undefined) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf$1(subClass, superClass); }
 function _setPrototypeOf$1(o, p) { _setPrototypeOf$1 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$1(o, p); }
 function _defineProperty$3(obj, key, value) { key = _toPropertyKey$3(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$3(t) { var i = _toPrimitive$3(t, "string"); return "symbol" == _typeof$3(i) ? i : String(i); }
-function _toPrimitive$3(t, r) { if ("object" != _typeof$3(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$3(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$3(t, r) { if ("object" != _typeof$3(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$3(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var Line = /*#__PURE__*/function (_PureComponent) {
   _inherits$1(Line, _PureComponent);
   function Line() {
@@ -27157,17 +27150,17 @@ var Line = /*#__PURE__*/function (_PureComponent) {
       var needClipY = yAxis && yAxis.allowDataOverflow;
       var needClip = needClipX || needClipY;
       var clipPathId = isNil$1(id) ? this.id : id;
-      var _ref2 = (_filterProps = filterProps(dot, false)) !== null && _filterProps !== void 0 ? _filterProps : {
+      var _ref2 = (_filterProps = filterProps(dot, false)) !== null && _filterProps !== undefined ? _filterProps : {
           r: 3,
           strokeWidth: 2
         },
         _ref2$r = _ref2.r,
-        r = _ref2$r === void 0 ? 3 : _ref2$r,
+        r = _ref2$r === undefined ? 3 : _ref2$r,
         _ref2$strokeWidth = _ref2.strokeWidth,
-        strokeWidth = _ref2$strokeWidth === void 0 ? 2 : _ref2$strokeWidth;
+        strokeWidth = _ref2$strokeWidth === undefined ? 2 : _ref2$strokeWidth;
       var _ref3 = isDotProps(dot) ? dot : {},
         _ref3$clipDot = _ref3.clipDot,
-        clipDot = _ref3$clipDot === void 0 ? true : _ref3$clipDot;
+        clipDot = _ref3$clipDot === undefined ? true : _ref3$clipDot;
       var dotSize = r * 2 + strokeWidth;
       return /*#__PURE__*/React.createElement(Layer, {
         className: layerClass
@@ -27799,10 +27792,10 @@ var SYNC_EVENT = 'recharts.syncMouseEvents';
 function _typeof$2(o) { "@babel/helpers - typeof"; return _typeof$2 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$2(o); }
 function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties$1(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey$2(descriptor.key), descriptor); } }
-function _createClass$1(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$1(Constructor.prototype, protoProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _createClass$1(Constructor, protoProps, staticProps) { _defineProperties$1(Constructor.prototype, protoProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _defineProperty$2(obj, key, value) { key = _toPropertyKey$2(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$2(t) { var i = _toPrimitive$2(t, "string"); return "symbol" == _typeof$2(i) ? i : String(i); }
-function _toPrimitive$2(t, r) { if ("object" != _typeof$2(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$2(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$2(t, r) { if ("object" != _typeof$2(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$2(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var AccessibilityManager = /*#__PURE__*/function () {
   function AccessibilityManager() {
     _classCallCheck$1(this, AccessibilityManager);
@@ -27815,20 +27808,20 @@ var AccessibilityManager = /*#__PURE__*/function () {
     value: function setDetails(_ref) {
       var _ref2;
       var _ref$coordinateList = _ref.coordinateList,
-        coordinateList = _ref$coordinateList === void 0 ? null : _ref$coordinateList,
+        coordinateList = _ref$coordinateList === undefined ? null : _ref$coordinateList,
         _ref$container = _ref.container,
-        container = _ref$container === void 0 ? null : _ref$container,
+        container = _ref$container === undefined ? null : _ref$container,
         _ref$layout = _ref.layout,
-        layout = _ref$layout === void 0 ? null : _ref$layout,
+        layout = _ref$layout === undefined ? null : _ref$layout,
         _ref$offset = _ref.offset,
-        offset = _ref$offset === void 0 ? null : _ref$offset,
+        offset = _ref$offset === undefined ? null : _ref$offset,
         _ref$mouseHandlerCall = _ref.mouseHandlerCallback,
-        mouseHandlerCallback = _ref$mouseHandlerCall === void 0 ? null : _ref$mouseHandlerCall;
-      this.coordinateList = (_ref2 = coordinateList !== null && coordinateList !== void 0 ? coordinateList : this.coordinateList) !== null && _ref2 !== void 0 ? _ref2 : [];
-      this.container = container !== null && container !== void 0 ? container : this.container;
-      this.layout = layout !== null && layout !== void 0 ? layout : this.layout;
-      this.offset = offset !== null && offset !== void 0 ? offset : this.offset;
-      this.mouseHandlerCallback = mouseHandlerCallback !== null && mouseHandlerCallback !== void 0 ? mouseHandlerCallback : this.mouseHandlerCallback;
+        mouseHandlerCallback = _ref$mouseHandlerCall === undefined ? null : _ref$mouseHandlerCall;
+      this.coordinateList = (_ref2 = coordinateList !== null && coordinateList !== undefined ? coordinateList : this.coordinateList) !== null && _ref2 !== undefined ? _ref2 : [];
+      this.container = container !== null && container !== undefined ? container : this.container;
+      this.layout = layout !== null && layout !== undefined ? layout : this.layout;
+      this.offset = offset !== null && offset !== undefined ? offset : this.offset;
+      this.mouseHandlerCallback = mouseHandlerCallback !== null && mouseHandlerCallback !== undefined ? mouseHandlerCallback : this.mouseHandlerCallback;
 
       // Keep activeIndex in the bounds between 0 and the last coordinate index
       this.activeIndex = Math.min(Math.max(this.activeIndex, 0), this.coordinateList.length - 1);
@@ -27891,8 +27884,8 @@ var AccessibilityManager = /*#__PURE__*/function () {
         y = _this$container$getBo.y,
         height = _this$container$getBo.height;
       var coordinate = this.coordinateList[this.activeIndex].coordinate;
-      var scrollOffsetX = ((_window = window) === null || _window === void 0 ? void 0 : _window.scrollX) || 0;
-      var scrollOffsetY = ((_window2 = window) === null || _window2 === void 0 ? void 0 : _window2.scrollY) || 0;
+      var scrollOffsetX = ((_window = window) === null || _window === undefined ? undefined : _window.scrollX) || 0;
+      var scrollOffsetY = ((_window2 = window) === null || _window2 === undefined ? undefined : _window2.scrollY) || 0;
       var pageX = x + coordinate + scrollOffsetX;
       var pageY = y + this.offset.top + height / 2 + scrollOffsetY;
       this.mouseHandlerCallback({
@@ -27913,8 +27906,8 @@ var AccessibilityManager = /*#__PURE__*/function () {
  */
 function isDomainSpecifiedByUser(domain, allowDataOverflow, axisType) {
   if (axisType === 'number' && allowDataOverflow === true && Array.isArray(domain)) {
-    var domainStart = domain === null || domain === void 0 ? void 0 : domain[0];
-    var domainEnd = domain === null || domain === void 0 ? void 0 : domain[1];
+    var domainStart = domain === null || domain === undefined ? undefined : domain[0];
+    var domainEnd = domain === null || domain === undefined ? undefined : domain[1];
 
     /*
      * The `isNumber` check is needed because the user could also provide strings like "dataMin" via the domain props.
@@ -28002,10 +27995,10 @@ function getCursorPoints(layout, activeCoordinate, offset) {
 
 function _typeof$1(o) { "@babel/helpers - typeof"; return _typeof$1 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$1(o); }
 function ownKeys$1(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$1(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$1(Object(t), !0).forEach(function (r) { _defineProperty$1(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$1(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$1(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$1(Object(t), true).forEach(function (r) { _defineProperty$1(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$1(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty$1(obj, key, value) { key = _toPropertyKey$1(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey$1(t) { var i = _toPrimitive$1(t, "string"); return "symbol" == _typeof$1(i) ? i : String(i); }
-function _toPrimitive$1(t, r) { if ("object" != _typeof$1(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$1(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive$1(t, r) { if ("object" != _typeof$1(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof$1(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /*
  * Cursor is the background, or a highlight,
  * that shows when user mouses over or activates
@@ -28075,18 +28068,18 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = true, o = false; try { if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = true, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _createClass(Constructor, protoProps, staticProps) { _defineProperties(Constructor.prototype, protoProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e, _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== undefined) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
 function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _assertThisInitialized(self) { if (self === undefined) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -28096,10 +28089,10 @@ function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symb
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), true).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (undefined !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var ORIENT_MAP = {
   xAxis: ['bottom', 'top'],
   yAxis: ['left', 'right']
@@ -28178,7 +28171,7 @@ var getDisplayedData = function getDisplayedData(data, _ref) {
   var graphicalItems = _ref.graphicalItems,
     dataStartIndex = _ref.dataStartIndex,
     dataEndIndex = _ref.dataEndIndex;
-  var itemsData = (graphicalItems !== null && graphicalItems !== void 0 ? graphicalItems : []).reduce(function (result, child) {
+  var itemsData = (graphicalItems !== null && graphicalItems !== undefined ? graphicalItems : []).reduce(function (result, child) {
     var itemData = child.props.data;
     if (itemData && itemData.length) {
       return [].concat(_toConsumableArray(result), _toConsumableArray(itemData));
@@ -28220,7 +28213,7 @@ var getTooltipContent = function getTooltipContent(state, chartData, activeIndex
      * Defaulting to chartData below to fix an edge case where the tooltip does not include data from all charts
      * when a separate dataset is passed to chart prop data and specified on Line/Area/etc prop data
      */
-    var data = (_child$props$data = child.props.data) !== null && _child$props$data !== void 0 ? _child$props$data : chartData;
+    var data = (_child$props$data = child.props.data) !== null && _child$props$data !== undefined ? _child$props$data : chartData;
     if (data && state.dataStartIndex + state.dataEndIndex !== 0) {
       data = data.slice(state.dataStartIndex, state.dataEndIndex + 1);
     }
@@ -28346,7 +28339,7 @@ var getAxisMapByAxes = function getAxisMapByAxes(props, _ref2) {
     // we didn't create the domain from user's props above, so we need to calculate it
     if (!domain || domain.length === 0) {
       var _child$props$domain;
-      var childDomain = (_child$props$domain = child.props.domain) !== null && _child$props$domain !== void 0 ? _child$props$domain : defaultDomain;
+      var childDomain = (_child$props$domain = child.props.domain) !== null && _child$props$domain !== undefined ? _child$props$domain : defaultDomain;
       if (dataKey) {
         // has dataKey in <Axis />
         domain = getDomainOfDataByKey(displayedData, dataKey, type);
@@ -28419,7 +28412,7 @@ var getAxisMapByAxes = function getAxisMapByAxes(props, _ref2) {
       domain: domain,
       categoricalDomain: categoricalDomain,
       duplicateDomain: duplicateDomain,
-      originalDomain: (_child$props$domain2 = child.props.domain) !== null && _child$props$domain2 !== void 0 ? _child$props$domain2 : defaultDomain,
+      originalDomain: (_child$props$domain2 = child.props.domain) !== null && _child$props$domain2 !== undefined ? _child$props$domain2 : defaultDomain,
       isCategorical: isCategorical,
       layout: layout
     })));
@@ -28509,7 +28502,7 @@ var getAxisMapByItems = function getAxisMapByItems(props, _ref3) {
  */
 var getAxisMap = function getAxisMap(props, _ref4) {
   var _ref4$axisType = _ref4.axisType,
-    axisType = _ref4$axisType === void 0 ? 'xAxis' : _ref4$axisType,
+    axisType = _ref4$axisType === undefined ? 'xAxis' : _ref4$axisType,
     AxisComp = _ref4.AxisComp,
     graphicalItems = _ref4.graphicalItems,
     stackGroups = _ref4.stackGroups,
@@ -28520,7 +28513,7 @@ var getAxisMap = function getAxisMap(props, _ref4) {
   // Get all the instance of Axis
   var axes = findAllByType(children, AxisComp);
   var axisMap = {};
-  if (axes && axes.length) {
+  if (axes.length) {
     axisMap = getAxisMapByAxes(props, {
       axes: axes,
       graphicalItems: graphicalItems,
@@ -28634,9 +28627,9 @@ var calculateOffset = function calculateOffset(_ref5, prevLegendBBox) {
   var props = _ref5.props,
     graphicalItems = _ref5.graphicalItems,
     _ref5$xAxisMap = _ref5.xAxisMap,
-    xAxisMap = _ref5$xAxisMap === void 0 ? {} : _ref5$xAxisMap,
+    xAxisMap = _ref5$xAxisMap === undefined ? {} : _ref5$xAxisMap,
     _ref5$yAxisMap = _ref5.yAxisMap,
-    yAxisMap = _ref5$yAxisMap === void 0 ? {} : _ref5$yAxisMap;
+    yAxisMap = _ref5$yAxisMap === undefined ? {} : _ref5$yAxisMap;
   var width = props.width,
     height = props.height,
     children = props.children;
@@ -28700,9 +28693,9 @@ var generateCategoricalChart = function generateCategoricalChart(_ref6) {
   var chartName = _ref6.chartName,
     GraphicalChild = _ref6.GraphicalChild,
     _ref6$defaultTooltipE = _ref6.defaultTooltipEventType,
-    defaultTooltipEventType = _ref6$defaultTooltipE === void 0 ? 'axis' : _ref6$defaultTooltipE,
+    defaultTooltipEventType = _ref6$defaultTooltipE === undefined ? 'axis' : _ref6$defaultTooltipE,
     _ref6$validateTooltip = _ref6.validateTooltipEventTypes,
-    validateTooltipEventTypes = _ref6$validateTooltip === void 0 ? ['axis'] : _ref6$validateTooltip,
+    validateTooltipEventTypes = _ref6$validateTooltip === undefined ? ['axis'] : _ref6$validateTooltip,
     axisComponents = _ref6.axisComponents,
     legendContent = _ref6.legendContent,
     formatAxisMap = _ref6.formatAxisMap,
@@ -28752,7 +28745,7 @@ var generateCategoricalChart = function generateCategoricalChart(_ref6) {
          */
         !(axisMap && axisMap[id] || entry.axisType === 'zAxis') ? process.env.NODE_ENV !== "production" ? invariant(false, "Specifying a(n) ".concat(entry.axisType, "Id requires a corresponding ").concat(entry.axisType
         // @ts-expect-error we should stop reading data from ReactElements
-        , "Id on the targeted graphical component ").concat((_item$type$displayNam = item === null || item === void 0 || (_item$type = item.type) === null || _item$type === void 0 ? void 0 : _item$type.displayName) !== null && _item$type$displayNam !== void 0 ? _item$type$displayNam : '')) : invariant() : void 0;
+        , "Id on the targeted graphical component ").concat((_item$type$displayNam = item === null || item === undefined || (_item$type = item.type) === null || _item$type === undefined ? undefined : _item$type.displayName) !== null && _item$type$displayNam !== undefined ? _item$type$displayNam : '')) : invariant() : undefined;
 
         // the axis we are currently formatting
         var axis = axisMap[id];
@@ -28773,7 +28766,7 @@ var generateCategoricalChart = function generateCategoricalChart(_ref6) {
         var _ref7, _getBandSizeOfAxis;
         // If it is bar, calculate the position of bar
         var maxBarSize = isNil$1(childMaxBarSize) ? globalMaxBarSize : childMaxBarSize;
-        var barBandSize = (_ref7 = (_getBandSizeOfAxis = getBandSizeOfAxis(cateAxis, cateTicks, true)) !== null && _getBandSizeOfAxis !== void 0 ? _getBandSizeOfAxis : maxBarSize) !== null && _ref7 !== void 0 ? _ref7 : 0;
+        var barBandSize = (_ref7 = (_getBandSizeOfAxis = getBandSizeOfAxis(cateAxis, cateTicks, true)) !== null && _getBandSizeOfAxis !== undefined ? _getBandSizeOfAxis : maxBarSize) !== null && _ref7 !== undefined ? _ref7 : 0;
         barPosition = getBarPosition({
           barGap: barGap,
           barCategoryGap: barCategoryGap,
@@ -28864,7 +28857,7 @@ var generateCategoricalChart = function generateCategoricalChart(_ref6) {
     var offset = calculateOffset(_objectSpread(_objectSpread({}, axisObj), {}, {
       props: props,
       graphicalItems: graphicalItems
-    }), prevState === null || prevState === void 0 ? void 0 : prevState.legendBBox);
+    }), prevState === null || prevState === undefined ? undefined : prevState.legendBBox);
     Object.keys(axisObj).forEach(function (key) {
       axisObj[key] = formatAxisMap(props, axisObj[key], offset, key.replace('Map', ''), chartName);
     });
@@ -29042,7 +29035,7 @@ var generateCategoricalChart = function generateCategoricalChart(_ref6) {
           } else {
             mouse = _this.getMouseInfo(e);
           }
-          event((_mouse = mouse) !== null && _mouse !== void 0 ? _mouse : {}, e);
+          event((_mouse = mouse) !== null && _mouse !== undefined ? _mouse : {}, e);
         }
       });
       _defineProperty(_assertThisInitialized(_this), "handleClick", function (e) {
@@ -29169,7 +29162,7 @@ var generateCategoricalChart = function generateCategoricalChart(_ref6) {
           tooltipAxisBandSize = _this$state3.tooltipAxisBandSize;
         var tooltipEventType = _this.getTooltipEventType();
         // The cursor is a part of the Tooltip, and it should be shown (by default) when the Tooltip is active.
-        var isActive = (_element$props$active = element.props.active) !== null && _element$props$active !== void 0 ? _element$props$active : isTooltipActive;
+        var isActive = (_element$props$active = element.props.active) !== null && _element$props$active !== undefined ? _element$props$active : isTooltipActive;
         var layout = _this.props.layout;
         var key = element.key || '_recharts-cursor';
         return /*#__PURE__*/React.createElement(Cursor, {
@@ -29278,7 +29271,7 @@ var generateCategoricalChart = function generateCategoricalChart(_ref6) {
         // The user can set isActive on the Tooltip,
         // and we respect the user to enable customisation.
         // The Tooltip is active if the user has set isActive, or if the tooltip is active due to a mouse event.
-        var isActive = (_tooltipItem$props$ac = tooltipItem.props.active) !== null && _tooltipItem$props$ac !== void 0 ? _tooltipItem$props$ac : isTooltipActive;
+        var isActive = (_tooltipItem$props$ac = tooltipItem.props.active) !== null && _tooltipItem$props$ac !== undefined ? _tooltipItem$props$ac : isTooltipActive;
         return /*#__PURE__*/React.cloneElement(tooltipItem, {
           viewBox: _objectSpread(_objectSpread({}, offset), {}, {
             x: offset.left,
@@ -29424,7 +29417,7 @@ var generateCategoricalChart = function generateCategoricalChart(_ref6) {
               activePoint = findEntryInArray(points, specifiedKey, activeLabel);
               basePoint = isRange && baseLine && findEntryInArray(baseLine, specifiedKey, activeLabel);
             } else {
-              activePoint = points === null || points === void 0 ? void 0 : points[activeTooltipIndex];
+              activePoint = points === null || points === undefined ? undefined : points[activeTooltipIndex];
               basePoint = isRange && baseLine && baseLine[activeTooltipIndex];
             }
             if (activeShape || activeBar) {
@@ -29451,12 +29444,12 @@ var generateCategoricalChart = function generateCategoricalChart(_ref6) {
              *
              * An example usage case is a FunnelChart
              */
-            var _ref11 = (_this$getItemByXY = _this.getItemByXY(_this.state.activeCoordinate)) !== null && _this$getItemByXY !== void 0 ? _this$getItemByXY : {
+            var _ref11 = (_this$getItemByXY = _this.getItemByXY(_this.state.activeCoordinate)) !== null && _this$getItemByXY !== undefined ? _this$getItemByXY : {
                 graphicalItem: graphicalItem
               },
               _ref11$graphicalItem = _ref11.graphicalItem,
               _ref11$graphicalItem$ = _ref11$graphicalItem.item,
-              xyItem = _ref11$graphicalItem$ === void 0 ? element : _ref11$graphicalItem$,
+              xyItem = _ref11$graphicalItem$ === undefined ? element : _ref11$graphicalItem$,
               childIndex = _ref11$graphicalItem.childIndex;
             var elementProps = _objectSpread(_objectSpread(_objectSpread({}, item.props), itemEvents), {}, {
               activeIndex: childIndex
@@ -29540,10 +29533,10 @@ var generateCategoricalChart = function generateCategoricalChart(_ref6) {
           handler: _this.renderCustomized
         }
       });
-      _this.clipPathId = "".concat((_props$id = _props.id) !== null && _props$id !== void 0 ? _props$id : uniqueId('recharts'), "-clip");
+      _this.clipPathId = "".concat((_props$id = _props.id) !== null && _props$id !== undefined ? _props$id : uniqueId('recharts'), "-clip");
 
       // trigger 60fps
-      _this.throttleTriggeredAfterMouseMove = throttle$1(_this.triggeredAfterMouseMove, (_props$throttleDelay = _props.throttleDelay) !== null && _props$throttleDelay !== void 0 ? _props$throttleDelay : 1000 / 60);
+      _this.throttleTriggeredAfterMouseMove = throttle$1(_this.triggeredAfterMouseMove, (_props$throttleDelay = _props.throttleDelay) !== null && _props$throttleDelay !== undefined ? _props$throttleDelay : 1000 / 60);
       _this.state = {};
       return _this;
     }
@@ -29555,8 +29548,8 @@ var generateCategoricalChart = function generateCategoricalChart(_ref6) {
         this.accessibilityManager.setDetails({
           container: this.container,
           offset: {
-            left: (_this$props$margin$le = this.props.margin.left) !== null && _this$props$margin$le !== void 0 ? _this$props$margin$le : 0,
-            top: (_this$props$margin$to = this.props.margin.top) !== null && _this$props$margin$to !== void 0 ? _this$props$margin$to : 0
+            left: (_this$props$margin$le = this.props.margin.left) !== null && _this$props$margin$le !== undefined ? _this$props$margin$le : 0,
+            top: (_this$props$margin$to = this.props.margin.top) !== null && _this$props$margin$to !== undefined ? _this$props$margin$to : 0
           },
           coordinateList: this.state.tooltipTicks,
           mouseHandlerCallback: this.triggeredAfterMouseMove,
@@ -29641,8 +29634,8 @@ var generateCategoricalChart = function generateCategoricalChart(_ref6) {
           var _this$props$margin$le2, _this$props$margin$to2;
           this.accessibilityManager.setDetails({
             offset: {
-              left: (_this$props$margin$le2 = this.props.margin.left) !== null && _this$props$margin$le2 !== void 0 ? _this$props$margin$le2 : 0,
-              top: (_this$props$margin$to2 = this.props.margin.top) !== null && _this$props$margin$to2 !== void 0 ? _this$props$margin$to2 : 0
+              left: (_this$props$margin$le2 = this.props.margin.left) !== null && _this$props$margin$le2 !== undefined ? _this$props$margin$le2 : 0,
+              top: (_this$props$margin$to2 = this.props.margin.top) !== null && _this$props$margin$to2 !== undefined ? _this$props$margin$to2 : 0
             }
           });
         }
@@ -29839,13 +29832,13 @@ var generateCategoricalChart = function generateCategoricalChart(_ref6) {
       key: "getXScaleByAxisId",
       value: function getXScaleByAxisId(axisId) {
         var _this$state$xAxisMap;
-        return (_this$state$xAxisMap = this.state.xAxisMap) === null || _this$state$xAxisMap === void 0 || (_this$state$xAxisMap = _this$state$xAxisMap[axisId]) === null || _this$state$xAxisMap === void 0 ? void 0 : _this$state$xAxisMap.scale;
+        return (_this$state$xAxisMap = this.state.xAxisMap) === null || _this$state$xAxisMap === undefined || (_this$state$xAxisMap = _this$state$xAxisMap[axisId]) === null || _this$state$xAxisMap === undefined ? undefined : _this$state$xAxisMap.scale;
       }
     }, {
       key: "getYScaleByAxisId",
       value: function getYScaleByAxisId(axisId) {
         var _this$state$yAxisMap;
-        return (_this$state$yAxisMap = this.state.yAxisMap) === null || _this$state$yAxisMap === void 0 || (_this$state$yAxisMap = _this$state$yAxisMap[axisId]) === null || _this$state$yAxisMap === void 0 ? void 0 : _this$state$yAxisMap.scale;
+        return (_this$state$yAxisMap = this.state.yAxisMap) === null || _this$state$yAxisMap === undefined || (_this$state$yAxisMap = _this$state$yAxisMap[axisId]) === null || _this$state$yAxisMap === undefined ? undefined : _this$state$yAxisMap.scale;
       }
     }, {
       key: "getItemByXY",
@@ -29933,9 +29926,9 @@ var generateCategoricalChart = function generateCategoricalChart(_ref6) {
         if (this.props.accessibilityLayer) {
           var _this$props$tabIndex, _this$props$role;
           // Set tabIndex to 0 by default (can be overwritten)
-          attrs.tabIndex = (_this$props$tabIndex = this.props.tabIndex) !== null && _this$props$tabIndex !== void 0 ? _this$props$tabIndex : 0;
+          attrs.tabIndex = (_this$props$tabIndex = this.props.tabIndex) !== null && _this$props$tabIndex !== undefined ? _this$props$tabIndex : 0;
           // Set role to img by default (can be overwritten)
-          attrs.role = (_this$props$role = this.props.role) !== null && _this$props$role !== void 0 ? _this$props$role : 'application';
+          attrs.role = (_this$props$role = this.props.role) !== null && _this$props$role !== undefined ? _this$props$role : 'application';
           attrs.onKeyDown = function (e) {
             _this2.accessibilityManager.keyboardEvent(e);
             // 'onKeyDown' is not currently a supported prop that can be passed through
@@ -30052,8 +30045,8 @@ var generateCategoricalChart = function generateCategoricalChart(_ref6) {
       var _brush$props$startInd, _brush$props, _brush$props$endIndex, _brush$props2;
       // specifically check for Brush - if it exists and the start and end indexes are different, re-render with the new ones
       var brush = findChildByType(children, Brush);
-      var startIndex = brush ? (_brush$props$startInd = (_brush$props = brush.props) === null || _brush$props === void 0 ? void 0 : _brush$props.startIndex) !== null && _brush$props$startInd !== void 0 ? _brush$props$startInd : dataStartIndex : dataStartIndex;
-      var endIndex = brush ? (_brush$props$endIndex = (_brush$props2 = brush.props) === null || _brush$props2 === void 0 ? void 0 : _brush$props2.endIndex) !== null && _brush$props$endIndex !== void 0 ? _brush$props$endIndex : dataEndIndex : dataEndIndex;
+      var startIndex = brush ? (_brush$props$startInd = (_brush$props = brush.props) === null || _brush$props === undefined ? undefined : _brush$props.startIndex) !== null && _brush$props$startInd !== undefined ? _brush$props$startInd : dataStartIndex : dataStartIndex;
+      var endIndex = brush ? (_brush$props$endIndex = (_brush$props2 = brush.props) === null || _brush$props2 === undefined ? undefined : _brush$props2.endIndex) !== null && _brush$props$endIndex !== undefined ? _brush$props$endIndex : dataEndIndex : dataEndIndex;
       var hasDifferentStartOrEndIndex = startIndex !== dataStartIndex || endIndex !== dataEndIndex;
 
       // update configuration in children
@@ -30183,7 +30176,7 @@ var CustomTooltip = function (_a) {
                                 color: "var(--s-color-content-light)",
                             } }, "".concat(entry.name ? entry.name : "", ": ")),
                         React.createElement("small", { style: { color: "var(--s-color-content-default)" } }, formatter
-                            ? formatter((_a = entry.value) !== null && _a !== void 0 ? _a : 0, (_b = entry.name) !== null && _b !== void 0 ? _b : "", entry, index, payload)
+                            ? formatter((_a = entry.value) !== null && _a !== undefined ? _a : 0, (_b = entry.name) !== null && _b !== undefined ? _b : "", entry, index, payload)
                             : entry.value))));
             })));
     }
@@ -30191,7 +30184,7 @@ var CustomTooltip = function (_a) {
 };
 
 function CustomCaption(_a) {
-    var _b = _a.payload, payload = _b === void 0 ? [] : _b;
+    var _b = _a.payload, payload = _b === undefined ? [] : _b;
     return (React.createElement("div", { style: {
             display: "flex",
             justifyContent: "center",
@@ -30220,14 +30213,17 @@ function BarChart(props) {
     var _a = React.useState([]), randomData = _a[0], setRandomData = _a[1];
     var displayData = skeleton ? randomData : data;
     React.useEffect(function () {
-        var interval = setInterval(function () {
-            var generatedData = Array.from({ length: 10 }, function (_, index) { return ({
+        var generateData = function () {
+            return Array.from({ length: 10 }, function (_, index) { return ({
                 month: "",
                 "": Math.floor(Math.random() * 100),
                 " ": Math.floor(Math.random() * 100),
             }); });
-            setRandomData(generatedData);
-        }, 2000);
+        };
+        setRandomData(generateData());
+        var interval = setInterval(function () {
+            setRandomData(generateData());
+        }, 1500);
         return function () { return clearInterval(interval); };
     }, [skeleton]);
     if (!displayData || displayData.length === 0) {
@@ -30265,9 +30261,9 @@ function BarChart(props) {
             }
             return (React.createElement(Bar, { key: key, dataKey: key, stackId: stacked ? "a" : undefined, fill: skeleton
                     ? "var(--s-color-fill-default-light)"
-                    : ((_a = lineStyles[key]) === null || _a === void 0 ? void 0 : _a.color) || "black", stroke: skeleton
+                    : ((_a = lineStyles[key]) === null || _a === undefined ? undefined : _a.color) || "black", stroke: skeleton
                     ? "var(--s-color-fill-default-light)"
-                    : ((_b = lineStyles[key]) === null || _b === void 0 ? void 0 : _b.color) || "black", radius: radius }, label && (React.createElement(LabelList, { position: "top", style: { font: "var(--s-typography-caption-regular)" }, fill: "var(--s-color-content-light)", offset: 12 }))));
+                    : ((_b = lineStyles[key]) === null || _b === undefined ? undefined : _b.color) || "black", radius: radius }, label && (React.createElement(LabelList, { position: "top", style: { font: "var(--s-typography-caption-regular)" }, fill: "var(--s-color-content-light)", offset: 12 }))));
         })));
 }
 
@@ -30276,14 +30272,18 @@ function LineChart(props) {
     var _a = React.useState([]), randomData = _a[0], setRandomData = _a[1];
     var displayData = skeleton ? randomData : data;
     React.useEffect(function () {
-        var interval = setInterval(function () {
-            var generatedData = Array.from({ length: 10 }, function (_, index) { return ({
-                month: "",
-                "": Math.floor(Math.random() * 100),
-                " ": Math.floor(Math.random() * 100),
+        var generateData = function () {
+            return Array.from({ length: 10 }, function (_, index) { return ({
+                month: "Month ".concat(index + 1),
+                value1: Math.floor(Math.random() * 100),
+                value2: Math.floor(Math.random() * 100),
             }); });
-            setRandomData(generatedData);
-        }, 2000);
+        };
+        var generatedData = generateData();
+        setRandomData(generatedData);
+        var interval = setInterval(function () {
+            setRandomData(generateData());
+        }, 1500);
         return function () { return clearInterval(interval); };
     }, [skeleton]);
     if (!displayData || displayData.length === 0) {
@@ -30311,7 +30311,7 @@ function LineChart(props) {
 }
 
 function PieChart(_a) {
-    var data = _a.data, label = _a.label, caption = _a.caption, innerRadius = _a.innerRadius, outerRadius = _a.outerRadius, type = _a.type, tooltipFormatter = _a.tooltipFormatter, labelFormatter = _a.labelFormatter, height = _a.height, width = _a.width, dataKey = _a.dataKey, nameKey = _a.nameKey, _b = _a.skeleton, skeleton = _b === void 0 ? false : _b;
+    var data = _a.data, label = _a.label, caption = _a.caption, innerRadius = _a.innerRadius, outerRadius = _a.outerRadius, type = _a.type, tooltipFormatter = _a.tooltipFormatter, labelFormatter = _a.labelFormatter, height = _a.height, width = _a.width, dataKey = _a.dataKey, nameKey = _a.nameKey, _b = _a.skeleton, skeleton = _b === undefined ? false : _b;
     var totalQuantity = React.useMemo(function () {
         return data.reduce(function (acc, curr) { return acc + curr.quantity; }, 0);
     }, [data]);
@@ -30362,8 +30362,8 @@ function PieChart(_a) {
     var _c = React.useState([]), randomData = _c[0], setRandomData = _c[1];
     React.useEffect(function () {
         var toggle = true;
-        var interval = setInterval(function () {
-            var generatedData = Array.from({ length: 2 }, function (_, index) { return ({
+        var generateData = function () {
+            return Array.from({ length: 2 }, function (_, index) { return ({
                 quantity: index === 0 ? (toggle ? 0 : 100) : toggle ? 100 : 0,
                 keyName: "Item ".concat(index + 1),
                 fill: index % 2 === 0
@@ -30373,11 +30373,14 @@ function PieChart(_a) {
                     ? "var(--s-color-fill-default-light)"
                     : "var(--s-color-fill-disable)",
             }); });
-            setRandomData(generatedData);
+        };
+        setRandomData(generateData());
+        var interval = setInterval(function () {
             toggle = !toggle;
+            setRandomData(generateData());
         }, 2000);
         return function () { return clearInterval(interval); };
-    }, [skeleton]);
+    }, []);
     return (React.createElement(PieChart$1, { height: height, width: width, margin: {
             top: 20,
             left: 20,
