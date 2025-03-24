@@ -18,6 +18,7 @@ const Icon: React.FC<IconProps> = ({ size, fill, icon }) => {
       <span
         style={{ fontVariationSettings: fillStyle }}
         className={`material-symbols-outlined ${sizeClass}`}
+        translate="no"
       >
         {icon}
       </span>

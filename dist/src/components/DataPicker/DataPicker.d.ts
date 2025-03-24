@@ -1,11 +1,10 @@
 import React from "react";
 import "./DataPicker.scss";
-interface DataPickerProps {
+declare function DataPicker({ value, onChange, label, disabled, skeleton, }: {
+    value?: string;
+    onChange: (value: string) => void;
     label: string;
-    placeholder: string;
     disabled?: boolean;
-    onDateChange: (date: Date) => void;
-    date: string;
-}
-declare const DataPicker: React.FC<DataPickerProps>;
+    skeleton?: boolean;
+}): React.JSX.Element;
 export default DataPicker;

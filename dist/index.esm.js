@@ -104,7 +104,7 @@ var Icon = function (_a) {
     var sizeClass = size;
     var fillStyle = "'FILL' ".concat(fill ? 1 : 0, ",\n    'GRAD' 0,\n    'opsz' 24");
     return (React.createElement(React.Fragment, null,
-        React.createElement("span", { style: { fontVariationSettings: fillStyle }, className: "material-symbols-outlined ".concat(sizeClass) }, icon)));
+        React.createElement("span", { style: { fontVariationSettings: fillStyle }, className: "material-symbols-outlined ".concat(sizeClass), translate: "no" }, icon)));
 };
 
 function Skeleton(props) {
@@ -306,388 +306,326 @@ var CardDropdown = function (_a) {
 };
 
 var Input = function (_a) {
-    var typeIcon = _a.typeIcon, fillIcon = _a.fillIcon, label = _a.label, error = _a.error, disabled = _a.disabled, textError = _a.textError, value = _a.value, rest = __rest(_a, ["typeIcon", "fillIcon", "label", "error", "disabled", "textError", "value"]);
+    var typeIcon = _a.typeIcon, fillIcon = _a.fillIcon, label = _a.label, error = _a.error, disabled = _a.disabled, textError = _a.textError, value = _a.value, ref = _a.ref, skeleton = _a.skeleton, rest = __rest(_a, ["typeIcon", "fillIcon", "label", "error", "disabled", "textError", "value", "ref", "skeleton"]);
     var inputRef = useRef(null);
+    var _b = useState({ width: 0, height: 0 }), dimensions = _b[0], setDimensions = _b[1];
+    useEffect(function () {
+        if (inputRef.current) {
+            var _a = inputRef.current, offsetWidth = _a.offsetWidth, offsetHeight = _a.offsetHeight;
+            setDimensions({ width: offsetWidth, height: offsetHeight });
+        }
+    }, [inputRef.current]);
     var handleDivClick = function () {
         if (inputRef.current) {
-            inputRef.current.focus();
+            var inputElement = inputRef.current.querySelector("input");
+            if (inputElement) {
+                inputElement.focus();
+            }
         }
     };
-    return (React.createElement("div", { className: "input-root" },
-        label && (React.createElement("div", { className: "input-header" },
-            React.createElement("label", null, label))),
-        React.createElement("div", null,
-            React.createElement("div", { className: "input-content ".concat(disabled ? "disabled" : "", " ").concat(error ? "error" : ""), onClick: handleDivClick },
-                React.createElement("input", __assign({ size: 0 }, rest, { value: value, disabled: disabled, ref: inputRef })),
-                React.createElement(Icon, { icon: typeIcon, size: "md", fill: fillIcon })),
-            error && React.createElement("div", { className: "input-error" }, textError))));
+    return (React.createElement(React.Fragment, null,
+        React.createElement("div", { className: "input-root" },
+            label && (React.createElement("div", { className: "input-header" },
+                React.createElement("label", null, label))),
+            skeleton ? (React.createElement(Skeleton, { height: "".concat(dimensions.height), width: "".concat(dimensions.width) })) : (React.createElement("div", { ref: inputRef },
+                React.createElement("div", { className: "input-content ".concat(disabled ? "disabled" : "", " ").concat(error ? "error" : ""), onClick: handleDivClick },
+                    React.createElement("input", __assign({ size: 0 }, rest, { value: value, disabled: disabled, ref: ref })),
+                    React.createElement(Icon, { icon: typeIcon, size: "md", fill: fillIcon })),
+                error && React.createElement("div", { className: "input-error" }, textError))))));
 };
 
-var DataPickerDay = function (_a) {
-    var variant = _a.variant, day = _a.day, onClick = _a.onClick, onMouseEnter = _a.onMouseEnter;
-    var formattedDay = day < 10 ? "0".concat(day) : "".concat(day);
-    var buttonClass = "data-picker-day ".concat(variant);
-    return (React.createElement("button", { disabled: variant === "disable", tabIndex: 0, className: buttonClass, onClick: onClick, onMouseEnter: onMouseEnter }, formattedDay));
+var DataPickerDay = function (props) {
+    var day = props.day, type = props.type, onSelect = props.onSelect, isSelected = props.isSelected;
+    return (React.createElement("button", { className: "data-picker-day ".concat(type === "other" ? "other-month" : "", " ").concat(isSelected ? "selected" : ""), onClick: function () { return onSelect(day, type); } }, day));
 };
-var DataPickerInputDate = function (_a) {
-    var label = _a.label, value = _a.value, onChange = _a.onChange, onEnter = _a.onEnter, onClick = _a.onClick, placeholder = _a.placeholder, disabled = _a.disabled;
-    var handleKeyDown = function (e) {
-        if (e.key === "Enter")
-            onEnter();
-    };
-    var hasValue = value.trim() !== "";
-    var containerClass = hasValue ? "data-picker-value" : "";
-    return (React.createElement("div", { className: containerClass },
-        React.createElement(Input, { typeIcon: "calendar_month", fillIcon: true, label: label, type: "text", value: value, onChange: function (e) { return onChange(e.target.value); }, onKeyDown: handleKeyDown, placeholder: placeholder, onClick: onClick, disabled: disabled })));
-};
-var DataPickerCalendar = function (_a) {
-    var label = _a.label, placeholder = _a.placeholder, disabled = _a.disabled, onDateChange = _a.onDateChange, date = _a.date;
-    var monthsOverflowContainerRef = useRef(null);
-    var yearsOverflowContainerRef = useRef(null);
-    var today = new Date();
-    var _b = useState(new Date(date)), selectedDate = _b[0], setSelectedDate = _b[1];
-    var _c = useState(date), inputDate = _c[0], setInputDate = _c[1];
-    var _d = useState(new Date().getMonth()), currentMonth = _d[0], setCurrentMonth = _d[1];
-    var _e = useState(new Date().getFullYear()), currentYear = _e[0], setCurrentYear = _e[1];
-    var _f = useState(false), calendarOpen = _f[0], setCalendarOpen = _f[1];
-    var _g = useState(false), secondModalOpen = _g[0], setSecondModalOpen = _g[1];
-    var _h = useState(new Date().getMonth() + 1), selectedMonth = _h[0], setSelectedMonth = _h[1];
-    var _j = useState(new Date().getFullYear()), selectedYear = _j[0], setSelectedYear = _j[1];
-    var _k = useState(today.getDate()), selectedDay = _k[0], setSelectedDay = _k[1];
-    useEffect(function () {
-        if (date && typeof date === "string") {
-            var _a = date.split("/").map(Number), day = _a[0], month = _a[1], year = _a[2];
-            if (day && month && year) {
-                var newSelectedDate = new Date(year, month - 1, day);
-                setSelectedDate(newSelectedDate);
-                setInputDate(newSelectedDate.toLocaleDateString("pt-BR", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                }));
-            }
-        }
-    }, [date]);
-    useEffect(function () {
-        var handleDateChange = function () {
-            if (selectedDate && !isNaN(selectedDate.getTime())) {
-                onDateChange(selectedDate);
-            }
-        };
-        if (selectedDate &&
-            !isNaN(selectedDate.getTime()) &&
-            selectedDate.getTime() !== new Date(date).getTime()) {
-            handleDateChange();
-        }
-    }, [selectedDate, onDateChange, date]);
-    var handleInputChange = function (value) {
-        setInputDate(value);
-        var _a = value.split("/").map(Number), day = _a[0], month = _a[1], year = _a[2];
-        if (day !== undefined && month !== undefined && year !== undefined) {
-            var isValidDate = day > 0 &&
-                month > 0 &&
-                year > 0 &&
-                month <= 12 &&
-                day <= new Date(year, month, 0).getDate();
-            if (isValidDate) {
-                var selectedDate_1 = new Date(year, month - 1, day);
-                if (selectedDate_1.getTime() !== selectedDate_1.getTime()) {
-                    setSelectedDate(selectedDate_1);
-                    setCurrentMonth(selectedDate_1.getMonth());
-                    setCurrentYear(selectedDate_1.getFullYear());
-                    setSelectedDay(selectedDate_1.getDate());
-                    onDateChange(selectedDate_1);
-                }
-            }
-            else {
-                console.log("Data inválida!");
-            }
-        }
-        else {
-            console.log("Data inválida!");
-        }
-    };
-    var handleMonthSelect = function (selectedMonth) {
-        setSelectedMonth(selectedMonth);
-        setCurrentMonth(selectedMonth - 1);
-        updateSelectedDateFormat(selectedMonth, selectedYear, selectedDay);
-        var selectedMonthElement = document.querySelector(".month-item[data-month=\"".concat(selectedMonth, "\"]"));
-        selectedMonthElement === null || selectedMonthElement === undefined ? undefined : selectedMonthElement.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-        });
-        centralizarOpcaoSelecionada(monthsOverflowContainerRef);
-    };
-    var handleYearSelect = function (selectedYear) {
-        setSelectedYear(selectedYear);
-        setCurrentYear(selectedYear);
-        updateSelectedDateFormat(selectedMonth, selectedYear, selectedDay);
-        var selectedYearElement = document.querySelector(".year-item[data-year=\"".concat(selectedYear, "\"]"));
-        selectedYearElement === null || selectedYearElement === undefined ? undefined : selectedYearElement.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-        });
-        centralizarOpcaoSelecionada(yearsOverflowContainerRef);
-    };
-    var updateSelectedDateFormat = function (month, year, day) {
-        var formattedDate = new Date(year, month - 1, day).toLocaleDateString("pt-BR", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-        });
-        setInputDate(formattedDate);
-        setSelectedDateFormat(formattedDate);
-    };
-    var handleDoneClick = function () {
-        if (selectedDate) {
-            var formattedDay = selectedDate.getDate().toString().padStart(2, "0");
-            var formattedMonth = (selectedDate.getMonth() + 1)
-                .toString()
-                .padStart(2, "0");
-            var formattedYear = selectedDate.getFullYear().toString();
-            var formattedDate = "".concat(formattedDay, "/").concat(formattedMonth, "/").concat(formattedYear);
-            setInputDate(formattedDate);
-            onDateChange(selectedDate);
-            setCalendarOpen(false);
-            setSecondModalOpen(false);
-        }
-        else {
-            console.error("Data inválida!");
-        }
-    };
-    var handleDateClick = function (date) {
-        setSelectedDate(date);
-        setSelectedDay(date.getDate());
-        var formattedDate = date.toLocaleDateString("pt-BR", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-        });
-        setInputDate(formattedDate);
-        setSelectedDateFormat(formattedDate);
-        setSelectedMonth(date.getMonth() + 1);
-        setSelectedYear(date.getFullYear());
+function DataPickerCalendar(_a) {
+    var onSelectDate = _a.onSelectDate, selectedDate = _a.selectedDate, onClose = _a.onClose, onRevert = _a.onRevert;
+    var _b = useState(new Date()), currentDate = _b[0], setCurrentDate = _b[1];
+    var _c = useState(null), internalSelectedDate = _c[0], setInternalSelectedDate = _c[1];
+    var year = currentDate.getFullYear();
+    var month = currentDate.getMonth();
+    var monthNames = [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro",
+    ];
+    var firstDayOfMonth = new Date(year, month, 1).getDay();
+    var daysInMonth = new Date(year, month + 1, 0).getDate();
+    var daysInPrevMonth = new Date(year, month, 0).getDate();
+    var days = [];
+    for (var i = firstDayOfMonth - 1; i >= 0; i--) {
+        days.push({ day: daysInPrevMonth - i, type: "other" });
+    }
+    for (var i = 1; i <= daysInMonth; i++) {
+        days.push({ day: i, type: "current" });
+    }
+    var remainingDays = 42 - days.length;
+    for (var i = 1; i <= remainingDays; i++) {
+        days.push({ day: i, type: "other" });
+    }
+    var handlePrevMonth = function () {
+        setCurrentDate(new Date(year, month - 1, 1));
     };
     var handleNextMonth = function () {
-        setCurrentMonth(function (prevMonth) {
-            var newMonth = prevMonth + 1;
-            var newYear = currentYear + Math.floor(newMonth / 12);
-            setCurrentYear(newYear);
-            return newMonth % 12;
-        });
+        setCurrentDate(new Date(year, month + 1, 1));
     };
-    var handlePrevMonth = function () {
-        setCurrentMonth(function (prevMonth) {
-            var newMonth = prevMonth - 1;
-            var newYear = newMonth < 0 ? currentYear - 1 : currentYear;
-            setCurrentYear(newYear);
-            return (newMonth + 12) % 12;
-        });
-    };
-    var weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
-    var generateDaysOfMonth = function () {
-        var days = [];
-        var totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
-        var firstDayOfMonth = new Date(currentYear, currentMonth, 1);
-        var lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
-        var startingDay = firstDayOfMonth.getDay();
-        var endingDay = lastDayOfMonth.getDay();
-        var prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
-        var prevMonthDays = startingDay;
-        var nextMonthDays = 6 - endingDay;
-        // Add days from the previous month
-        for (var i = prevMonthLastDay - prevMonthDays + 1; i <= prevMonthLastDay; i++) {
-            var date_1 = new Date(currentYear, currentMonth - 1, i);
-            days.push(React.createElement(DataPickerDay, { key: "previous-month-".concat(i), variant: "disable", day: date_1.getDate() }));
-        }
-        var _loop_1 = function (i) {
-            var date_2 = new Date(currentYear, currentMonth, i);
-            var variant = selectedDate &&
-                date_2.getDate() === selectedDate.getDate() &&
-                date_2.getMonth() === selectedDate.getMonth() &&
-                date_2.getFullYear() === selectedDate.getFullYear()
-                ? "active"
-                : i === today.getDate() &&
-                    currentMonth === today.getMonth() &&
-                    currentYear === today.getFullYear()
-                    ? "current-day"
-                    : "default";
-            days.push(React.createElement(DataPickerDay, { key: "current-month-".concat(i), variant: variant, day: i, onClick: function () { return handleDateClick(date_2); } }));
-        };
-        // Add days from the current month
-        for (var i = 1; i <= totalDays; i++) {
-            _loop_1(i);
-        }
-        // Add days from the next month
-        for (var i = 1; i <= nextMonthDays; i++) {
-            var date_3 = new Date(currentYear, currentMonth + 1, i);
-            days.push(React.createElement(DataPickerDay, { key: "next-month-".concat(i), variant: "disable", day: date_3.getDate() }));
-        }
-        return days;
-    };
-    var generateMonthsAndYears = function () {
-        var months = [];
-        var years = [];
-        var currentYear = new Date().getFullYear();
-        for (var month = 1; month <= 12; month++) {
-            months.push({
-                month: month,
-                label: "".concat(new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(new Date(2000, month - 1))),
-            });
-        }
-        for (var year = currentYear - 100; year <= currentYear + 50; year++) {
-            years.push({
-                year: year,
-                label: "".concat(year),
-            });
-        }
-        return { months: months, years: years };
-    };
-    var setSelectedDateFormat = function (dateString) {
-        if (dateString.split(" - ").length < 2) {
-            console.error("Invalid date format");
-            return;
-        }
-        var dateParts = dateString.split("/");
-        if (dateParts.length !== 3) {
-            console.error("Invalid date format");
-            return;
-        }
-        var _a = dateParts.map(Number), day = _a[0], month = _a[1], year = _a[2];
-        if (day === undefined ||
-            month === undefined ||
-            year === undefined ||
-            day <= 0 ||
-            month <= 0 ||
-            year <= 0 ||
-            month > 12 ||
-            day > new Date(year, month, 0).getDate()) {
-            console.error("Invalid date");
-            return;
-        }
-        var selectedDate = new Date(year, month - 1, day);
-        setSelectedDate(selectedDate);
-        setCurrentMonth(selectedDate.getMonth());
-        setCurrentYear(selectedDate.getFullYear());
-    };
-    var handleInputEnter = function () {
-        var _a = inputDate.split("/").map(Number), day = _a[0], month = _a[1], year = _a[2];
-        if (day !== undefined && month !== undefined && year !== undefined) {
-            var isValidDate = day > 0 &&
-                month > 0 &&
-                year > 0 &&
-                month <= 12 &&
-                day <= new Date(year, month, 0).getDate();
-            if (isValidDate) {
-                var selectedDate_2 = new Date(year, month - 1, day);
-                if (selectedDate_2.getTime() !== selectedDate_2.getTime()) {
-                    setSelectedDate(selectedDate_2);
-                    setCurrentMonth(selectedDate_2.getMonth());
-                    setCurrentYear(selectedDate_2.getFullYear());
-                    setSelectedDay(selectedDate_2.getDate());
-                    onDateChange(selectedDate_2);
-                }
+    var handleSelectDay = function (day, type) {
+        var newDate;
+        if (type === "other") {
+            if (day > 15) {
+                newDate = new Date(year, month - 1, day);
+                setCurrentDate(new Date(year, month - 1, 1));
             }
             else {
-                console.log("Data inválida!");
+                newDate = new Date(year, month + 1, day);
+                setCurrentDate(new Date(year, month + 1, 1));
             }
         }
         else {
-            console.log("Data inválida!");
+            newDate = new Date(year, month, day);
         }
-    };
-    var handleResetAll = function () {
-        var currentDate = new Date();
-        setSelectedMonth(currentDate.getMonth() + 1);
-        setSelectedYear(currentDate.getFullYear());
-        updateSelectedDateFormat(currentDate.getMonth() + 1, currentDate.getFullYear(), selectedDay);
-        handleReset();
-    };
-    var handleReset = function () {
-        setSelectedDate(today);
-        setInputDate(today.toLocaleDateString("pt-BR", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-        }));
-        setCurrentMonth(today.getMonth());
-        setCurrentYear(today.getFullYear());
-        setSelectedDay(today.getDate());
-    };
-    var openSecondModal = function () {
-        setSecondModalOpen(true);
-        setCalendarOpen(false);
+        setInternalSelectedDate(newDate);
+        onSelectDate(newDate);
     };
     useEffect(function () {
-        if (secondModalOpen) {
-            centralizarOpcaoSelecionada(monthsOverflowContainerRef);
+        var _a, _b;
+        if (selectedDate) {
+            setCurrentDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1));
+            (_a = monthRefs.current[selectedDate.getMonth()]) === null || _a === undefined ? undefined : _a.scrollIntoView({
+                block: "center",
+                behavior: "smooth",
+            });
+            (_b = yearRefs.current[selectedDate.getFullYear() - (currentRealYear - 70)]) === null || _b === undefined ? undefined : _b.scrollIntoView({ block: "center", behavior: "smooth" });
         }
-    }, [secondModalOpen, selectedMonth]);
+    }, [selectedDate]);
     useEffect(function () {
-        if (secondModalOpen) {
-            centralizarOpcaoSelecionada(yearsOverflowContainerRef);
+        var _a, _b;
+        if (!selectedDate) {
+            (_a = monthRefs.current[month]) === null || _a === undefined ? undefined : _a.scrollIntoView({
+                block: "center",
+                behavior: "smooth",
+            });
+            (_b = yearRefs.current[year - (currentRealYear - 70)]) === null || _b === undefined ? undefined : _b.scrollIntoView({
+                block: "center",
+                behavior: "smooth",
+            });
         }
-    }, [secondModalOpen, selectedYear]);
-    var handleInputClick = function () {
-        setCalendarOpen(true);
-        setSecondModalOpen(false);
+    }, []);
+    useEffect(function () {
+        if (selectedDate) {
+            setInternalSelectedDate(selectedDate);
+        }
+    }, []);
+    var _d = useState(false), openModalMonthAndYears = _d[0], setOpenModalMonthAndYears = _d[1];
+    var toggleModalMonthAndYears = function () {
+        setOpenModalMonthAndYears(!openModalMonthAndYears);
     };
-    var centralizarOpcaoSelecionada = function (ref) {
-        if (ref.current) {
-            var overflowContainer = ref.current;
-            var selectedElement = overflowContainer.querySelector(".selected");
-            if (selectedElement) {
-                var containerHeight = overflowContainer.clientHeight;
-                var elementHeight = selectedElement.clientHeight;
-                var scrollTop = selectedElement.offsetTop - (containerHeight - elementHeight);
-                overflowContainer.scrollTop = scrollTop;
+    var monthRefs = useRef([]);
+    var yearRefs = useRef([]);
+    var handleSelectMonth = function (month) {
+        var _a;
+        var day = internalSelectedDate ? internalSelectedDate.getDate() : 1;
+        var daysInNewMonth = new Date(year, month + 1, 0).getDate();
+        var newDay = day > daysInNewMonth ? daysInNewMonth : day;
+        var newDate = new Date(year, month, newDay);
+        setCurrentDate(newDate);
+        setInternalSelectedDate(newDate);
+        onSelectDate(newDate);
+        (_a = monthRefs.current[month]) === null || _a === undefined ? undefined : _a.scrollIntoView({
+            block: "center",
+            behavior: "smooth",
+        });
+    };
+    var handleSelectYear = function (year) {
+        var _a;
+        var day = internalSelectedDate ? internalSelectedDate.getDate() : 1;
+        var daysInNewMonth = new Date(year, month + 1, 0).getDate();
+        var newDay = day > daysInNewMonth ? daysInNewMonth : day;
+        var newDate = new Date(year, month, newDay);
+        setCurrentDate(newDate);
+        setInternalSelectedDate(newDate);
+        onSelectDate(newDate);
+        (_a = yearRefs.current[year - (currentRealYear - 70)]) === null || _a === undefined ? undefined : _a.scrollIntoView({
+            block: "center",
+            behavior: "smooth",
+        });
+    };
+    var currentRealYear = new Date().getFullYear();
+    return (React.createElement("div", { className: "data-picker-calendar" },
+        React.createElement("div", { className: "data-picker-header" },
+            React.createElement("button", { onClick: toggleModalMonthAndYears, className: "data-picker-header-date ".concat(openModalMonthAndYears ? "open" : "") }, "".concat(monthNames[month], " ").concat(year),
+                " ",
+                React.createElement(ButtonIcon, { buttonType: "plain", variant: "secondary", typeIcon: "keyboard_arrow_right", size: "sm" })),
+            React.createElement("div", { className: "data-picker-header-buttons ".concat(openModalMonthAndYears ? "hidden" : "") },
+                React.createElement(ButtonIcon, { variant: "secondary", size: "sm", typeIcon: "keyboard_arrow_left", buttonType: "plain", onClick: handlePrevMonth }),
+                React.createElement(ButtonIcon, { variant: "secondary", buttonType: "plain", size: "sm", typeIcon: "keyboard_arrow_right", onClick: handleNextMonth }))),
+        React.createElement("div", { className: "data-picker-body-container" },
+            React.createElement("div", { className: "data-picker-body-months-years ".concat(openModalMonthAndYears ? "" : "hidden") },
+                React.createElement("div", { className: "data-picker-months" }, monthNames.map(function (monthName, index) { return (React.createElement("button", { key: index, ref: function (el) { return (monthRefs.current[index] = el); }, className: "months ".concat(month === index ? "selected" : ""), onClick: function () { return handleSelectMonth(index); } }, monthName)); })),
+                React.createElement("div", { className: "data-picker-years" }, Array.from({ length: 96 }, function (_, i) { return currentRealYear - 70 + i; }).map(function (yearValue, index) { return (React.createElement("button", { key: yearValue, ref: function (el) { return (yearRefs.current[index] = el); }, className: "years ".concat(year === yearValue ? "selected" : ""), onClick: function () { return handleSelectYear(yearValue); } }, yearValue)); }))),
+            React.createElement("div", { className: "data-picker-body ".concat(openModalMonthAndYears ? "hidden" : "") },
+                React.createElement("div", { className: "data-picker-weekdays" }, [
+                    "Domingo",
+                    "Segunda",
+                    "Terça",
+                    "Quarta",
+                    "Quinta",
+                    "Sexta",
+                    "Sábado",
+                ].map(function (day, index) { return (React.createElement("div", { translate: "no", key: index, className: "data-picker-week-day" }, day[0])); })),
+                React.createElement("div", { className: "data-picker-days" }, days.map(function (day, index) { return (React.createElement(DataPickerDay, { key: index, day: day.day, type: day.type, onSelect: function (day, type) { return handleSelectDay(day, type); }, isSelected: (selectedDate === null || selectedDate === undefined ? undefined : selectedDate.getDate()) === day.day &&
+                        (selectedDate === null || selectedDate === undefined ? undefined : selectedDate.getMonth()) === month &&
+                        (selectedDate === null || selectedDate === undefined ? undefined : selectedDate.getFullYear()) === year &&
+                        day.type === "current" })); })))),
+        React.createElement("div", { className: "data-picker-footer" },
+            React.createElement(Button, { label: "Resetar", size: "sm", variant: "secondary", onClick: onRevert }),
+            React.createElement(Button, { label: "Concluir", size: "sm", variant: "primary", onClick: onClose }))));
+}
+function DataPicker(_a) {
+    var value = _a.value, onChange = _a.onChange, label = _a.label, _b = _a.disabled, disabled = _b === undefined ? false : _b, _c = _a.skeleton, skeleton = _c === undefined ? false : _c;
+    var formatDate = function (date) {
+        var day = String(date.getDate()).padStart(2, "0");
+        var month = String(date.getMonth() + 1).padStart(2, "0");
+        var year = date.getFullYear();
+        return "".concat(day, "/").concat(month, "/").concat(year);
+    };
+    var _d = useState(new Date()), selectedDate = _d[0], setSelectedDate = _d[1];
+    var _e = useState(value || formatDate(new Date())), inputValue = _e[0], setInputValue = _e[1];
+    var _f = useState(false), error = _f[0], setError = _f[1];
+    var _g = useState(""), textError = _g[0], setTextError = _g[1];
+    var _h = useState(false), openCalendar = _h[0], setOpenCalendar = _h[1];
+    useEffect(function () {
+        setInputValue(value || formatDate(new Date()));
+        var parsedDate = parseDate(value || formatDate(new Date()));
+        if (parsedDate) {
+            setSelectedDate(parsedDate);
+        }
+    }, [value]);
+    var handleSelectDate = function (date) {
+        setSelectedDate(date);
+        var formattedDate = formatDate(date);
+        setInputValue(formattedDate);
+        onChange(formattedDate);
+        setError(false);
+        setTextError("");
+    };
+    var parseDate = function (value) {
+        var parts = value.split("/").map(function (part) { return parseInt(part, 10); });
+        if (parts.length === 3 &&
+            !isNaN(parts[0]) &&
+            !isNaN(parts[1]) &&
+            !isNaN(parts[2])) {
+            var date = new Date(parts[2], parts[1] - 1, parts[0]);
+            if (date.getDate() === parts[0] &&
+                date.getMonth() === parts[1] - 1 &&
+                date.getFullYear() === parts[2]) {
+                return date;
+            }
+        }
+        return null;
+    };
+    var handleInputChange = function (e) {
+        var value = e.target.value.replace(/[^\d]/g, "");
+        value = value.slice(0, 8);
+        var formattedValue = value;
+        if (value.length > 2) {
+            formattedValue = "".concat(value.slice(0, 2), "/").concat(value.slice(2));
+        }
+        if (value.length > 4) {
+            formattedValue = "".concat(value.slice(0, 2), "/").concat(value.slice(2, 4), "/").concat(value.slice(4));
+        }
+        setInputValue(formattedValue);
+        onChange(formattedValue);
+        if (formattedValue.length === 10) {
+            var parts = formattedValue.split("/").map(function (part) { return parseInt(part, 10); });
+            var day = parts[0];
+            var month = parts[1];
+            var year = parts[2];
+            if (day < 1)
+                day = 1;
+            if (day > 31)
+                day = 31;
+            if (month < 1)
+                month = 1;
+            if (month > 12)
+                month = 12;
+            var clampedDate = new Date(year, month - 1, day);
+            var clampedFormattedValue = formatDate(clampedDate);
+            setInputValue(clampedFormattedValue);
+            onChange(clampedFormattedValue);
+            if (clampedDate.getDate() === day &&
+                clampedDate.getMonth() === month - 1 &&
+                clampedDate.getFullYear() === year) {
+                setSelectedDate(clampedDate);
+                setError(false);
+                setTextError("");
+            }
+            else {
+                setError(true);
+                setTextError("Data inválida");
+            }
+        }
+        else {
+            setError(false);
+            setTextError("");
+        }
+    };
+    var handleKeyDown = function (e) {
+        if (e.key === "Backspace") {
+            e.preventDefault();
+            var value_1 = inputValue.replace(/[^\d]/g, "");
+            value_1 = value_1.slice(0, -1);
+            var formattedValue = value_1;
+            if (value_1.length > 2) {
+                formattedValue = "".concat(value_1.slice(0, 2), "/").concat(value_1.slice(2));
+            }
+            if (value_1.length > 4) {
+                formattedValue = "".concat(value_1.slice(0, 2), "/").concat(value_1.slice(2, 4), "/").concat(value_1.slice(4));
+            }
+            setInputValue(formattedValue);
+            onChange(formattedValue);
+            if (formattedValue.length === 10) {
+                var parsedDate = parseDate(formattedValue);
+                if (parsedDate) {
+                    setSelectedDate(parsedDate);
+                    setError(false);
+                    setTextError("");
+                }
+                else {
+                    setError(true);
+                    setTextError("Data inválida");
+                }
+            }
+            else {
+                setError(false);
+                setTextError("");
             }
         }
     };
-    return (React.createElement(React.Fragment, null,
-        React.createElement(DataPickerInputDate, { label: label, placeholder: placeholder, value: inputDate, onChange: handleInputChange, onEnter: handleInputEnter, onClick: handleInputClick, disabled: disabled }),
-        secondModalOpen && (React.createElement("div", { className: "data-picker-root" },
-            React.createElement("div", { className: "data-picker" },
-                React.createElement("div", { className: "data-picker-month" },
-                    React.createElement("div", { className: "data-picker-header", onClick: handleInputClick }, "".concat(new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(new Date(currentYear, currentMonth)), " ").concat(currentYear),
-                        React.createElement(ButtonIcon, { size: "sm", buttonType: "plain", typeIcon: "keyboard_arrow_down", variant: "primary" }))),
-                React.createElement("div", { className: "data-picker-months-years" },
-                    React.createElement("div", { className: "data-picker-overflow-container", ref: monthsOverflowContainerRef },
-                        React.createElement("div", { className: "data-picker-overflow-content" }, generateMonthsAndYears().months.map(function (item, index) { return (React.createElement("div", { key: index, className: "month-item ".concat(selectedMonth === item.month ? "selected" : ""), onClick: function () { return handleMonthSelect(item.month); } }, item.label)); }))),
-                    React.createElement("div", { className: "data-picker-overflow-container", ref: yearsOverflowContainerRef },
-                        React.createElement("div", { className: "data-picker-overflow-content" }, generateMonthsAndYears().years.map(function (item, index) { return (React.createElement("div", { key: index, className: "year-item ".concat(selectedYear === item.year ? "selected" : ""), onClick: function () { return handleYearSelect(item.year); } }, item.label)); })))),
-                React.createElement("div", { className: "data-picker-buttons-actions" },
-                    React.createElement(Button, { size: "sm", variant: "secondary", label: "Reset", onClick: handleResetAll }),
-                    React.createElement(Button, { size: "sm", variant: "primary", label: "Done", onClick: function () {
-                            if (selectedDate) {
-                                handleDoneClick();
-                            }
-                        } }))))),
-        calendarOpen && (React.createElement("div", { className: "data-picker-root" },
-            React.createElement("div", { className: "data-picker" },
-                React.createElement("div", { className: "data-picker-month" },
-                    React.createElement("div", { className: "data-picker-header", onClick: openSecondModal }, "".concat(new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(new Date(currentYear, currentMonth)), " ").concat(currentYear),
-                        React.createElement(ButtonIcon, { size: "sm", buttonType: "plain", typeIcon: "keyboard_arrow_right", variant: "secondary" })),
-                    React.createElement("div", { style: { display: "flex", flexDirection: "row" } },
-                        React.createElement(ButtonIcon, { variant: "secondary", size: "sm", onClick: handlePrevMonth, typeIcon: "keyboard_arrow_left", buttonType: "plain" }),
-                        React.createElement(ButtonIcon, { variant: "secondary", buttonType: "plain", size: "sm", onClick: handleNextMonth, typeIcon: "keyboard_arrow_right" }))),
-                React.createElement("div", null,
-                    React.createElement("div", { className: "data-picker-week-days" }, weekDays.map(function (day, index) { return (React.createElement("p", { key: index }, day)); })),
-                    React.createElement("div", { className: "data-picker-days" }, generateDaysOfMonth())),
-                React.createElement("div", { className: "data-picker-buttons-actions" },
-                    React.createElement(Button, { size: "sm", variant: "secondary", label: "Reset", onClick: handleResetAll }),
-                    React.createElement(Button, { size: "sm", variant: "primary", label: "Done", onClick: function () {
-                            if (selectedDate) {
-                                handleDoneClick();
-                            }
-                        } })))))));
-};
-var DataPicker = function (_a) {
-    var label = _a.label, placeholder = _a.placeholder, disabled = _a.disabled, onDateChange = _a.onDateChange, date = _a.date;
-    return (React.createElement(React.Fragment, null,
-        React.createElement("div", null,
-            React.createElement(DataPickerCalendar, { date: date, onDateChange: onDateChange, placeholder: placeholder, label: label, disabled: disabled }))));
-};
+    var toogleCalendar = function () {
+        setOpenCalendar(!openCalendar);
+    };
+    var handleCloseCalendar = function () {
+        setOpenCalendar(false);
+    };
+    var handleRevertDate = function () {
+        var currentDate = new Date();
+        handleSelectDate(currentDate);
+    };
+    return (React.createElement("div", { style: { display: "flex", flexDirection: "column" } },
+        React.createElement(Input, { label: label, onClick: toogleCalendar, error: error, textError: textError, value: inputValue, onChange: handleInputChange, onKeyDown: handleKeyDown, typeIcon: "calendar_month", fillIcon: true, disabled: disabled, skeleton: skeleton }),
+        React.createElement("div", { className: "data-picker ".concat(openCalendar ? "open" : "") },
+            React.createElement(DataPickerCalendar, { onSelectDate: handleSelectDate, selectedDate: selectedDate, onClose: handleCloseCalendar, onRevert: handleRevertDate }))));
+}
 
 var InputSearch = function (props) {
     var _a = useState(""), inputValue = _a[0], setInputValue = _a[1];
@@ -743,6 +681,19 @@ var Pagination = function (_a) {
         React.createElement(PaginationItem, { arrow: "right", disabled: skeleton || disabledRight, click: onClickRight }))) : ("error")));
 };
 
+// Declaração
+var EmptyState = function (_a) {
+    var title = _a.title, description = _a.description, icon = _a.icon, buttonContentPrimary = _a.buttonContentPrimary, buttonContentSecondary = _a.buttonContentSecondary, onClickActionPrimary = _a.onClickActionPrimary, onClickActionSecondary = _a.onClickActionSecondary;
+    return (React.createElement("div", { className: "empty-state-root" },
+        React.createElement(Icon, { icon: icon, size: "lg" }),
+        React.createElement("div", { className: "empty-state-content" },
+            React.createElement("h3", null, title),
+            React.createElement("p", null, description)),
+        React.createElement("div", { className: "empty-state-footer" },
+            buttonContentPrimary && (React.createElement(Button, { size: "md", variant: "primary", label: buttonContentPrimary, onClick: onClickActionPrimary })),
+            buttonContentSecondary && (React.createElement(Button, { size: "md", variant: "secondary", label: buttonContentSecondary, onClick: onClickActionSecondary })))));
+};
+
 var InputCheckbox = function (_a) {
     var modelValue = _a.modelValue, value = _a.value, label = _a.label, id = _a.id, name = _a.name, required = _a.required, indeterminate = _a.indeterminate, noEvents = _a.noEvents, disabled = _a.disabled, onUpdate = _a.onUpdate;
     var _b = useState(modelValue !== null && modelValue !== undefined ? modelValue : false), checked = _b[0], setChecked = _b[1];
@@ -774,98 +725,193 @@ var InputCheckbox = function (_a) {
         label && React.createElement("div", { className: "ui-form-checkbox-text" }, label)));
 };
 
-// Declaração
-var EmptyState = function (_a) {
-    var title = _a.title, description = _a.description, icon = _a.icon, buttonContentPrimary = _a.buttonContentPrimary, buttonContentSecondary = _a.buttonContentSecondary, onClickActionPrimary = _a.onClickActionPrimary, onClickActionSecondary = _a.onClickActionSecondary;
-    return (React.createElement("div", { className: "empty-state-root" },
-        React.createElement(Icon, { icon: icon, size: "lg" }),
-        React.createElement("div", { className: "empty-state-content" },
-            React.createElement("h3", null, title),
-            React.createElement("p", null, description)),
-        React.createElement("div", { className: "empty-state-footer" },
-            buttonContentPrimary && (React.createElement(Button, { size: "md", variant: "primary", label: buttonContentPrimary, onClick: onClickActionPrimary })),
-            buttonContentSecondary && (React.createElement(Button, { size: "md", variant: "secondary", label: buttonContentSecondary, onClick: onClickActionSecondary })))));
-};
-
-var Modal = function (_a) {
-    var title = _a.title, description = _a.description, content = _a.content, hideModal = _a.hideModal, isOpen = _a.isOpen, footer = _a.footer, dismissible = _a.dismissible;
-    var modalClass = isOpen ? "modal-root visible" : "modal-root";
-    var ghostClass = isOpen ? "modal-ghost visible" : "modal-ghost";
+var DataTableHeader = function (_a) {
+    var skeleton = _a.skeleton, onSearch = _a.onSearch, _b = _a.rowsSelected, rowsSelected = _b === undefined ? 0 : _b, textRowsSelected = _a.textRowsSelected, children = _a.children;
+    var rowsSelectedCount = "".concat(rowsSelected, " ").concat(textRowsSelected);
     return (React.createElement(React.Fragment, null,
-        React.createElement("div", { className: modalClass },
-            React.createElement("div", { className: "modal-header" },
-                React.createElement("div", { className: "modal-title" },
-                    React.createElement("div", null, title),
-                    dismissible && (React.createElement(ButtonIcon, { variant: "primary", size: "md", typeIcon: "close", buttonType: "plain", onClick: hideModal }))),
-                React.createElement("div", { className: "modal-description" }, description)),
-            content,
-            footer),
-        React.createElement("div", { className: ghostClass, onClick: (dismissible
-                ? hideModal
-                : undefined) })));
+        React.createElement("div", { className: "data-table-header-rows-selected ".concat(rowsSelected > 0 ? "fade-in" : "fade-out"), style: {
+                visibility: rowsSelected > 0 ? "visible" : "hidden",
+                display: rowsSelected > 0 ? "" : "none",
+            } },
+            React.createElement("p", { key: rowsSelectedCount, className: "textRowsSelected", style: { height: "40px", alignItems: "center", display: "flex" } }, rowsSelectedCount),
+            React.createElement("div", { className: "data-table-header-rows-selected-buttons" }, children)),
+        React.createElement("div", { className: "data-table-header ".concat(rowsSelected > 0 ? "fade-out" : "fade-in"), style: {
+                visibility: rowsSelected > 0 ? "hidden" : "visible",
+                display: rowsSelected > 0 ? "none" : "",
+            } },
+            React.createElement(InputSearch, { placeholder: "Procurar", disabled: skeleton, onChange: function (value) { return onSearch(value); } }))));
 };
-var ContentModal = function (_a) {
-    var children = _a.children;
-    return React.createElement("div", { className: "modal-content" }, children);
+var DataTableRowHeader = function (_a) {
+    var headers = _a.headers, sortStates = _a.sortStates, skeleton = _a.skeleton, onSort = _a.onSort, collumnWidths = _a.collumnWidths, withCheckbox = _a.withCheckbox, _b = _a.allSelected, allSelected = _b === undefined ? false : _b, _c = _a.someSelected, someSelected = _c === undefined ? false : _c, handleSelectAll = _a.handleSelectAll;
+    return (React.createElement("div", { style: { display: "flex", flex: "1" } },
+        withCheckbox && (React.createElement("div", { className: "data-table-body-header-checkbox" }, skeleton ? (React.createElement(Skeleton, { height: "24", width: "24" })) : (React.createElement(InputCheckbox, { indeterminate: someSelected, modelValue: allSelected, onUpdate: handleSelectAll })))),
+        headers.map(function (header, index) {
+            var icon;
+            switch (sortStates[index]) {
+                case "asc":
+                    icon = "arrow_downward";
+                    break;
+                case "desc":
+                    icon = "arrow_upward";
+                    break;
+                case "default":
+                    icon = "swap_vert";
+                    break;
+                default:
+                    icon = "swap_vert";
+            }
+            return (React.createElement("div", { key: header, className: "data-table-row-header ".concat(skeleton ? "loading-skeleton" : "", " ").concat(index === 0 ? "first" : ""), onClick: function () { return onSort(index); }, style: { minWidth: collumnWidths[index] } }, skeleton ? (React.createElement(Skeleton, { height: "24", width: "80" })) : (React.createElement(React.Fragment, null,
+                header,
+                React.createElement(Icon, { icon: icon, size: "sm" })))));
+        })));
 };
-var FooterModal = function (_a) {
-    var children = _a.children;
-    return React.createElement("div", { className: "modal-footer" }, children);
+var DataTableRowContent = function (_a) {
+    var children = _a.children, skeleton = _a.skeleton, style = _a.style;
+    return (React.createElement("div", { className: "data-table-row-content", style: style }, skeleton ? React.createElement(Skeleton, { height: "24", width: "80" }) : children));
 };
-
-var DataTable = function (_a) {
-    var columns = _a.columns, originalData = _a.data, expandable = _a.expandable, selectable = _a.selectable, expandedData = _a.expandedData, itemPerPage = _a.itemPerPage, inputPlaceholder = _a.inputPlaceholder, selectableLabelSecondButton = _a.selectableLabelSecondButton, labelSecondButton = _a.labelSecondButton, typeIconSecondButton = _a.typeIconSecondButton, titleNoDataMessage = _a.titleNoDataMessage, labelButtonNoDataFilteredMessage = _a.labelButtonNoDataFilteredMessage, descriptionNoDataMessage = _a.descriptionNoDataMessage, selectableIconSecondButton = _a.selectableIconSecondButton, filters = _a.filters, titleNoDataFilteredMessage = _a.titleNoDataFilteredMessage, descriptionNoDataFilteredMessage = _a.descriptionNoDataFilteredMessage, pagesText = _a.pagesText; _a.skeleton;
-    var _b = useState(1), currentPage = _b[0], setCurrentPage = _b[1];
-    var itemsPerPage = itemPerPage;
-    var _c = useState(originalData), filteredData = _c[0], setFilteredData = _c[1];
-    var _d = useState(0), totalPages = _d[0], setTotalPages = _d[1];
+var DataTableBody = function (_a) {
+    var currentRows = _a.currentRows, selectedRows = _a.selectedRows, skeleton = _a.skeleton, onRowSelection = _a.onRowSelection, columnWidths = _a.columnWidths, withCheckbox = _a.withCheckbox, headers = _a.headers;
+    return (React.createElement("div", { className: "data-table-body-content", style: { flexDirection: "column" } }, currentRows.map(function (row, index) {
+        var rowId = row.id;
+        return (React.createElement("div", { key: rowId, className: "data-table-body-content-row" },
+            React.createElement("div", { style: { display: "flex", flex: "1" } },
+                withCheckbox === true && (React.createElement("div", { className: "data-table-body-content-checkbox" }, skeleton ? (React.createElement(Skeleton, { height: "24", width: "24" })) : (React.createElement(InputCheckbox, { disabled: skeleton, modelValue: selectedRows.includes(rowId), onUpdate: function (checked) { return onRowSelection(rowId, checked); } })))),
+                headers.map(function (header, index) { return (React.createElement("div", { key: index, className: "data-table-body-content-row" },
+                    React.createElement(DataTableRowContent, { skeleton: skeleton, style: { minWidth: columnWidths[index] } }, row[header]))); }))));
+    })));
+};
+var DataTableFooter = function (_a) {
+    var currentPage = _a.currentPage, totalPages = _a.totalPages, disabledLeft = _a.disabledLeft, disabledRight = _a.disabledRight, skeleton = _a.skeleton, onClickLeft = _a.onClickLeft, onClickRight = _a.onClickRight;
+    return (React.createElement("div", { className: "data-table-footer" },
+        React.createElement(Pagination, { label: "Mostrando ".concat(totalPages === 0 ? 0 : currentPage, " de ").concat(totalPages), variant: "leftLabel", onClickLeft: onClickLeft, onClickRight: onClickRight, disabledLeft: disabledLeft, disabledRight: disabledRight, skeleton: skeleton })));
+};
+var DataTable = function (props) {
+    var columns = props.columns, data = props.data, skeleton = props.skeleton, textRowsSelected = props.textRowsSelected, onSelectedRowsChange = props.onSelectedRowsChange, headerSelectedChildren = props.headerSelectedChildren;
+    var withCheckbox = props.withCheckbox || false;
+    var rowsPerPage = props.rowsPerPage || 4;
+    var _a = useState(1), currentPage = _a[0], setCurrentPage = _a[1];
+    var _b = useState(new Array(columns.length).fill("default")), sortStates = _b[0], setSortStates = _b[1];
+    var _c = useState(""), searchQuery = _c[0], setSearchQuery = _c[1];
+    var _d = useState([]), originalData = _d[0], setOriginalData = _d[1];
+    var _e = useState([]), processedData = _e[0], setProcessedData = _e[1];
+    var _f = useState([]), selectedRows = _f[0], setSelectedRows = _f[1];
+    var _g = useState(0), rowsSelectedCount = _g[0], setRowsSelectedCount = _g[1];
     useEffect(function () {
-        setFilteredData(originalData);
-        var totalPages = Math.ceil(originalData.length / itemsPerPage);
-        setTotalPages(totalPages);
-    }, [originalData, itemsPerPage]);
-    var label = filteredData.length > 0
-        ? "".concat(pagesText, " ").concat(currentPage, " - ").concat(totalPages)
-        : "".concat(pagesText, " 0 - 0");
-    var handleNextPage = function () {
-        setCurrentPage(function (prevPage) {
-            var nextPage = prevPage + 1;
-            return nextPage > totalPages ? prevPage : nextPage;
-        });
+        setRowsSelectedCount(selectedRows.length);
+        if (onSelectedRowsChange) {
+            onSelectedRowsChange(selectedRows);
+        }
+    }, [selectedRows, onSelectedRowsChange]);
+    useEffect(function () {
+        var dataWithIds = data.map(function (row, index) { return (__assign({ id: index.toString() }, row)); });
+        setOriginalData(dataWithIds);
+        setProcessedData(dataWithIds);
+    }, [data]);
+    var handleSearch = function (query) {
+        setSearchQuery(query);
+        setCurrentPage(1);
     };
-    var handlePrevPage = function () {
-        setCurrentPage(function (prevPage) {
-            var newPage = prevPage - 1;
-            return newPage < 1 ? prevPage : newPage;
-        });
+    var handleSort = function (index) {
+        var newSortStates = __spreadArray([], sortStates, true);
+        var currentState = newSortStates[index];
+        newSortStates[index] =
+            currentState === "default"
+                ? "asc"
+                : currentState === "asc"
+                    ? "desc"
+                    : "default";
+        setSortStates(newSortStates);
     };
     useEffect(function () {
-        var totalPages = Math.ceil(filteredData.length / itemsPerPage);
-        setTotalPages(totalPages);
-    }, [originalData, itemsPerPage, filteredData]);
-    var _e = useState(originalData), originalDataState = _e[0], setOriginalDataState = _e[1];
-    var _f = useState(false), selectAll = _f[0], setSelectAll = _f[1];
-    var _g = useState([]), selectedRows = _g[0], setSelectedRows = _g[1];
-    var _h = useState([]), expandedRows = _h[0], setExpandedRows = _h[1];
-    var _j = useState(false), isAnyItemSelected = _j[0], setIsAnyItemSelected = _j[1];
-    var _k = useState(""), searchTerm = _k[0], setSearchTerm = _k[1];
-    var _l = useState(false), contentOverflowed = _l[0], setContentOverflowed = _l[1];
-    var contentRef = useRef(null);
-    var _m = useState(false), isOpenAside = _m[0], setIsOpenAside = _m[1];
-    var _o = useState(columns.reduce(function (acc, column) {
-        var _a;
-        return (__assign(__assign({}, acc), (_a = {}, _a[column] = [], _a)));
-    }, {})), filterOptions = _o[0], setFilterOptions = _o[1];
-    var indexOfLastItem = currentPage * itemsPerPage;
-    var indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    var _p = useState(false), allItemsExpanded = _p[0], setAllItemsExpanded = _p[1];
+        var filterData = function (data, query) {
+            if (!query)
+                return data;
+            var startsWithQuery = data.filter(function (row) {
+                return columns.some(function (col) {
+                    return row[col].toLowerCase().startsWith(query.toLowerCase());
+                });
+            });
+            var containsQuery = data.filter(function (row) {
+                return !startsWithQuery.includes(row) &&
+                    columns.some(function (col) {
+                        return row[col].toLowerCase().includes(query.toLowerCase());
+                    });
+            });
+            return __spreadArray(__spreadArray([], startsWithQuery, true), containsQuery, true);
+        };
+        var sortData = function (data, index, order) {
+            if (order === "default")
+                return data;
+            var sortedRows = __spreadArray([], data, true);
+            var column = columns[index];
+            sortedRows.sort(function (a, b) {
+                var valueA = a[column];
+                var valueB = b[column];
+                if (order === "asc")
+                    return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
+                return valueA > valueB ? -1 : valueA < valueB ? 1 : 0;
+            });
+            return sortedRows;
+        };
+        var updatedData = filterData(originalData, searchQuery);
+        sortStates.forEach(function (state, index) {
+            if (state !== "default") {
+                updatedData = sortData(updatedData, index, state);
+            }
+        });
+        setProcessedData(updatedData);
+    }, [originalData, searchQuery, sortStates]);
+    var currentRows = processedData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+    var totalPages = Math.ceil(processedData.length / rowsPerPage);
+    var allSelected = processedData.every(function (row) {
+        return selectedRows.includes(row.id);
+    });
+    var someSelected = processedData.some(function (row) { return selectedRows.includes(row.id); }) && !allSelected;
+    var handleSelectAll = function (checked) {
+        if (checked) {
+            var allIds = processedData.map(function (row) { return row.id; });
+            setSelectedRows(allIds);
+        }
+        else {
+            setSelectedRows([]);
+        }
+    };
+    var handleRowSelection = function (id, checked) {
+        if (checked) {
+            setSelectedRows(function (prevSelectedRows) { return __spreadArray(__spreadArray([], prevSelectedRows, true), [id], false); });
+        }
+        else {
+            setSelectedRows(function (prevSelectedRows) {
+                return prevSelectedRows.filter(function (rowId) { return rowId !== id; });
+            });
+        }
+    };
+    var _h = useState([]), columnWidths = _h[0], setColumnWidths = _h[1];
+    var calculateColumnWidths = function () {
+        var tempWidths = columns.map(function (header, colIndex) {
+            var allCells = originalData.map(function (row) { return row[header]; });
+            var measureWidth = function (text) {
+                var tempSpan = document.createElement("span");
+                tempSpan.textContent = text;
+                document.body.appendChild(tempSpan);
+                var width = tempSpan.getBoundingClientRect().width;
+                document.body.removeChild(tempSpan);
+                return width;
+            };
+            var headerWidth = measureWidth(header);
+            var maxCellWidth = Math.max.apply(Math, allCells.map(function (cell) { return measureWidth(cell); }));
+            return Math.max(headerWidth, maxCellWidth) + 50;
+        });
+        setColumnWidths(tempWidths);
+    };
     useEffect(function () {
-        setIsAnyItemSelected(selectedRows.length > 0);
-        setSelectAll(selectedRows.length === filteredData.length);
-    }, [selectedRows, filteredData]);
+        calculateColumnWidths();
+    }, [originalData, columns]);
+    var ref = useRef(null);
+    var _j = useState(false), contentOverflowed = _j[0], setContentOverflowed = _j[1];
     useEffect(function () {
         var checkOverflow = function () {
-            var contentElement = contentRef.current;
+            var contentElement = ref.current;
             if (contentElement) {
                 setContentOverflowed(contentElement.scrollWidth > contentElement.clientWidth);
             }
@@ -873,7 +919,7 @@ var DataTable = function (_a) {
         var resizeObserver = new ResizeObserver(function () {
             checkOverflow();
         });
-        var contentElement = contentRef.current;
+        var contentElement = ref.current;
         if (contentElement) {
             resizeObserver.observe(contentElement);
             checkOverflow();
@@ -884,311 +930,32 @@ var DataTable = function (_a) {
             }
         };
     }, []);
-    var toggleSelectAll = function () {
-        var allIds = filteredData.map(function (item) { return item.id; });
-        if (isAllSelected()) {
-            setSelectAll(false);
-            setSelectedRows([]);
-        }
-        else {
-            setSelectAll(true);
-            setSelectedRows(allIds);
-        }
-    };
-    var isAllSelected = function () {
-        var allIds = filteredData.map(function (item) { return item.id; });
-        return selectedRows.length === allIds.length;
-    };
-    var toggleSelectRow = function (rowId) {
-        if (selectedRows.includes(rowId)) {
-            setSelectedRows(selectedRows.filter(function (id) { return id !== rowId; }));
-            setSelectAll(false);
-        }
-        else {
-            setSelectedRows(__spreadArray(__spreadArray([], selectedRows, true), [rowId], false));
-            if (isAllSelected()) {
-                setSelectAll(true);
-            }
-        }
-    };
-    var isIndeterminate = selectedRows.length > 0 &&
-        selectedRows.length < filteredData.length &&
-        !selectAll;
-    function calculateGridTemplate(selectable, expandable) {
-        if (selectable === undefined) { selectable = false; }
-        if (expandable === undefined) { expandable = false; }
-        if (selectable && expandable) {
-            return {
-                gridTemplateColumns: "56px 56px repeat(auto-fit, minmax(120px, 1fr))",
-            };
-        }
-        else if (selectable || expandable) {
-            return {
-                gridTemplateColumns: "56px repeat(auto-fit, minmax(120px, 1fr))",
-            };
-        }
-        else {
-            return {};
-        }
-    }
-    function calculateLeft(selectable, expandable) {
-        if (selectable === undefined) { selectable = false; }
-        if (expandable === undefined) { expandable = false; }
-        if (selectable && expandable) {
-            return {
-                left: "112px",
-            };
-        }
-        else if (selectable || expandable) {
-            return {
-                left: "56px",
-            };
-        }
-        else {
-            return {
-                left: "0px",
-            };
-        }
-    }
-    function calculateLeftToCheckBox(expandable) {
-        if (expandable === undefined) { expandable = false; }
-        if (expandable) {
-            return {
-                left: "56px",
-            };
-        }
-        else {
-            return {
-                left: "0px",
-            };
-        }
-    }
+    var _k = useState(undefined), height = _k[0], setHeight = _k[1];
     useEffect(function () {
-        setIsAnyItemSelected(selectedRows.length > 0);
-    }, [selectedRows]);
-    var toggleAside = function () {
-        setIsOpenAside(!isOpenAside);
-    };
-    var _q = useState(false), isOpen = _q[0], setIsOpen = _q[1];
-    var removeRow = function () {
-        var updatedOriginalData = originalDataState.filter(function (item) { return !selectedRows.includes(item.id); });
-        var updatedFilteredData = filteredData.filter(function (item) { return !selectedRows.includes(item.id); });
-        setFilteredData(updatedFilteredData);
-        setSelectedRows([]);
-        setIsOpen(false);
-        // Atualiza os dados originais sem as linhas removidas
-        setOriginalDataState(updatedOriginalData);
-    };
-    var toggleModal = function () {
-        setIsOpen(function (prevIsOpen) { return !prevIsOpen; });
-    };
-    var exportSelectedRowsAsCSV = function () {
-        // Filter selected rows from the original data
-        var selectedData = originalData.filter(function (row) {
-            return selectedRows.includes(row.id);
-        });
-        // Extract column names
-        var columnNames = columns;
-        // Create the CSV content
-        var csvContent = selectedData
-            .map(function (row) {
-            return columnNames.map(function (column) { return row[column]; }).join(",");
-        })
-            .join("\n");
-        // Add column names as the header
-        var csvData = columnNames.join(",") + "\n" + csvContent;
-        // Create a blob with the CSV data
-        var csvBlob = new Blob([csvData], {
-            type: "text/csv",
-        });
-        // Create a temporary URL for downloading
-        var csvURL = window.URL.createObjectURL(csvBlob);
-        // Create an anchor element for initiating the download
-        var downloadLink = document.createElement("a");
-        downloadLink.href = csvURL;
-        downloadLink.download = "selected_data.csv";
-        // Simulate a click to trigger the download
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        // Clean up by removing the temporary URL and anchor element
-        window.URL.revokeObjectURL(csvURL);
-    };
-    var renderHeader = function () {
-        if (isAnyItemSelected) {
-            return (React.createElement(React.Fragment, null,
-                React.createElement(Modal, { footer: React.createElement(FooterModal, null,
-                        React.createElement("div", { style: { width: "min-content" } },
-                            React.createElement(ButtonGroup, { contentFirstButton: "Delete", contentSecondButton: "Cancel", direction: "row", variantFirstButton: "warning", variantSecondButton: "secondary", onClickFirstButton: removeRow, onClickSecondButton: toggleModal }))), description: "Are you sure that you want delete this row?", dismissible: true, title: "Delete", isOpen: isOpen, hideModal: toggleModal }),
-                React.createElement("div", { className: "data-table-header-selected-items" },
-                    React.createElement("div", { className: "data-table-header-selected-items-message" },
-                        React.createElement("p", null, "".concat(selectedRows.length, " item").concat(selectedRows.length >= 2 ? "s" : "", " selected"))),
-                    React.createElement("div", { className: "data-table-header-selected-items-buttons" },
-                        React.createElement(Button, { size: "md", variant: "secondary", label: "Export", onClick: exportSelectedRowsAsCSV, typeIcon: "download" }),
-                        React.createElement(Button, { size: "md", variant: "secondary", label: selectableLabelSecondButton, onClick: toggleModal, typeIcon: selectableIconSecondButton })))));
-        }
-        return (React.createElement("div", { className: "data-table-header" },
-            React.createElement(InputSearch, { placeholder: inputPlaceholder, onChange: handleSearchChange }),
-            filters && (React.createElement("div", { className: "data-table-header-actions" },
-                React.createElement("div", { style: { width: "100%" } },
-                    React.createElement(Button, { variant: "secondary", typeIcon: typeIconSecondButton, size: "md", label: labelSecondButton, onClick: toggleAside }))))));
-    };
-    var handleExpandRow = function (rowId) {
-        if (expandedRows.includes(rowId)) {
-            setExpandedRows(expandedRows.filter(function (id) { return id !== rowId; }));
-            setAllItemsExpanded(false);
-        }
-        else {
-            setExpandedRows(__spreadArray(__spreadArray([], expandedRows, true), [rowId], false));
-            if (expandedRows.length + 1 === filteredData.length) {
-                setAllItemsExpanded(true);
+        var timeoutId = setTimeout(function () {
+            if (ref.current) {
+                setHeight(ref.current.clientHeight);
             }
-        }
-    };
-    var toggleExpandAllRows = function () {
-        if (allItemsExpanded) {
-            setExpandedRows([]);
-            setAllItemsExpanded(false);
-        }
-        else {
-            var allIds = filteredData.map(function (item) { return item.id; });
-            setExpandedRows(allIds);
-            setAllItemsExpanded(true);
-        }
-    };
-    var handleSearchChange = function (value) {
-        setSearchTerm(value);
-        var searchedData = __spreadArray([], originalData, true);
-        if (value.trim() !== "") {
-            searchedData = searchedData.filter(function (item) {
-                return Object.values(item).some(function (val) {
-                    return typeof val === "string" ? val.includes(value) : false;
-                });
-            });
-        }
-        Object.entries(filterOptions).forEach(function (_a) {
-            var columnName = _a[0], selectedValues = _a[1];
-            if (selectedValues.length > 0) {
-                searchedData = searchedData.filter(function (item) {
-                    return selectedValues.includes(String(item[columnName]));
-                });
-            }
-        });
-        setFilteredData(searchedData);
-    };
-    var DEFAULT_SORT_STATE = "default";
-    var initialSortConfig = columns.reduce(function (acc, column) {
-        var _a;
-        return (__assign(__assign({}, acc), (_a = {}, _a[column] = DEFAULT_SORT_STATE, _a)));
-    }, {});
-    var _r = useState(initialSortConfig), sortConfig = _r[0], setSortConfig = _r[1];
-    var handleSort = function (column) {
-        var _a;
-        var currentSortState = sortConfig[column];
-        var nextSortState;
-        if (currentSortState === "asc") {
-            nextSortState = "desc";
-        }
-        else if (currentSortState === "desc") {
-            nextSortState = "default";
-        }
-        else {
-            nextSortState = "asc";
-        }
-        var updatedSortConfig = __assign(__assign({}, initialSortConfig), (_a = {}, _a[column] = nextSortState, _a));
-        setSortConfig(updatedSortConfig);
-        var sortedData = __spreadArray([], filteredData, true);
-        if (nextSortState !== "default") {
-            sortedData = sortedData.sort(function (a, b) {
-                if (nextSortState === "asc") {
-                    return a[column] > b[column] ? 1 : -1;
-                }
-                else if (nextSortState === "desc") {
-                    return a[column] < b[column] ? 1 : -1;
-                }
-                return 0;
-            });
-        }
-        else {
-            if (Object.values(filterOptions).some(function (options) { return options.length > 0; })) {
-                var filteredOriginalData_1 = __spreadArray([], originalDataState, true);
-                Object.entries(filterOptions).forEach(function (_a) {
-                    var filterColumn = _a[0], selectedValues = _a[1];
-                    if (selectedValues.length > 0) {
-                        filteredOriginalData_1 = filteredOriginalData_1.filter(function (item) {
-                            return selectedValues.includes(String(item[filterColumn]));
-                        });
-                    }
-                });
-                sortedData = filteredOriginalData_1.sort(function (a, b) {
-                    if (a[column] > b[column])
-                        return 1;
-                    if (a[column] < b[column])
-                        return -1;
-                    return 0;
-                });
-            }
-            else {
-                sortedData = __spreadArray([], originalDataState, true);
-            }
-        }
-        setFilteredData(sortedData);
-    };
-    useEffect(function () {
-        var defaultSortConfig = columns.reduce(function (acc, column) {
-            var _a;
-            return (__assign(__assign({}, acc), (_a = {}, _a[column] = DEFAULT_SORT_STATE, _a)));
-        }, {});
-        setSortConfig(defaultSortConfig);
-    }, [filterOptions]);
-    var handleClearFilters = function () {
-        var updatedFilteredData = __spreadArray([], originalData, true);
-        var updatedFilterOptions = columns.reduce(function (acc, column) {
-            var _a;
-            return (__assign(__assign({}, acc), (_a = {}, _a[column] = [], _a)));
-        }, {});
-        setFilteredData(updatedFilteredData);
-        setFilterOptions(updatedFilterOptions);
-        setSearchTerm("");
-    };
-    var renderNoDataMessage = function () {
-        return (React.createElement("div", { className: "render-no-data-message" },
-            React.createElement(EmptyState, { icon: "search_off", title: titleNoDataMessage, description: descriptionNoDataMessage })));
-    };
-    var renderNoDataFilteredMessage = function () { return (React.createElement("div", { className: "render-no-data-message" },
-        React.createElement(EmptyState, { icon: "search_off", title: titleNoDataFilteredMessage, description: descriptionNoDataFilteredMessage, buttonContentPrimary: labelButtonNoDataFilteredMessage, onClickActionPrimary: handleClearFilters }))); };
-    var hasSelectedFilters = Object.values(filterOptions).some(function (options) { return options.length > 0; });
+        }, 0);
+        return function () { return clearTimeout(timeoutId); };
+    }, []);
     return (React.createElement(React.Fragment, null,
-        React.createElement("div", { className: "data-table-root" },
-            renderHeader(),
-            React.createElement("div", { ref: contentRef, className: "data-table-content ".concat(contentOverflowed ? "overflowed" : "") }, filteredData.length > 0 ? (React.createElement(React.Fragment, null,
-                React.createElement("div", { className: "data-table-content-header", style: calculateGridTemplate(selectable, expandable) },
-                    expandable && (React.createElement("div", { className: "data-table-content-header-expandable ".concat(allItemsExpanded ? "up" : "down") },
-                        React.createElement(ButtonIcon, { size: "md", buttonType: "plain", typeIcon: "keyboard_arrow_down", variant: "primary", onClick: toggleExpandAllRows }))),
-                    selectable && (React.createElement("div", { className: "data-table-content-header-checkbox", style: calculateLeftToCheckBox(expandable) },
-                        React.createElement(InputCheckbox, { modelValue: selectAll, onUpdate: toggleSelectAll, indeterminate: isIndeterminate }))),
-                    columns.map(function (column, columnIndex) { return (React.createElement("div", { className: "th ".concat(columnIndex === 0 ? "sticky-first-column" : ""), style: calculateLeft(selectable, expandable), key: columnIndex, onClick: function () { return handleSort(column); } },
-                        column,
-                        React.createElement("div", { className: "icon" }, sortConfig[column] === "asc" ? (React.createElement(Icon, { icon: "arrow_upward", size: "sm" })) : sortConfig[column] === "desc" ? (React.createElement(Icon, { icon: "arrow_downward", size: "sm" })) : (React.createElement(Icon, { icon: "swap_vert", size: "sm" }))))); })),
-                filteredData
-                    .slice(indexOfFirstItem, indexOfLastItem)
-                    .map(function (row) { return (React.createElement("div", { className: "data-table-wrapper", key: row.id },
-                    React.createElement("div", { className: "data-table-content-body", style: calculateGridTemplate(selectable, expandable), key: row.id },
-                        expandable && (React.createElement("div", { className: "data-table-content-body-expandable ".concat(expandedRows.includes(row.id) ? "up" : "down"), key: "expandable-".concat(row.id) },
-                            React.createElement(ButtonIcon, { size: "md", buttonType: "plain", typeIcon: "keyboard_arrow_down", variant: "primary", onClick: function () { return handleExpandRow(row.id); } }))),
-                        selectable && (React.createElement("div", { className: "data-table-content-body-checkbox", style: calculateLeftToCheckBox(expandable), key: "checkbox-".concat(row.id) },
-                            React.createElement(InputCheckbox, { modelValue: selectedRows.includes(row.id), onUpdate: function () { return toggleSelectRow(row.id); } }))),
-                        columns.map(function (_, columnIndex) { return (React.createElement("div", { key: "column-".concat(row.id, "-").concat(columnIndex), className: "fixed ".concat(columnIndex === 0 ? "sticky-first-column" : ""), style: calculateLeft(selectable, expandable) },
-                            React.createElement("div", { key: "cell-".concat(row.id, "-").concat(columnIndex) },
-                                React.createElement("div", { className: "td", key: "td-".concat(row.id, "-").concat(columnIndex) }, row[columns[columnIndex]])))); })),
-                    expandedRows.includes(row.id) && expandedData && (React.createElement("div", { className: "data-table-content-expandable" },
-                        React.createElement("div", { className: "space-expanded-content" }),
-                        React.createElement("div", { className: "expanded-content" }, expandedData
-                            .filter(function (expandedItem) { return expandedItem.id === row.id; })
-                            .map(function (expandedItem) { return (React.createElement("div", { key: "expandedItem-".concat(expandedItem.id) }, Object.keys(expandedItem)
-                            .filter(function (key) { return key !== "id"; })
-                            .map(function (key) { return (React.createElement("div", { key: "expandedKey-".concat(expandedItem.id, "-").concat(key) }, expandedItem[key])); }))); })))))); }))) : hasSelectedFilters || searchTerm ? (renderNoDataFilteredMessage()) : (renderNoDataMessage())),
-            React.createElement("div", { className: "data-table-footer" },
-                React.createElement(Pagination, { label: label, variant: "leftLabel", onClickRight: handleNextPage, onClickLeft: handlePrevPage })))));
+        React.createElement("div", { className: "data-table" },
+            React.createElement(DataTableHeader, { textRowsSelected: textRowsSelected, children: headerSelectedChildren, skeleton: skeleton, onSearch: handleSearch, rowsSelected: rowsSelectedCount }),
+            React.createElement("div", { className: "data-table-body ".concat(contentOverflowed ? "overflowed" : ""), ref: ref, style: { height: height } },
+                React.createElement("div", { className: "data-table-body-header" },
+                    React.createElement(DataTableRowHeader, { collumnWidths: columnWidths, headers: columns, skeleton: skeleton, sortStates: sortStates, onSort: handleSort, withCheckbox: withCheckbox, allSelected: allSelected, someSelected: someSelected, handleSelectAll: handleSelectAll })),
+                currentRows.length === 0 ? (React.createElement("div", { className: "data-table-body-empty" },
+                    React.createElement(EmptyState, { title: "Nenhum resultado encontrado", description: "Tente ajustar ou revisar os termos de pesquisa para encontrar o que procura.", icon: "search_off" }))) : (React.createElement(DataTableBody, { withCheckbox: withCheckbox, columnWidths: columnWidths, currentPage: currentPage, currentRows: currentRows, selectedRows: selectedRows, rowsPerPage: rowsPerPage, skeleton: skeleton, onRowSelection: handleRowSelection, headers: columns }))),
+            React.createElement(DataTableFooter, { currentPage: currentPage, totalPages: totalPages, onClickLeft: function () {
+                    if (currentPage > 1) {
+                        setCurrentPage(currentPage - 1);
+                    }
+                }, onClickRight: function () {
+                    if (currentPage < totalPages) {
+                        setCurrentPage(currentPage + 1);
+                    }
+                }, disabledLeft: currentPage === 1 || currentRows.length === 0, disabledRight: currentPage === totalPages || currentRows.length === 0, skeleton: skeleton }))));
 };
 
 var DescriptionList = function (_a) {
@@ -1847,6 +1614,32 @@ var Layout = function (_a) {
     };
     var columnClassName = columnClassNames[columns];
     return (React.createElement("div", __assign({}, rest, { className: "layout ".concat(columnClassName) }), children));
+};
+
+var Modal = function (_a) {
+    var title = _a.title, description = _a.description, content = _a.content, hideModal = _a.hideModal, isOpen = _a.isOpen, footer = _a.footer, dismissible = _a.dismissible;
+    var modalClass = isOpen ? "modal-root visible" : "modal-root";
+    var ghostClass = isOpen ? "modal-ghost visible" : "modal-ghost";
+    return (React.createElement(React.Fragment, null,
+        React.createElement("div", { className: modalClass },
+            React.createElement("div", { className: "modal-header" },
+                React.createElement("div", { className: "modal-title" },
+                    React.createElement("div", null, title),
+                    dismissible && (React.createElement(ButtonIcon, { variant: "primary", size: "md", typeIcon: "close", buttonType: "plain", onClick: hideModal }))),
+                React.createElement("div", { className: "modal-description" }, description)),
+            content,
+            footer),
+        React.createElement("div", { className: ghostClass, onClick: (dismissible
+                ? hideModal
+                : undefined) })));
+};
+var ContentModal = function (_a) {
+    var children = _a.children;
+    return React.createElement("div", { className: "modal-content" }, children);
+};
+var FooterModal = function (_a) {
+    var children = _a.children;
+    return React.createElement("div", { className: "modal-footer" }, children);
 };
 
 var Notification = function (_a) {

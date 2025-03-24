@@ -16,10 +16,10 @@ type NotificationProps = {
     isOpen?: boolean;
     height?: string;
 };
-export declare const Inline: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
-export declare const Float: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
-export declare const primary: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
-export declare const Secondary: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
-export declare const Success: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
-export declare const Warning: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
-export declare const Dismissible: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
+export declare const Inline: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
+export declare const Float: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
+export declare const primary: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
+export declare const Secondary: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
+export declare const Success: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
+export declare const Warning: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
+export declare const Dismissible: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;

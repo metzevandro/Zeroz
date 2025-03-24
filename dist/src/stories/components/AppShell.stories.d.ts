@@ -13,4 +13,4 @@ type DefaultProps = {
     withActionSecondary: boolean;
     withBackButton: boolean;
 };
-export declare const Default: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
+export declare const Default: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;

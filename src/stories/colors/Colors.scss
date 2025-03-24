@@ -1,3 +1,6 @@
+html {
+  scroll-behavior: smooth;
+}
 .colors {
   padding: var(--s-spacing-xx-large) var(--s-spacing-xx-large);
   display: flex;
@@ -67,4 +70,8 @@
       grid-template-columns: repeat(2, 1fr);
     }
   }
+}
+
+.anchor--charts-datapicker--default {
+  height: 500px;
 }

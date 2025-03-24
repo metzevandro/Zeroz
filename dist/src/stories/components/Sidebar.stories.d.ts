@@ -7,4 +7,4 @@ type DefaultProps = {
     brand: string;
     brandSize: "sm" | "md" | "lg";
 };
-export declare const Default: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
+export declare const Default: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;

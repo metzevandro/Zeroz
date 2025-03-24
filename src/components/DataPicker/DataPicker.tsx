@@ -1,683 +1,482 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./DataPicker.scss";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import Input from "../Input/Input";
+import Tooltip from "../Tooltip/Tooltip";
+import Icon from "../Icon/Icon";
 import Button from "../Button/Button";
 
 interface DataPickerDayProps {
-  variant: string;
   day: number;
-  onClick?: () => void;
-  onMouseEnter?: () => void;
+  type: string;
+  onSelect: (day: number, type: string) => void;
 }
 
-const DataPickerDay: React.FC<DataPickerDayProps> = ({
-  variant,
-  day,
-  onClick,
-  onMouseEnter,
-}) => {
-  const formattedDay = day < 10 ? `0${day}` : `${day}`;
-  const buttonClass = `data-picker-day ${variant}`;
-
+const DataPickerDay = (props: DataPickerDayProps & { isSelected: boolean }) => {
+  const { day, type, onSelect, isSelected } = props;
   return (
     <button
-      disabled={variant === "disable"}
-      tabIndex={0}
-      className={buttonClass}
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
+      className={`data-picker-day ${type === "other" ? "other-month" : ""} ${isSelected ? "selected" : ""}`}
+      onClick={() => onSelect(day, type)}
     >
-      {formattedDay}
+      {day}
     </button>
   );
 };
 
-const DataPickerInputDate: React.FC<{
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  onEnter: () => void;
-  onClick: () => void;
-  placeholder: string;
-  disabled?: boolean;
-}> = ({ label, value, onChange, onEnter, onClick, placeholder, disabled }) => {
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") onEnter();
-  };
-
-  const hasValue = value.trim() !== "";
-  const containerClass = hasValue ? "data-picker-value" : "";
-
-  return (
-    <div className={containerClass}>
-      <Input
-        typeIcon="calendar_month"
-        fillIcon={true}
-        label={label}
-        type="text"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder={placeholder}
-        onClick={onClick}
-        disabled={disabled}
-      />
-    </div>
+function DataPickerCalendar({
+  onSelectDate,
+  selectedDate,
+  onClose,
+  onRevert,
+}: {
+  onSelectDate: (date: Date) => void;
+  selectedDate: Date | null;
+  onClose: () => void;
+  onRevert: () => void;
+}) {
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [internalSelectedDate, setInternalSelectedDate] = useState<Date | null>(
+    null,
   );
-};
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const monthNames = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro",
+  ];
 
-interface DataPickerCalendarProps {
-  label: string;
-  placeholder: string;
-  disabled?: boolean;
-  onDateChange: (date: Date) => void;
-  date: string;
-}
+  const firstDayOfMonth = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const daysInPrevMonth = new Date(year, month, 0).getDate();
 
-const DataPickerCalendar: React.FC<DataPickerCalendarProps> = ({
-  label,
-  placeholder,
-  disabled,
-  onDateChange,
-  date,
-}) => {
-  const monthsOverflowContainerRef = useRef<HTMLDivElement>(null);
-  const yearsOverflowContainerRef = useRef<HTMLDivElement>(null);
-  const today = new Date();
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date(date));
-  const [inputDate, setInputDate] = useState<string>(date);
-  const [currentMonth, setCurrentMonth] = useState<number>(
-    new Date().getMonth(),
-  );
-  const [currentYear, setCurrentYear] = useState<number>(
-    new Date().getFullYear(),
-  );
-  const [calendarOpen, setCalendarOpen] = useState(false);
-  const [secondModalOpen, setSecondModalOpen] = useState(false);
-  const [selectedMonth, setSelectedMonth] = useState<number>(
-    new Date().getMonth() + 1,
-  );
-  const [selectedYear, setSelectedYear] = useState<number>(
-    new Date().getFullYear(),
-  );
-  const [selectedDay, setSelectedDay] = useState<number>(today.getDate());
+  const days = [];
+  for (let i = firstDayOfMonth - 1; i >= 0; i--) {
+    days.push({ day: daysInPrevMonth - i, type: "other" });
+  }
+  for (let i = 1; i <= daysInMonth; i++) {
+    days.push({ day: i, type: "current" });
+  }
+  const remainingDays = 42 - days.length;
+  for (let i = 1; i <= remainingDays; i++) {
+    days.push({ day: i, type: "other" });
+  }
 
-  useEffect(() => {
-    if (date && typeof date === "string") {
-      const [day, month, year] = date.split("/").map(Number);
-
-      if (day && month && year) {
-        const newSelectedDate = new Date(year, month - 1, day);
-        setSelectedDate(newSelectedDate);
-        setInputDate(
-          newSelectedDate.toLocaleDateString("pt-BR", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-          }),
-        );
-      }
-    }
-  }, [date]);
-
-  useEffect(() => {
-    const handleDateChange = () => {
-      if (selectedDate && !isNaN(selectedDate.getTime())) {
-        onDateChange(selectedDate);
-      }
-    };
-
-    if (
-      selectedDate &&
-      !isNaN(selectedDate.getTime()) &&
-      selectedDate.getTime() !== new Date(date).getTime()
-    ) {
-      handleDateChange();
-    }
-  }, [selectedDate, onDateChange, date]);
-
-  const handleInputChange = (value: string) => {
-    setInputDate(value);
-    const [day, month, year] = value.split("/").map(Number);
-
-    if (day !== undefined && month !== undefined && year !== undefined) {
-      const isValidDate =
-        day > 0 &&
-        month > 0 &&
-        year > 0 &&
-        month <= 12 &&
-        day <= new Date(year, month, 0).getDate();
-
-      if (isValidDate) {
-        const selectedDate = new Date(year, month - 1, day);
-        if (selectedDate.getTime() !== selectedDate.getTime()) {
-          setSelectedDate(selectedDate);
-          setCurrentMonth(selectedDate.getMonth());
-          setCurrentYear(selectedDate.getFullYear());
-          setSelectedDay(selectedDate.getDate());
-          onDateChange(selectedDate);
-        }
-      } else {
-        console.log("Data inválida!");
-      }
-    } else {
-      console.log("Data inválida!");
-    }
-  };
-
-  const handleMonthSelect = (selectedMonth: number) => {
-    setSelectedMonth(selectedMonth);
-    setCurrentMonth(selectedMonth - 1);
-    updateSelectedDateFormat(selectedMonth, selectedYear, selectedDay);
-    const selectedMonthElement = document.querySelector(
-      `.month-item[data-month="${selectedMonth}"]`,
-    );
-    selectedMonthElement?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-
-    centralizarOpcaoSelecionada(monthsOverflowContainerRef);
-  };
-
-  const handleYearSelect = (selectedYear: number) => {
-    setSelectedYear(selectedYear);
-    setCurrentYear(selectedYear);
-    updateSelectedDateFormat(selectedMonth, selectedYear, selectedDay);
-    const selectedYearElement = document.querySelector(
-      `.year-item[data-year="${selectedYear}"]`,
-    );
-    selectedYearElement?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-
-    centralizarOpcaoSelecionada(yearsOverflowContainerRef);
-  };
-
-  const updateSelectedDateFormat = (
-    month: number,
-    year: number,
-    day: number,
-  ) => {
-    const formattedDate = new Date(year, month - 1, day).toLocaleDateString(
-      "pt-BR",
-      {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      },
-    );
-    setInputDate(formattedDate);
-    setSelectedDateFormat(formattedDate);
-  };
-
-  const handleDoneClick = () => {
-    if (selectedDate) {
-      const formattedDay = selectedDate.getDate().toString().padStart(2, "0");
-      const formattedMonth = (selectedDate.getMonth() + 1)
-        .toString()
-        .padStart(2, "0");
-      const formattedYear = selectedDate.getFullYear().toString();
-      const formattedDate = `${formattedDay}/${formattedMonth}/${formattedYear}`;
-
-      setInputDate(formattedDate);
-      onDateChange(selectedDate);
-      setCalendarOpen(false);
-      setSecondModalOpen(false);
-    } else {
-      console.error("Data inválida!");
-    }
-  };
-
-  const handleDateClick = (date: Date) => {
-    setSelectedDate(date);
-    setSelectedDay(date.getDate());
-
-    const formattedDate = date.toLocaleDateString("pt-BR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
-
-    setInputDate(formattedDate);
-    setSelectedDateFormat(formattedDate);
-
-    setSelectedMonth(date.getMonth() + 1);
-    setSelectedYear(date.getFullYear());
+  const handlePrevMonth = () => {
+    setCurrentDate(new Date(year, month - 1, 1));
   };
 
   const handleNextMonth = () => {
-    setCurrentMonth((prevMonth) => {
-      const newMonth = prevMonth + 1;
-      const newYear = currentYear + Math.floor(newMonth / 12);
-      setCurrentYear(newYear);
-      return newMonth % 12;
-    });
+    setCurrentDate(new Date(year, month + 1, 1));
   };
 
-  const handlePrevMonth = () => {
-    setCurrentMonth((prevMonth) => {
-      const newMonth = prevMonth - 1;
-      const newYear = newMonth < 0 ? currentYear - 1 : currentYear;
-      setCurrentYear(newYear);
-      return (newMonth + 12) % 12;
-    });
-  };
-
-  const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
-
-  const generateDaysOfMonth = () => {
-    const days = [];
-    const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
-    const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
-    const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
-    const startingDay = firstDayOfMonth.getDay();
-    const endingDay = lastDayOfMonth.getDay();
-
-    const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
-    const prevMonthDays = startingDay;
-    const nextMonthDays = 6 - endingDay;
-
-    // Add days from the previous month
-    for (
-      let i = prevMonthLastDay - prevMonthDays + 1;
-      i <= prevMonthLastDay;
-      i++
-    ) {
-      const date = new Date(currentYear, currentMonth - 1, i);
-      days.push(
-        <DataPickerDay
-          key={`previous-month-${i}`}
-          variant="disable"
-          day={date.getDate()}
-        />,
-      );
-    }
-
-    // Add days from the current month
-    for (let i = 1; i <= totalDays; i++) {
-      const date = new Date(currentYear, currentMonth, i);
-      const variant =
-        selectedDate &&
-        date.getDate() === selectedDate.getDate() &&
-        date.getMonth() === selectedDate.getMonth() &&
-        date.getFullYear() === selectedDate.getFullYear()
-          ? "active"
-          : i === today.getDate() &&
-              currentMonth === today.getMonth() &&
-              currentYear === today.getFullYear()
-            ? "current-day"
-            : "default";
-
-      days.push(
-        <DataPickerDay
-          key={`current-month-${i}`}
-          variant={variant}
-          day={i}
-          onClick={() => handleDateClick(date)}
-        />,
-      );
-    }
-
-    // Add days from the next month
-    for (let i = 1; i <= nextMonthDays; i++) {
-      const date = new Date(currentYear, currentMonth + 1, i);
-      days.push(
-        <DataPickerDay
-          key={`next-month-${i}`}
-          variant="disable"
-          day={date.getDate()}
-        />,
-      );
-    }
-
-    return days;
-  };
-
-  const generateMonthsAndYears = () => {
-    const months = [];
-    const years = [];
-    const currentYear = new Date().getFullYear();
-
-    for (let month = 1; month <= 12; month++) {
-      months.push({
-        month,
-        label: `${new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(
-          new Date(2000, month - 1),
-        )}`,
-      });
-    }
-
-    for (let year = currentYear - 100; year <= currentYear + 50; year++) {
-      years.push({
-        year,
-        label: `${year}`,
-      });
-    }
-
-    return { months, years };
-  };
-
-  const setSelectedDateFormat = (dateString: string) => {
-    if (dateString.split(" - ").length < 2) {
-      console.error("Invalid date format");
-      return;
-    }
-
-    const dateParts = dateString.split("/");
-
-    if (dateParts.length !== 3) {
-      console.error("Invalid date format");
-      return;
-    }
-
-    const [day, month, year] = dateParts.map(Number);
-
-    if (
-      day === undefined ||
-      month === undefined ||
-      year === undefined ||
-      day <= 0 ||
-      month <= 0 ||
-      year <= 0 ||
-      month > 12 ||
-      day > new Date(year, month, 0).getDate()
-    ) {
-      console.error("Invalid date");
-      return;
-    }
-
-    const selectedDate = new Date(year, month - 1, day);
-    setSelectedDate(selectedDate);
-    setCurrentMonth(selectedDate.getMonth());
-    setCurrentYear(selectedDate.getFullYear());
-  };
-
-  const handleInputEnter = () => {
-    const [day, month, year] = inputDate.split("/").map(Number);
-
-    if (day !== undefined && month !== undefined && year !== undefined) {
-      const isValidDate =
-        day > 0 &&
-        month > 0 &&
-        year > 0 &&
-        month <= 12 &&
-        day <= new Date(year, month, 0).getDate();
-
-      if (isValidDate) {
-        const selectedDate = new Date(year, month - 1, day);
-        if (selectedDate.getTime() !== selectedDate.getTime()) {
-          setSelectedDate(selectedDate);
-          setCurrentMonth(selectedDate.getMonth());
-          setCurrentYear(selectedDate.getFullYear());
-          setSelectedDay(selectedDate.getDate());
-          onDateChange(selectedDate);
-        }
+  const handleSelectDay = (day: number, type: string) => {
+    let newDate;
+    if (type === "other") {
+      if (day > 15) {
+        newDate = new Date(year, month - 1, day);
+        setCurrentDate(new Date(year, month - 1, 1));
       } else {
-        console.log("Data inválida!");
+        newDate = new Date(year, month + 1, day);
+        setCurrentDate(new Date(year, month + 1, 1));
       }
     } else {
-      console.log("Data inválida!");
+      newDate = new Date(year, month, day);
     }
-  };
-
-  const handleResetAll = () => {
-    const currentDate = new Date();
-    setSelectedMonth(currentDate.getMonth() + 1);
-    setSelectedYear(currentDate.getFullYear());
-    updateSelectedDateFormat(
-      currentDate.getMonth() + 1,
-      currentDate.getFullYear(),
-      selectedDay,
-    );
-
-    handleReset();
-  };
-
-  const handleReset = () => {
-    setSelectedDate(today);
-    setInputDate(
-      today.toLocaleDateString("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      }),
-    );
-    setCurrentMonth(today.getMonth());
-    setCurrentYear(today.getFullYear());
-    setSelectedDay(today.getDate());
-  };
-
-  const openSecondModal = () => {
-    setSecondModalOpen(true);
-    setCalendarOpen(false);
+    setInternalSelectedDate(newDate);
+    onSelectDate(newDate);
   };
 
   useEffect(() => {
-    if (secondModalOpen) {
-      centralizarOpcaoSelecionada(monthsOverflowContainerRef);
+    if (selectedDate) {
+      setCurrentDate(
+        new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1),
+      );
+      monthRefs.current[selectedDate.getMonth()]?.scrollIntoView({
+        block: "center",
+        behavior: "smooth",
+      });
+      yearRefs.current[
+        selectedDate.getFullYear() - (currentRealYear - 70)
+      ]?.scrollIntoView({ block: "center", behavior: "smooth" });
     }
-  }, [secondModalOpen, selectedMonth]);
+  }, [selectedDate]);
 
   useEffect(() => {
-    if (secondModalOpen) {
-      centralizarOpcaoSelecionada(yearsOverflowContainerRef);
+    if (!selectedDate) {
+      monthRefs.current[month]?.scrollIntoView({
+        block: "center",
+        behavior: "smooth",
+      });
+      yearRefs.current[year - (currentRealYear - 70)]?.scrollIntoView({
+        block: "center",
+        behavior: "smooth",
+      });
     }
-  }, [secondModalOpen, selectedYear]);
+  }, []);
 
-  const handleInputClick = () => {
-    setCalendarOpen(true);
-    setSecondModalOpen(false);
+  useEffect(() => {
+    if (selectedDate) {
+      setInternalSelectedDate(selectedDate);
+    }
+  }, []);
+
+  const [openModalMonthAndYears, setOpenModalMonthAndYears] = useState(false);
+
+  const toggleModalMonthAndYears = () => {
+    setOpenModalMonthAndYears(!openModalMonthAndYears);
   };
 
-  const handleInputClickClose = () => {
-    setCalendarOpen(false);
+  const monthRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const yearRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const handleSelectMonth = (month: number) => {
+    const day = internalSelectedDate ? internalSelectedDate.getDate() : 1;
+    const daysInNewMonth = new Date(year, month + 1, 0).getDate();
+    const newDay = day > daysInNewMonth ? daysInNewMonth : day;
+    const newDate = new Date(year, month, newDay);
+    setCurrentDate(newDate);
+    setInternalSelectedDate(newDate);
+    onSelectDate(newDate);
+    monthRefs.current[month]?.scrollIntoView({
+      block: "center",
+      behavior: "smooth",
+    });
   };
 
-  const centralizarOpcaoSelecionada = (
-    ref: React.RefObject<HTMLDivElement>,
-  ) => {
-    if (ref.current) {
-      const overflowContainer = ref.current;
-      const selectedElement = overflowContainer.querySelector(
-        ".selected",
-      ) as HTMLElement;
+  const handleSelectYear = (year: number) => {
+    const day = internalSelectedDate ? internalSelectedDate.getDate() : 1;
+    const daysInNewMonth = new Date(year, month + 1, 0).getDate();
+    const newDay = day > daysInNewMonth ? daysInNewMonth : day;
+    const newDate = new Date(year, month, newDay);
+    setCurrentDate(newDate);
+    setInternalSelectedDate(newDate);
+    onSelectDate(newDate);
+    yearRefs.current[year - (currentRealYear - 70)]?.scrollIntoView({
+      block: "center",
+      behavior: "smooth",
+    });
+  };
 
-      if (selectedElement) {
-        const containerHeight = overflowContainer.clientHeight;
-        const elementHeight = selectedElement.clientHeight;
-        const scrollTop =
-          selectedElement.offsetTop - (containerHeight - elementHeight);
+  const currentRealYear = new Date().getFullYear();
 
-        overflowContainer.scrollTop = scrollTop;
+  return (
+    <div className="data-picker-calendar">
+      <div className="data-picker-header">
+        <button
+          onClick={toggleModalMonthAndYears}
+          className={`data-picker-header-date ${openModalMonthAndYears ? "open" : ""}`}
+        >
+          {`${monthNames[month]} ${year}`}{" "}
+          <ButtonIcon
+            buttonType="plain"
+            variant="secondary"
+            typeIcon="keyboard_arrow_right"
+            size="sm"
+          />
+        </button>
+        <div
+          className={`data-picker-header-buttons ${openModalMonthAndYears ? "hidden" : ""}`}
+        >
+          <ButtonIcon
+            variant="secondary"
+            size="sm"
+            typeIcon="keyboard_arrow_left"
+            buttonType="plain"
+            onClick={handlePrevMonth}
+          />
+          <ButtonIcon
+            variant="secondary"
+            buttonType="plain"
+            size="sm"
+            typeIcon="keyboard_arrow_right"
+            onClick={handleNextMonth}
+          />
+        </div>
+      </div>
+      <div className="data-picker-body-container">
+        <div
+          className={`data-picker-body-months-years ${openModalMonthAndYears ? "" : "hidden"}`}
+        >
+          <div className="data-picker-months">
+            {monthNames.map((monthName, index) => (
+              <button
+                key={index}
+                ref={(el) => (monthRefs.current[index] = el)}
+                className={`months ${month === index ? "selected" : ""}`}
+                onClick={() => handleSelectMonth(index)}
+              >
+                {monthName}
+              </button>
+            ))}
+          </div>
+          <div className="data-picker-years">
+            {Array.from({ length: 96 }, (_, i) => currentRealYear - 70 + i).map(
+              (yearValue, index) => (
+                <button
+                  key={yearValue}
+                  ref={(el) => (yearRefs.current[index] = el)}
+                  className={`years ${year === yearValue ? "selected" : ""}`}
+                  onClick={() => handleSelectYear(yearValue)}
+                >
+                  {yearValue}
+                </button>
+              ),
+            )}
+          </div>
+        </div>
+        <div
+          className={`data-picker-body ${openModalMonthAndYears ? "hidden" : ""}`}
+        >
+          <div className="data-picker-weekdays">
+            {[
+              "Domingo",
+              "Segunda",
+              "Terça",
+              "Quarta",
+              "Quinta",
+              "Sexta",
+              "Sábado",
+            ].map((day, index) => (
+              <div translate="no" key={index} className="data-picker-week-day">
+                {day[0]}
+              </div>
+            ))}
+          </div>
+          <div className="data-picker-days">
+            {days.map((day, index) => (
+              <DataPickerDay
+                key={index}
+                day={day.day}
+                type={day.type}
+                onSelect={(day, type) => handleSelectDay(day, type)}
+                isSelected={
+                  selectedDate?.getDate() === day.day &&
+                  selectedDate?.getMonth() === month &&
+                  selectedDate?.getFullYear() === year &&
+                  day.type === "current"
+                }
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="data-picker-footer">
+        <Button
+          label="Resetar"
+          size="sm"
+          variant="secondary"
+          onClick={onRevert}
+        />
+        <Button
+          label="Concluir"
+          size="sm"
+          variant="primary"
+          onClick={onClose}
+        />
+      </div>
+    </div>
+  );
+}
+
+function DataPicker({
+  value,
+  onChange,
+  label,
+  disabled = false,
+  skeleton = false,
+}: {
+  value?: string;
+  onChange: (value: string) => void;
+  label: string;
+  disabled?: boolean;
+  skeleton?: boolean;
+}) {
+  const formatDate = (date: Date) => {
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [inputValue, setInputValue] = useState<string>(
+    value || formatDate(new Date()),
+  );
+  const [error, setError] = useState<boolean>(false);
+  const [textError, setTextError] = useState<string>("");
+  const [openCalendar, setOpenCalendar] = useState(false);
+
+  useEffect(() => {
+    setInputValue(value || formatDate(new Date()));
+    const parsedDate = parseDate(value || formatDate(new Date()));
+    if (parsedDate) {
+      setSelectedDate(parsedDate);
+    }
+  }, [value]);
+
+  const handleSelectDate = (date: Date) => {
+    setSelectedDate(date);
+    const formattedDate = formatDate(date);
+    setInputValue(formattedDate);
+    onChange(formattedDate);
+    setError(false);
+    setTextError("");
+  };
+
+  const parseDate = (value: string): Date | null => {
+    const parts = value.split("/").map((part) => parseInt(part, 10));
+    if (
+      parts.length === 3 &&
+      !isNaN(parts[0]) &&
+      !isNaN(parts[1]) &&
+      !isNaN(parts[2])
+    ) {
+      const date = new Date(parts[2], parts[1] - 1, parts[0]);
+      if (
+        date.getDate() === parts[0] &&
+        date.getMonth() === parts[1] - 1 &&
+        date.getFullYear() === parts[2]
+      ) {
+        return date;
+      }
+    }
+    return null;
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/[^\d]/g, "");
+    value = value.slice(0, 8);
+
+    let formattedValue = value;
+    if (value.length > 2) {
+      formattedValue = `${value.slice(0, 2)}/${value.slice(2)}`;
+    }
+    if (value.length > 4) {
+      formattedValue = `${value.slice(0, 2)}/${value.slice(2, 4)}/${value.slice(4)}`;
+    }
+
+    setInputValue(formattedValue);
+    onChange(formattedValue);
+
+    if (formattedValue.length === 10) {
+      const parts = formattedValue.split("/").map((part) => parseInt(part, 10));
+      let day = parts[0];
+      let month = parts[1];
+      const year = parts[2];
+
+      if (day < 1) day = 1;
+      if (day > 31) day = 31;
+      if (month < 1) month = 1;
+      if (month > 12) month = 12;
+
+      const clampedDate = new Date(year, month - 1, day);
+      const clampedFormattedValue = formatDate(clampedDate);
+      setInputValue(clampedFormattedValue);
+      onChange(clampedFormattedValue);
+
+      if (
+        clampedDate.getDate() === day &&
+        clampedDate.getMonth() === month - 1 &&
+        clampedDate.getFullYear() === year
+      ) {
+        setSelectedDate(clampedDate);
+        setError(false);
+        setTextError("");
+      } else {
+        setError(true);
+        setTextError("Data inválida");
+      }
+    } else {
+      setError(false);
+      setTextError("");
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      let value = inputValue.replace(/[^\d]/g, "");
+      value = value.slice(0, -1);
+
+      let formattedValue = value;
+      if (value.length > 2) {
+        formattedValue = `${value.slice(0, 2)}/${value.slice(2)}`;
+      }
+      if (value.length > 4) {
+        formattedValue = `${value.slice(0, 2)}/${value.slice(2, 4)}/${value.slice(4)}`;
+      }
+
+      setInputValue(formattedValue);
+      onChange(formattedValue);
+
+      if (formattedValue.length === 10) {
+        const parsedDate = parseDate(formattedValue);
+        if (parsedDate) {
+          setSelectedDate(parsedDate);
+          setError(false);
+          setTextError("");
+        } else {
+          setError(true);
+          setTextError("Data inválida");
+        }
+      } else {
+        setError(false);
+        setTextError("");
       }
     }
   };
 
+  const toogleCalendar = () => {
+    setOpenCalendar(!openCalendar);
+  };
+
+  const handleCloseCalendar = () => {
+    setOpenCalendar(false);
+  };
+
+  const handleRevertDate = () => {
+    const currentDate = new Date();
+    handleSelectDate(currentDate);
+  };
+
   return (
-    <>
-      <DataPickerInputDate
+    <div style={{display: "flex", flexDirection: "column"}}>
+      <Input
         label={label}
-        placeholder={placeholder}
-        value={inputDate}
+        onClick={toogleCalendar}
+        error={error}
+        textError={textError}
+        value={inputValue}
         onChange={handleInputChange}
-        onEnter={handleInputEnter}
-        onClick={handleInputClick}
+        onKeyDown={handleKeyDown}
+        typeIcon="calendar_month"
+        fillIcon
         disabled={disabled}
+        skeleton={skeleton}
       />
-      {secondModalOpen && (
-        <div className="data-picker-root">
-          <div className="data-picker">
-            <div className="data-picker-month">
-              <div className="data-picker-header" onClick={handleInputClick}>
-                {`${new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(
-                  new Date(currentYear, currentMonth),
-                )} ${currentYear}`}
-                <ButtonIcon
-                  size="sm"
-                  buttonType="plain"
-                  typeIcon="keyboard_arrow_down"
-                  variant="primary"
-                />
-              </div>
-            </div>
-            <div className="data-picker-months-years">
-              <div
-                className="data-picker-overflow-container"
-                ref={monthsOverflowContainerRef}
-              >
-                <div className="data-picker-overflow-content">
-                  {generateMonthsAndYears().months.map((item, index) => (
-                    <div
-                      key={index}
-                      className={`month-item ${
-                        selectedMonth === item.month ? "selected" : ""
-                      }`}
-                      onClick={() => handleMonthSelect(item.month)}
-                    >
-                      {item.label}
-                    </div>
-                  ))}
-                </div>
-              </div>
 
-              <div
-                className="data-picker-overflow-container"
-                ref={yearsOverflowContainerRef}
-              >
-                <div className="data-picker-overflow-content">
-                  {generateMonthsAndYears().years.map((item, index) => (
-                    <div
-                      key={index}
-                      className={`year-item ${
-                        selectedYear === item.year ? "selected" : ""
-                      }`}
-                      onClick={() => handleYearSelect(item.year)}
-                    >
-                      {item.label}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="data-picker-buttons-actions">
-              <Button
-                size="sm"
-                variant="secondary"
-                label="Reset"
-                onClick={handleResetAll}
-              />
-              <Button
-                size="sm"
-                variant="primary"
-                label="Done"
-                onClick={() => {
-                  if (selectedDate) {
-                    handleDoneClick();
-                  }
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      )}
-      {calendarOpen && (
-        <div className="data-picker-root">
-          <div className="data-picker">
-            <div className="data-picker-month">
-              <div className="data-picker-header" onClick={openSecondModal}>
-                {`${new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(
-                  new Date(currentYear, currentMonth),
-                )} ${currentYear}`}
-                <ButtonIcon
-                  size="sm"
-                  buttonType="plain"
-                  typeIcon="keyboard_arrow_right"
-                  variant="secondary"
-                />
-              </div>
-
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <ButtonIcon
-                  variant="secondary"
-                  size="sm"
-                  onClick={handlePrevMonth}
-                  typeIcon="keyboard_arrow_left"
-                  buttonType="plain"
-                />
-                <ButtonIcon
-                  variant="secondary"
-                  buttonType="plain"
-                  size="sm"
-                  onClick={handleNextMonth}
-                  typeIcon="keyboard_arrow_right"
-                />
-              </div>
-            </div>
-            <div>
-              <div className="data-picker-week-days">
-                {weekDays.map((day, index) => (
-                  <p key={index}>{day}</p>
-                ))}
-              </div>
-              <div className="data-picker-days">{generateDaysOfMonth()}</div>
-            </div>
-
-            <div className="data-picker-buttons-actions">
-              <Button
-                size="sm"
-                variant="secondary"
-                label="Reset"
-                onClick={handleResetAll}
-              />
-              <Button
-                size="sm"
-                variant="primary"
-                label="Done"
-                onClick={() => {
-                  if (selectedDate) {
-                    handleDoneClick();
-                  }
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
-};
-
-interface DataPickerProps {
-  label: string;
-  placeholder: string;
-  disabled?: boolean;
-  onDateChange: (date: Date) => void;
-  date: string;
-}
-
-const DataPicker: React.FC<DataPickerProps> = ({
-  label,
-  placeholder,
-  disabled,
-  onDateChange,
-  date,
-}) => {
-  return (
-    <>
-      <div>
+      
+      <div className={`data-picker ${openCalendar ? "open" : ""}`}>
         <DataPickerCalendar
-          date={date}
-          onDateChange={onDateChange}
-          placeholder={placeholder}
-          label={label}
-          disabled={disabled}
+          onSelectDate={handleSelectDate}
+          selectedDate={selectedDate}
+          onClose={handleCloseCalendar}
+          onRevert={handleRevertDate}
         />
       </div>
-    </>
+    </div>
   );
-};
+}
 
 export default DataPicker;

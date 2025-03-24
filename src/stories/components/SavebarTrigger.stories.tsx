@@ -192,12 +192,8 @@ const Template: StoryFn<DefaultProps> = (args) => {
     }
   };
 
-  const handleDateChange = (name: string, newDate: Date) => {
-    const day = newDate.getDate().toString().padStart(2, "0");
-    const month = (newDate.getMonth() + 1).toString().padStart(2, "0");
-    const year = newDate.getFullYear().toString();
-    const formattedDate = `${day}/${month}/${year}`;
-
+  const handleDateChange = (name: string, newDate: string) => {
+    const formattedDate = newDate;
     setFormValues({
       ...formValues,
       [name]: formattedDate,
@@ -343,11 +339,8 @@ const Template: StoryFn<DefaultProps> = (args) => {
               />
               <DataPicker
                 label="Data Picker"
-                placeholder="Placeholder"
-                date={String(formValues["Input do DataPicker"])}
-                onDateChange={(value: Date) =>
-                  handleDateChange("Input do DataPicker", value)
-                }
+                value={formValues["Input do DataPicker"] ? String(formValues["Input do DataPicker"]) : ""}
+                onChange={(newDate: string) => handleDateChange("Input do DataPicker", newDate)}
               />
               <Slider
                 value={String(formValues.Slider)}

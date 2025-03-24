@@ -14,7 +14,7 @@ interface CheckboxProps {
     disabled?: boolean;
     onUpdate?: (val: any) => void;
 }
-export declare const Default: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, CheckboxProps>;
-export declare const Disabled: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, CheckboxProps>;
-export declare const Indeterminate: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, CheckboxProps>;
-export declare const NoEvents: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, CheckboxProps>;
+export declare const Default: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, CheckboxProps>;
+export declare const Disabled: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, CheckboxProps>;
+export declare const Indeterminate: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, CheckboxProps>;
+export declare const NoEvents: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, CheckboxProps>;

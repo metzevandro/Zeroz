@@ -1,114 +1,440 @@
-"use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import InputSearch from "../InputSearch/InputSearch";
-import Button from "../Button/Button";
 import Pagination from "../Pagination/Pagination";
-import InputCheckbox from "../InputCheckbox/InputCheckbox";
 import "./DataTable.scss";
-import ButtonIcon from "../ButtonIcon/ButtonIcon";
-import ButtonGroup from "../ButtonGroup/ButtonGroup";
-import EmptyState from "../EmptyState/EmptyState";
 import Icon from "../Icon/Icon";
-import Modal, { FooterModal } from "../Modal/Modal";
+import Skeleton from "../Skeleton/Skeleton";
+import EmptyState from "../EmptyState/EmptyState";
+import InputCheckbox from "../InputCheckbox/InputCheckbox";
+
+const DataTableHeader = ({
+  skeleton,
+  onSearch,
+  rowsSelected = 0,
+  textRowsSelected,
+  children,
+}: {
+  skeleton: boolean;
+  onSearch: (query: string) => void;
+  rowsSelected?: number;
+  textRowsSelected?: string;
+  children?: React.ReactNode;
+}) => {
+  const rowsSelectedCount = `${rowsSelected} ${textRowsSelected}`;
+
+  return (
+    <>
+      <div
+        className={`data-table-header-rows-selected ${rowsSelected > 0 ? "fade-in" : "fade-out"}`}
+        style={{
+          visibility: rowsSelected > 0 ? "visible" : "hidden",
+          display: rowsSelected > 0 ? "" : "none",
+        }}
+      >
+        <p
+          key={rowsSelectedCount}
+          className="textRowsSelected"
+          style={{ height: "40px", alignItems: "center", display: "flex" }}
+        >
+          {rowsSelectedCount}
+        </p>
+        <div className="data-table-header-rows-selected-buttons">
+          {children}
+        </div>
+      </div>
+      <div
+        className={`data-table-header ${rowsSelected > 0 ? "fade-out" : "fade-in"}`}
+        style={{
+          visibility: rowsSelected > 0 ? "hidden" : "visible",
+          display: rowsSelected > 0 ? "none" : "",
+        }}
+      >
+        <InputSearch
+          placeholder="Procurar"
+          disabled={skeleton}
+          onChange={(value: string) => onSearch(value)}
+        />
+      </div>
+    </>
+  );
+};
+
+const DataTableRowHeader = ({
+  headers,
+  sortStates,
+  skeleton,
+  onSort,
+  collumnWidths,
+  withCheckbox,
+  allSelected = false,
+  someSelected = false,
+  handleSelectAll,
+}: {
+  skeleton: boolean;
+  headers: string[];
+  sortStates: ("asc" | "desc" | "default")[];
+  onSort: (index: number) => void;
+  collumnWidths: number[];
+  withCheckbox: boolean;
+  allSelected: boolean;
+  someSelected: boolean;
+  handleSelectAll: (checked: boolean) => void;
+}) => {
+  return (
+    <div style={{ display: "flex", flex: "1" }}>
+      {withCheckbox && (
+        <div className="data-table-body-header-checkbox">
+          {skeleton ? (
+            <Skeleton height="24" width="24" />
+          ) : (
+            <InputCheckbox
+              indeterminate={someSelected}
+              modelValue={allSelected}
+              onUpdate={handleSelectAll}
+            />
+          )}
+        </div>
+      )}
+      {headers.map((header, index) => {
+        let icon: string;
+
+        switch (sortStates[index]) {
+          case "asc":
+            icon = "arrow_downward";
+            break;
+          case "desc":
+            icon = "arrow_upward";
+            break;
+          case "default":
+            icon = "swap_vert";
+            break;
+          default:
+            icon = "swap_vert";
+        }
+
+        return (
+          <div
+            key={header}
+            className={`data-table-row-header ${skeleton ? "loading-skeleton" : ""} ${index === 0 ? "first" : ""}`}
+            onClick={() => onSort(index)}
+            style={{ minWidth: collumnWidths[index] }}
+          >
+            {skeleton ? (
+              <Skeleton height="24" width="80" />
+            ) : (
+              <>
+                {header}
+                <Icon icon={icon} size="sm" />
+              </>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+const DataTableRowContent = ({
+  children,
+  skeleton,
+  style,
+}: {
+  children: React.ReactNode;
+  skeleton: boolean;
+  style: React.CSSProperties;
+}) => {
+  return (
+    <div className="data-table-row-content" style={style}>
+      {skeleton ? <Skeleton height="24" width="80" /> : children}
+    </div>
+  );
+};
+
+interface DataTableBodyProps {
+  withCheckbox: boolean;
+  columnWidths: number[];
+  currentPage: number;
+  currentRows: any[];
+  selectedRows: string[];
+  rowsPerPage: number;
+  skeleton: boolean;
+  onRowSelection: (id: string, checked: boolean) => void;
+  headers: string[];
+}
+
+const DataTableBody = ({
+  currentRows,
+  selectedRows,
+  skeleton,
+  onRowSelection,
+  columnWidths,
+  withCheckbox,
+  headers,
+}: DataTableBodyProps) => {
+  return (
+    <div
+      className="data-table-body-content"
+      style={{ flexDirection: "column" }}
+    >
+      {currentRows.map((row, index) => {
+        const rowId = row.id;
+
+        return (
+          <div key={rowId} className="data-table-body-content-row">
+            <div style={{ display: "flex", flex: "1" }}>
+              {withCheckbox === true && (
+                <div className="data-table-body-content-checkbox">
+                  {skeleton ? (
+                    <Skeleton height="24" width="24" />
+                  ) : (
+                    <InputCheckbox
+                      disabled={skeleton}
+                      modelValue={selectedRows.includes(rowId)}
+                      onUpdate={(checked) => onRowSelection(rowId, checked)}
+                    />
+                  )}
+                </div>
+              )}
+              {headers.map((header, index) => (
+                <div key={index} className="data-table-body-content-row">
+                  <DataTableRowContent
+                    skeleton={skeleton}
+                    style={{ minWidth: columnWidths[index] }}
+                  >
+                    {row[header]}
+                  </DataTableRowContent>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+const DataTableFooter = ({
+  currentPage,
+  totalPages,
+  disabledLeft,
+  disabledRight,
+  skeleton,
+  onClickLeft,
+  onClickRight,
+}: {
+  currentPage: number;
+  totalPages: number;
+  disabledLeft: boolean;
+  disabledRight: boolean;
+  skeleton: boolean;
+  onClickLeft: () => void;
+  onClickRight: () => void;
+}) => {
+  return (
+    <div className="data-table-footer">
+      <Pagination
+        label={`Mostrando ${totalPages === 0 ? 0 : currentPage} de ${totalPages}`}
+        variant="leftLabel"
+        onClickLeft={onClickLeft}
+        onClickRight={onClickRight}
+        disabledLeft={disabledLeft}
+        disabledRight={disabledRight}
+        skeleton={skeleton}
+      />
+    </div>
+  );
+};
+
 interface DataTableProps {
   columns: string[];
-  data: { id: string; [key: string]: any }[];
-  expandedData?: Array<{ id: string; [key: string]: React.ReactNode }>;
-  selectable?: boolean;
-  expandable?: boolean;
-  itemPerPage: number;
-  pagesText: string;
-  inputPlaceholder: string;
-  typeIconSecondButton: string;
-  labelSecondButton: string;
-  selectableLabelSecondButton: string;
-  selectableIconSecondButton: string;
-  filters?: { [key: string]: string[] };
-  asideTitle: string;
-  firstButtonLabelAside: string;
-  secondButtonLabelAside: string;
-  titleNoDataMessage: string;
-  descriptionNoDataMessage: string;
-  titleNoDataFilteredMessage: string;
-  labelButtonNoDataFilteredMessage: string;
-  descriptionNoDataFilteredMessage: string;
-  skeleton?: boolean;
+  data: any[];
+  skeleton: boolean;
+  rowsPerPage?: number;
+  withCheckbox?: boolean;
+  headerSelectedChildren?: React.ReactNode;
+  textRowsSelected?: string;
+  onSelectedRowsChange?: (selectedRows: string[]) => void;
 }
-type ColumnSorting = "asc" | "desc" | "default";
-const DataTable: React.FC<DataTableProps> = ({
-  columns,
-  data: originalData,
-  expandable,
-  selectable,
-  expandedData,
-  itemPerPage,
-  inputPlaceholder,
-  selectableLabelSecondButton,
-  labelSecondButton,
-  typeIconSecondButton,
-  titleNoDataMessage,
-  labelButtonNoDataFilteredMessage,
-  descriptionNoDataMessage,
-  selectableIconSecondButton,
-  filters,
-  titleNoDataFilteredMessage,
-  descriptionNoDataFilteredMessage,
-  pagesText,
-  skeleton,
-}) => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = itemPerPage;
-  const [filteredData, setFilteredData] =
-    useState<{ id: string; [key: string]: any }[]>(originalData);
-  const [totalPages, setTotalPages] = useState<number>(0);
-  useEffect(() => {
-    setFilteredData(originalData);
-    const totalPages = Math.ceil(originalData.length / itemsPerPage);
-    setTotalPages(totalPages);
-  }, [originalData, itemsPerPage]);
-  const label =
-    filteredData.length > 0
-      ? `${pagesText} ${currentPage} - ${totalPages}`
-      : `${pagesText} 0 - 0`;
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => {
-      const nextPage = prevPage + 1;
-      return nextPage > totalPages ? prevPage : nextPage;
-    });
-  };
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) => {
-      const newPage = prevPage - 1;
-      return newPage < 1 ? prevPage : newPage;
-    });
-  };
-  useEffect(() => {
-    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-    setTotalPages(totalPages);
-  }, [originalData, itemsPerPage, filteredData]);
-  const [originalDataState, setOriginalDataState] =
-    useState<{ id: string; [key: string]: any }[]>(originalData);
-  const [selectAll, setSelectAll] = useState<boolean>(false);
+
+export const DataTable = (props: DataTableProps) => {
+  const {
+    columns,
+    data,
+    skeleton,
+    textRowsSelected,
+    onSelectedRowsChange,
+    headerSelectedChildren,
+  } = props;
+  const withCheckbox = props.withCheckbox || false;
+  const rowsPerPage = props.rowsPerPage || 4;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortStates, setSortStates] = useState<("asc" | "desc" | "default")[]>(
+    new Array(columns.length).fill("default"),
+  );
+  const [searchQuery, setSearchQuery] = useState("");
+  const [originalData, setOriginalData] = useState<any[]>([]);
+  const [processedData, setProcessedData] = useState<any[]>([]);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [expandedRows, setExpandedRows] = useState<string[]>([]);
-  const [isAnyItemSelected, setIsAnyItemSelected] = useState<boolean>(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [contentOverflowed, setContentOverflowed] = useState<boolean>(false);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [isOpenAside, setIsOpenAside] = useState(false);
-  const [filterOptions, setFilterOptions] = useState<{
-    [key: string]: string[];
-  }>(columns.reduce((acc, column) => ({ ...acc, [column]: [] }), {}));
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const [allItemsExpanded, setAllItemsExpanded] = useState<boolean>(false);
+  const [rowsSelectedCount, setRowsSelectedCount] = useState(0);
+
   useEffect(() => {
-    setIsAnyItemSelected(selectedRows.length > 0);
-    setSelectAll(selectedRows.length === filteredData.length);
-  }, [selectedRows, filteredData]);
+    setRowsSelectedCount(selectedRows.length);
+    if (onSelectedRowsChange) {
+      onSelectedRowsChange(selectedRows);
+    }
+  }, [selectedRows, onSelectedRowsChange]);
+
+  useEffect(() => {
+    const dataWithIds = data.map((row, index) => ({
+      id: index.toString(),
+      ...row,
+    }));
+    setOriginalData(dataWithIds);
+    setProcessedData(dataWithIds);
+  }, [data]);
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    setCurrentPage(1);
+  };
+
+  const handleSort = (index: number) => {
+    const newSortStates = [...sortStates];
+    const currentState = newSortStates[index];
+
+    newSortStates[index] =
+      currentState === "default"
+        ? "asc"
+        : currentState === "asc"
+          ? "desc"
+          : "default";
+    setSortStates(newSortStates);
+  };
+
+  useEffect(() => {
+    const filterData = (data: any[], query: string) => {
+      if (!query) return data;
+
+      const startsWithQuery = data.filter((row) =>
+        columns.some((col) =>
+          row[col].toLowerCase().startsWith(query.toLowerCase()),
+        ),
+      );
+
+      const containsQuery = data.filter(
+        (row) =>
+          !startsWithQuery.includes(row) &&
+          columns.some((col) =>
+            row[col].toLowerCase().includes(query.toLowerCase()),
+          ),
+      );
+
+      return [...startsWithQuery, ...containsQuery];
+    };
+
+    const sortData = (
+      data: any[],
+      index: number,
+      order: "asc" | "desc" | "default",
+    ) => {
+      if (order === "default") return data;
+
+      const sortedRows = [...data];
+      const column = columns[index];
+      sortedRows.sort((a, b) => {
+        const valueA = a[column];
+        const valueB = b[column];
+
+        if (order === "asc")
+          return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
+        return valueA > valueB ? -1 : valueA < valueB ? 1 : 0;
+      });
+
+      return sortedRows;
+    };
+
+    let updatedData = filterData(originalData, searchQuery);
+
+    sortStates.forEach((state, index) => {
+      if (state !== "default") {
+        updatedData = sortData(updatedData, index, state);
+      }
+    });
+
+    setProcessedData(updatedData);
+  }, [originalData, searchQuery, sortStates]);
+
+  const currentRows = processedData.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage,
+  );
+
+  const totalPages = Math.ceil(processedData.length / rowsPerPage);
+
+  const allSelected = processedData.every((row) =>
+    selectedRows.includes(row.id),
+  );
+  const someSelected =
+    processedData.some((row) => selectedRows.includes(row.id)) && !allSelected;
+
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      const allIds = processedData.map((row) => row.id);
+      setSelectedRows(allIds);
+    } else {
+      setSelectedRows([]);
+    }
+  };
+
+  const handleRowSelection = (id: string, checked: boolean) => {
+    if (checked) {
+      setSelectedRows((prevSelectedRows) => [...prevSelectedRows, id]);
+    } else {
+      setSelectedRows((prevSelectedRows) =>
+        prevSelectedRows.filter((rowId) => rowId !== id),
+      );
+    }
+  };
+
+  const [columnWidths, setColumnWidths] = useState<number[]>([]);
+
+  const calculateColumnWidths = () => {
+    const tempWidths = columns.map((header, colIndex) => {
+      const allCells = originalData.map((row) => row[header]);
+
+      const measureWidth = (text: string) => {
+        const tempSpan = document.createElement("span");
+
+        tempSpan.textContent = text;
+
+        document.body.appendChild(tempSpan);
+        const width = tempSpan.getBoundingClientRect().width;
+        document.body.removeChild(tempSpan);
+
+        return width;
+      };
+
+      const headerWidth = measureWidth(header);
+      const maxCellWidth = Math.max(
+        ...allCells.map((cell) => measureWidth(cell)),
+      );
+
+      return Math.max(headerWidth, maxCellWidth) + 50;
+    });
+
+    setColumnWidths(tempWidths);
+  };
+
+  useEffect(() => {
+    calculateColumnWidths();
+  }, [originalData, columns]);
+
+  const ref = useRef<HTMLDivElement>(null);
+  const [contentOverflowed, setContentOverflowed] = useState<boolean>(false);
+
   useEffect(() => {
     const checkOverflow = () => {
-      const contentElement = contentRef.current;
+      const contentElement = ref.current;
       if (contentElement) {
         setContentOverflowed(
           contentElement.scrollWidth > contentElement.clientWidth,
@@ -118,7 +444,7 @@ const DataTable: React.FC<DataTableProps> = ({
     const resizeObserver = new ResizeObserver(() => {
       checkOverflow();
     });
-    const contentElement = contentRef.current;
+    const contentElement = ref.current;
     if (contentElement) {
       resizeObserver.observe(contentElement);
       checkOverflow();
@@ -129,516 +455,88 @@ const DataTable: React.FC<DataTableProps> = ({
       }
     };
   }, []);
-  const toggleSelectAll = () => {
-    const allIds = filteredData.map((item) => item.id);
-    if (isAllSelected()) {
-      setSelectAll(false);
-      setSelectedRows([]);
-    } else {
-      setSelectAll(true);
-      setSelectedRows(allIds);
-    }
-  };
-  const isAllSelected = () => {
-    const allIds = filteredData.map((item) => item.id);
-    return selectedRows.length === allIds.length;
-  };
-  const toggleSelectRow = (rowId: string) => {
-    if (selectedRows.includes(rowId)) {
-      setSelectedRows(selectedRows.filter((id) => id !== rowId));
-      setSelectAll(false);
-    } else {
-      setSelectedRows([...selectedRows, rowId]);
-      if (isAllSelected()) {
-        setSelectAll(true);
-      }
-    }
-  };
-  const isIndeterminate =
-    selectedRows.length > 0 &&
-    selectedRows.length < filteredData.length &&
-    !selectAll;
-  function calculateGridTemplate(
-    selectable: boolean = false,
-    expandable: boolean = false,
-  ) {
-    if (selectable && expandable) {
-      return {
-        gridTemplateColumns: "56px 56px repeat(auto-fit, minmax(120px, 1fr))",
-      };
-    } else if (selectable || expandable) {
-      return {
-        gridTemplateColumns: "56px repeat(auto-fit, minmax(120px, 1fr))",
-      };
-    } else {
-      return {};
-    }
-  }
-  function calculateLeft(
-    selectable: boolean = false,
-    expandable: boolean = false,
-  ) {
-    if (selectable && expandable) {
-      return {
-        left: "112px",
-      };
-    } else if (selectable || expandable) {
-      return {
-        left: "56px",
-      };
-    } else {
-      return {
-        left: "0px",
-      };
-    }
-  }
-  function calculateLeftToCheckBox(expandable: boolean = false) {
-    if (expandable) {
-      return {
-        left: "56px",
-      };
-    } else {
-      return {
-        left: "0px",
-      };
-    }
-  }
+
+  const [height, setHeight] = useState<number | undefined>(undefined);
+
   useEffect(() => {
-    setIsAnyItemSelected(selectedRows.length > 0);
-  }, [selectedRows]);
-  const toggleAside = () => {
-    setIsOpenAside(!isOpenAside);
-  };
-  const [isOpen, setIsOpen] = useState(false);
-  const removeRow = () => {
-    const updatedOriginalData = originalDataState.filter(
-      (item) => !selectedRows.includes(item.id),
-    );
-    const updatedFilteredData = filteredData.filter(
-      (item) => !selectedRows.includes(item.id),
-    );
-    setFilteredData(updatedFilteredData);
-    setSelectedRows([]);
-    setIsOpen(false);
-    // Atualiza os dados originais sem as linhas removidas
-    setOriginalDataState(updatedOriginalData);
-  };
-  const toggleModal = () => {
-    setIsOpen((prevIsOpen) => !prevIsOpen);
-  };
-  const exportSelectedRowsAsCSV = () => {
-    // Filter selected rows from the original data
-    const selectedData = originalData.filter((row) =>
-      selectedRows.includes(row.id),
-    );
-    // Extract column names
-    const columnNames = columns;
-    // Create the CSV content
-    const csvContent = selectedData
-      .map((row) => {
-        return columnNames.map((column) => row[column]).join(",");
-      })
-      .join("\n");
-    // Add column names as the header
-    const csvData = columnNames.join(",") + "\n" + csvContent;
-    // Create a blob with the CSV data
-    const csvBlob = new Blob([csvData], {
-      type: "text/csv",
-    });
-    // Create a temporary URL for downloading
-    const csvURL = window.URL.createObjectURL(csvBlob);
-    // Create an anchor element for initiating the download
-    const downloadLink = document.createElement("a");
-    downloadLink.href = csvURL;
-    downloadLink.download = "selected_data.csv";
-    // Simulate a click to trigger the download
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    // Clean up by removing the temporary URL and anchor element
-    window.URL.revokeObjectURL(csvURL);
-  };
-  const renderHeader = () => {
-    if (isAnyItemSelected) {
-      return (
-        <>
-          <Modal
-            footer={
-              <FooterModal>
-                <div style={{ width: "min-content" }}>
-                  <ButtonGroup
-                    contentFirstButton="Delete"
-                    contentSecondButton="Cancel"
-                    direction="row"
-                    variantFirstButton="warning"
-                    variantSecondButton="secondary"
-                    onClickFirstButton={removeRow}
-                    onClickSecondButton={toggleModal}
-                  />
-                </div>
-              </FooterModal>
-            }
-            description="Are you sure that you want delete this row?"
-            dismissible={true}
-            title="Delete"
-            isOpen={isOpen}
-            hideModal={toggleModal}
-          />
-          <div className="data-table-header-selected-items">
-            <div className="data-table-header-selected-items-message">
-              <p>{`${selectedRows.length} item${
-                selectedRows.length >= 2 ? "s" : ""
-              } selected`}</p>
-            </div>
-            <div className="data-table-header-selected-items-buttons">
-              <Button
-                size="md"
-                variant="secondary"
-                label="Export"
-                onClick={exportSelectedRowsAsCSV}
-                typeIcon="download"
-              />
-              <Button
-                size="md"
-                variant="secondary"
-                label={selectableLabelSecondButton}
-                onClick={toggleModal}
-                typeIcon={selectableIconSecondButton}
-              />
-            </div>
-          </div>
-        </>
-      );
-    } else {
-    }
-    return (
-      <div className="data-table-header">
-        <InputSearch
-          placeholder={inputPlaceholder}
-          onChange={handleSearchChange}
-        />
-        {filters && (
-          <div className="data-table-header-actions">
-            <div style={{ width: "100%" }}>
-              <Button
-                variant="secondary"
-                typeIcon={typeIconSecondButton}
-                size="md"
-                label={labelSecondButton}
-                onClick={toggleAside}
-              />
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  };
-  const handleExpandRow = (rowId: string) => {
-    if (expandedRows.includes(rowId)) {
-      setExpandedRows(expandedRows.filter((id) => id !== rowId));
-      setAllItemsExpanded(false);
-    } else {
-      setExpandedRows([...expandedRows, rowId]);
-      if (expandedRows.length + 1 === filteredData.length) {
-        setAllItemsExpanded(true);
+    const timeoutId = setTimeout(() => {
+      if (ref.current) {
+        setHeight(ref.current.clientHeight);
       }
-    }
-  };
-  const toggleExpandAllRows = () => {
-    if (allItemsExpanded) {
-      setExpandedRows([]);
-      setAllItemsExpanded(false);
-    } else {
-      const allIds = filteredData.map((item) => item.id);
-      setExpandedRows(allIds);
-      setAllItemsExpanded(true);
-    }
-  };
-  const handleSearchChange = (value: string) => {
-    setSearchTerm(value);
-    let searchedData = [...originalData];
-    if (value.trim() !== "") {
-      searchedData = searchedData.filter((item) => {
-        return Object.values(item).some((val) =>
-          typeof val === "string" ? val.includes(value) : false,
-        );
-      });
-    }
-    Object.entries(filterOptions).forEach(([columnName, selectedValues]) => {
-      if (selectedValues.length > 0) {
-        searchedData = searchedData.filter((item) =>
-          selectedValues.includes(String(item[columnName])),
-        );
-      }
-    });
-    setFilteredData(searchedData);
-  };
-  interface SortConfig {
-    [column: string]: ColumnSorting;
-  }
+    }, 0);
+    return () => clearTimeout(timeoutId);
+  }, []);
 
-  const DEFAULT_SORT_STATE: ColumnSorting = "default";
-
-  const initialSortConfig: SortConfig = columns.reduce(
-    (acc, column) => ({ ...acc, [column]: DEFAULT_SORT_STATE }),
-    {},
-  );
-
-  const [sortConfig, setSortConfig] = useState<SortConfig>(initialSortConfig);
-
-  const handleSort = (column: string) => {
-    const currentSortState = sortConfig[column];
-    let nextSortState: ColumnSorting;
-    if (currentSortState === "asc") {
-      nextSortState = "desc";
-    } else if (currentSortState === "desc") {
-      nextSortState = "default";
-    } else {
-      nextSortState = "asc";
-    }
-    const updatedSortConfig: SortConfig = {
-      ...initialSortConfig,
-      [column]: nextSortState,
-    };
-    setSortConfig(updatedSortConfig);
-    let sortedData = [...filteredData];
-    if (nextSortState !== "default") {
-      sortedData = sortedData.sort((a, b) => {
-        if (nextSortState === "asc") {
-          return a[column] > b[column] ? 1 : -1;
-        } else if (nextSortState === "desc") {
-          return a[column] < b[column] ? 1 : -1;
-        }
-        return 0;
-      });
-    } else {
-      if (Object.values(filterOptions).some((options) => options.length > 0)) {
-        let filteredOriginalData = [...originalDataState];
-        Object.entries(filterOptions).forEach(
-          ([filterColumn, selectedValues]) => {
-            if (selectedValues.length > 0) {
-              filteredOriginalData = filteredOriginalData.filter((item) =>
-                selectedValues.includes(String(item[filterColumn])),
-              );
-            }
-          },
-        );
-        sortedData = filteredOriginalData.sort((a, b) => {
-          if (a[column] > b[column]) return 1;
-          if (a[column] < b[column]) return -1;
-          return 0;
-        });
-      } else {
-        sortedData = [...originalDataState];
-      }
-    }
-    setFilteredData(sortedData);
-  };
-  useEffect(() => {
-    const defaultSortConfig: SortConfig = columns.reduce(
-      (acc, column) => ({ ...acc, [column]: DEFAULT_SORT_STATE }),
-      {},
-    );
-    setSortConfig(defaultSortConfig);
-  }, [filterOptions]);
-  const handleClearFilters = () => {
-    const updatedFilteredData = [...originalData];
-    const updatedFilterOptions = columns.reduce(
-      (acc, column) => ({ ...acc, [column]: [] }),
-      {},
-    );
-    setFilteredData(updatedFilteredData);
-    setFilterOptions(updatedFilterOptions);
-    setSearchTerm("");
-  };
-  const renderNoDataMessage = () => {
-    return (
-      <div className="render-no-data-message">
-        <EmptyState
-          icon="search_off"
-          title={titleNoDataMessage}
-          description={descriptionNoDataMessage}
-        />
-      </div>
-    );
-  };
-  const renderNoDataFilteredMessage = () => (
-    <div className="render-no-data-message">
-      <EmptyState
-        icon="search_off"
-        title={titleNoDataFilteredMessage}
-        description={descriptionNoDataFilteredMessage}
-        buttonContentPrimary={labelButtonNoDataFilteredMessage}
-        onClickActionPrimary={handleClearFilters}
-      />
-    </div>
-  );
-  const hasSelectedFilters = Object.values(filterOptions).some(
-    (options) => options.length > 0,
-  );
   return (
     <>
-      <div className="data-table-root">
-        {renderHeader()}
+      <div className="data-table">
+        <DataTableHeader
+          textRowsSelected={textRowsSelected}
+          children={headerSelectedChildren}
+          skeleton={skeleton}
+          onSearch={handleSearch}
+          rowsSelected={rowsSelectedCount}
+        />
         <div
-          ref={contentRef}
-          className={`data-table-content ${
-            contentOverflowed ? "overflowed" : ""
-          }`}
+          className={`data-table-body ${contentOverflowed ? "overflowed" : ""}`}
+          ref={ref}
+          style={{ height: height }}
         >
-          {filteredData.length > 0 ? (
-            <>
-              <div
-                className="data-table-content-header"
-                style={calculateGridTemplate(selectable, expandable)}
-              >
-                {expandable && (
-                  <div
-                    className={`data-table-content-header-expandable ${
-                      allItemsExpanded ? "up" : "down"
-                    }`}
-                  >
-                    <ButtonIcon
-                      size="md"
-                      buttonType="plain"
-                      typeIcon="keyboard_arrow_down"
-                      variant="primary"
-                      onClick={toggleExpandAllRows}
-                    />
-                  </div>
-                )}
-                {selectable && (
-                  <div
-                    className="data-table-content-header-checkbox"
-                    style={calculateLeftToCheckBox(expandable)}
-                  >
-                    <InputCheckbox
-                      modelValue={selectAll}
-                      onUpdate={toggleSelectAll}
-                      indeterminate={isIndeterminate}
-                    />
-                  </div>
-                )}
-                {columns.map((column, columnIndex) => (
-                  <div
-                    className={`th ${
-                      columnIndex === 0 ? "sticky-first-column" : ""
-                    }`}
-                    style={calculateLeft(selectable, expandable)}
-                    key={columnIndex}
-                    onClick={() => handleSort(column)}
-                  >
-                    {column}
-                    <div className="icon">
-                      {sortConfig[column] === "asc" ? (
-                        <Icon icon="arrow_upward" size="sm" />
-                      ) : sortConfig[column] === "desc" ? (
-                        <Icon icon="arrow_downward" size="sm" />
-                      ) : (
-                        <Icon icon="swap_vert" size="sm" />
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {filteredData
-                .slice(indexOfFirstItem, indexOfLastItem)
-                .map((row) => (
-                  <div className="data-table-wrapper" key={row.id}>
-                    <div
-                      className="data-table-content-body"
-                      style={calculateGridTemplate(selectable, expandable)}
-                      key={row.id}
-                    >
-                      {expandable && (
-                        <div
-                          className={`data-table-content-body-expandable ${
-                            expandedRows.includes(row.id) ? "up" : "down"
-                          }`}
-                          key={`expandable-${row.id}`}
-                        >
-                          <ButtonIcon
-                            size="md"
-                            buttonType="plain"
-                            typeIcon="keyboard_arrow_down"
-                            variant="primary"
-                            onClick={() => handleExpandRow(row.id)}
-                          />
-                        </div>
-                      )}
-                      {selectable && (
-                        <div
-                          className="data-table-content-body-checkbox"
-                          style={calculateLeftToCheckBox(expandable)}
-                          key={`checkbox-${row.id}`}
-                        >
-                          <InputCheckbox
-                            modelValue={selectedRows.includes(row.id)}
-                            onUpdate={() => toggleSelectRow(row.id)}
-                          />
-                        </div>
-                      )}
-                      {columns.map((_, columnIndex) => (
-                        <div
-                          key={`column-${row.id}-${columnIndex}`}
-                          className={`fixed ${
-                            columnIndex === 0 ? "sticky-first-column" : ""
-                          }`}
-                          style={calculateLeft(selectable, expandable)}
-                        >
-                          <div key={`cell-${row.id}-${columnIndex}`}>
-                            <div
-                              className="td"
-                              key={`td-${row.id}-${columnIndex}`}
-                            >
-                              {row[columns[columnIndex]]}
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    {expandedRows.includes(row.id) && expandedData && (
-                      <div className="data-table-content-expandable">
-                        <div className="space-expanded-content" />
-                        <div className="expanded-content">
-                          {expandedData
-                            .filter(
-                              (expandedItem) => expandedItem.id === row.id,
-                            )
-                            .map((expandedItem) => (
-                              <div key={`expandedItem-${expandedItem.id}`}>
-                                {Object.keys(expandedItem)
-                                  .filter((key) => key !== "id")
-                                  .map((key) => (
-                                    <div
-                                      key={`expandedKey-${expandedItem.id}-${key}`}
-                                    >
-                                      {expandedItem[key]}
-                                    </div>
-                                  ))}
-                              </div>
-                            ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-            </>
-          ) : hasSelectedFilters || searchTerm ? (
-            renderNoDataFilteredMessage()
+          <div className="data-table-body-header">
+            <DataTableRowHeader
+              collumnWidths={columnWidths}
+              headers={columns}
+              skeleton={skeleton}
+              sortStates={sortStates}
+              onSort={handleSort}
+              withCheckbox={withCheckbox}
+              allSelected={allSelected}
+              someSelected={someSelected}
+              handleSelectAll={handleSelectAll}
+            />
+          </div>
+          {currentRows.length === 0 ? (
+            <div className="data-table-body-empty">
+              <EmptyState
+                title="Nenhum resultado encontrado"
+                description="Tente ajustar ou revisar os termos de pesquisa para encontrar o que procura."
+                icon="search_off"
+              />
+            </div>
           ) : (
-            renderNoDataMessage()
+            <DataTableBody
+              withCheckbox={withCheckbox}
+              columnWidths={columnWidths}
+              currentPage={currentPage}
+              currentRows={currentRows}
+              selectedRows={selectedRows}
+              rowsPerPage={rowsPerPage}
+              skeleton={skeleton}
+              onRowSelection={handleRowSelection}
+              headers={columns}
+            />
           )}
         </div>
-        <div className="data-table-footer">
-          <Pagination
-            label={label}
-            variant="leftLabel"
-            onClickRight={handleNextPage}
-            onClickLeft={handlePrevPage}
-          />
-        </div>
+        <DataTableFooter
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onClickLeft={() => {
+            if (currentPage > 1) {
+              setCurrentPage(currentPage - 1);
+            }
+          }}
+          onClickRight={() => {
+            if (currentPage < totalPages) {
+              setCurrentPage(currentPage + 1);
+            }
+          }}
+          disabledLeft={currentPage === 1 || currentRows.length === 0}
+          disabledRight={currentPage === totalPages || currentRows.length === 0}
+          skeleton={skeleton}
+        />
       </div>
     </>
   );
 };
+
 export default DataTable;

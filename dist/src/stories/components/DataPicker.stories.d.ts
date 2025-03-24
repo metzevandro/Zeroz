@@ -1,14 +1,13 @@
 import type { Meta } from "@storybook/react";
 import "../../styles.scss";
-import DataPicker from "../../components/DataPicker/DataPicker";
-declare const meta: Meta<typeof DataPicker>;
+import "../colors/Colors.scss";
+declare const meta: Meta;
 export default meta;
-type Args = {
-    date: string;
+type DefaultProps = {
+    value: string;
     label: string;
-    placeholder: string;
     disabled: boolean;
-    onDateChange: (date: Date) => void;
+    skeleton: boolean;
+    onChange: (value: string) => void;
 };
-export declare const Default: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
-export declare const Disable: import("@storybook/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
+export declare const Default: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;

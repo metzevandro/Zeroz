@@ -193,7 +193,7 @@ export const Colors: React.FC<ColorsProps> = () => {
                 <Image
                   src="/ZeroZ.png"
                   alt="ZeroZ Theme"
-                  style={{ width: "100%" }}
+                  style={{ width: "100%", flex: 1 }}
                 />
               </CardContent>
             }
@@ -206,7 +206,7 @@ export const Colors: React.FC<ColorsProps> = () => {
                 <Image
                   src="/WhiteLabel.png"
                   alt="WhiteLabel Theme"
-                  style={{ width: "100%" }}
+                  style={{ width: "100%", flex: 1 }}
                 />
               </CardContent>
             }

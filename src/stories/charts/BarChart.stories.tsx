@@ -147,8 +147,8 @@ type DefaultProps = {
 };
 
 const lineStyles = {
-  desktop: { color: "var(--s-color-fill-warning)" },
-  mobile: { color: "var(--s-color-fill-success)" },
+  desktop: { color: "var(--s-color-chart-3)" },
+  mobile: { color: "var(--s-color-chart-4)" },
 };
 
 const data = [
