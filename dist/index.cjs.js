@@ -464,7 +464,7 @@ function DataPickerCalendar(_a) {
     var currentRealYear = new Date().getFullYear();
     return (React.createElement("div", { className: "data-picker-calendar" },
         React.createElement("div", { className: "data-picker-header" },
-            React.createElement("button", { onClick: toggleModalMonthAndYears, className: "data-picker-header-date ".concat(openModalMonthAndYears ? "open" : "") }, "".concat(monthNames[month], " ").concat(year),
+            React.createElement("div", { onClick: toggleModalMonthAndYears, className: "data-picker-header-date ".concat(openModalMonthAndYears ? "open" : "") }, "".concat(monthNames[month], " ").concat(year),
                 " ",
                 React.createElement(ButtonIcon, { buttonType: "plain", variant: "secondary", typeIcon: "keyboard_arrow_right", size: "sm" })),
             React.createElement("div", { className: "data-picker-header-buttons ".concat(openModalMonthAndYears ? "hidden" : "") },
@@ -932,7 +932,7 @@ var DataTable = function (props) {
             }
         };
     }, []);
-    var _k = React.useState(undefined), height = _k[0], setHeight = _k[1];
+    var _k = React.useState(undefined); _k[0]; var setHeight = _k[1];
     React.useEffect(function () {
         var timeoutId = setTimeout(function () {
             if (ref.current) {
@@ -944,7 +944,7 @@ var DataTable = function (props) {
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { className: "data-table" },
             React.createElement(DataTableHeader, { textRowsSelected: textRowsSelected, children: headerSelectedChildren, skeleton: skeleton, onSearch: handleSearch, rowsSelected: rowsSelectedCount }),
-            React.createElement("div", { className: "data-table-body ".concat(contentOverflowed ? "overflowed" : ""), ref: ref, style: { height: height } },
+            React.createElement("div", { className: "data-table-body ".concat(contentOverflowed ? "overflowed" : ""), ref: ref },
                 React.createElement("div", { className: "data-table-body-header" },
                     React.createElement(DataTableRowHeader, { collumnWidths: columnWidths, headers: columns, skeleton: skeleton, sortStates: sortStates, onSort: handleSort, withCheckbox: withCheckbox, allSelected: allSelected, someSelected: someSelected, handleSelectAll: handleSelectAll })),
                 currentRows.length === 0 ? (React.createElement("div", { className: "data-table-body-empty" },
