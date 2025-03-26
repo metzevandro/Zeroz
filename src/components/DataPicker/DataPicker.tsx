@@ -173,7 +173,7 @@ function DataPickerCalendar({
   return (
     <div className="data-picker-calendar">
       <div className="data-picker-header">
-        <button
+        <div
           onClick={toggleModalMonthAndYears}
           className={`data-picker-header-date ${openModalMonthAndYears ? "open" : ""}`}
         >
@@ -184,7 +184,7 @@ function DataPickerCalendar({
             typeIcon="keyboard_arrow_right"
             size="sm"
           />
-        </button>
+        </div>
         <div
           className={`data-picker-header-buttons ${openModalMonthAndYears ? "hidden" : ""}`}
         >
@@ -464,9 +464,7 @@ function DataPicker({
         fillIcon
         disabled={disabled}
         skeleton={skeleton}
-      />
-
-      
+      />      
       <div className={`data-picker ${openCalendar ? "open" : ""}`}>
         <DataPickerCalendar
           onSelectDate={handleSelectDate}

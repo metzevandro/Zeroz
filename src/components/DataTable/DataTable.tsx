@@ -480,7 +480,6 @@ export const DataTable = (props: DataTableProps) => {
         <div
           className={`data-table-body ${contentOverflowed ? "overflowed" : ""}`}
           ref={ref}
-          style={{ height: height }}
         >
           <div className="data-table-body-header">
             <DataTableRowHeader
