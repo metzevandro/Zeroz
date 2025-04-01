@@ -58,9 +58,9 @@ export default function BarChart(props: BarChartProps) {
     }, 1500);
 
     return () => clearInterval(interval);
-  }, [skeleton]);
+  }, []);
 
-  if (!displayData || displayData.length === 0) {
+  if (skeleton || (!displayData || displayData.length === 0)) {
     return null;
   }
 

@@ -74,7 +74,13 @@ export default function LineChart(props: LineChartProps) {
     }, 1500);
 
     return () => clearInterval(interval);
-  }, [skeleton]);
+  }, []);
+
+  useEffect(() => {
+    if (!skeleton) {
+      setRandomData(data);
+    }
+  }, [skeleton, data]);
 
   if (!displayData || displayData.length === 0) {
     return null;

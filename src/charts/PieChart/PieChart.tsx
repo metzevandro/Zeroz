@@ -182,22 +182,22 @@ export default function PieChart({
         strokeWidth={1}
       >
         {skeleton ? (
-          <Cell
-            fill="var(--s-color-fill-default-light)"
-            stroke="var(--s-color-fill-default-light)"
-          />
+          randomData.map((entry, index) => (
+            <Cell
+              key={`skeleton-cell-${index}`}
+              fill={entry.fill}
+            />
+          ))
         ) : (
-          <>
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={entry.fill || defaultColors[index % defaultColors.length]}
-                stroke={
-                  entry.fill || defaultColors[index % defaultColors.length]
-                }
-              />
-            ))}
-          </>
+          data.map((entry, index) => (
+            <Cell
+              key={`cell-${index}`}
+              fill={entry.fill || defaultColors[index % defaultColors.length]}
+              stroke={
+                entry.fill || defaultColors[index % defaultColors.length]
+              }
+            />
+          ))
         )}
 
         {renderLabel(skeleton)}

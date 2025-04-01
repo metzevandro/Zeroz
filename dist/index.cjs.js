@@ -30018,8 +30018,8 @@ function BarChart(props) {
             setRandomData(generateData());
         }, 1500);
         return function () { return clearInterval(interval); };
-    }, [skeleton]);
-    if (!displayData || displayData.length === 0) {
+    }, []);
+    if (skeleton || (!displayData || displayData.length === 0)) {
         return null;
     }
     var keys = Object.keys(displayData[0]).filter(function (key) { return key !== "month"; });
@@ -30078,7 +30078,12 @@ function LineChart(props) {
             setRandomData(generateData());
         }, 1500);
         return function () { return clearInterval(interval); };
-    }, [skeleton]);
+    }, []);
+    React.useEffect(function () {
+        if (!skeleton) {
+            setRandomData(data);
+        }
+    }, [skeleton, data]);
     if (!displayData || displayData.length === 0) {
         return null;
     }
@@ -30182,7 +30187,7 @@ function PieChart(_a) {
         renderTooltip(),
         renderLegend(),
         React.createElement(Pie, { data: skeleton ? randomData : data, dataKey: dataKey, nameKey: nameKey, innerRadius: skeleton ? 0 : type === "donut" ? innerRadius : 0, outerRadius: outerRadius, strokeWidth: 1 },
-            skeleton ? (React.createElement(Cell, { fill: "var(--s-color-fill-default-light)", stroke: "var(--s-color-fill-default-light)" })) : (React.createElement(React.Fragment, null, data.map(function (entry, index) { return (React.createElement(Cell, { key: "cell-".concat(index), fill: entry.fill || defaultColors[index % defaultColors.length], stroke: entry.fill || defaultColors[index % defaultColors.length] })); }))),
+            skeleton ? (randomData.map(function (entry, index) { return (React.createElement(Cell, { key: "skeleton-cell-".concat(index), fill: entry.fill })); })) : (data.map(function (entry, index) { return (React.createElement(Cell, { key: "cell-".concat(index), fill: entry.fill || defaultColors[index % defaultColors.length], stroke: entry.fill || defaultColors[index % defaultColors.length] })); })),
             renderLabel(skeleton))));
 }
 
