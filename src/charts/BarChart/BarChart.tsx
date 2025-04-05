@@ -60,7 +60,7 @@ export default function BarChart(props: BarChartProps) {
     return () => clearInterval(interval);
   }, []);
 
-  if (skeleton || (!displayData || displayData.length === 0)) {
+  if (!skeleton && (!displayData || displayData.length === 0)) {
     return null;
   }
 

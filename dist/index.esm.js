@@ -30017,7 +30017,7 @@ function BarChart(props) {
         }, 1500);
         return function () { return clearInterval(interval); };
     }, []);
-    if (skeleton || (!displayData || displayData.length === 0)) {
+    if (!skeleton && (!displayData || displayData.length === 0)) {
         return null;
     }
     var keys = Object.keys(displayData[0]).filter(function (key) { return key !== "month"; });
@@ -30065,7 +30065,7 @@ function LineChart(props) {
     useEffect(function () {
         var generateData = function () {
             return Array.from({ length: 10 }, function (_, index) { return ({
-                month: "Month ".concat(index + 1),
+                month: "",
                 value1: Math.floor(Math.random() * 100),
                 value2: Math.floor(Math.random() * 100),
             }); });

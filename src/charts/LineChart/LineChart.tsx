@@ -61,7 +61,7 @@ export default function LineChart(props: LineChartProps) {
   useEffect(() => {
     const generateData = () =>
       Array.from({ length: 10 }, (_, index) => ({
-        month: `Month ${index + 1}`,
+        month: ``,
         value1: Math.floor(Math.random() * 100),
         value2: Math.floor(Math.random() * 100),
       }));
