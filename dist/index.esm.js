@@ -937,23 +937,16 @@ var DataTable = function (props) {
             }
         };
     }, []);
-    var _k = useState(undefined); _k[0]; var setHeight = _k[1];
-    useEffect(function () {
-        var timeoutId = setTimeout(function () {
-            if (ref.current) {
-                setHeight(ref.current.clientHeight);
-            }
-        }, 0);
-        return function () { return clearTimeout(timeoutId); };
-    }, []);
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { className: "data-table" },
             React.createElement(DataTableHeader, { textRowsSelected: textRowsSelected, children: headerSelectedChildren, skeleton: skeleton, onSearch: handleSearch, rowsSelected: rowsSelectedCount }),
             React.createElement("div", { className: "data-table-body ".concat(contentOverflowed ? "overflowed" : ""), ref: ref, style: { height: (rowsPerPage * 56.8) + 41.6 } },
                 React.createElement("div", { className: "data-table-body-header" },
                     React.createElement(DataTableRowHeader, { collumnWidths: columnWidths, headers: columns, skeleton: skeleton, sortStates: sortStates, onSort: handleSort, withCheckbox: withCheckbox, allSelected: allSelected, someSelected: someSelected, handleSelectAll: handleSelectAll })),
-                currentRows.length === 0 ? (React.createElement("div", { className: "data-table-body-empty" },
-                    React.createElement(EmptyState, { title: "Nenhum resultado encontrado", description: "Tente ajustar ou revisar os termos de pesquisa para encontrar o que procura.", icon: "search_off" }))) : (React.createElement(DataTableBody, { withCheckbox: withCheckbox, columnWidths: columnWidths, currentPage: currentPage, currentRows: currentRows, selectedRows: selectedRows, rowsPerPage: rowsPerPage, skeleton: skeleton, onRowSelection: handleRowSelection, headers: columns }))),
+                currentRows.length === 0 && !skeleton ? (React.createElement("div", { className: "data-table-body-empty" },
+                    React.createElement(EmptyState, { title: "Nenhum resultado encontrado", description: searchQuery
+                            ? "Nenhum resultado encontrado para sua pesquisa. Tente ajustar os termos."
+                            : "Tente ajustar ou revisar os termos de pesquisa para encontrar o que procura.", icon: "search_off" }))) : (React.createElement(DataTableBody, { withCheckbox: withCheckbox, columnWidths: columnWidths, currentPage: currentPage, currentRows: currentRows, selectedRows: selectedRows, rowsPerPage: rowsPerPage, skeleton: skeleton, onRowSelection: handleRowSelection, headers: columns }))),
             React.createElement(DataTableFooter, { currentPage: currentPage, totalPages: totalPages, onClickLeft: function () {
                     if (currentPage > 1) {
                         setCurrentPage(currentPage - 1);

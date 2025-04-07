@@ -468,17 +468,6 @@ export const DataTable = (props: DataTableProps) => {
     };
   }, []);
 
-  const [height, setHeight] = useState<number | undefined>(undefined);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (ref.current) {
-        setHeight(ref.current.clientHeight);
-      }
-    }, 0);
-    return () => clearTimeout(timeoutId);
-  }, []);
-
   return (
     <>
       <div className="data-table">
@@ -507,11 +496,15 @@ export const DataTable = (props: DataTableProps) => {
               handleSelectAll={handleSelectAll}
             />
           </div>
-          {currentRows.length === 0 ? (
+          {currentRows.length === 0 && !skeleton ? (
             <div className="data-table-body-empty">
               <EmptyState
                 title="Nenhum resultado encontrado"
-                description="Tente ajustar ou revisar os termos de pesquisa para encontrar o que procura."
+                description={
+                  searchQuery
+                    ? "Nenhum resultado encontrado para sua pesquisa. Tente ajustar os termos."
+                    : "Tente ajustar ou revisar os termos de pesquisa para encontrar o que procura."
+                }
                 icon="search_off"
               />
             </div>
