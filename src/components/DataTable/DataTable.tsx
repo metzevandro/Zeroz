@@ -171,12 +171,24 @@ const DataTableBody = ({
   withCheckbox,
   headers,
 }: DataTableBodyProps) => {
+  const generateRandomSkeletonData = () => {
+    return Array.from({ length: 5 }).map((_, rowIndex) => ({
+      id: `skeleton-${rowIndex}`,
+      ...headers.reduce((acc, header) => {
+        acc[header] = Math.random().toString(36).substring(2, 8);
+        return acc;
+      }, {} as Record<string, string>),
+    }));
+  };
+
+  const skeletonRows = generateRandomSkeletonData();
+
   return (
     <div
       className="data-table-body-content"
       style={{ flexDirection: "column" }}
     >
-      {currentRows.map((row, index) => {
+      {(skeleton ? skeletonRows : currentRows).map((row, index) => {
         const rowId = row.id;
 
         return (
@@ -480,6 +492,7 @@ export const DataTable = (props: DataTableProps) => {
         <div
           className={`data-table-body ${contentOverflowed ? "overflowed" : ""}`}
           ref={ref}
+          style={{height: (rowsPerPage * 56.8) + 41.6}}
         >
           <div className="data-table-body-header">
             <DataTableRowHeader

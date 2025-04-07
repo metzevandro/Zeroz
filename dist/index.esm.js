@@ -771,7 +771,14 @@ var DataTableRowContent = function (_a) {
 };
 var DataTableBody = function (_a) {
     var currentRows = _a.currentRows, selectedRows = _a.selectedRows, skeleton = _a.skeleton, onRowSelection = _a.onRowSelection, columnWidths = _a.columnWidths, withCheckbox = _a.withCheckbox, headers = _a.headers;
-    return (React.createElement("div", { className: "data-table-body-content", style: { flexDirection: "column" } }, currentRows.map(function (row, index) {
+    var generateRandomSkeletonData = function () {
+        return Array.from({ length: 5 }).map(function (_, rowIndex) { return (__assign({ id: "skeleton-".concat(rowIndex) }, headers.reduce(function (acc, header) {
+            acc[header] = Math.random().toString(36).substring(2, 8);
+            return acc;
+        }, {}))); });
+    };
+    var skeletonRows = generateRandomSkeletonData();
+    return (React.createElement("div", { className: "data-table-body-content", style: { flexDirection: "column" } }, (skeleton ? skeletonRows : currentRows).map(function (row, index) {
         var rowId = row.id;
         return (React.createElement("div", { key: rowId, className: "data-table-body-content-row" },
             React.createElement("div", { style: { display: "flex", flex: "1" } },
@@ -942,7 +949,7 @@ var DataTable = function (props) {
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { className: "data-table" },
             React.createElement(DataTableHeader, { textRowsSelected: textRowsSelected, children: headerSelectedChildren, skeleton: skeleton, onSearch: handleSearch, rowsSelected: rowsSelectedCount }),
-            React.createElement("div", { className: "data-table-body ".concat(contentOverflowed ? "overflowed" : ""), ref: ref },
+            React.createElement("div", { className: "data-table-body ".concat(contentOverflowed ? "overflowed" : ""), ref: ref, style: { height: (rowsPerPage * 56.8) + 41.6 } },
                 React.createElement("div", { className: "data-table-body-header" },
                     React.createElement(DataTableRowHeader, { collumnWidths: columnWidths, headers: columns, skeleton: skeleton, sortStates: sortStates, onSort: handleSort, withCheckbox: withCheckbox, allSelected: allSelected, someSelected: someSelected, handleSelectAll: handleSelectAll })),
                 currentRows.length === 0 ? (React.createElement("div", { className: "data-table-body-empty" },
