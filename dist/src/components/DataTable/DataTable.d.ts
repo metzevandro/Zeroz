@@ -9,6 +9,7 @@ interface DataTableProps {
     headerSelectedChildren?: React.ReactNode;
     textRowsSelected?: string;
     onSelectedRowsChange?: (selectedRows: string[]) => void;
+    onUpdateSelectedRows?: (updateSelectedRows: (ids: string[]) => void) => void;
 }
 export declare const DataTable: (props: DataTableProps) => React.JSX.Element;
 export default DataTable;

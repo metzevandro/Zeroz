@@ -795,7 +795,7 @@ var DataTableFooter = function (_a) {
         React.createElement(Pagination, { label: "Mostrando ".concat(totalPages === 0 ? 0 : currentPage, " de ").concat(totalPages), variant: "leftLabel", onClickLeft: onClickLeft, onClickRight: onClickRight, disabledLeft: disabledLeft, disabledRight: disabledRight, skeleton: skeleton })));
 };
 var DataTable = function (props) {
-    var columns = props.columns, data = props.data, skeleton = props.skeleton, textRowsSelected = props.textRowsSelected, onSelectedRowsChange = props.onSelectedRowsChange, headerSelectedChildren = props.headerSelectedChildren;
+    var columns = props.columns, data = props.data, skeleton = props.skeleton, textRowsSelected = props.textRowsSelected, onSelectedRowsChange = props.onSelectedRowsChange, headerSelectedChildren = props.headerSelectedChildren, onUpdateSelectedRows = props.onUpdateSelectedRows;
     var withCheckbox = props.withCheckbox || false;
     var rowsPerPage = props.rowsPerPage || 4;
     var _a = React.useState(1), currentPage = _a[0], setCurrentPage = _a[1];
@@ -939,13 +939,20 @@ var DataTable = function (props) {
             }
         };
     }, []);
+    React.useEffect(function () {
+        if (onUpdateSelectedRows) {
+            onUpdateSelectedRows(function (ids) {
+                setSelectedRows(ids);
+            });
+        }
+    }, [onUpdateSelectedRows]);
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { className: "data-table" },
             React.createElement(DataTableHeader, { textRowsSelected: textRowsSelected, children: headerSelectedChildren, skeleton: skeleton, onSearch: handleSearch, rowsSelected: rowsSelectedCount }),
             React.createElement("div", { className: "data-table-body ".concat(contentOverflowed ? "overflowed" : ""), ref: ref, style: { height: (rowsPerPage * 56.8) + 41.6 } },
                 React.createElement("div", { className: "data-table-body-header" },
                     React.createElement(DataTableRowHeader, { collumnWidths: columnWidths, headers: columns, skeleton: skeleton, sortStates: sortStates, onSort: handleSort, withCheckbox: withCheckbox, allSelected: allSelected, someSelected: someSelected, handleSelectAll: handleSelectAll })),
-                currentRows.length === 0 && !skeleton ? (React.createElement("div", { className: "data-table-body-empty" },
+                currentRows.length === 0 && !skeleton && processedData.length === 0 ? (React.createElement("div", { className: "data-table-body-empty" },
                     React.createElement(EmptyState, { title: "Nenhum resultado encontrado", description: searchQuery
                             ? "Nenhum resultado encontrado para sua pesquisa. Tente ajustar os termos."
                             : "Tente ajustar ou revisar os termos de pesquisa para encontrar o que procura.", icon: "search_off" }))) : (React.createElement(DataTableBody, { withCheckbox: withCheckbox, columnWidths: columnWidths, currentPage: currentPage, currentRows: currentRows, selectedRows: selectedRows, rowsPerPage: rowsPerPage, skeleton: skeleton, onRowSelection: handleRowSelection, headers: columns }))),

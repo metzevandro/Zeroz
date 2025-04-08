@@ -266,6 +266,7 @@ interface DataTableProps {
   headerSelectedChildren?: React.ReactNode;
   textRowsSelected?: string;
   onSelectedRowsChange?: (selectedRows: string[]) => void;
+  onUpdateSelectedRows?: (updateSelectedRows: (ids: string[]) => void) => void; 
 }
 
 export const DataTable = (props: DataTableProps) => {
@@ -276,6 +277,7 @@ export const DataTable = (props: DataTableProps) => {
     textRowsSelected,
     onSelectedRowsChange,
     headerSelectedChildren,
+    onUpdateSelectedRows, 
   } = props;
   const withCheckbox = props.withCheckbox || false;
   const rowsPerPage = props.rowsPerPage || 4;
@@ -468,6 +470,14 @@ export const DataTable = (props: DataTableProps) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (onUpdateSelectedRows) {
+      onUpdateSelectedRows((ids: string[]) => {
+        setSelectedRows(ids);
+      });
+    }
+  }, [onUpdateSelectedRows]);
+
   return (
     <>
       <div className="data-table">
@@ -496,7 +506,7 @@ export const DataTable = (props: DataTableProps) => {
               handleSelectAll={handleSelectAll}
             />
           </div>
-          {currentRows.length === 0 && !skeleton ? (
+          {currentRows.length === 0 && !skeleton && processedData.length === 0 ? (
             <div className="data-table-body-empty">
               <EmptyState
                 title="Nenhum resultado encontrado"
