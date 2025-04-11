@@ -474,9 +474,17 @@ export const DataTable = (props: DataTableProps) => {
     if (onUpdateSelectedRows) {
       onUpdateSelectedRows((ids: string[]) => {
         setSelectedRows(ids);
+        setRowsSelectedCount(ids.length); 
       });
     }
   }, [onUpdateSelectedRows]);
+
+  useEffect(() => {
+    setRowsSelectedCount(selectedRows.length);
+    if (onSelectedRowsChange) {
+      onSelectedRowsChange(selectedRows);
+    }
+  }, [selectedRows, onSelectedRowsChange]);
 
   return (
     <>
