@@ -943,7 +943,6 @@ var DataTable = function (props) {
         if (onUpdateSelectedRows) {
             onUpdateSelectedRows(function (ids) {
                 setSelectedRows(ids);
-                setRowsSelectedCount(ids.length);
             });
         }
     }, [onUpdateSelectedRows]);
@@ -953,6 +952,9 @@ var DataTable = function (props) {
             onSelectedRowsChange(selectedRows);
         }
     }, [selectedRows, onSelectedRowsChange]);
+    React.useEffect(function () {
+        setRowsSelectedCount(selectedRows.length);
+    }, [selectedRows]);
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { className: "data-table" },
             React.createElement(DataTableHeader, { textRowsSelected: textRowsSelected, children: headerSelectedChildren, skeleton: skeleton, onSearch: handleSearch, rowsSelected: rowsSelectedCount }),
