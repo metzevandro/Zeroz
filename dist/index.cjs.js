@@ -806,11 +806,21 @@ var DataTable = function (props) {
     var _f = React.useState([]), selectedRows = _f[0], setSelectedRows = _f[1];
     var _g = React.useState(0), rowsSelectedCount = _g[0], setRowsSelectedCount = _g[1];
     React.useEffect(function () {
-        setRowsSelectedCount(selectedRows.length);
-        if (onSelectedRowsChange) {
-            onSelectedRowsChange(selectedRows);
+        var count = selectedRows.length;
+        if (rowsSelectedCount !== count) {
+            setRowsSelectedCount(count);
+            if (onSelectedRowsChange) {
+                onSelectedRowsChange(selectedRows);
+            }
         }
-    }, [selectedRows, onSelectedRowsChange]);
+    }, [selectedRows, rowsSelectedCount, onSelectedRowsChange]);
+    React.useEffect(function () {
+        if (onUpdateSelectedRows) {
+            onUpdateSelectedRows(function (ids) {
+                setSelectedRows(ids);
+            });
+        }
+    }, [onUpdateSelectedRows]);
     React.useEffect(function () {
         var dataWithIds = data.map(function (row, index) { return (__assign({ id: index.toString() }, row)); });
         setOriginalData(dataWithIds);
@@ -939,22 +949,6 @@ var DataTable = function (props) {
             }
         };
     }, []);
-    React.useEffect(function () {
-        if (onUpdateSelectedRows) {
-            onUpdateSelectedRows(function (ids) {
-                setSelectedRows(ids);
-            });
-        }
-    }, [onUpdateSelectedRows]);
-    React.useEffect(function () {
-        setRowsSelectedCount(selectedRows.length);
-        if (onSelectedRowsChange) {
-            onSelectedRowsChange(selectedRows);
-        }
-    }, [selectedRows, onSelectedRowsChange]);
-    React.useEffect(function () {
-        setRowsSelectedCount(selectedRows.length);
-    }, [selectedRows]);
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { className: "data-table" },
             React.createElement(DataTableHeader, { textRowsSelected: textRowsSelected, children: headerSelectedChildren, skeleton: skeleton, onSearch: handleSearch, rowsSelected: rowsSelectedCount }),

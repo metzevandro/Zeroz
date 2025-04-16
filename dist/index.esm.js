@@ -804,11 +804,21 @@ var DataTable = function (props) {
     var _f = useState([]), selectedRows = _f[0], setSelectedRows = _f[1];
     var _g = useState(0), rowsSelectedCount = _g[0], setRowsSelectedCount = _g[1];
     useEffect(function () {
-        setRowsSelectedCount(selectedRows.length);
-        if (onSelectedRowsChange) {
-            onSelectedRowsChange(selectedRows);
+        var count = selectedRows.length;
+        if (rowsSelectedCount !== count) {
+            setRowsSelectedCount(count);
+            if (onSelectedRowsChange) {
+                onSelectedRowsChange(selectedRows);
+            }
         }
-    }, [selectedRows, onSelectedRowsChange]);
+    }, [selectedRows, rowsSelectedCount, onSelectedRowsChange]);
+    useEffect(function () {
+        if (onUpdateSelectedRows) {
+            onUpdateSelectedRows(function (ids) {
+                setSelectedRows(ids);
+            });
+        }
+    }, [onUpdateSelectedRows]);
     useEffect(function () {
         var dataWithIds = data.map(function (row, index) { return (__assign({ id: index.toString() }, row)); });
         setOriginalData(dataWithIds);
@@ -937,22 +947,6 @@ var DataTable = function (props) {
             }
         };
     }, []);
-    useEffect(function () {
-        if (onUpdateSelectedRows) {
-            onUpdateSelectedRows(function (ids) {
-                setSelectedRows(ids);
-            });
-        }
-    }, [onUpdateSelectedRows]);
-    useEffect(function () {
-        setRowsSelectedCount(selectedRows.length);
-        if (onSelectedRowsChange) {
-            onSelectedRowsChange(selectedRows);
-        }
-    }, [selectedRows, onSelectedRowsChange]);
-    useEffect(function () {
-        setRowsSelectedCount(selectedRows.length);
-    }, [selectedRows]);
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { className: "data-table" },
             React.createElement(DataTableHeader, { textRowsSelected: textRowsSelected, children: headerSelectedChildren, skeleton: skeleton, onSearch: handleSearch, rowsSelected: rowsSelectedCount }),
