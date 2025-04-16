@@ -184,8 +184,8 @@ export default function PieChart({
         {skeleton ? (
           randomData.map((entry, index) => (
             <Cell
-              key={`skeleton-cell-${index}`}
-              fill={entry.fill}
+            key={`skeleton-cell-${index}-${entry.keyName}`}
+            fill={entry.fill}
             />
           ))
         ) : (

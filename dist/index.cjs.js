@@ -30203,7 +30203,7 @@ function PieChart(_a) {
         renderTooltip(),
         renderLegend(),
         React.createElement(Pie, { data: skeleton ? randomData : data, dataKey: dataKey, nameKey: nameKey, innerRadius: skeleton ? 0 : type === "donut" ? innerRadius : 0, outerRadius: outerRadius, strokeWidth: 1 },
-            skeleton ? (randomData.map(function (entry, index) { return (React.createElement(Cell, { key: "skeleton-cell-".concat(index), fill: entry.fill })); })) : (data.map(function (entry, index) { return (React.createElement(Cell, { key: "cell-".concat(index), fill: entry.fill || defaultColors[index % defaultColors.length], stroke: entry.fill || defaultColors[index % defaultColors.length] })); })),
+            skeleton ? (randomData.map(function (entry, index) { return (React.createElement(Cell, { key: "skeleton-cell-".concat(index, "-").concat(entry.keyName), fill: entry.fill })); })) : (data.map(function (entry, index) { return (React.createElement(Cell, { key: "cell-".concat(index), fill: entry.fill || defaultColors[index % defaultColors.length], stroke: entry.fill || defaultColors[index % defaultColors.length] })); })),
             renderLabel(skeleton))));
 }
 
