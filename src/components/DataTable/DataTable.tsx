@@ -292,11 +292,22 @@ export const DataTable = (props: DataTableProps) => {
   const [rowsSelectedCount, setRowsSelectedCount] = useState(0);
 
   useEffect(() => {
-    setRowsSelectedCount(selectedRows.length);
-    if (onSelectedRowsChange) {
-      onSelectedRowsChange(selectedRows);
+    const count = selectedRows.length;
+    if (rowsSelectedCount !== count) {
+      setRowsSelectedCount(count);
+      if (onSelectedRowsChange) {
+        onSelectedRowsChange(selectedRows);
+      }
     }
-  }, [selectedRows, onSelectedRowsChange]);
+  }, [selectedRows, rowsSelectedCount, onSelectedRowsChange]);
+
+  useEffect(() => {
+    if (onUpdateSelectedRows) {
+      onUpdateSelectedRows((ids: string[]) => {
+        setSelectedRows(ids);
+      });
+    }
+  }, [onUpdateSelectedRows]);
 
   useEffect(() => {
     const dataWithIds = data.map((row, index) => ({
@@ -469,25 +480,6 @@ export const DataTable = (props: DataTableProps) => {
       }
     };
   }, []);
-
-  useEffect(() => {
-    if (onUpdateSelectedRows) {
-      onUpdateSelectedRows((ids: string[]) => {
-        setSelectedRows(ids);
-      });
-    }
-  }, [onUpdateSelectedRows]);
-
-  useEffect(() => {
-    setRowsSelectedCount(selectedRows.length); 
-    if (onSelectedRowsChange) {
-      onSelectedRowsChange(selectedRows);
-    }
-  }, [selectedRows, onSelectedRowsChange]);
-
-  useEffect(() => {
-    setRowsSelectedCount(selectedRows.length);
-  }, [selectedRows]);
 
   return (
     <>
