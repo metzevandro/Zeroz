@@ -813,7 +813,7 @@ var DataTable = function (props) {
                 onSelectedRowsChange(selectedRows);
             }
         }
-    }, [selectedRows, onSelectedRowsChange]);
+    }, [selectedRows, rowsSelectedCount, onSelectedRowsChange]);
     React.useEffect(function () {
         if (onUpdateSelectedRows) {
             onUpdateSelectedRows(function (ids) {
@@ -879,7 +879,7 @@ var DataTable = function (props) {
             }
         });
         setProcessedData(updatedData);
-    }, [originalData, searchQuery, sortStates, columns]);
+    }, [originalData, searchQuery, sortStates]);
     var currentRows = processedData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
     var totalPages = Math.ceil(processedData.length / rowsPerPage);
     var allSelected = processedData.every(function (row) {
@@ -920,14 +920,14 @@ var DataTable = function (props) {
             var headerWidth = measureWidth(header);
             var maxCellWidth = Math.max.apply(Math, allCells.map(function (cell) { return measureWidth(cell); }));
             var calculatedWidth = Math.max(headerWidth, maxCellWidth) + 50;
-            var minWidth = minColumnWidths[colIndex] || 0;
+            var minWidth = minColumnWidths[colIndex] || 0; // Considera o valor mínimo, se fornecido
             return Math.max(calculatedWidth, minWidth);
         });
         setColumnWidths(tempWidths);
     };
     React.useEffect(function () {
         calculateColumnWidths();
-    }, [originalData, columns, minColumnWidths]);
+    }, [originalData, columns, minColumnWidths]); // Incluído minColumnWidths como dependência
     var ref = React.useRef(null);
     var _k = React.useState(false), contentOverflowed = _k[0], setContentOverflowed = _k[1];
     React.useEffect(function () {

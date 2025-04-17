@@ -279,7 +279,7 @@ export const DataTable = (props: DataTableProps) => {
     onSelectedRowsChange,
     headerSelectedChildren,
     onUpdateSelectedRows,
-    minColumnWidths = [],
+    minColumnWidths = [], // Valor padrão como array vazio
   } = props;
   const withCheckbox = props.withCheckbox || false;
   const rowsPerPage = props.rowsPerPage || 4;
@@ -301,7 +301,7 @@ export const DataTable = (props: DataTableProps) => {
         onSelectedRowsChange(selectedRows);
       }
     }
-  }, [selectedRows, onSelectedRowsChange]);
+  }, [selectedRows, rowsSelectedCount, onSelectedRowsChange]);
 
   useEffect(() => {
     if (onUpdateSelectedRows) {
@@ -389,7 +389,7 @@ export const DataTable = (props: DataTableProps) => {
     });
 
     setProcessedData(updatedData);
-  }, [originalData, searchQuery, sortStates, columns]);
+  }, [originalData, searchQuery, sortStates]);
 
   const currentRows = processedData.slice(
     (currentPage - 1) * rowsPerPage,
