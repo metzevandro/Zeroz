@@ -903,8 +903,7 @@ var DataTable = function (props) {
         return selectedRows.includes(row.id);
     });
     var someSelected = processedData.some(function (row) { return selectedRows.includes(row.id); }) && !allSelected;
-    var _j = React.useState([]), columnWidths = _j[0], setColumnWidths = _j[1];
-    var calculateColumnWidths = function () {
+    var calculateColumnWidths = React.useCallback(function () {
         var tempWidths = columns.map(function (header, colIndex) {
             var allCells = originalData.map(function (row) { return row[header]; });
             var measureWidth = function (text) {
@@ -921,13 +920,11 @@ var DataTable = function (props) {
             var minWidth = minColumnWidths[colIndex] || 0;
             return Math.max(calculatedWidth, minWidth);
         });
-        setColumnWidths(tempWidths);
-    };
-    React.useEffect(function () {
-        calculateColumnWidths();
-    }, [originalData, columns, minColumnWidths]);
+        return tempWidths;
+    }, [columns, originalData, minColumnWidths]);
+    var columnWidths = React.useMemo(function () { return calculateColumnWidths(); }, [calculateColumnWidths]);
     var ref = React.useRef(null);
-    var _k = React.useState(false), contentOverflowed = _k[0], setContentOverflowed = _k[1];
+    var _j = React.useState(false), contentOverflowed = _j[0], setContentOverflowed = _j[1];
     React.useEffect(function () {
         var checkOverflow = function () {
             var contentElement = ref.current;

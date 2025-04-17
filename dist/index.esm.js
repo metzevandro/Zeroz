@@ -901,8 +901,7 @@ var DataTable = function (props) {
         return selectedRows.includes(row.id);
     });
     var someSelected = processedData.some(function (row) { return selectedRows.includes(row.id); }) && !allSelected;
-    var _j = useState([]), columnWidths = _j[0], setColumnWidths = _j[1];
-    var calculateColumnWidths = function () {
+    var calculateColumnWidths = useCallback(function () {
         var tempWidths = columns.map(function (header, colIndex) {
             var allCells = originalData.map(function (row) { return row[header]; });
             var measureWidth = function (text) {
@@ -919,13 +918,11 @@ var DataTable = function (props) {
             var minWidth = minColumnWidths[colIndex] || 0;
             return Math.max(calculatedWidth, minWidth);
         });
-        setColumnWidths(tempWidths);
-    };
-    useEffect(function () {
-        calculateColumnWidths();
-    }, [originalData, columns, minColumnWidths]);
+        return tempWidths;
+    }, [columns, originalData, minColumnWidths]);
+    var columnWidths = useMemo(function () { return calculateColumnWidths(); }, [calculateColumnWidths]);
     var ref = useRef(null);
-    var _k = useState(false), contentOverflowed = _k[0], setContentOverflowed = _k[1];
+    var _j = useState(false), contentOverflowed = _j[0], setContentOverflowed = _j[1];
     useEffect(function () {
         var checkOverflow = function () {
             var contentElement = ref.current;

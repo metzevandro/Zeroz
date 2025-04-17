@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import InputSearch from "../InputSearch/InputSearch";
 import Pagination from "../Pagination/Pagination";
 import "./DataTable.scss";
@@ -423,9 +423,7 @@ export const DataTable = (props: DataTableProps) => {
   const someSelected =
     processedData.some((row) => selectedRows.includes(row.id)) && !allSelected;
 
-  const [columnWidths, setColumnWidths] = useState<number[]>([]);
-
-  const calculateColumnWidths = () => {
+  const calculateColumnWidths = useCallback(() => {
     const tempWidths = columns.map((header, colIndex) => {
       const allCells = originalData.map((row) => row[header]);
 
@@ -451,12 +449,10 @@ export const DataTable = (props: DataTableProps) => {
       return Math.max(calculatedWidth, minWidth);
     });
 
-    setColumnWidths(tempWidths);
-  };
+    return tempWidths;
+  }, [columns, originalData, minColumnWidths]);
 
-  useEffect(() => {
-    calculateColumnWidths();
-  }, [originalData, columns, minColumnWidths]);
+  const columnWidths = useMemo(() => calculateColumnWidths(), [calculateColumnWidths]);
 
   const ref = useRef<HTMLDivElement>(null);
   const [contentOverflowed, setContentOverflowed] = useState<boolean>(false);
