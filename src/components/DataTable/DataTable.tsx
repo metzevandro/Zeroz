@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import InputSearch from "../InputSearch/InputSearch";
 import Pagination from "../Pagination/Pagination";
 import "./DataTable.scss";
@@ -293,6 +293,43 @@ export const DataTable = (props: DataTableProps) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [rowsSelectedCount, setRowsSelectedCount] = useState(0);
 
+  const handleSearch = useCallback((query: string) => {
+    setSearchQuery(query);
+    setCurrentPage(1);
+  }, []);
+
+  const handleSort = useCallback((index: number) => {
+    setSortStates((prevSortStates) => {
+      const newSortStates = [...prevSortStates];
+      const currentState = newSortStates[index];
+
+      newSortStates[index] =
+        currentState === "default"
+          ? "asc"
+          : currentState === "asc"
+          ? "desc"
+          : "default";
+      return newSortStates;
+    });
+  }, []);
+
+  const handleSelectAll = useCallback((checked: boolean) => {
+    if (checked) {
+      const allIds = processedData.map((row) => row.id);
+      setSelectedRows(allIds);
+    } else {
+      setSelectedRows([]);
+    }
+  }, [processedData]);
+
+  const handleRowSelection = useCallback((id: string, checked: boolean) => {
+    setSelectedRows((prevSelectedRows) =>
+      checked
+        ? [...prevSelectedRows, id]
+        : prevSelectedRows.filter((rowId) => rowId !== id)
+    );
+  }, []);
+
   useEffect(() => {
     const count = selectedRows.length;
     if (rowsSelectedCount !== count) {
@@ -319,24 +356,6 @@ export const DataTable = (props: DataTableProps) => {
     setOriginalData(dataWithIds);
     setProcessedData(dataWithIds);
   }, [data]);
-
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-    setCurrentPage(1);
-  };
-
-  const handleSort = (index: number) => {
-    const newSortStates = [...sortStates];
-    const currentState = newSortStates[index];
-
-    newSortStates[index] =
-      currentState === "default"
-        ? "asc"
-        : currentState === "asc"
-          ? "desc"
-          : "default";
-    setSortStates(newSortStates);
-  };
 
   useEffect(() => {
     const filterData = (data: any[], query: string) => {
@@ -403,25 +422,6 @@ export const DataTable = (props: DataTableProps) => {
   );
   const someSelected =
     processedData.some((row) => selectedRows.includes(row.id)) && !allSelected;
-
-  const handleSelectAll = (checked: boolean) => {
-    if (checked) {
-      const allIds = processedData.map((row) => row.id);
-      setSelectedRows(allIds);
-    } else {
-      setSelectedRows([]);
-    }
-  };
-
-  const handleRowSelection = (id: string, checked: boolean) => {
-    if (checked) {
-      setSelectedRows((prevSelectedRows) => [...prevSelectedRows, id]);
-    } else {
-      setSelectedRows((prevSelectedRows) =>
-        prevSelectedRows.filter((rowId) => rowId !== id),
-      );
-    }
-  };
 
   const [columnWidths, setColumnWidths] = useState<number[]>([]);
 

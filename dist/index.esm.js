@@ -803,6 +803,38 @@ var DataTable = function (props) {
     var _f = useState([]), processedData = _f[0], setProcessedData = _f[1];
     var _g = useState([]), selectedRows = _g[0], setSelectedRows = _g[1];
     var _h = useState(0), rowsSelectedCount = _h[0], setRowsSelectedCount = _h[1];
+    var handleSearch = useCallback(function (query) {
+        setSearchQuery(query);
+        setCurrentPage(1);
+    }, []);
+    var handleSort = useCallback(function (index) {
+        setSortStates(function (prevSortStates) {
+            var newSortStates = __spreadArray([], prevSortStates, true);
+            var currentState = newSortStates[index];
+            newSortStates[index] =
+                currentState === "default"
+                    ? "asc"
+                    : currentState === "asc"
+                        ? "desc"
+                        : "default";
+            return newSortStates;
+        });
+    }, []);
+    var handleSelectAll = useCallback(function (checked) {
+        if (checked) {
+            var allIds = processedData.map(function (row) { return row.id; });
+            setSelectedRows(allIds);
+        }
+        else {
+            setSelectedRows([]);
+        }
+    }, [processedData]);
+    var handleRowSelection = useCallback(function (id, checked) {
+        setSelectedRows(function (prevSelectedRows) {
+            return checked
+                ? __spreadArray(__spreadArray([], prevSelectedRows, true), [id], false) : prevSelectedRows.filter(function (rowId) { return rowId !== id; });
+        });
+    }, []);
     useEffect(function () {
         var count = selectedRows.length;
         if (rowsSelectedCount !== count) {
@@ -824,21 +856,6 @@ var DataTable = function (props) {
         setOriginalData(dataWithIds);
         setProcessedData(dataWithIds);
     }, [data]);
-    var handleSearch = function (query) {
-        setSearchQuery(query);
-        setCurrentPage(1);
-    };
-    var handleSort = function (index) {
-        var newSortStates = __spreadArray([], sortStates, true);
-        var currentState = newSortStates[index];
-        newSortStates[index] =
-            currentState === "default"
-                ? "asc"
-                : currentState === "asc"
-                    ? "desc"
-                    : "default";
-        setSortStates(newSortStates);
-    };
     useEffect(function () {
         var filterData = function (data, query) {
             if (!query)
@@ -884,25 +901,6 @@ var DataTable = function (props) {
         return selectedRows.includes(row.id);
     });
     var someSelected = processedData.some(function (row) { return selectedRows.includes(row.id); }) && !allSelected;
-    var handleSelectAll = function (checked) {
-        if (checked) {
-            var allIds = processedData.map(function (row) { return row.id; });
-            setSelectedRows(allIds);
-        }
-        else {
-            setSelectedRows([]);
-        }
-    };
-    var handleRowSelection = function (id, checked) {
-        if (checked) {
-            setSelectedRows(function (prevSelectedRows) { return __spreadArray(__spreadArray([], prevSelectedRows, true), [id], false); });
-        }
-        else {
-            setSelectedRows(function (prevSelectedRows) {
-                return prevSelectedRows.filter(function (rowId) { return rowId !== id; });
-            });
-        }
-    };
     var _j = useState([]), columnWidths = _j[0], setColumnWidths = _j[1];
     var calculateColumnWidths = function () {
         var tempWidths = columns.map(function (header, colIndex) {
@@ -918,14 +916,14 @@ var DataTable = function (props) {
             var headerWidth = measureWidth(header);
             var maxCellWidth = Math.max.apply(Math, allCells.map(function (cell) { return measureWidth(cell); }));
             var calculatedWidth = Math.max(headerWidth, maxCellWidth) + 50;
-            var minWidth = minColumnWidths[colIndex] || 0; // Considera o valor mínimo, se fornecido
+            var minWidth = minColumnWidths[colIndex] || 0;
             return Math.max(calculatedWidth, minWidth);
         });
         setColumnWidths(tempWidths);
     };
     useEffect(function () {
         calculateColumnWidths();
-    }, [originalData, columns, minColumnWidths]); // Incluído minColumnWidths como dependência
+    }, [originalData, columns, minColumnWidths]);
     var ref = useRef(null);
     var _k = useState(false), contentOverflowed = _k[0], setContentOverflowed = _k[1];
     useEffect(function () {
