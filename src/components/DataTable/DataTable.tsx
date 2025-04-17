@@ -267,7 +267,7 @@ interface DataTableProps {
   textRowsSelected?: string;
   onSelectedRowsChange?: (selectedRows: string[]) => void;
   onUpdateSelectedRows?: (updateSelectedRows: (ids: string[]) => void) => void; 
-  minColumnWidths?: number[]; // Adicionada nova propriedade
+  minColumnWidths?: number[];
 }
 
 export const DataTable = (props: DataTableProps) => {
@@ -279,7 +279,7 @@ export const DataTable = (props: DataTableProps) => {
     onSelectedRowsChange,
     headerSelectedChildren,
     onUpdateSelectedRows,
-    minColumnWidths = [], // Valor padrão como array vazio
+    minColumnWidths = [],
   } = props;
   const withCheckbox = props.withCheckbox || false;
   const rowsPerPage = props.rowsPerPage || 4;
@@ -301,7 +301,7 @@ export const DataTable = (props: DataTableProps) => {
         onSelectedRowsChange(selectedRows);
       }
     }
-  }, [selectedRows, rowsSelectedCount, onSelectedRowsChange]);
+  }, [selectedRows, onSelectedRowsChange]);
 
   useEffect(() => {
     if (onUpdateSelectedRows) {
@@ -389,7 +389,7 @@ export const DataTable = (props: DataTableProps) => {
     });
 
     setProcessedData(updatedData);
-  }, [originalData, searchQuery, sortStates]);
+  }, [originalData, searchQuery, sortStates, columns]);
 
   const currentRows = processedData.slice(
     (currentPage - 1) * rowsPerPage,
@@ -447,7 +447,7 @@ export const DataTable = (props: DataTableProps) => {
       );
 
       const calculatedWidth = Math.max(headerWidth, maxCellWidth) + 50;
-      const minWidth = minColumnWidths[colIndex] || 0; // Considera o valor mínimo, se fornecido
+      const minWidth = minColumnWidths[colIndex] || 0;
       return Math.max(calculatedWidth, minWidth);
     });
 
@@ -456,7 +456,7 @@ export const DataTable = (props: DataTableProps) => {
 
   useEffect(() => {
     calculateColumnWidths();
-  }, [originalData, columns, minColumnWidths]); // Incluído minColumnWidths como dependência
+  }, [originalData, columns, minColumnWidths]);
 
   const ref = useRef<HTMLDivElement>(null);
   const [contentOverflowed, setContentOverflowed] = useState<boolean>(false);
