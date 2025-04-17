@@ -1,6 +1,6 @@
 {
   "name": "design-system-zeroz",
-  "version": "0.3.35",
+  "version": "0.3.36",
   "private": false,
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
