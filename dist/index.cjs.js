@@ -795,16 +795,16 @@ var DataTableFooter = function (_a) {
         React.createElement(Pagination, { label: "Mostrando ".concat(totalPages === 0 ? 0 : currentPage, " de ").concat(totalPages), variant: "leftLabel", onClickLeft: onClickLeft, onClickRight: onClickRight, disabledLeft: disabledLeft, disabledRight: disabledRight, skeleton: skeleton })));
 };
 var DataTable = function (props) {
-    var columns = props.columns, data = props.data, skeleton = props.skeleton, textRowsSelected = props.textRowsSelected, onSelectedRowsChange = props.onSelectedRowsChange, headerSelectedChildren = props.headerSelectedChildren, onUpdateSelectedRows = props.onUpdateSelectedRows;
+    var columns = props.columns, data = props.data, skeleton = props.skeleton, textRowsSelected = props.textRowsSelected, onSelectedRowsChange = props.onSelectedRowsChange, headerSelectedChildren = props.headerSelectedChildren, onUpdateSelectedRows = props.onUpdateSelectedRows, _a = props.minColumnWidths, minColumnWidths = _a === undefined ? [] : _a;
     var withCheckbox = props.withCheckbox || false;
     var rowsPerPage = props.rowsPerPage || 4;
-    var _a = React.useState(1), currentPage = _a[0], setCurrentPage = _a[1];
-    var _b = React.useState(new Array(columns.length).fill("default")), sortStates = _b[0], setSortStates = _b[1];
-    var _c = React.useState(""), searchQuery = _c[0], setSearchQuery = _c[1];
-    var _d = React.useState([]), originalData = _d[0], setOriginalData = _d[1];
-    var _e = React.useState([]), processedData = _e[0], setProcessedData = _e[1];
-    var _f = React.useState([]), selectedRows = _f[0], setSelectedRows = _f[1];
-    var _g = React.useState(0), rowsSelectedCount = _g[0], setRowsSelectedCount = _g[1];
+    var _b = React.useState(1), currentPage = _b[0], setCurrentPage = _b[1];
+    var _c = React.useState(new Array(columns.length).fill("default")), sortStates = _c[0], setSortStates = _c[1];
+    var _d = React.useState(""), searchQuery = _d[0], setSearchQuery = _d[1];
+    var _e = React.useState([]), originalData = _e[0], setOriginalData = _e[1];
+    var _f = React.useState([]), processedData = _f[0], setProcessedData = _f[1];
+    var _g = React.useState([]), selectedRows = _g[0], setSelectedRows = _g[1];
+    var _h = React.useState(0), rowsSelectedCount = _h[0], setRowsSelectedCount = _h[1];
     React.useEffect(function () {
         var count = selectedRows.length;
         if (rowsSelectedCount !== count) {
@@ -905,7 +905,7 @@ var DataTable = function (props) {
             });
         }
     };
-    var _h = React.useState([]), columnWidths = _h[0], setColumnWidths = _h[1];
+    var _j = React.useState([]), columnWidths = _j[0], setColumnWidths = _j[1];
     var calculateColumnWidths = function () {
         var tempWidths = columns.map(function (header, colIndex) {
             var allCells = originalData.map(function (row) { return row[header]; });
@@ -919,15 +919,17 @@ var DataTable = function (props) {
             };
             var headerWidth = measureWidth(header);
             var maxCellWidth = Math.max.apply(Math, allCells.map(function (cell) { return measureWidth(cell); }));
-            return Math.max(headerWidth, maxCellWidth) + 50;
+            var calculatedWidth = Math.max(headerWidth, maxCellWidth) + 50;
+            var minWidth = minColumnWidths[colIndex] || 0; // Considera o valor mínimo, se fornecido
+            return Math.max(calculatedWidth, minWidth);
         });
         setColumnWidths(tempWidths);
     };
     React.useEffect(function () {
         calculateColumnWidths();
-    }, [originalData, columns]);
+    }, [originalData, columns, minColumnWidths]); // Incluído minColumnWidths como dependência
     var ref = React.useRef(null);
-    var _j = React.useState(false), contentOverflowed = _j[0], setContentOverflowed = _j[1];
+    var _k = React.useState(false), contentOverflowed = _k[0], setContentOverflowed = _k[1];
     React.useEffect(function () {
         var checkOverflow = function () {
             var contentElement = ref.current;

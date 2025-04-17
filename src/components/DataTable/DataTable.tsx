@@ -267,6 +267,7 @@ interface DataTableProps {
   textRowsSelected?: string;
   onSelectedRowsChange?: (selectedRows: string[]) => void;
   onUpdateSelectedRows?: (updateSelectedRows: (ids: string[]) => void) => void; 
+  minColumnWidths?: number[]; // Adicionada nova propriedade
 }
 
 export const DataTable = (props: DataTableProps) => {
@@ -277,7 +278,8 @@ export const DataTable = (props: DataTableProps) => {
     textRowsSelected,
     onSelectedRowsChange,
     headerSelectedChildren,
-    onUpdateSelectedRows, 
+    onUpdateSelectedRows,
+    minColumnWidths = [], // Valor padrão como array vazio
   } = props;
   const withCheckbox = props.withCheckbox || false;
   const rowsPerPage = props.rowsPerPage || 4;
@@ -444,7 +446,9 @@ export const DataTable = (props: DataTableProps) => {
         ...allCells.map((cell) => measureWidth(cell)),
       );
 
-      return Math.max(headerWidth, maxCellWidth) + 50;
+      const calculatedWidth = Math.max(headerWidth, maxCellWidth) + 50;
+      const minWidth = minColumnWidths[colIndex] || 0; // Considera o valor mínimo, se fornecido
+      return Math.max(calculatedWidth, minWidth);
     });
 
     setColumnWidths(tempWidths);
@@ -452,7 +456,7 @@ export const DataTable = (props: DataTableProps) => {
 
   useEffect(() => {
     calculateColumnWidths();
-  }, [originalData, columns]);
+  }, [originalData, columns, minColumnWidths]); // Incluído minColumnWidths como dependência
 
   const ref = useRef<HTMLDivElement>(null);
   const [contentOverflowed, setContentOverflowed] = useState<boolean>(false);
