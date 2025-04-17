@@ -1669,7 +1669,6 @@ var Notification = function (_a) {
                 React.createElement(Button, { size: "md", variant: variant, disabled: disableButton, label: buttonLabel, onClick: onClickButton })))))))));
 };
 
-// Declaração
 var Page = function (_a) {
     var children = _a.children, namePage = _a.namePage, withBackButton = _a.withBackButton, withActionPrimary = _a.withActionPrimary, withActionSecondary = _a.withActionSecondary, buttonContentPrimary = _a.buttonContentPrimary, buttonContentSecondary = _a.buttonContentSecondary, onClickActionPrimary = _a.onClickActionPrimary, onClickActionSecondary = _a.onClickActionSecondary, onClickBackButton = _a.onClickBackButton, iconButtonPrimary = _a.iconButtonPrimary, iconButtonSecondary = _a.iconButtonSecondary, skeletonButtonPrimary = _a.skeletonButtonPrimary, skeletonButtonSecondary = _a.skeletonButtonSecondary, description = _a.description;
     return (React.createElement("div", { style: {
@@ -1677,7 +1676,7 @@ var Page = function (_a) {
             justifyContent: "center",
             width: "100%",
             height: "100%",
-            background: "var(--s-color-background-default);",
+            backgroundColor: "var(--s-color-background-default)",
             overflowX: "hidden",
         } },
         React.createElement("div", { className: "page-root" },
@@ -1707,7 +1706,7 @@ var Progress = function (_a) {
     React.useEffect(function () {
         setProgress(value);
     }, [value]);
-    return (React.createElement("div", { className: "progress" }, indeterminate === true ? (React.createElement("div", { className: "progress-bar-loading" })) : (React.createElement("div", { className: "progress-bar ".concat(value === 100 ? "progress-bar-success" : "", " ").concat(error ? "progress-bar-error" : ""), style: { width: "".concat(progress, "%") } }))));
+    return (React.createElement("div", { className: "progress" }, indeterminate === true || value === 0 ? (React.createElement("div", { className: "progress-bar-loading" })) : (React.createElement("div", { className: "progress-bar ".concat(value === 100 ? "progress-bar-success" : "", " ").concat(value === 100 && error ? "progress-bar-error" : ""), style: { width: "".concat(progress, "%") } }))));
 };
 
 var stateNames = {

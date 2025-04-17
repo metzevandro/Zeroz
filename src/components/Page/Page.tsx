@@ -5,7 +5,6 @@ import "./Page.scss";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import Button from "../Button/Button";
 
-// Props
 interface PageProps {
   children?: React.ReactNode;
   namePage: string;
@@ -24,7 +23,6 @@ interface PageProps {
   description?: React.ReactNode;
 }
 
-// Declaração
 const Page: React.FC<PageProps> = ({
   children,
   namePage,
@@ -49,7 +47,7 @@ const Page: React.FC<PageProps> = ({
         justifyContent: "center",
         width: "100%",
         height: "100%",
-        background: "var(--s-color-background-default);",
+        backgroundColor: "var(--s-color-background-default)",
         overflowX: "hidden",
       }}
     >
