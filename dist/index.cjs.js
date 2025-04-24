@@ -1706,7 +1706,7 @@ var Progress = function (_a) {
     React.useEffect(function () {
         setProgress(value);
     }, [value]);
-    return (React.createElement("div", { className: "progress" }, indeterminate === true || value === 0 ? (React.createElement("div", { className: "progress-bar-loading" })) : (React.createElement("div", { className: "progress-bar ".concat(value === 100 ? "progress-bar-success" : "", " ").concat(value === 100 && error ? "progress-bar-error" : ""), style: { width: "".concat(progress, "%") } }))));
+    return (React.createElement("div", { className: "progress" }, indeterminate === true ? (React.createElement("div", { className: "progress-bar-loading" })) : (React.createElement("div", { className: "progress-bar ".concat(value === 100 ? "progress-bar-success" : "", " ").concat(error ? "progress-bar-error" : ""), style: { width: "".concat(progress, "%") } }))));
 };
 
 var stateNames = {
@@ -1756,7 +1756,7 @@ var SavebarTrigger = function (_a) {
     var _b = React.useState({}), formData = _b[0], setFormData = _b[1];
     var _c = React.useState(null), tamanhoPai = _c[0], setTamanhoPai = _c[1];
     var _d = React.useState(false), saving = _d[0], setSaving = _d[1];
-    var _e = React.useState(0), progressValue = _e[0], setProgressValue = _e[1]; // Progresso inicial é 0%
+    var _e = React.useState(0), progressValue = _e[0], setProgressValue = _e[1];
     var _f = React.useState(null); _f[0]; var setElapsedTime = _f[1];
     React.useEffect(function () {
         var updateTamanhoPai = function () {
@@ -1783,30 +1783,27 @@ var SavebarTrigger = function (_a) {
         setSaving(false);
         setProgressValue(0);
         setElapsedTime(null);
-        // Chame a função handleCancel recebida por props
         handleCancelProp();
     };
     var handleSave = function () {
-        setSaving(true); // Define saving como true ao clicar em Save
-        var totalTime = 500; // Tempo total em milissegundos para alcançar 100%
-        var incrementInterval = 50; // Intervalo de tempo em milissegundos entre cada incremento
-        var totalIncrements = totalTime / incrementInterval; // Número total de incrementos
-        var incrementAmount = 100 / totalIncrements; // Quantidade de incremento para cada intervalo
-        var currentProgress = 0; // Inicializa o progresso atual como 0
+        setSaving(true);
+        var totalTime = 500;
+        var incrementInterval = 50;
+        var totalIncrements = totalTime / incrementInterval;
+        var incrementAmount = 100 / totalIncrements;
+        var currentProgress = 0;
         var intervalId = setInterval(function () {
-            // Aumenta o valor do progresso gradualmente até 100%
             currentProgress += incrementAmount;
             setProgressValue(currentProgress);
             if (currentProgress >= 100) {
-                clearInterval(intervalId); // Limpa o intervalo quando o progresso atinge 100%
+                clearInterval(intervalId);
                 setTimeout(function () {
-                    // Após um breve intervalo, redefine os estados para o estado inicial
                     setSaving(false);
                     setProgressValue(0);
-                }, 500); // Define aqui o tempo em milissegundos antes de redefinir o estado
+                }, 500);
             }
             handleSubmit();
-        }, incrementInterval); // Define aqui o intervalo de tempo entre cada aumento do progresso
+        }, incrementInterval);
     };
     var modifyChild = function (child, index) {
         if (React.isValidElement(child)) {
@@ -1815,7 +1812,7 @@ var SavebarTrigger = function (_a) {
                 onChange: function (e) {
                     handleInputChange(name_1, e.target.value);
                 },
-                value: formData[name_1] || "", // Atualiza o valor do input de acordo com o estado atual do formulário
+                value: formData[name_1] || "",
                 name: name_1,
             });
         }

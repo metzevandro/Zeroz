@@ -16,13 +16,13 @@ const Progress: React.FC<ProgressProps> = ({ value, error, indeterminate }) => {
 
   return (
     <div className="progress">
-      {indeterminate === true || value === 0 ? ( 
+      {indeterminate === true ? (
         <div className="progress-bar-loading" />
       ) : (
         <div
           className={`progress-bar ${
             value === 100 ? "progress-bar-success" : ""
-          } ${value === 100 && error ? "progress-bar-error" : ""}`}
+          } ${error ? "progress-bar-error" : ""}`}
           style={{ width: `${progress}%` }}
         ></div>
       )}

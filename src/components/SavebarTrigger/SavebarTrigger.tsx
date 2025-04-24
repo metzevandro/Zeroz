@@ -29,7 +29,7 @@ const SavebarTrigger: React.FC<SavebarTriggerProps> = ({
   const [formData, setFormData] = useState<FormData>({});
   const [tamanhoPai, setTamanhoPai] = useState<number | null>(null);
   const [saving, setSaving] = useState<boolean>(false);
-  const [progressValue, setProgressValue] = useState<number>(0); // Progresso inicial é 0%
+  const [progressValue, setProgressValue] = useState<number>(0); 
   const [elapsedTime, setElapsedTime] = useState<number | null>(null);
 
   useEffect(() => {
@@ -65,32 +65,29 @@ const SavebarTrigger: React.FC<SavebarTriggerProps> = ({
     setSaving(false);
     setProgressValue(0);
     setElapsedTime(null);
-    // Chame a função handleCancel recebida por props
     handleCancelProp();
   };
 
   const handleSave = () => {
-    setSaving(true); // Define saving como true ao clicar em Save
-    const totalTime = 500; // Tempo total em milissegundos para alcançar 100%
-    const incrementInterval = 50; // Intervalo de tempo em milissegundos entre cada incremento
-    const totalIncrements = totalTime / incrementInterval; // Número total de incrementos
-    const incrementAmount = 100 / totalIncrements; // Quantidade de incremento para cada intervalo
+    setSaving(true); 
+    const totalTime = 500;
+    const incrementInterval = 50; 
+    const totalIncrements = totalTime / incrementInterval; 
+    const incrementAmount = 100 / totalIncrements;
+    let currentProgress = 0; 
 
-    let currentProgress = 0; // Inicializa o progresso atual como 0
     const intervalId = setInterval(() => {
-      // Aumenta o valor do progresso gradualmente até 100%
       currentProgress += incrementAmount;
       setProgressValue(currentProgress);
       if (currentProgress >= 100) {
-        clearInterval(intervalId); // Limpa o intervalo quando o progresso atinge 100%
+        clearInterval(intervalId);
         setTimeout(() => {
-          // Após um breve intervalo, redefine os estados para o estado inicial
           setSaving(false);
           setProgressValue(0);
-        }, 500); // Define aqui o tempo em milissegundos antes de redefinir o estado
+        }, 500);
       }
       handleSubmit();
-    }, incrementInterval); // Define aqui o intervalo de tempo entre cada aumento do progresso
+    }, incrementInterval); 
   };
 
   const modifyChild = (child: React.ReactNode, index: number) => {
@@ -100,7 +97,7 @@ const SavebarTrigger: React.FC<SavebarTriggerProps> = ({
         onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
           handleInputChange(name, e.target.value);
         },
-        value: formData[name] || "", // Atualiza o valor do input de acordo com o estado atual do formulário
+        value: formData[name] || "", 
         name,
       });
     }
