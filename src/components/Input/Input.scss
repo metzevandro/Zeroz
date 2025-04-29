@@ -53,7 +53,7 @@
 
         &:-webkit-autofill {
           -webkit-box-shadow: 0 0 0 30px var(--s-color-fill-warning-light) inset;
-          -webkit-text-fill-color: var(--s-color-content-default) !important;
+          -webkit-text-fill-color: var (--s-color-content-default) !important;
         }
       }
 
@@ -128,4 +128,12 @@
     color: var(--s-color-content-warning);
     font: var(--s-typography-caption-regular);
   }
+}
+
+.icon-transition {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.toggle-password {
+  cursor: pointer;
 }

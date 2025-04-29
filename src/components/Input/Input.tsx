@@ -25,10 +25,12 @@ const Input: React.FC<InputProps> = ({
   value,
   ref,
   skeleton,
+  type,
   ...rest
 }) => {
   const inputRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -37,13 +39,32 @@ const Input: React.FC<InputProps> = ({
     }
   }, [inputRef.current]);
 
-  const handleDivClick = () => {
+  const handleDivClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if ((event.target as HTMLElement).closest(".toggle-password")) {
+      return;
+    }
+
     if (inputRef.current) {
       const inputElement = inputRef.current.querySelector("input");
       if (inputElement) {
-        inputElement.focus();
+        if (event.detail === 2) {
+          inputElement.focus();
+          inputElement.select();
+        } else {
+          const currentCursorPosition = inputElement.selectionStart;
+          setTimeout(() => {
+            inputElement.focus();
+            if (currentCursorPosition !== null) {
+              inputElement.setSelectionRange(currentCursorPosition, currentCursorPosition);
+            }
+          }, 0);
+        }
       }
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prev) => !prev);
   };
 
   return (
@@ -73,8 +94,26 @@ const Input: React.FC<InputProps> = ({
                 value={value}
                 disabled={disabled}
                 ref={ref}
+                type={type === "password" && isPasswordVisible ? "text" : type}
               />
-              <Icon icon={typeIcon} size="md" fill={fillIcon} />
+              {type === "password" ? (
+                <div
+                  onClick={togglePasswordVisibility}
+                  className="toggle-password"
+                >
+                  <span className="icon-transition">
+                    <Icon
+                      icon={isPasswordVisible ? "visibility" : "visibility_off"}
+                      size="md"
+                      fill={fillIcon}
+                    />
+                  </span>
+                </div>
+              ) : (
+                <span className="icon-transition">
+                  <Icon icon={typeIcon} size="md" fill={fillIcon} />
+                </span>
+              )}
             </div>
             {error && <div className="input-error">{textError}</div>}
           </div>

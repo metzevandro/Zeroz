@@ -306,22 +306,41 @@ var CardDropdown = function (_a) {
 };
 
 var Input = function (_a) {
-    var typeIcon = _a.typeIcon, fillIcon = _a.fillIcon, label = _a.label, error = _a.error, disabled = _a.disabled, textError = _a.textError, value = _a.value, ref = _a.ref, skeleton = _a.skeleton, rest = __rest(_a, ["typeIcon", "fillIcon", "label", "error", "disabled", "textError", "value", "ref", "skeleton"]);
+    var typeIcon = _a.typeIcon, fillIcon = _a.fillIcon, label = _a.label, error = _a.error, disabled = _a.disabled, textError = _a.textError, value = _a.value, ref = _a.ref, skeleton = _a.skeleton, type = _a.type, rest = __rest(_a, ["typeIcon", "fillIcon", "label", "error", "disabled", "textError", "value", "ref", "skeleton", "type"]);
     var inputRef = useRef(null);
     var _b = useState({ width: 0, height: 0 }), dimensions = _b[0], setDimensions = _b[1];
+    var _c = useState(false), isPasswordVisible = _c[0], setIsPasswordVisible = _c[1];
     useEffect(function () {
         if (inputRef.current) {
             var _a = inputRef.current, offsetWidth = _a.offsetWidth, offsetHeight = _a.offsetHeight;
             setDimensions({ width: offsetWidth, height: offsetHeight });
         }
     }, [inputRef.current]);
-    var handleDivClick = function () {
+    var handleDivClick = function (event) {
+        if (event.target.closest(".toggle-password")) {
+            return;
+        }
         if (inputRef.current) {
-            var inputElement = inputRef.current.querySelector("input");
-            if (inputElement) {
-                inputElement.focus();
+            var inputElement_1 = inputRef.current.querySelector("input");
+            if (inputElement_1) {
+                if (event.detail === 2) {
+                    inputElement_1.focus();
+                    inputElement_1.select();
+                }
+                else {
+                    var currentCursorPosition_1 = inputElement_1.selectionStart;
+                    setTimeout(function () {
+                        inputElement_1.focus();
+                        if (currentCursorPosition_1 !== null) {
+                            inputElement_1.setSelectionRange(currentCursorPosition_1, currentCursorPosition_1);
+                        }
+                    }, 0);
+                }
             }
         }
+    };
+    var togglePasswordVisibility = function () {
+        setIsPasswordVisible(function (prev) { return !prev; });
     };
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { className: "input-root" },
@@ -329,8 +348,11 @@ var Input = function (_a) {
                 React.createElement("label", null, label))),
             skeleton ? (React.createElement(Skeleton, { height: "".concat(dimensions.height), width: "".concat(dimensions.width) })) : (React.createElement("div", { ref: inputRef },
                 React.createElement("div", { className: "input-content ".concat(disabled ? "disabled" : "", " ").concat(error ? "error" : ""), onClick: handleDivClick },
-                    React.createElement("input", __assign({ size: 0 }, rest, { value: value, disabled: disabled, ref: ref })),
-                    React.createElement(Icon, { icon: typeIcon, size: "md", fill: fillIcon })),
+                    React.createElement("input", __assign({ size: 0 }, rest, { value: value, disabled: disabled, ref: ref, type: type === "password" && isPasswordVisible ? "text" : type })),
+                    type === "password" ? (React.createElement("div", { onClick: togglePasswordVisibility, className: "toggle-password" },
+                        React.createElement("span", { className: "icon-transition" },
+                            React.createElement(Icon, { icon: isPasswordVisible ? "visibility" : "visibility_off", size: "md", fill: fillIcon })))) : (React.createElement("span", { className: "icon-transition" },
+                        React.createElement(Icon, { icon: typeIcon, size: "md", fill: fillIcon })))),
                 error && React.createElement("div", { className: "input-error" }, textError))))));
 };
 
