@@ -7,13 +7,11 @@
     height: 40px;
     padding: 0 var(--s-spacing-xx-small);
     overflow-x: auto;
+    -ms-overflow-style: none;
 
     &::-webkit-scrollbar {
       display: none;
     }
-
-    scrollbar-width: none;
-    -ms-overflow-style: none;
 
     .tab-item {
       height: 40px;
@@ -53,7 +51,7 @@
       &:hover {
         border-color: var(--s-color-border-highlight);
         background-color: var(--s-color-fill-default);
-        color: var(--s-color-content-highlight);
+        color: var (--s-color-content-highlight);
       }
     }
   }
