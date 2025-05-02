@@ -11,7 +11,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   disabled?: boolean;
   textError?: string;
   value?: string;
-  ref?: any;
+  inputRef?: React.Ref<HTMLInputElement>;
   skeleton?: boolean;
 }
 
@@ -23,29 +23,29 @@ const Input: React.FC<InputProps> = ({
   disabled,
   textError,
   value,
-  ref,
+  inputRef,
   skeleton,
   type,
   ...rest
 }) => {
-  const inputRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   useEffect(() => {
-    if (inputRef.current) {
-      const { offsetWidth, offsetHeight } = inputRef.current;
+    if (containerRef.current) {
+      const { offsetWidth, offsetHeight } = containerRef.current;
       setDimensions({ width: offsetWidth, height: offsetHeight });
     }
-  }, [inputRef.current]);
+  }, [containerRef.current]);
 
   const handleDivClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if ((event.target as HTMLElement).closest(".toggle-password")) {
       return;
     }
 
-    if (inputRef.current) {
-      const inputElement = inputRef.current.querySelector("input");
+    if (containerRef.current) {
+      const inputElement = containerRef.current.querySelector("input");
       if (inputElement) {
         if (event.detail === 2) {
           inputElement.focus();
@@ -81,7 +81,7 @@ const Input: React.FC<InputProps> = ({
             width={`${dimensions.width}`}
           />
         ) : (
-          <div ref={inputRef}>
+          <div ref={containerRef}>
             <div
               className={`input-content ${disabled ? "disabled" : ""} ${
                 error ? "error" : ""
@@ -93,7 +93,7 @@ const Input: React.FC<InputProps> = ({
                 {...rest}
                 value={value}
                 disabled={disabled}
-                ref={ref}
+                ref={inputRef}
                 type={type === "password" && isPasswordVisible ? "text" : type}
               />
               {type === "password" ? (

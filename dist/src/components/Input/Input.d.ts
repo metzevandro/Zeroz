@@ -8,7 +8,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     disabled?: boolean;
     textError?: string;
     value?: string;
-    ref?: any;
+    inputRef?: React.Ref<HTMLInputElement>;
     skeleton?: boolean;
 }
 declare const Input: React.FC<InputProps>;
