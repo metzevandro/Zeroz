@@ -30007,7 +30007,7 @@ var CustomTooltip = function (_a) {
                                 gap: 8,
                             } },
                             React.createElement("div", null, item.keyName),
-                            React.createElement("div", null, item.quantity))); }))));
+                            React.createElement("div", null, formatter ? formatter(item.quantity, item.keyName, item, idx, othersData) : item.quantity))); }))));
                 }
                 return (React.createElement("div", { key: "item-".concat(index), style: {
                         display: "flex",
