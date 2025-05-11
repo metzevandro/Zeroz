@@ -30264,7 +30264,7 @@ function PieChart(_a) {
                     if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                         return (React.createElement("text", { x: viewBox.cx, y: viewBox.cy, textAnchor: "middle", dominantBaseline: "middle" },
                             React.createElement("tspan", { style: {
-                                    font: "var(--s-typography-heading-x-large)",
+                                    font: "var(--s-typography-heading-medium)",
                                     fill: "var(--s-color-content-default)",
                                 }, x: viewBox.cx, y: viewBox.cy }, skeleton
                                 ? ""

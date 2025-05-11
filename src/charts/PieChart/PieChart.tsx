@@ -139,7 +139,7 @@ export default function PieChart({
                 >
                   <tspan
                     style={{
-                      font: "var(--s-typography-heading-x-large)",
+                      font: "var(--s-typography-heading-medium)",
                       fill: "var(--s-color-content-default)",
                     }}
                     x={viewBox.cx}
