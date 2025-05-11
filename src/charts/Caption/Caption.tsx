@@ -3,9 +3,7 @@ import { LegendProps } from "recharts";
 
 export default function CustomCaption({
   payload = [],
-  othersData,
 }: LegendProps & { othersData?: any[] }) {
-  const [showOthers, setShowOthers] = useState(false);
 
   return (
     <div
@@ -16,7 +14,14 @@ export default function CustomCaption({
         marginTop: "var(--s-spacing-medium)",
       }}
     >
-      {payload.map((entry, index) => (
+      {payload.filter((entry, idx, arr) => {
+        if (typeof entry.payload === 'object' && entry.payload && 'keyName' in entry.payload) {
+          if (entry.payload.keyName === 'Outros') {
+            return arr.findIndex(e => typeof e.payload === 'object' && e.payload && 'keyName' in e.payload && e.payload.keyName === 'Outros') === idx;
+          }
+        }
+        return true;
+      }).map((entry, index) => (
         <div
           key={`item-${index}`}
           style={{

@@ -30041,14 +30041,20 @@ var CustomTooltip = function (_a) {
 };
 
 function CustomCaption(_a) {
-    var _b = _a.payload, payload = _b === undefined ? [] : _b; _a.othersData;
-    var _c = useState(false); _c[0]; _c[1];
+    var _b = _a.payload, payload = _b === undefined ? [] : _b;
     return (React.createElement("div", { style: {
             display: "flex",
             justifyContent: "center",
             gap: "var(--s-spacing-small)",
             marginTop: "var(--s-spacing-medium)",
-        } }, payload.map(function (entry, index) { return (React.createElement("div", { key: "item-".concat(index), style: {
+        } }, payload.filter(function (entry, idx, arr) {
+        if (typeof entry.payload === 'object' && entry.payload && 'keyName' in entry.payload) {
+            if (entry.payload.keyName === 'Outros') {
+                return arr.findIndex(function (e) { return typeof e.payload === 'object' && e.payload && 'keyName' in e.payload && e.payload.keyName === 'Outros'; }) === idx;
+            }
+        }
+        return true;
+    }).map(function (entry, index) { return (React.createElement("div", { key: "item-".concat(index), style: {
             display: "flex",
             alignItems: "center",
             gap: "var(--s-spacing-nano)",
