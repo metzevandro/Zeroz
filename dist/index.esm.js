@@ -30041,8 +30041,8 @@ var CustomTooltip = function (_a) {
 };
 
 function CustomCaption(_a) {
-    var _b = _a.payload, payload = _b === undefined ? [] : _b, othersData = _a.othersData;
-    var _c = useState(false), showOthers = _c[0], setShowOthers = _c[1];
+    var _b = _a.payload, payload = _b === undefined ? [] : _b; _a.othersData;
+    var _c = useState(false); _c[0]; _c[1];
     return (React.createElement("div", { style: {
             display: "flex",
             justifyContent: "center",
@@ -30053,10 +30053,7 @@ function CustomCaption(_a) {
             alignItems: "center",
             gap: "var(--s-spacing-nano)",
             position: "relative",
-        }, onMouseEnter: function () {
-            if (entry.value === "Outros")
-                setShowOthers(true);
-        }, onMouseLeave: function () { return setShowOthers(false); } },
+        } },
         React.createElement("div", { style: {
                 backgroundColor: entry.color,
                 width: 8,
@@ -30071,29 +30068,7 @@ function CustomCaption(_a) {
             ? entry.payload.keyName
             : entry.value === 'Outros'
                 ? 'Outros'
-                : entry.value),
-        entry.value === "Outros" && showOthers && othersData && (React.createElement("div", { style: {
-                position: "absolute",
-                top: "120%",
-                left: 0,
-                background: "var(--s-color-fill-default)",
-                border: "1px solid var(--s-color-border-light)",
-                borderRadius: 4,
-                padding: 8,
-                zIndex: 10,
-                minWidth: 120,
-                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-            } },
-            React.createElement("ul", { style: { margin: 0, padding: 0, listStyle: "none" } }, othersData.map(function (item, idx) { return (React.createElement("li", { key: idx, style: {
-                    fontSize: 12,
-                    color: "var(--s-color-content-light)",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    gap: 8,
-                } },
-                React.createElement("div", null, item.keyName),
-                React.createElement("div", null, item.quantity))); })))))); })));
+                : entry.value))); })));
 }
 
 function BarChart(props) {
