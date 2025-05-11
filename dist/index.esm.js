@@ -30067,7 +30067,11 @@ function CustomCaption(_a) {
         React.createElement("small", { style: {
                 color: "var(--s-color-content-default)",
                 textTransform: "capitalize",
-            } }, entry.value),
+            } }, typeof entry.payload === 'object' && entry.payload && 'keyName' in entry.payload
+            ? entry.payload.keyName
+            : entry.value === 'Outros'
+                ? 'Outros'
+                : entry.value),
         entry.value === "Outros" && showOthers && othersData && (React.createElement("div", { style: {
                 position: "absolute",
                 top: "120%",

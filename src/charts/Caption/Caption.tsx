@@ -45,7 +45,11 @@ export default function CustomCaption({
               textTransform: "capitalize",
             }}
           >
-            {entry.value}
+            {typeof entry.payload === 'object' && entry.payload && 'keyName' in entry.payload
+              ? entry.payload.keyName
+              : entry.value === 'Outros'
+                ? 'Outros'
+                : entry.value}
           </small>
           {entry.value === "Outros" && showOthers && othersData && (
             <div
