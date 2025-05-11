@@ -1,3 +1,5 @@
 import React from "react";
 import { LegendProps } from "recharts";
-export default function CustomCaption({ payload }: LegendProps): React.JSX.Element;
+export default function CustomCaption({ payload, othersData, }: LegendProps & {
+    othersData?: any[];
+}): React.JSX.Element;

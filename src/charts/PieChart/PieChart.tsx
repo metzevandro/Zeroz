@@ -12,12 +12,12 @@ import {
 import CustomTooltip from "../Tooltip/Tooltip";
 import "./PieChart.scss";
 import CustomCaption from "../Caption/Caption";
-import Skeleton from "../../components/Skeleton/Skeleton";
 
 interface PieData {
   quantity: number;
   keyName: string;
   fill: string;
+  others?: PieData[];
 }
 
 interface PieChartProps {
@@ -51,36 +51,6 @@ export default function PieChart({
   nameKey,
   skeleton = false,
 }: PieChartProps) {
-  const processedData = React.useMemo(() => {
-    if (skeleton) return data;
-    if (data.length <= 5) return data;
-    const sorted = [...data].sort((a, b) => b.quantity - a.quantity);
-    const main = sorted.slice(0, 5);
-    const others = sorted.slice(5);
-    const othersTotal = others.reduce((acc, curr) => acc + curr.quantity, 0);
-    if (othersTotal === 0) return main;
-    return [
-      ...main,
-      {
-        quantity: othersTotal,
-        keyName: "Outros",
-        fill: "var(--s-color-chart-7)",
-      },
-    ];
-  }, [data, skeleton]);
-
-  const othersData = React.useMemo(() => {
-    if (skeleton) return [];
-    if (data.length <= 5) return [];
-    const sorted = [...data].sort((a, b) => b.quantity - a.quantity);
-    return sorted.slice(5);
-  }, [data, skeleton]);
-
-  const allData = React.useMemo(() => {
-    if (skeleton) return data;
-    return [...data].sort((a, b) => b.quantity - a.quantity);
-  }, [data, skeleton]);
-
   const totalQuantity = React.useMemo(() => {
     return data.reduce((acc, curr) => acc + curr.quantity, 0);
   }, [data]);
@@ -98,9 +68,42 @@ export default function PieChart({
     "var(--s-color-chart-10)",
   ];
 
+  const processedData = React.useMemo(() => {
+    if (skeleton) return data;
+    if (data.length <= 5) return data;
+    const sorted = [...data].sort((a, b) => b.quantity - a.quantity);
+    const main = sorted.slice(0, 5);
+    const others = sorted.slice(5);
+    const othersQuantity = others.reduce((acc, curr) => acc + curr.quantity, 0);
+    if (othersQuantity === 0) return main;
+    const othersColor =
+      main.length < defaultColors.length
+        ? defaultColors[main.length]
+        : defaultColors[defaultColors.length - 1];
+    return [
+      ...main,
+      {
+        quantity: othersQuantity,
+        keyName: "Outros",
+        fill: othersColor,
+        others,
+      },
+    ];
+  }, [data, skeleton]);
+
   const renderLegend = () => {
     if (caption && !skeleton) {
-      return <Legend content={<CustomCaption />} />;
+      return (
+        <Legend
+          content={
+            <CustomCaption
+              othersData={
+                processedData.find((d) => d.keyName === "Outros")?.others
+              }
+            />
+          }
+        />
+      );
     }
   };
 
@@ -108,34 +111,14 @@ export default function PieChart({
     if (!skeleton) {
       return (
         <ChartTooltip
-          content={({ active, payload }) => {
-            if (!active || !payload || !payload.length) return null;
-            const entry = payload[0].payload;
-            if (entry.keyName === "Outros" && othersData.length > 0) {
-              return (
-                <CustomTooltip
-                  active={active}
-                  payload={[
-                    {
-                      value: 0,
-                      othersList: othersData,
-                      color: entry.fill,
-                    } as any,
-                  ]}
-                  label="Outros"
-                  formatter={tooltipFormatter}
-                />
-              );
-            }
-            return (
-              <CustomTooltip
-                active={active}
-                payload={payload as any}
-                label={entry.keyName}
-                formatter={tooltipFormatter}
-              />
-            );
-          }}
+          formatter={tooltipFormatter}
+          content={
+            <CustomTooltip
+              othersData={
+                processedData.find((d) => d.keyName === "Outros")?.others
+              }
+            />
+          }
         />
       );
     }

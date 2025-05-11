@@ -4,6 +4,7 @@ interface PieData {
     quantity: number;
     keyName: string;
     fill: string;
+    others?: PieData[];
 }
 interface PieChartProps {
     data: PieData[];

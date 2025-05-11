@@ -29966,48 +29966,51 @@ var PieChart$1 = generateCategoricalChart({
 });
 
 var CustomTooltip = function (_a) {
-    var active = _a.active, payload = _a.payload, label = _a.label, formatter = _a.formatter;
+    var active = _a.active, payload = _a.payload, label = _a.label, formatter = _a.formatter, othersData = _a.othersData;
     if (active && payload && payload.length) {
-        if (payload[0].othersList) {
-            var othersList_1 = payload[0].othersList;
-            return (React.createElement("div", { className: "TooltipContent" },
-                React.createElement("small", { className: "label" }, "".concat(label ? label : "")),
-                React.createElement("div", { style: {
-                        fontWeight: 600,
-                        marginBottom: 4,
-                        color: "var(--s-color-content-default)",
-                    } }, payload[0].name),
-                othersList_1.slice(0, 10).map(function (item, idx) { return (React.createElement("div", { key: item.keyName, style: {
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: 5,
-                    } },
-                    item.fill && (React.createElement("div", { style: {
-                            borderRadius: "2px",
-                            width: 10,
-                            height: 10,
-                            backgroundColor: item.fill,
-                        } })),
-                    React.createElement("div", { style: {
-                            display: "flex",
-                            justifyContent: "space-between",
-                            width: "100%",
-                            gap: "var(--s-spacing-nano)",
-                            alignItems: "center",
-                        } },
-                        React.createElement("small", { className: "intro", style: {
-                                textTransform: "capitalize",
-                                color: "var(--s-color-content-light)",
-                            } }, "".concat(item.keyName ? item.keyName : "", ": ")),
-                        React.createElement("small", { style: { color: "var(--s-color-content-default)" } }, formatter
-                            ? formatter(item.quantity, item.keyName, item, idx, othersList_1)
-                            : item.quantity)))); })));
-        }
         return (React.createElement("div", { className: "TooltipContent" },
             React.createElement("small", { className: "label" }, "".concat(label ? label : "")),
             payload.slice(0, 10).map(function (entry, index) {
-                var _a, _b;
+                var _a, _b, _c, _d;
+                if (entry.name === "Outros" && othersData && othersData.length) {
+                    return (React.createElement("div", { key: "item-others-".concat(index) },
+                        React.createElement("div", { style: {
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 5,
+                            } },
+                            React.createElement("div", { style: {
+                                    borderRadius: "2px",
+                                    width: 10,
+                                    height: 10,
+                                    backgroundColor: entry.color || entry.payload.fill,
+                                } }),
+                            React.createElement("div", { style: {
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    width: "100%",
+                                    gap: "var(--s-spacing-nano)",
+                                    alignItems: "center",
+                                } },
+                                React.createElement("small", { className: "intro", style: {
+                                        textTransform: "capitalize",
+                                        color: "var(--s-color-content-light)",
+                                    } }, "Outros:"),
+                                React.createElement("small", { style: { color: "var(--s-color-content-default)" } }, formatter
+                                    ? formatter((_a = entry.value) !== null && _a !== undefined ? _a : 0, (_b = entry.name) !== null && _b !== undefined ? _b : "", entry, index, payload)
+                                    : entry.value))),
+                        React.createElement("ul", { style: { padding: 0, listStyle: "disc" } }, othersData.map(function (item, idx) { return (React.createElement("li", { key: idx, style: {
+                                listStyle: "none",
+                                font: "var(--s-typography-caption-regular)",
+                                color: "var(--s-color-content-light)",
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                gap: 8,
+                            } },
+                            React.createElement("div", null, item.keyName),
+                            React.createElement("div", null, item.quantity))); }))));
+                }
                 return (React.createElement("div", { key: "item-".concat(index), style: {
                         display: "flex",
                         flexDirection: "row",
@@ -30032,7 +30035,7 @@ var CustomTooltip = function (_a) {
                                 color: "var(--s-color-content-light)",
                             } }, "".concat(entry.name ? entry.name : "", ": ")),
                         React.createElement("small", { style: { color: "var(--s-color-content-default)" } }, formatter
-                            ? formatter((_a = entry.value) !== null && _a !== undefined ? _a : 0, (_b = entry.name) !== null && _b !== undefined ? _b : "", entry, index, payload)
+                            ? formatter((_c = entry.value) !== null && _c !== undefined ? _c : 0, (_d = entry.name) !== null && _d !== undefined ? _d : "", entry, index, payload)
                             : entry.value))));
             })));
     }
@@ -30040,7 +30043,8 @@ var CustomTooltip = function (_a) {
 };
 
 function CustomCaption(_a) {
-    var _b = _a.payload, payload = _b === undefined ? [] : _b;
+    var _b = _a.payload, payload = _b === undefined ? [] : _b, othersData = _a.othersData;
+    var _c = React.useState(false), showOthers = _c[0], setShowOthers = _c[1];
     return (React.createElement("div", { style: {
             display: "flex",
             justifyContent: "center",
@@ -30050,7 +30054,11 @@ function CustomCaption(_a) {
             display: "flex",
             alignItems: "center",
             gap: "var(--s-spacing-nano)",
-        } },
+            position: "relative",
+        }, onMouseEnter: function () {
+            if (entry.value === "Outros")
+                setShowOthers(true);
+        }, onMouseLeave: function () { return setShowOthers(false); } },
         React.createElement("div", { style: {
                 backgroundColor: entry.color,
                 width: 8,
@@ -30061,7 +30069,30 @@ function CustomCaption(_a) {
         React.createElement("small", { style: {
                 color: "var(--s-color-content-default)",
                 textTransform: "capitalize",
-            } }, entry.value))); })));
+            } }, entry.value),
+        entry.value === "Outros" && showOthers && othersData && (React.createElement("div", { style: {
+                position: "absolute",
+                top: "120%",
+                left: 0,
+                background: "var(--s-color-fill-default)",
+                border: "1px solid var(--s-color-border-light)",
+                borderRadius: 4,
+                padding: 8,
+                zIndex: 10,
+                minWidth: 120,
+                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+            } },
+            React.createElement("strong", { style: { fontSize: 12 } }, "Outros:"),
+            React.createElement("ul", { style: { margin: 0, padding: 0, listStyle: "none" } }, othersData.map(function (item, idx) { return (React.createElement("li", { key: idx, style: {
+                    fontSize: 12,
+                    color: "var(--s-color-content-light)",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    gap: 8,
+                } },
+                React.createElement("div", null, item.keyName),
+                React.createElement("div", null, item.quantity))); })))))); })));
 }
 
 function BarChart(props) {
@@ -30173,38 +30204,6 @@ function LineChart(props) {
 
 function PieChart(_a) {
     var data = _a.data, label = _a.label, caption = _a.caption, innerRadius = _a.innerRadius, outerRadius = _a.outerRadius, type = _a.type, tooltipFormatter = _a.tooltipFormatter, labelFormatter = _a.labelFormatter, height = _a.height, width = _a.width, dataKey = _a.dataKey, nameKey = _a.nameKey, _b = _a.skeleton, skeleton = _b === undefined ? false : _b;
-    var processedData = React.useMemo(function () {
-        if (skeleton)
-            return data;
-        if (data.length <= 5)
-            return data;
-        var sorted = __spreadArray([], data, true).sort(function (a, b) { return b.quantity - a.quantity; });
-        var main = sorted.slice(0, 5);
-        var others = sorted.slice(5);
-        var othersTotal = others.reduce(function (acc, curr) { return acc + curr.quantity; }, 0);
-        if (othersTotal === 0)
-            return main;
-        return __spreadArray(__spreadArray([], main, true), [
-            {
-                quantity: othersTotal,
-                keyName: "Outros",
-                fill: "var(--s-color-chart-7)",
-            },
-        ], false);
-    }, [data, skeleton]);
-    var othersData = React.useMemo(function () {
-        if (skeleton)
-            return [];
-        if (data.length <= 5)
-            return [];
-        var sorted = __spreadArray([], data, true).sort(function (a, b) { return b.quantity - a.quantity; });
-        return sorted.slice(5);
-    }, [data, skeleton]);
-    React.useMemo(function () {
-        if (skeleton)
-            return data;
-        return __spreadArray([], data, true).sort(function (a, b) { return b.quantity - a.quantity; });
-    }, [data, skeleton]);
     var totalQuantity = React.useMemo(function () {
         return data.reduce(function (acc, curr) { return acc + curr.quantity; }, 0);
     }, [data]);
@@ -30220,29 +30219,39 @@ function PieChart(_a) {
         "var(--s-color-chart-9)",
         "var(--s-color-chart-10)",
     ];
+    var processedData = React.useMemo(function () {
+        if (skeleton)
+            return data;
+        if (data.length <= 5)
+            return data;
+        var sorted = __spreadArray([], data, true).sort(function (a, b) { return b.quantity - a.quantity; });
+        var main = sorted.slice(0, 5);
+        var others = sorted.slice(5);
+        var othersQuantity = others.reduce(function (acc, curr) { return acc + curr.quantity; }, 0);
+        if (othersQuantity === 0)
+            return main;
+        var othersColor = main.length < defaultColors.length
+            ? defaultColors[main.length]
+            : defaultColors[defaultColors.length - 1];
+        return __spreadArray(__spreadArray([], main, true), [
+            {
+                quantity: othersQuantity,
+                keyName: "Outros",
+                fill: othersColor,
+                others: others,
+            },
+        ], false);
+    }, [data, skeleton]);
     var renderLegend = function () {
+        var _a;
         if (caption && !skeleton) {
-            return React.createElement(Legend, { content: React.createElement(CustomCaption, null) });
+            return (React.createElement(Legend, { content: React.createElement(CustomCaption, { othersData: (_a = processedData.find(function (d) { return d.keyName === "Outros"; })) === null || _a === undefined ? undefined : _a.others }) }));
         }
     };
     var renderTooltip = function () {
+        var _a;
         if (!skeleton) {
-            return (React.createElement(Tooltip, { content: function (_a) {
-                    var active = _a.active, payload = _a.payload;
-                    if (!active || !payload || !payload.length)
-                        return null;
-                    var entry = payload[0].payload;
-                    if (entry.keyName === "Outros" && othersData.length > 0) {
-                        return (React.createElement(CustomTooltip, { active: active, payload: [
-                                {
-                                    value: 0,
-                                    othersList: othersData,
-                                    color: entry.fill,
-                                },
-                            ], label: "Outros", formatter: tooltipFormatter }));
-                    }
-                    return (React.createElement(CustomTooltip, { active: active, payload: payload, label: entry.keyName, formatter: tooltipFormatter }));
-                } }));
+            return (React.createElement(Tooltip, { formatter: tooltipFormatter, content: React.createElement(CustomTooltip, { othersData: (_a = processedData.find(function (d) { return d.keyName === "Outros"; })) === null || _a === undefined ? undefined : _a.others }) }));
         }
     };
     var renderLabel = function (skeleton) {
