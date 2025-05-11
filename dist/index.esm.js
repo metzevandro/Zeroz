@@ -30084,7 +30084,6 @@ function CustomCaption(_a) {
                 minWidth: 120,
                 boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
             } },
-            React.createElement("strong", { style: { fontSize: 12 } }, "Outros:"),
             React.createElement("ul", { style: { margin: 0, padding: 0, listStyle: "none" } }, othersData.map(function (item, idx) { return (React.createElement("li", { key: idx, style: {
                     fontSize: 12,
                     color: "var(--s-color-content-light)",

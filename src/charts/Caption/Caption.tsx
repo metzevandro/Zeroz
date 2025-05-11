@@ -66,7 +66,6 @@ export default function CustomCaption({
                 boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
               }}
             >
-              <strong style={{ fontSize: 12 }}>Outros:</strong>
               <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
                 {othersData.map((item, idx) => (
                   <li
