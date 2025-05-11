@@ -51,6 +51,36 @@ export default function PieChart({
   nameKey,
   skeleton = false,
 }: PieChartProps) {
+  const processedData = React.useMemo(() => {
+    if (skeleton) return data;
+    if (data.length <= 5) return data;
+    const sorted = [...data].sort((a, b) => b.quantity - a.quantity);
+    const main = sorted.slice(0, 5);
+    const others = sorted.slice(5);
+    const othersTotal = others.reduce((acc, curr) => acc + curr.quantity, 0);
+    if (othersTotal === 0) return main;
+    return [
+      ...main,
+      {
+        quantity: othersTotal,
+        keyName: "Outros",
+        fill: "var(--s-color-chart-7)",
+      },
+    ];
+  }, [data, skeleton]);
+
+  const othersData = React.useMemo(() => {
+    if (skeleton) return [];
+    if (data.length <= 5) return [];
+    const sorted = [...data].sort((a, b) => b.quantity - a.quantity);
+    return sorted.slice(5);
+  }, [data, skeleton]);
+
+  const allData = React.useMemo(() => {
+    if (skeleton) return data;
+    return [...data].sort((a, b) => b.quantity - a.quantity);
+  }, [data, skeleton]);
+
   const totalQuantity = React.useMemo(() => {
     return data.reduce((acc, curr) => acc + curr.quantity, 0);
   }, [data]);
@@ -78,8 +108,34 @@ export default function PieChart({
     if (!skeleton) {
       return (
         <ChartTooltip
-          formatter={tooltipFormatter}
-          content={<CustomTooltip />}
+          content={({ active, payload }) => {
+            if (!active || !payload || !payload.length) return null;
+            const entry = payload[0].payload;
+            if (entry.keyName === "Outros" && othersData.length > 0) {
+              return (
+                <CustomTooltip
+                  active={active}
+                  payload={[
+                    {
+                      value: 0,
+                      othersList: othersData,
+                      color: entry.fill,
+                    } as any,
+                  ]}
+                  label="Outros"
+                  formatter={tooltipFormatter}
+                />
+              );
+            }
+            return (
+              <CustomTooltip
+                active={active}
+                payload={payload as any}
+                label={entry.keyName}
+                formatter={tooltipFormatter}
+              />
+            );
+          }}
         />
       );
     }
@@ -174,31 +230,29 @@ export default function PieChart({
       {renderTooltip()}
       {renderLegend()}
       <Pie
-        data={skeleton ? randomData : data}
+        data={skeleton ? randomData : processedData}
         dataKey={dataKey}
         nameKey={nameKey}
         innerRadius={skeleton ? 0 : type === "donut" ? innerRadius : 0}
         outerRadius={outerRadius}
         strokeWidth={1}
       >
-        {skeleton ? (
-          randomData.map((entry, index) => (
-            <Cell
-            key={`skeleton-cell-${index}-${entry.keyName}`}
-            fill={entry.fill}
-            />
-          ))
-        ) : (
-          data.map((entry, index) => (
-            <Cell
-              key={`cell-${index}`}
-              fill={entry.fill || defaultColors[index % defaultColors.length]}
-              stroke={
-                entry.fill || defaultColors[index % defaultColors.length]
-              }
-            />
-          ))
-        )}
+        {skeleton
+          ? randomData.map((entry, index) => (
+              <Cell
+                key={`skeleton-cell-${index}-${entry.keyName}`}
+                fill={entry.fill}
+              />
+            ))
+          : processedData.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={entry.fill || defaultColors[index % defaultColors.length]}
+                stroke={
+                  entry.fill || defaultColors[index % defaultColors.length]
+                }
+              />
+            ))}
 
         {renderLabel(skeleton)}
       </Pie>

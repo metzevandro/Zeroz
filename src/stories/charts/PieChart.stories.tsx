@@ -163,11 +163,26 @@ type DefaultProps = {
 };
 
 const data = [
-  { keyName: "Chrome", quantity: 275 },
-  { keyName: "Safari", quantity: 200 },
-  { keyName: "Firefox", quantity: 287 },
-  { keyName: "Edge", quantity: 173 },
-  { keyName: "Other", quantity: 190 },
+  { keyName: "Notebook", quantity: 120 },
+  { keyName: "Smartphone", quantity: 210 },
+  { keyName: "Tablet", quantity: 98 },
+  { keyName: "Monitor", quantity: 85 },
+  { keyName: "Teclado", quantity: 140 },
+  { keyName: "Mouse", quantity: 170 },
+  { keyName: "Headset", quantity: 76 },
+  { keyName: "Cadeira Gamer", quantity: 45 },
+  { keyName: "Impressora", quantity: 52 },
+  { keyName: "Webcam", quantity: 38 },
+  { keyName: "Microfone", quantity: 64 },
+  { keyName: "HD Externo", quantity: 90 },
+  { keyName: "Pen Drive", quantity: 115 },
+  { keyName: "Smartwatch", quantity: 67 },
+  { keyName: "Roteador", quantity: 81 },
+  { keyName: "Placa de Vídeo", quantity: 33 },
+  { keyName: "Processador", quantity: 27 },
+  { keyName: "Memória RAM", quantity: 73 },
+  { keyName: "Fonte", quantity: 40 },
+  { keyName: "Gabinete", quantity: 59 },
 ];
 
 const Template: StoryFn<DefaultProps> = (args) => <PieChart {...args} />;

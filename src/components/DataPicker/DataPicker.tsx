@@ -451,7 +451,7 @@ function DataPicker({
   };
 
   return (
-    <div style={{display: "flex", flexDirection: "column"}}>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <Input
         label={label}
         onClick={toogleCalendar}
@@ -464,7 +464,7 @@ function DataPicker({
         fillIcon
         disabled={disabled}
         skeleton={skeleton}
-      />      
+      />
       <div className={`data-picker ${openCalendar ? "open" : ""}`}>
         <DataPickerCalendar
           onSelectDate={handleSelectDate}

@@ -55,7 +55,10 @@ const Input: React.FC<InputProps> = ({
           setTimeout(() => {
             inputElement.focus();
             if (currentCursorPosition !== null) {
-              inputElement.setSelectionRange(currentCursorPosition, currentCursorPosition);
+              inputElement.setSelectionRange(
+                currentCursorPosition,
+                currentCursorPosition,
+              );
             }
           }, 0);
         }

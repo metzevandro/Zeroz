@@ -131,7 +131,9 @@
 }
 
 .icon-transition {
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
 }
 
 .toggle-password {

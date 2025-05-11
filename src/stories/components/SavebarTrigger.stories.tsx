@@ -339,8 +339,14 @@ const Template: StoryFn<DefaultProps> = (args) => {
               />
               <DataPicker
                 label="Data Picker"
-                value={formValues["Input do DataPicker"] ? String(formValues["Input do DataPicker"]) : ""}
-                onChange={(newDate: string) => handleDateChange("Input do DataPicker", newDate)}
+                value={
+                  formValues["Input do DataPicker"]
+                    ? String(formValues["Input do DataPicker"])
+                    : ""
+                }
+                onChange={(newDate: string) =>
+                  handleDateChange("Input do DataPicker", newDate)
+                }
               />
               <Slider
                 value={String(formValues.Slider)}

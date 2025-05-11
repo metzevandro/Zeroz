@@ -969,10 +969,12 @@ var DataTable = function (props) {
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { className: "data-table" },
             React.createElement(DataTableHeader, { textRowsSelected: textRowsSelected, children: headerSelectedChildren, skeleton: skeleton, onSearch: handleSearch, rowsSelected: rowsSelectedCount }),
-            React.createElement("div", { className: "data-table-body ".concat(contentOverflowed ? "overflowed" : ""), ref: ref, style: { height: (rowsPerPage * 56.8) + 41.6 } },
+            React.createElement("div", { className: "data-table-body ".concat(contentOverflowed ? "overflowed" : ""), ref: ref, style: { height: rowsPerPage * 56.8 + 41.6 } },
                 React.createElement("div", { className: "data-table-body-header" },
                     React.createElement(DataTableRowHeader, { collumnWidths: columnWidths, headers: columns, skeleton: skeleton, sortStates: sortStates, onSort: handleSort, withCheckbox: withCheckbox, allSelected: allSelected, someSelected: someSelected, handleSelectAll: handleSelectAll })),
-                currentRows.length === 0 && !skeleton && processedData.length === 0 ? (React.createElement("div", { className: "data-table-body-empty" },
+                currentRows.length === 0 &&
+                    !skeleton &&
+                    processedData.length === 0 ? (React.createElement("div", { className: "data-table-body-empty" },
                     React.createElement(EmptyState, { title: "Nenhum resultado encontrado", description: searchQuery
                             ? "Nenhum resultado encontrado para sua pesquisa. Tente ajustar os termos."
                             : "Tente ajustar ou revisar os termos de pesquisa para encontrar o que procura.", icon: "search_off" }))) : (React.createElement(DataTableBody, { withCheckbox: withCheckbox, columnWidths: columnWidths, currentPage: currentPage, currentRows: currentRows, selectedRows: selectedRows, rowsPerPage: rowsPerPage, skeleton: skeleton, onRowSelection: handleRowSelection, headers: columns }))),
@@ -29964,6 +29966,42 @@ var PieChart$1 = generateCategoricalChart({
 var CustomTooltip = function (_a) {
     var active = _a.active, payload = _a.payload, label = _a.label, formatter = _a.formatter;
     if (active && payload && payload.length) {
+        if (payload[0].othersList) {
+            var othersList_1 = payload[0].othersList;
+            return (React.createElement("div", { className: "TooltipContent" },
+                React.createElement("small", { className: "label" }, "".concat(label ? label : "")),
+                React.createElement("div", { style: {
+                        fontWeight: 600,
+                        marginBottom: 4,
+                        color: "var(--s-color-content-default)",
+                    } }, payload[0].name),
+                othersList_1.slice(0, 10).map(function (item, idx) { return (React.createElement("div", { key: item.keyName, style: {
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: 5,
+                    } },
+                    item.fill && (React.createElement("div", { style: {
+                            borderRadius: "2px",
+                            width: 10,
+                            height: 10,
+                            backgroundColor: item.fill,
+                        } })),
+                    React.createElement("div", { style: {
+                            display: "flex",
+                            justifyContent: "space-between",
+                            width: "100%",
+                            gap: "var(--s-spacing-nano)",
+                            alignItems: "center",
+                        } },
+                        React.createElement("small", { className: "intro", style: {
+                                textTransform: "capitalize",
+                                color: "var(--s-color-content-light)",
+                            } }, "".concat(item.keyName ? item.keyName : "", ": ")),
+                        React.createElement("small", { style: { color: "var(--s-color-content-default)" } }, formatter
+                            ? formatter(item.quantity, item.keyName, item, idx, othersList_1)
+                            : item.quantity)))); })));
+        }
         return (React.createElement("div", { className: "TooltipContent" },
             React.createElement("small", { className: "label" }, "".concat(label ? label : "")),
             payload.slice(0, 10).map(function (entry, index) {
@@ -30133,6 +30171,38 @@ function LineChart(props) {
 
 function PieChart(_a) {
     var data = _a.data, label = _a.label, caption = _a.caption, innerRadius = _a.innerRadius, outerRadius = _a.outerRadius, type = _a.type, tooltipFormatter = _a.tooltipFormatter, labelFormatter = _a.labelFormatter, height = _a.height, width = _a.width, dataKey = _a.dataKey, nameKey = _a.nameKey, _b = _a.skeleton, skeleton = _b === undefined ? false : _b;
+    var processedData = React.useMemo(function () {
+        if (skeleton)
+            return data;
+        if (data.length <= 5)
+            return data;
+        var sorted = __spreadArray([], data, true).sort(function (a, b) { return b.quantity - a.quantity; });
+        var main = sorted.slice(0, 5);
+        var others = sorted.slice(5);
+        var othersTotal = others.reduce(function (acc, curr) { return acc + curr.quantity; }, 0);
+        if (othersTotal === 0)
+            return main;
+        return __spreadArray(__spreadArray([], main, true), [
+            {
+                quantity: othersTotal,
+                keyName: "Outros",
+                fill: "var(--s-color-chart-7)",
+            },
+        ], false);
+    }, [data, skeleton]);
+    var othersData = React.useMemo(function () {
+        if (skeleton)
+            return [];
+        if (data.length <= 5)
+            return [];
+        var sorted = __spreadArray([], data, true).sort(function (a, b) { return b.quantity - a.quantity; });
+        return sorted.slice(5);
+    }, [data, skeleton]);
+    React.useMemo(function () {
+        if (skeleton)
+            return data;
+        return __spreadArray([], data, true).sort(function (a, b) { return b.quantity - a.quantity; });
+    }, [data, skeleton]);
     var totalQuantity = React.useMemo(function () {
         return data.reduce(function (acc, curr) { return acc + curr.quantity; }, 0);
     }, [data]);
@@ -30155,7 +30225,22 @@ function PieChart(_a) {
     };
     var renderTooltip = function () {
         if (!skeleton) {
-            return (React.createElement(Tooltip, { formatter: tooltipFormatter, content: React.createElement(CustomTooltip, null) }));
+            return (React.createElement(Tooltip, { content: function (_a) {
+                    var active = _a.active, payload = _a.payload;
+                    if (!active || !payload || !payload.length)
+                        return null;
+                    var entry = payload[0].payload;
+                    if (entry.keyName === "Outros" && othersData.length > 0) {
+                        return (React.createElement(CustomTooltip, { active: active, payload: [
+                                {
+                                    value: 0,
+                                    othersList: othersData,
+                                    color: entry.fill,
+                                },
+                            ], label: "Outros", formatter: tooltipFormatter }));
+                    }
+                    return (React.createElement(CustomTooltip, { active: active, payload: payload, label: entry.keyName, formatter: tooltipFormatter }));
+                } }));
         }
     };
     var renderLabel = function (skeleton) {
@@ -30209,8 +30294,10 @@ function PieChart(_a) {
         } },
         renderTooltip(),
         renderLegend(),
-        React.createElement(Pie, { data: skeleton ? randomData : data, dataKey: dataKey, nameKey: nameKey, innerRadius: skeleton ? 0 : type === "donut" ? innerRadius : 0, outerRadius: outerRadius, strokeWidth: 1 },
-            skeleton ? (randomData.map(function (entry, index) { return (React.createElement(Cell, { key: "skeleton-cell-".concat(index, "-").concat(entry.keyName), fill: entry.fill })); })) : (data.map(function (entry, index) { return (React.createElement(Cell, { key: "cell-".concat(index), fill: entry.fill || defaultColors[index % defaultColors.length], stroke: entry.fill || defaultColors[index % defaultColors.length] })); })),
+        React.createElement(Pie, { data: skeleton ? randomData : processedData, dataKey: dataKey, nameKey: nameKey, innerRadius: skeleton ? 0 : type === "donut" ? innerRadius : 0, outerRadius: outerRadius, strokeWidth: 1 },
+            skeleton
+                ? randomData.map(function (entry, index) { return (React.createElement(Cell, { key: "skeleton-cell-".concat(index, "-").concat(entry.keyName), fill: entry.fill })); })
+                : processedData.map(function (entry, index) { return (React.createElement(Cell, { key: "cell-".concat(index), fill: entry.fill || defaultColors[index % defaultColors.length], stroke: entry.fill || defaultColors[index % defaultColors.length] })); }),
             renderLabel(skeleton))));
 }
 

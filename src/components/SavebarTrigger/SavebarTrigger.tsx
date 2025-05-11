@@ -29,7 +29,7 @@ const SavebarTrigger: React.FC<SavebarTriggerProps> = ({
   const [formData, setFormData] = useState<FormData>({});
   const [tamanhoPai, setTamanhoPai] = useState<number | null>(null);
   const [saving, setSaving] = useState<boolean>(false);
-  const [progressValue, setProgressValue] = useState<number>(0); 
+  const [progressValue, setProgressValue] = useState<number>(0);
   const [elapsedTime, setElapsedTime] = useState<number | null>(null);
 
   useEffect(() => {
@@ -69,12 +69,12 @@ const SavebarTrigger: React.FC<SavebarTriggerProps> = ({
   };
 
   const handleSave = () => {
-    setSaving(true); 
+    setSaving(true);
     const totalTime = 500;
-    const incrementInterval = 50; 
-    const totalIncrements = totalTime / incrementInterval; 
+    const incrementInterval = 50;
+    const totalIncrements = totalTime / incrementInterval;
     const incrementAmount = 100 / totalIncrements;
-    let currentProgress = 0; 
+    let currentProgress = 0;
 
     const intervalId = setInterval(() => {
       currentProgress += incrementAmount;
@@ -87,7 +87,7 @@ const SavebarTrigger: React.FC<SavebarTriggerProps> = ({
         }, 500);
       }
       handleSubmit();
-    }, incrementInterval); 
+    }, incrementInterval);
   };
 
   const modifyChild = (child: React.ReactNode, index: number) => {
@@ -97,7 +97,7 @@ const SavebarTrigger: React.FC<SavebarTriggerProps> = ({
         onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
           handleInputChange(name, e.target.value);
         },
-        value: formData[name] || "", 
+        value: formData[name] || "",
         name,
       });
     }

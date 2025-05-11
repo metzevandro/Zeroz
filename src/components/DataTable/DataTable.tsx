@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  useMemo,
+} from "react";
 import InputSearch from "../InputSearch/InputSearch";
 import Pagination from "../Pagination/Pagination";
 import "./DataTable.scss";
@@ -174,10 +180,13 @@ const DataTableBody = ({
   const generateRandomSkeletonData = () => {
     return Array.from({ length: 5 }).map((_, rowIndex) => ({
       id: `skeleton-${rowIndex}`,
-      ...headers.reduce((acc, header) => {
-        acc[header] = Math.random().toString(36).substring(2, 8);
-        return acc;
-      }, {} as Record<string, string>),
+      ...headers.reduce(
+        (acc, header) => {
+          acc[header] = Math.random().toString(36).substring(2, 8);
+          return acc;
+        },
+        {} as Record<string, string>,
+      ),
     }));
   };
 
@@ -266,7 +275,7 @@ interface DataTableProps {
   headerSelectedChildren?: React.ReactNode;
   textRowsSelected?: string;
   onSelectedRowsChange?: (selectedRows: string[]) => void;
-  onUpdateSelectedRows?: (updateSelectedRows: (ids: string[]) => void) => void; 
+  onUpdateSelectedRows?: (updateSelectedRows: (ids: string[]) => void) => void;
   minColumnWidths?: number[];
 }
 
@@ -307,26 +316,29 @@ export const DataTable = (props: DataTableProps) => {
         currentState === "default"
           ? "asc"
           : currentState === "asc"
-          ? "desc"
-          : "default";
+            ? "desc"
+            : "default";
       return newSortStates;
     });
   }, []);
 
-  const handleSelectAll = useCallback((checked: boolean) => {
-    if (checked) {
-      const allIds = processedData.map((row) => row.id);
-      setSelectedRows(allIds);
-    } else {
-      setSelectedRows([]);
-    }
-  }, [processedData]);
+  const handleSelectAll = useCallback(
+    (checked: boolean) => {
+      if (checked) {
+        const allIds = processedData.map((row) => row.id);
+        setSelectedRows(allIds);
+      } else {
+        setSelectedRows([]);
+      }
+    },
+    [processedData],
+  );
 
   const handleRowSelection = useCallback((id: string, checked: boolean) => {
     setSelectedRows((prevSelectedRows) =>
       checked
         ? [...prevSelectedRows, id]
-        : prevSelectedRows.filter((rowId) => rowId !== id)
+        : prevSelectedRows.filter((rowId) => rowId !== id),
     );
   }, []);
 
@@ -452,7 +464,10 @@ export const DataTable = (props: DataTableProps) => {
     return tempWidths;
   }, [columns, originalData, minColumnWidths]);
 
-  const columnWidths = useMemo(() => calculateColumnWidths(), [calculateColumnWidths]);
+  const columnWidths = useMemo(
+    () => calculateColumnWidths(),
+    [calculateColumnWidths],
+  );
 
   const ref = useRef<HTMLDivElement>(null);
   const [contentOverflowed, setContentOverflowed] = useState<boolean>(false);
@@ -494,7 +509,7 @@ export const DataTable = (props: DataTableProps) => {
         <div
           className={`data-table-body ${contentOverflowed ? "overflowed" : ""}`}
           ref={ref}
-          style={{height: (rowsPerPage * 56.8) + 41.6}}
+          style={{ height: rowsPerPage * 56.8 + 41.6 }}
         >
           <div className="data-table-body-header">
             <DataTableRowHeader
@@ -509,7 +524,9 @@ export const DataTable = (props: DataTableProps) => {
               handleSelectAll={handleSelectAll}
             />
           </div>
-          {currentRows.length === 0 && !skeleton && processedData.length === 0 ? (
+          {currentRows.length === 0 &&
+          !skeleton &&
+          processedData.length === 0 ? (
             <div className="data-table-body-empty">
               <EmptyState
                 title="Nenhum resultado encontrado"
