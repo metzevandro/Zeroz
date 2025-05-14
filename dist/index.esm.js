@@ -30007,7 +30007,9 @@ var CustomTooltip = function (_a) {
                                 gap: 8,
                             } },
                             React.createElement("div", null, item.keyName),
-                            React.createElement("div", null, formatter ? formatter(item.quantity, item.keyName, item, idx, othersData) : item.quantity))); }))));
+                            React.createElement("div", null, formatter
+                                ? formatter(item.quantity, item.keyName, item, idx, othersData)
+                                : item.quantity))); }))));
                 }
                 return (React.createElement("div", { key: "item-".concat(index), style: {
                         display: "flex",
@@ -30041,20 +30043,31 @@ var CustomTooltip = function (_a) {
 };
 
 function CustomCaption(_a) {
-    var _b = _a.payload, payload = _b === undefined ? [] : _b;
+    var _b = _a.payload, payload = _b === undefined ? [] : _b, othersData = _a.othersData;
     return (React.createElement("div", { style: {
             display: "flex",
             justifyContent: "center",
             gap: "var(--s-spacing-small)",
             marginTop: "var(--s-spacing-medium)",
-        } }, payload.filter(function (entry, idx, arr) {
-        if (typeof entry.payload === 'object' && entry.payload && 'keyName' in entry.payload) {
-            if (entry.payload.keyName === 'Outros') {
-                return arr.findIndex(function (e) { return typeof e.payload === 'object' && e.payload && 'keyName' in e.payload && e.payload.keyName === 'Outros'; }) === idx;
+        } }, payload
+        .filter(function (entry, idx, arr) {
+        if (typeof entry.payload === "object" &&
+            entry.payload &&
+            "keyName" in entry.payload) {
+            if (entry.payload.keyName === "Outros") {
+                if (!othersData || othersData.length === 0)
+                    return false;
+                return (arr.findIndex(function (e) {
+                    return typeof e.payload === "object" &&
+                        e.payload &&
+                        "keyName" in e.payload &&
+                        e.payload.keyName === "Outros";
+                }) === idx);
             }
         }
         return true;
-    }).map(function (entry, index) { return (React.createElement("div", { key: "item-".concat(index), style: {
+    })
+        .map(function (entry, index) { return (React.createElement("div", { key: "item-".concat(index), style: {
             display: "flex",
             alignItems: "center",
             gap: "var(--s-spacing-nano)",
@@ -30070,10 +30083,12 @@ function CustomCaption(_a) {
         React.createElement("small", { style: {
                 color: "var(--s-color-content-default)",
                 textTransform: "capitalize",
-            } }, typeof entry.payload === 'object' && entry.payload && 'keyName' in entry.payload
+            } }, typeof entry.payload === "object" &&
+            entry.payload &&
+            "keyName" in entry.payload
             ? entry.payload.keyName
-            : entry.value === 'Outros'
-                ? 'Outros'
+            : entry.value === "Outros"
+                ? "Outros"
                 : entry.value))); })));
 }
 

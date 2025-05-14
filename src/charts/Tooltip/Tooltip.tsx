@@ -74,7 +74,17 @@ const CustomTooltip: React.FC<
                       }}
                     >
                       <div>{item.keyName}</div>
-                      <div>{formatter ? formatter(item.quantity, item.keyName, item, idx, othersData) : item.quantity}</div>
+                      <div>
+                        {formatter
+                          ? formatter(
+                              item.quantity,
+                              item.keyName,
+                              item,
+                              idx,
+                              othersData,
+                            )
+                          : item.quantity}
+                      </div>
                     </li>
                   ))}
                 </ul>
