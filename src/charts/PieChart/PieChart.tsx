@@ -63,6 +63,7 @@ export default function PieChart({
     "var(--s-color-chart-5)",
     "var(--s-color-chart-6)",
     "var(--s-color-chart-7)",
+    "var(--s-color-chart-8)",
     "var(--s-color-chart-9)",
     "var(--s-color-chart-10)",
   ];
@@ -71,21 +72,7 @@ export default function PieChart({
 
   const processedData = React.useMemo(() => {
     if (skeleton) return data;
-    if (data.length <= 5) return data;
-    const sorted = [...data].sort((a, b) => b.quantity - a.quantity);
-    const main = sorted.slice(0, 5);
-    const others = sorted.slice(5);
-    const othersQuantity = others.reduce((acc, curr) => acc + curr.quantity, 0);
-    if (othersQuantity === 0) return main;
-    return [
-      ...main,
-      {
-        quantity: othersQuantity,
-        keyName: "Outros",
-        fill: GRAY_COLOR,
-        others,
-      },
-    ];
+    return data;
   }, [data, skeleton]);
 
   const renderLegend = () => {
@@ -97,7 +84,6 @@ export default function PieChart({
               {...props}
               width={typeof props.width === 'string' ? Number(props.width) : props.width}
               height={typeof props.height === 'string' ? Number(props.height) : props.height}
-              othersData={processedData.find((d) => d.keyName === "Outros")?.others}
             />
           )}
         />
@@ -110,13 +96,7 @@ export default function PieChart({
       return (
         <ChartTooltip
           formatter={tooltipFormatter}
-          content={
-            <CustomTooltip
-              othersData={
-                processedData.find((d) => d.keyName === "Outros")?.others
-              }
-            />
-          }
+          content={<CustomTooltip />}
         />
       );
     }

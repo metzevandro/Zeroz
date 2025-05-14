@@ -29964,53 +29964,12 @@ var PieChart$1 = generateCategoricalChart({
 });
 
 var CustomTooltip = function (_a) {
-    var active = _a.active, payload = _a.payload, label = _a.label, formatter = _a.formatter, othersData = _a.othersData;
+    var active = _a.active, payload = _a.payload, label = _a.label, formatter = _a.formatter;
     if (active && payload && payload.length) {
         return (React.createElement("div", { className: "TooltipContent" },
             React.createElement("small", { className: "label" }, "".concat(label ? label : "")),
             payload.slice(0, 10).map(function (entry, index) {
-                var _a, _b, _c, _d;
-                if (entry.name === "Outros" && othersData && othersData.length) {
-                    return (React.createElement("div", { key: "item-others-".concat(index) },
-                        React.createElement("div", { style: {
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 5,
-                            } },
-                            React.createElement("div", { style: {
-                                    borderRadius: "2px",
-                                    width: 10,
-                                    height: 10,
-                                    backgroundColor: entry.color || entry.payload.fill,
-                                } }),
-                            React.createElement("div", { style: {
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    width: "100%",
-                                    gap: "var(--s-spacing-nano)",
-                                    alignItems: "center",
-                                } },
-                                React.createElement("small", { className: "intro", style: {
-                                        textTransform: "capitalize",
-                                        color: "var(--s-color-content-light)",
-                                    } }, "Outros:"),
-                                React.createElement("small", { style: { color: "var(--s-color-content-default)" } }, formatter
-                                    ? formatter((_a = entry.value) !== null && _a !== undefined ? _a : 0, (_b = entry.name) !== null && _b !== undefined ? _b : "", entry, index, payload)
-                                    : entry.value))),
-                        React.createElement("ul", { style: { padding: 0, listStyle: "disc" } }, othersData.map(function (item, idx) { return (React.createElement("li", { key: idx, style: {
-                                listStyle: "none",
-                                font: "var(--s-typography-caption-regular)",
-                                color: "var(--s-color-content-light)",
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                gap: 8,
-                            } },
-                            React.createElement("div", null, item.keyName),
-                            React.createElement("div", null, formatter
-                                ? formatter(item.quantity, item.keyName, item, idx, othersData)
-                                : item.quantity))); }))));
-                }
+                var _a, _b;
                 return (React.createElement("div", { key: "item-".concat(index), style: {
                         display: "flex",
                         flexDirection: "row",
@@ -30035,7 +29994,7 @@ var CustomTooltip = function (_a) {
                                 color: "var(--s-color-content-light)",
                             } }, "".concat(entry.name ? entry.name : "", ": ")),
                         React.createElement("small", { style: { color: "var(--s-color-content-default)" } }, formatter
-                            ? formatter((_c = entry.value) !== null && _c !== undefined ? _c : 0, (_d = entry.name) !== null && _d !== undefined ? _d : "", entry, index, payload)
+                            ? formatter((_a = entry.value) !== null && _a !== undefined ? _a : 0, (_b = entry.name) !== null && _b !== undefined ? _b : "", entry, index, payload)
                             : entry.value))));
             })));
     }
@@ -30043,31 +30002,13 @@ var CustomTooltip = function (_a) {
 };
 
 function CustomCaption(_a) {
-    var _b = _a.payload, payload = _b === undefined ? [] : _b, othersData = _a.othersData;
+    var _b = _a.payload, payload = _b === undefined ? [] : _b;
     return (React.createElement("div", { style: {
             display: "flex",
             justifyContent: "center",
             gap: "var(--s-spacing-small)",
             marginTop: "var(--s-spacing-medium)",
-        } }, payload
-        .filter(function (entry, idx, arr) {
-        if (typeof entry.payload === "object" &&
-            entry.payload &&
-            "keyName" in entry.payload) {
-            if (entry.payload.keyName === "Outros") {
-                if (!othersData || othersData.length === 0)
-                    return false;
-                return (arr.findIndex(function (e) {
-                    return typeof e.payload === "object" &&
-                        e.payload &&
-                        "keyName" in e.payload &&
-                        e.payload.keyName === "Outros";
-                }) === idx);
-            }
-        }
-        return true;
-    })
-        .map(function (entry, index) { return (React.createElement("div", { key: "item-".concat(index), style: {
+        } }, payload.map(function (entry, index) { return (React.createElement("div", { key: "item-".concat(index), style: {
             display: "flex",
             alignItems: "center",
             gap: "var(--s-spacing-nano)",
@@ -30083,13 +30024,9 @@ function CustomCaption(_a) {
         React.createElement("small", { style: {
                 color: "var(--s-color-content-default)",
                 textTransform: "capitalize",
-            } }, typeof entry.payload === "object" &&
-            entry.payload &&
-            "keyName" in entry.payload
+            } }, typeof entry.payload === "object" && entry.payload && "keyName" in entry.payload
             ? entry.payload.keyName
-            : entry.value === "Outros"
-                ? "Outros"
-                : entry.value))); })));
+            : entry.value))); })));
 }
 
 function BarChart(props) {
@@ -30212,6 +30149,7 @@ function PieChart(_a) {
         "var(--s-color-chart-5)",
         "var(--s-color-chart-6)",
         "var(--s-color-chart-7)",
+        "var(--s-color-chart-8)",
         "var(--s-color-chart-9)",
         "var(--s-color-chart-10)",
     ];
@@ -30219,35 +30157,16 @@ function PieChart(_a) {
     var processedData = React.useMemo(function () {
         if (skeleton)
             return data;
-        if (data.length <= 5)
-            return data;
-        var sorted = __spreadArray([], data, true).sort(function (a, b) { return b.quantity - a.quantity; });
-        var main = sorted.slice(0, 5);
-        var others = sorted.slice(5);
-        var othersQuantity = others.reduce(function (acc, curr) { return acc + curr.quantity; }, 0);
-        if (othersQuantity === 0)
-            return main;
-        return __spreadArray(__spreadArray([], main, true), [
-            {
-                quantity: othersQuantity,
-                keyName: "Outros",
-                fill: GRAY_COLOR,
-                others: others,
-            },
-        ], false);
+        return data;
     }, [data, skeleton]);
     var renderLegend = function () {
         if (caption && !skeleton) {
-            return (React.createElement(Legend, { content: function (props) {
-                    var _a;
-                    return (React.createElement(CustomCaption, __assign({}, props, { width: typeof props.width === 'string' ? Number(props.width) : props.width, height: typeof props.height === 'string' ? Number(props.height) : props.height, othersData: (_a = processedData.find(function (d) { return d.keyName === "Outros"; })) === null || _a === undefined ? undefined : _a.others })));
-                } }));
+            return (React.createElement(Legend, { content: function (props) { return (React.createElement(CustomCaption, __assign({}, props, { width: typeof props.width === 'string' ? Number(props.width) : props.width, height: typeof props.height === 'string' ? Number(props.height) : props.height }))); } }));
         }
     };
     var renderTooltip = function () {
-        var _a;
         if (!skeleton) {
-            return (React.createElement(Tooltip, { formatter: tooltipFormatter, content: React.createElement(CustomTooltip, { othersData: (_a = processedData.find(function (d) { return d.keyName === "Outros"; })) === null || _a === undefined ? undefined : _a.others }) }));
+            return (React.createElement(Tooltip, { formatter: tooltipFormatter, content: React.createElement(CustomTooltip, null) }));
         }
     };
     var renderLabel = function (skeleton) {
