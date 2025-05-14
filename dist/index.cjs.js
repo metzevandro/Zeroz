@@ -30214,10 +30214,10 @@ function PieChart(_a) {
         "var(--s-color-chart-5)",
         "var(--s-color-chart-6)",
         "var(--s-color-chart-7)",
-        "var(--s-color-chart-8)",
         "var(--s-color-chart-9)",
         "var(--s-color-chart-10)",
     ];
+    var GRAY_COLOR = "var(--s-color-chart-8)";
     var processedData = React.useMemo(function () {
         if (skeleton)
             return data;
@@ -30229,22 +30229,21 @@ function PieChart(_a) {
         var othersQuantity = others.reduce(function (acc, curr) { return acc + curr.quantity; }, 0);
         if (othersQuantity === 0)
             return main;
-        var othersColor = main.length < defaultColors.length
-            ? defaultColors[main.length]
-            : defaultColors[defaultColors.length - 1];
         return __spreadArray(__spreadArray([], main, true), [
             {
                 quantity: othersQuantity,
                 keyName: "Outros",
-                fill: othersColor,
+                fill: GRAY_COLOR,
                 others: others,
             },
         ], false);
     }, [data, skeleton]);
     var renderLegend = function () {
-        var _a;
         if (caption && !skeleton) {
-            return (React.createElement(Legend, { content: React.createElement(CustomCaption, { othersData: (_a = processedData.find(function (d) { return d.keyName === "Outros"; })) === null || _a === undefined ? undefined : _a.others }) }));
+            return (React.createElement(Legend, { content: function (props) {
+                    var _a;
+                    return (React.createElement(CustomCaption, __assign({}, props, { width: typeof props.width === 'string' ? Number(props.width) : props.width, height: typeof props.height === 'string' ? Number(props.height) : props.height, othersData: (_a = processedData.find(function (d) { return d.keyName === "Outros"; })) === null || _a === undefined ? undefined : _a.others })));
+                } }));
         }
     };
     var renderTooltip = function () {
@@ -30305,9 +30304,7 @@ function PieChart(_a) {
         renderTooltip(),
         renderLegend(),
         React.createElement(Pie, { data: skeleton ? randomData : processedData, dataKey: dataKey, nameKey: nameKey, innerRadius: skeleton ? 0 : type === "donut" ? innerRadius : 0, outerRadius: outerRadius, strokeWidth: 1 },
-            skeleton
-                ? randomData.map(function (entry, index) { return (React.createElement(Cell, { key: "skeleton-cell-".concat(index, "-").concat(entry.keyName), fill: entry.fill })); })
-                : processedData.map(function (entry, index) { return (React.createElement(Cell, { key: "cell-".concat(index), fill: entry.fill || defaultColors[index % defaultColors.length], stroke: entry.fill || defaultColors[index % defaultColors.length] })); }),
+            (skeleton ? randomData : processedData).map(function (entry, index) { return (React.createElement(Cell, { key: "cell-".concat(index), fill: entry.keyName === "Outros" ? GRAY_COLOR : entry.fill || defaultColors[index % defaultColors.length], stroke: entry.keyName === "Outros" ? GRAY_COLOR : entry.fill || defaultColors[index % defaultColors.length] })); }),
             renderLabel(skeleton))));
 }
 

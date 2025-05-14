@@ -63,10 +63,11 @@ export default function PieChart({
     "var(--s-color-chart-5)",
     "var(--s-color-chart-6)",
     "var(--s-color-chart-7)",
-    "var(--s-color-chart-8)",
     "var(--s-color-chart-9)",
     "var(--s-color-chart-10)",
   ];
+
+  const GRAY_COLOR = "var(--s-color-chart-8)";
 
   const processedData = React.useMemo(() => {
     if (skeleton) return data;
@@ -76,16 +77,12 @@ export default function PieChart({
     const others = sorted.slice(5);
     const othersQuantity = others.reduce((acc, curr) => acc + curr.quantity, 0);
     if (othersQuantity === 0) return main;
-    const othersColor =
-      main.length < defaultColors.length
-        ? defaultColors[main.length]
-        : defaultColors[defaultColors.length - 1];
     return [
       ...main,
       {
         quantity: othersQuantity,
         keyName: "Outros",
-        fill: othersColor,
+        fill: GRAY_COLOR,
         others,
       },
     ];
@@ -95,13 +92,14 @@ export default function PieChart({
     if (caption && !skeleton) {
       return (
         <Legend
-          content={
+          content={props => (
             <CustomCaption
-              othersData={
-                processedData.find((d) => d.keyName === "Outros")?.others
-              }
+              {...props}
+              width={typeof props.width === 'string' ? Number(props.width) : props.width}
+              height={typeof props.height === 'string' ? Number(props.height) : props.height}
+              othersData={processedData.find((d) => d.keyName === "Outros")?.others}
             />
-          }
+          )}
         />
       );
     }
@@ -220,23 +218,13 @@ export default function PieChart({
         outerRadius={outerRadius}
         strokeWidth={1}
       >
-        {skeleton
-          ? randomData.map((entry, index) => (
-              <Cell
-                key={`skeleton-cell-${index}-${entry.keyName}`}
-                fill={entry.fill}
-              />
-            ))
-          : processedData.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={entry.fill || defaultColors[index % defaultColors.length]}
-                stroke={
-                  entry.fill || defaultColors[index % defaultColors.length]
-                }
-              />
-            ))}
-
+        {(skeleton ? randomData : processedData).map((entry, index) => (
+          <Cell
+            key={`cell-${index}`}
+            fill={entry.keyName === "Outros" ? GRAY_COLOR : entry.fill || defaultColors[index % defaultColors.length]}
+            stroke={entry.keyName === "Outros" ? GRAY_COLOR : entry.fill || defaultColors[index % defaultColors.length]}
+          />
+        ))}
         {renderLabel(skeleton)}
       </Pie>
     </Chart>
