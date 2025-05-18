@@ -29972,6 +29972,13 @@ var CustomTooltip = function (_a) {
             React.createElement("small", { className: "label" }, "".concat(label ? label : "")),
             payload.slice(0, 10).map(function (entry, index) {
                 var _a, _b;
+                var valueContent = entry.value;
+                if (formatter) {
+                    var formatted = formatter((_a = entry.value) !== null && _a !== undefined ? _a : 0, (_b = entry.name) !== null && _b !== undefined ? _b : "", entry, index, payload);
+                    valueContent = Array.isArray(formatted)
+                        ? formatted.join(" ")
+                        : formatted;
+                }
                 return (React.createElement("div", { key: "item-".concat(index), style: {
                         display: "flex",
                         flexDirection: "row",
@@ -29995,9 +30002,7 @@ var CustomTooltip = function (_a) {
                                 textTransform: "capitalize",
                                 color: "var(--s-color-content-light)",
                             } }, "".concat(entry.name ? entry.name : "", ": ")),
-                        React.createElement("small", { style: { color: "var(--s-color-content-default)" } }, formatter
-                            ? formatter((_a = entry.value) !== null && _a !== undefined ? _a : 0, (_b = entry.name) !== null && _b !== undefined ? _b : "", entry, index, payload)
-                            : entry.value))));
+                        React.createElement("small", { style: { color: "var(--s-color-content-default)" } }, valueContent))));
             })));
     }
     return null;
@@ -30159,16 +30164,84 @@ function PieChart(_a) {
     var processedData = React.useMemo(function () {
         if (skeleton)
             return data;
-        return data;
+        if (data.length <= 5)
+            return data;
+        var mainItems = data.slice(0, 5);
+        var othersItems = data.slice(5);
+        var othersTotal = othersItems.reduce(function (acc, curr) { return acc + curr.quantity; }, 0);
+        return __spreadArray(__spreadArray([], mainItems, true), [
+            {
+                quantity: othersTotal,
+                keyName: "Outros",
+                fill: GRAY_COLOR,
+                others: othersItems,
+            },
+        ], false);
     }, [data, skeleton]);
     var renderLegend = function () {
         if (caption && !skeleton) {
-            return (React.createElement(Legend, { content: function (props) { return (React.createElement(CustomCaption, __assign({}, props, { width: typeof props.width === 'string' ? Number(props.width) : props.width, height: typeof props.height === 'string' ? Number(props.height) : props.height }))); } }));
+            return (React.createElement(Legend, { content: function (props) { return (React.createElement(CustomCaption, __assign({}, props, { width: typeof props.width === "string"
+                        ? Number(props.width)
+                        : props.width, height: typeof props.height === "string"
+                        ? Number(props.height)
+                        : props.height }))); } }));
         }
     };
     var renderTooltip = function () {
         if (!skeleton) {
-            return (React.createElement(Tooltip, { formatter: tooltipFormatter, content: React.createElement(CustomTooltip, null) }));
+            return (React.createElement(Tooltip, { formatter: tooltipFormatter, content: function (_a) {
+                    var active = _a.active, payload = _a.payload, label = _a.label;
+                    if (!active || !payload || !payload.length)
+                        return null;
+                    var item = payload[0].payload;
+                    if (item.keyName === "Outros" &&
+                        item.others &&
+                        item.others.length) {
+                        return (React.createElement("div", { className: "TooltipContent" },
+                            React.createElement("div", { style: {
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 8,
+                                } },
+                                React.createElement("div", { style: {
+                                        borderRadius: "2px",
+                                        width: 10,
+                                        height: 10,
+                                        backgroundColor: item.fill,
+                                    } }),
+                                React.createElement("div", { style: {
+                                        width: "100%",
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                    } },
+                                    React.createElement("small", { style: {
+                                            color: "var(--s-color-content-light)",
+                                        } }, "Outros:"),
+                                    React.createElement("small", { style: {
+                                            color: "var(--s-color-content-default)",
+                                        } }, tooltipFormatter
+                                        ? tooltipFormatter(item.quantity)
+                                        : item.quantity))),
+                            React.createElement("div", null, item.others.map(function (o, idx) { return (React.createElement("div", { key: idx, style: {
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    width: "100%",
+                                    gap: "var(--s-spacing-nano)",
+                                    alignItems: "center",
+                                } },
+                                React.createElement("small", { style: {
+                                        color: "var(--s-color-content-light)",
+                                    } },
+                                    o.keyName,
+                                    ":"),
+                                React.createElement("small", { style: {
+                                        color: "var(--s-color-content-default)",
+                                    } }, tooltipFormatter
+                                    ? tooltipFormatter(o.quantity)
+                                    : o.quantity))); }))));
+                    }
+                    return (React.createElement(CustomTooltip, { active: active, payload: payload, label: label, formatter: tooltipFormatter }));
+                } }));
         }
     };
     var renderLabel = function (skeleton) {
@@ -30223,7 +30296,11 @@ function PieChart(_a) {
         renderTooltip(),
         renderLegend(),
         React.createElement(Pie, { data: skeleton ? randomData : processedData, dataKey: dataKey, nameKey: nameKey, innerRadius: skeleton ? 0 : type === "donut" ? innerRadius : 0, outerRadius: outerRadius, strokeWidth: 1 },
-            (skeleton ? randomData : processedData).map(function (entry, index) { return (React.createElement(Cell, { key: "cell-".concat(index), fill: entry.keyName === "Outros" ? GRAY_COLOR : entry.fill || defaultColors[index % defaultColors.length], stroke: entry.keyName === "Outros" ? GRAY_COLOR : entry.fill || defaultColors[index % defaultColors.length] })); }),
+            (skeleton ? randomData : processedData).map(function (entry, index) { return (React.createElement(Cell, { key: "cell-".concat(index), fill: entry.keyName === "Outros"
+                    ? GRAY_COLOR
+                    : entry.fill || defaultColors[index % defaultColors.length], stroke: entry.keyName === "Outros"
+                    ? GRAY_COLOR
+                    : entry.fill || defaultColors[index % defaultColors.length] })); }),
             renderLabel(skeleton))));
 }
 
