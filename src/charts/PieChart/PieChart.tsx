@@ -63,7 +63,6 @@ export default function PieChart({
     "var(--s-color-chart-5)",
     "var(--s-color-chart-6)",
     "var(--s-color-chart-7)",
-    "var(--s-color-chart-8)",
     "var(--s-color-chart-9)",
     "var(--s-color-chart-10)",
   ];
@@ -73,9 +72,8 @@ export default function PieChart({
   const processedData = React.useMemo(() => {
     if (skeleton) return data;
     if (data.length <= 5) return data;
-    const sorted = [...data].sort((a, b) => b.quantity - a.quantity);
-    const mainItems = sorted.slice(0, 5);
-    const othersItems = sorted.slice(5).sort((a, b) => b.quantity - a.quantity);
+    const mainItems = data.slice(0, 5);
+    const othersItems = data.slice(5);
     const othersTotal = othersItems.reduce(
       (acc, curr) => acc + curr.quantity,
       0,

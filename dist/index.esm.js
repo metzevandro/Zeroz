@@ -30154,7 +30154,6 @@ function PieChart(_a) {
         "var(--s-color-chart-5)",
         "var(--s-color-chart-6)",
         "var(--s-color-chart-7)",
-        "var(--s-color-chart-8)",
         "var(--s-color-chart-9)",
         "var(--s-color-chart-10)",
     ];
@@ -30164,9 +30163,8 @@ function PieChart(_a) {
             return data;
         if (data.length <= 5)
             return data;
-        var sorted = __spreadArray([], data, true).sort(function (a, b) { return b.quantity - a.quantity; });
-        var mainItems = sorted.slice(0, 5);
-        var othersItems = sorted.slice(5).sort(function (a, b) { return b.quantity - a.quantity; });
+        var mainItems = data.slice(0, 5);
+        var othersItems = data.slice(5);
         var othersTotal = othersItems.reduce(function (acc, curr) { return acc + curr.quantity; }, 0);
         return __spreadArray(__spreadArray([], mainItems, true), [
             {
