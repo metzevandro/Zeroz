@@ -72,8 +72,9 @@ export default function PieChart({
   const processedData = React.useMemo(() => {
     if (skeleton) return data;
     if (data.length <= 5) return data;
-    const mainItems = data.slice(0, 5);
-    const othersItems = data.slice(5);
+    const sorted = [...data].sort((a, b) => b.quantity - a.quantity);
+    const mainItems = sorted.slice(0, 5);
+    const othersItems = sorted.slice(5).sort((a, b) => b.quantity - a.quantity);
     const othersTotal = othersItems.reduce(
       (acc, curr) => acc + curr.quantity,
       0,
