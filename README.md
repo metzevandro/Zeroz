@@ -58,7 +58,7 @@ Contribuições são bem-vindas! Se você encontrar problemas, bugs ou tiver sug
 
 ## Licença
 
-Este projeto está licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](https://github.com/metzevandro/Zeroz/blob/master/LICENSE.md) para mais detalhes.
 
 ---
 
