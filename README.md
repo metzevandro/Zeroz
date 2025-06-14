@@ -1,4 +1,4 @@
-<img src="/public/favicon.svg" width="100"/>
+<img src="https://zeroz.vercel.app/favicon.svg" width="100"/>
 
 # Design System Zeroz
 
