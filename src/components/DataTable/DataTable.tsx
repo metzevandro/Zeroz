@@ -288,7 +288,7 @@ export const DataTable = (props: DataTableProps) => {
     onSelectedRowsChange,
     headerSelectedChildren,
     onUpdateSelectedRows,
-    minColumnWidths = [], // Valor padrão como array vazio
+    minColumnWidths = [],
   } = props;
   const withCheckbox = props.withCheckbox || false;
   const rowsPerPage = props.rowsPerPage || 4;
@@ -301,6 +301,25 @@ export const DataTable = (props: DataTableProps) => {
   const [processedData, setProcessedData] = useState<any[]>([]);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [rowsSelectedCount, setRowsSelectedCount] = useState(0);
+
+  const [loadedPages, setLoadedPages] = useState(4);
+
+  useEffect(() => {
+    setLoadedPages(4);
+    setCurrentPage(1);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    setLoadedPages(4);
+    setCurrentPage(1);
+  }, [data]);
+
+  useEffect(() => {
+    const totalPages = Math.ceil(processedData.length / rowsPerPage);
+    if (currentPage === loadedPages && loadedPages < totalPages) {
+      setLoadedPages((prev) => Math.min(prev + 4, totalPages));
+    }
+  }, [currentPage, loadedPages, processedData.length, rowsPerPage]);
 
   const handleSearch = useCallback((query: string) => {
     setSearchQuery(query);
@@ -422,18 +441,21 @@ export const DataTable = (props: DataTableProps) => {
     setProcessedData(updatedData);
   }, [originalData, searchQuery, sortStates]);
 
-  const currentRows = processedData.slice(
+  // Só mostra os dados até a última página carregada
+  const visibleData = processedData.slice(0, loadedPages * rowsPerPage);
+
+  const currentRows = visibleData.slice(
     (currentPage - 1) * rowsPerPage,
     currentPage * rowsPerPage,
   );
 
   const totalPages = Math.ceil(processedData.length / rowsPerPage);
 
-  const allSelected = processedData.every((row) =>
+  const allSelected = visibleData.every((row) =>
     selectedRows.includes(row.id),
   );
   const someSelected =
-    processedData.some((row) => selectedRows.includes(row.id)) && !allSelected;
+    visibleData.some((row) => selectedRows.includes(row.id)) && !allSelected;
 
   const calculateColumnWidths = useCallback(() => {
     const tempWidths = columns.map((header, colIndex) => {
@@ -561,12 +583,12 @@ export const DataTable = (props: DataTableProps) => {
             }
           }}
           onClickRight={() => {
-            if (currentPage < totalPages) {
+            if (currentPage < Math.min(totalPages, loadedPages)) {
               setCurrentPage(currentPage + 1);
             }
           }}
           disabledLeft={currentPage === 1 || currentRows.length === 0}
-          disabledRight={currentPage === totalPages || currentRows.length === 0}
+          disabledRight={currentPage === Math.min(totalPages, loadedPages) || currentRows.length === 0}
           skeleton={skeleton}
         />
       </div>

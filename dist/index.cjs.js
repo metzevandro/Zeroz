@@ -827,6 +827,21 @@ var DataTable = function (props) {
     var _f = React.useState([]), processedData = _f[0], setProcessedData = _f[1];
     var _g = React.useState([]), selectedRows = _g[0], setSelectedRows = _g[1];
     var _h = React.useState(0), rowsSelectedCount = _h[0], setRowsSelectedCount = _h[1];
+    var _j = React.useState(4), loadedPages = _j[0], setLoadedPages = _j[1];
+    React.useEffect(function () {
+        setLoadedPages(4);
+        setCurrentPage(1);
+    }, [searchQuery]);
+    React.useEffect(function () {
+        setLoadedPages(4);
+        setCurrentPage(1);
+    }, [data]);
+    React.useEffect(function () {
+        var totalPages = Math.ceil(processedData.length / rowsPerPage);
+        if (currentPage === loadedPages && loadedPages < totalPages) {
+            setLoadedPages(function (prev) { return Math.min(prev + 4, totalPages); });
+        }
+    }, [currentPage, loadedPages, processedData.length, rowsPerPage]);
     var handleSearch = React.useCallback(function (query) {
         setSearchQuery(query);
         setCurrentPage(1);
@@ -919,12 +934,14 @@ var DataTable = function (props) {
         });
         setProcessedData(updatedData);
     }, [originalData, searchQuery, sortStates]);
-    var currentRows = processedData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+    // Só mostra os dados até a última página carregada
+    var visibleData = processedData.slice(0, loadedPages * rowsPerPage);
+    var currentRows = visibleData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
     var totalPages = Math.ceil(processedData.length / rowsPerPage);
-    var allSelected = processedData.every(function (row) {
+    var allSelected = visibleData.every(function (row) {
         return selectedRows.includes(row.id);
     });
-    var someSelected = processedData.some(function (row) { return selectedRows.includes(row.id); }) && !allSelected;
+    var someSelected = visibleData.some(function (row) { return selectedRows.includes(row.id); }) && !allSelected;
     var calculateColumnWidths = React.useCallback(function () {
         var tempWidths = columns.map(function (header, colIndex) {
             var allCells = originalData.map(function (row) { return row[header]; });
@@ -946,7 +963,7 @@ var DataTable = function (props) {
     }, [columns, originalData, minColumnWidths]);
     var columnWidths = React.useMemo(function () { return calculateColumnWidths(); }, [calculateColumnWidths]);
     var ref = React.useRef(null);
-    var _j = React.useState(false), contentOverflowed = _j[0], setContentOverflowed = _j[1];
+    var _k = React.useState(false), contentOverflowed = _k[0], setContentOverflowed = _k[1];
     React.useEffect(function () {
         var checkOverflow = function () {
             var contentElement = ref.current;
@@ -985,10 +1002,10 @@ var DataTable = function (props) {
                         setCurrentPage(currentPage - 1);
                     }
                 }, onClickRight: function () {
-                    if (currentPage < totalPages) {
+                    if (currentPage < Math.min(totalPages, loadedPages)) {
                         setCurrentPage(currentPage + 1);
                     }
-                }, disabledLeft: currentPage === 1 || currentRows.length === 0, disabledRight: currentPage === totalPages || currentRows.length === 0, skeleton: skeleton }))));
+                }, disabledLeft: currentPage === 1 || currentRows.length === 0, disabledRight: currentPage === Math.min(totalPages, loadedPages) || currentRows.length === 0, skeleton: skeleton }))));
 };
 
 var DescriptionList = function (_a) {

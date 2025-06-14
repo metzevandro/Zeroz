@@ -10,7 +10,7 @@ import Button from "../../components/Button/Button";
 const columns: string[] = ["Name", "Age", "Role", "Experience", "Company"];
 
 const data: { [key: string]: any; id: string }[] = Array.from(
-  { length: 10 },
+  { length: 500 },
   (_, i) => ({
     id: (i + 1).toString(),
     Name: `Person ${i + 1}`,
