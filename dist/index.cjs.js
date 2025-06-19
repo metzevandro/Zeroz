@@ -30183,8 +30183,8 @@ function PieChart(_a) {
         if (data.length <= 5)
             return data;
         var sorted = __spreadArray([], data, true).sort(function (a, b) { return b.quantity - a.quantity; });
-        var mainItems = sorted.slice(0, 5);
-        var othersItems = sorted.slice(5).sort(function (a, b) { return b.quantity - a.quantity; });
+        var mainItems = sorted.slice(0, 4);
+        var othersItems = sorted.slice(4).sort(function (a, b) { return b.quantity - a.quantity; });
         var othersTotal = othersItems.reduce(function (acc, curr) { return acc + curr.quantity; }, 0);
         return __spreadArray(__spreadArray([], mainItems, true), [
             {

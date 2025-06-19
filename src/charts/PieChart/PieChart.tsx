@@ -73,8 +73,8 @@ export default function PieChart({
     if (skeleton) return data;
     if (data.length <= 5) return data;
     const sorted = [...data].sort((a, b) => b.quantity - a.quantity);
-    const mainItems = sorted.slice(0, 5);
-    const othersItems = sorted.slice(5).sort((a, b) => b.quantity - a.quantity);
+    const mainItems = sorted.slice(0, 4);
+    const othersItems = sorted.slice(4).sort((a, b) => b.quantity - a.quantity);
     const othersTotal = othersItems.reduce(
       (acc, curr) => acc + curr.quantity,
       0,
