@@ -1,0 +1,173 @@
+.storybook-light {
+  --sb-bg: var(--s-color-fill-default);
+  --sb-bg-hover: var(--s-color-fill-default-hover);
+  --sb-color: var(--s-color-content-default);
+  --sb-color-light: var(--s-color-content-light);
+  --sb-border: var(--s-color-border-default);
+}
+
+.storybook-dark {
+  --sb-bg: var(--s-color-fill-default);
+  --sb-bg-hover: var(--s-color-fill-default-hover);
+  --sb-color: var(--s-color-content-default);
+  --sb-color-light: var(--s-color-content-light);
+  --sb-border: var(--s-color-border-default);
+}
+
+
+.css-k7lbue {
+  background-color: var(--sb-bg) !important;
+
+  .css-11knh3z {
+    color: var(--sb-color) !important;
+  }
+
+  .css-rijm99 {
+    color: var(--sb-color-light) !important;
+  }
+
+  .css-rijm99 + p {
+    color: var(--sb-color) !important;
+  }
+
+  .css-l1e2yg {
+    background-color: var(--sb-bg) !important;
+    color: var(--sb-color) !important;
+  }
+
+  .css-hd7ysc {
+    border-color: var(--sb-border) !important;
+  }
+
+  .css-11xgcgt {
+    background-color: var(--sb-bg) !important;
+
+    .css-1fdphfk {
+      background-color: var(--sb-bg) !important;
+      color: var(--sb-color) !important;
+      border-color: var(--sb-border) !important;
+
+      &:hover {
+        background-color: var(--sb-bg-hover) !important;
+      }
+    }
+  }
+
+  .docblock-argstable-head {
+    th {
+      border-color: var(--sb-border) !important;
+      background-color: var(--sb-bg) !important;
+      color: var(--sb-color) !important;
+    }
+  }
+
+  .css-1ikjjm3 {
+    background-color: var(--sb-bg) !important;
+    color: var(--sb-color) !important;
+
+    &:hover {
+      background-color: var(--s-color-fill-default-hover) !important;
+    }
+
+    .css-1hubczq {
+      color: var(--sb-color) !important;
+    }
+  }
+
+  .css-79elbk {
+    background-color: var(--sb-bg) !important;
+    color: var(--sb-color) !important;
+  }
+
+  .css-1oi7qoy {
+    background-color: var(--sb-bg) !important;
+    color: var(--sb-color) !important;
+
+    &:hover {
+      background-color: var(--s-color-fill-default-hover) !important;
+      * {
+        background-color: transparent !important;
+      }
+    }
+  }
+
+  tbody {
+    td {
+      color: var(--sb-color) !important;
+      background-color: var(--sb-bg) !important;
+    }
+
+    .css-13nzt7e, .css-1ije3e2 {
+      span {
+        background-color: var(--sb-bg-hover) !important;
+        border-color: var(--sb-border) !important;
+        color: var(--sb-color) !important;
+      }
+    }
+  }
+
+  .css-4lbn0a {
+    background-color: var(--sb-bg) !important;
+    color: var(--sb-color) !important;
+  }
+
+  .css-wzniqs {
+    color: var(--sb-color) !important;
+  }
+  
+  .css-s230ta {
+    background-color:  var(--sb-bg) !important;
+  }
+
+  .css-bi6jn4 {
+    color: var(--sb-color) !important;
+    background-color: var(--sb-bg) !important;
+    border-color: var(--sb-border) !important;
+
+    &:hover {
+      color: var(--s-color-content-highlight) !important;
+    }
+  }
+
+  .css-177r6r9 {
+    background-color: var(--sb-bg-hover) !important;
+    input:focus {
+      box-shadow: var(--s-color-content-highlight) 0px 0px 0px 1px inset !important;
+    }
+
+    input:not(:checked) ~ span:first-of-type {
+      background-color: var(--sb-bg) !important;
+      color: var(--sb-color) !important;
+    }
+
+    input:checked ~ span:last-of-type {
+      background-color: var(--sb-bg) !important;
+      color: var(--sb-color) !important;
+    }
+
+    span {
+      color: var(--sb-color-light) !important;
+    }
+  }
+
+  .css-1gcb13n {
+    background-color: var(--sb-bg) !important;
+      color: var(--sb-color) !important;
+  }
+  
+  .css-r7fl1p {
+    background-color: var(--sb-bg) !important;
+    color: var(--sb-color) !important;
+    border-color: var(--sb-border) !important;
+  }
+
+  .css-14o1cbe {
+    background-color: var(--sb-bg) !important;
+    color: var(--sb-color) !important;
+  }
+
+  .css-7mc623 {
+    background-color: var(--sb-bg) !important;
+    color: var(--sb-color) !important;
+  }
+}
