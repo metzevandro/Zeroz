@@ -30016,7 +30016,6 @@ var CustomTooltip = function (_a) {
                             alignItems: "center",
                         } },
                         React.createElement("small", { className: "intro", style: {
-                                textTransform: "capitalize",
                                 color: "var(--s-color-content-light)",
                             } }, "".concat(entry.name ? entry.name : "", ": ")),
                         React.createElement("small", { style: { color: "var(--s-color-content-default)" } }, valueContent))));
@@ -30047,7 +30046,7 @@ function CustomCaption(_a) {
             } }),
         React.createElement("small", { style: {
                 color: "var(--s-color-content-default)",
-                textTransform: "capitalize",
+                whiteSpace: "nowrap",
             } }, typeof entry.payload === "object" && entry.payload && "keyName" in entry.payload
             ? entry.payload.keyName
             : entry.value))); })));

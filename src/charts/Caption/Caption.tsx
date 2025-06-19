@@ -35,7 +35,7 @@ export default function CustomCaption({
           <small
             style={{
               color: "var(--s-color-content-default)",
-              textTransform: "capitalize",
+              whiteSpace: "nowrap",
             }}
           >
             {typeof entry.payload === "object" && entry.payload && "keyName" in entry.payload

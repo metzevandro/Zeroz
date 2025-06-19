@@ -58,7 +58,6 @@ const CustomTooltip: React.FC<TooltipProps<number, string>> = ({
                 <small
                   className="intro"
                   style={{
-                    textTransform: "capitalize",
                     color: "var(--s-color-content-light)",
                   }}
                 >
