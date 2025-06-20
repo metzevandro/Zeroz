@@ -14,6 +14,10 @@
   --sb-border: var(--s-color-border-default);
 }
 
+.sb-bar {
+  background-color: var(--sb-bg) !important;
+  color: var(--sb-color) !important;
+}
 
 .css-k7lbue {
   background-color: var(--sb-bg) !important;
@@ -97,7 +101,8 @@
       background-color: var(--sb-bg) !important;
     }
 
-    .css-13nzt7e, .css-1ije3e2 {
+    .css-13nzt7e,
+    .css-1ije3e2 {
       span {
         background-color: var(--sb-bg-hover) !important;
         border-color: var(--sb-border) !important;
@@ -114,9 +119,9 @@
   .css-wzniqs {
     color: var(--sb-color) !important;
   }
-  
+
   .css-s230ta {
-    background-color:  var(--sb-bg) !important;
+    background-color: var(--sb-bg) !important;
   }
 
   .css-bi6jn4 {
@@ -152,9 +157,9 @@
 
   .css-1gcb13n {
     background-color: var(--sb-bg) !important;
-      color: var(--sb-color) !important;
+    color: var(--sb-color) !important;
   }
-  
+
   .css-r7fl1p {
     background-color: var(--sb-bg) !important;
     color: var(--sb-color) !important;

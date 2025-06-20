@@ -249,8 +249,8 @@ withDots.args = {
   data: data,
   type: "natural",
   lineStyles: {
-    desktop: { color: "var(--s-color-fill-warning)" },
-    mobile: { color: "var(--s-color-fill-success)" },
+    desktop: { color: "var(--s-color-chart-1)" },
+    mobile: { color: "var(--s-color-chart-2)" },
   },
   height: 400,
   width: 600,
@@ -267,8 +267,8 @@ withLabel.args = {
   data: data,
   type: "natural",
   lineStyles: {
-    desktop: { color: "var(--s-color-fill-warning)" },
-    mobile: { color: "var(--s-color-fill-success)" },
+    desktop: { color: "var(--s-color-chart-1)" },
+    mobile: { color: "var(--s-color-chart-2)" },
   },
   height: 400,
   width: 600,
@@ -285,8 +285,8 @@ Skeleton.args = {
   data: data,
   type: "natural",
   lineStyles: {
-    desktop: { color: "var(--s-color-fill-warning)" },
-    mobile: { color: "var(--s-color-fill-success)" },
+    desktop: { color: "var(--s-color-chart-1)" },
+    mobile: { color: "var(--s-color-chart-2)" },
   },
   height: 400,
   width: 600,

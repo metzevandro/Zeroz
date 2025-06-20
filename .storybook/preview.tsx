@@ -2,13 +2,11 @@ import React from "react";
 import { addons } from "@storybook/preview-api";
 import { DocsContainer } from "@storybook/addon-docs";
 import { themes } from "@storybook/theming";
-import {
-  DARK_MODE_EVENT_NAME,
-} from "storybook-dark-mode";
+import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
 import { Preview } from "@storybook/react";
 import { SchemeMode, scheme } from "./decorators/scheme-mode";
 import { brand, BrandMode } from "./decorators/brand-mode";
-import "./global-storybook.scss";
+import "./global-storybook.css";
 
 const channel = addons.getChannel();
 
@@ -65,7 +63,7 @@ const preview: Preview = {
       disable: true,
     },
     darkMode: {
-      dark: { ...themes.dark, appBg: "#111827" },
+      dark: { ...themes.dark, appBg: "rgb(27, 28, 29)" },
       light: { ...themes.normal, appBg: "#ffffff" },
       current: "light",
       darkClass: ["lights-out", "foo"],
@@ -73,7 +71,6 @@ const preview: Preview = {
       classTarget: "html",
       stylePreview: true,
       toolbar: true,
-      
     },
     docs: {
       container: CustomDocsContainer,

@@ -30107,7 +30107,7 @@ function BarChart(props) {
                     ? "var(--s-color-fill-default-light)"
                     : ((_a = lineStyles[key]) === null || _a === undefined ? undefined : _a.color) || "black", stroke: skeleton
                     ? "var(--s-color-fill-default-light)"
-                    : ((_b = lineStyles[key]) === null || _b === undefined ? undefined : _b.color) || "black", radius: radius }, label && (React.createElement(LabelList, { position: "top", style: { font: "var(--s-typography-caption-regular)" }, fill: "var(--s-color-content-light)", offset: 12 }))));
+                    : ((_b = lineStyles[key]) === null || _b === undefined ? undefined : _b.color) || "black", radius: radius }, !skeleton && label && (React.createElement(LabelList, { position: "top", style: { font: "var(--s-typography-caption-regular)" }, fill: "var(--s-color-content-light)", offset: 12 }))));
         })));
 }
 

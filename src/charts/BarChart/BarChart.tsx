@@ -127,7 +127,7 @@ export default function BarChart(props: BarChartProps) {
             }
             radius={radius}
           >
-            {label && (
+            {!skeleton && label && (
               <LabelList
                 position="top"
                 style={{ font: "var(--s-typography-caption-regular)" }}
