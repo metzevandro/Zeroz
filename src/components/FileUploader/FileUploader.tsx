@@ -195,10 +195,11 @@ const FileUploader: React.FC<FileUploaderProps> = ({
               variant="primary"
               disabled={disabled}
               onClick={handleButtonClick}
-              label={buttonLabel}
               typeIcon={typeIconButton}
               size="md"
-            />
+            >
+              {buttonLabel}
+            </Button>
           </div>
         </div>
         <div className="file-uploader-footer">

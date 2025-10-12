@@ -232,7 +232,7 @@ var Loading = function (_a) {
 };
 
 var Button = function (_a) {
-    var disabled = _a.disabled, label = _a.label, variant = _a.variant, typeIcon = _a.typeIcon, size = _a.size, skeleton = _a.skeleton, rest = __rest(_a, ["disabled", "label", "variant", "typeIcon", "size", "skeleton"]);
+    var disabled = _a.disabled, variant = _a.variant, typeIcon = _a.typeIcon, size = _a.size, skeleton = _a.skeleton, children = _a.children, rest = __rest(_a, ["disabled", "variant", "typeIcon", "size", "skeleton", "children"]);
     var buttonRef = React.useRef(null);
     var _b = React.useState(null), dimensions = _b[0], setDimensions = _b[1];
     React.useEffect(function () {
@@ -240,20 +240,20 @@ var Button = function (_a) {
             var _a = buttonRef.current, height = _a.offsetHeight, width = _a.offsetWidth;
             setDimensions({ height: height, width: width });
         }
-    }, [label, size, variant]);
+    }, [size, variant]);
     var buttonClass = "button ".concat(variant, " ").concat(size);
-    return (React.createElement(React.Fragment, null, skeleton && dimensions ? (React.createElement(Skeleton, { height: "".concat(dimensions.height), width: "".concat(dimensions.width) })) : (label && (React.createElement("button", __assign({}, rest, { ref: buttonRef, className: buttonClass, disabled: disabled }),
+    return (React.createElement(React.Fragment, null, skeleton && dimensions ? (React.createElement(Skeleton, { height: "".concat(dimensions.height), width: "".concat(dimensions.width) })) : (React.createElement("button", __assign({}, rest, { ref: buttonRef, className: buttonClass, disabled: disabled }),
+        children,
         variant === "is-loading" && React.createElement(Loading, { variant: "default" }),
-        typeIcon && React.createElement(Icon, { icon: typeIcon, size: "sm" }),
-        label)))));
+        typeIcon && React.createElement(Icon, { icon: typeIcon, size: "sm" })))));
 };
 
 var ButtonGroup = function (_a) {
     var direction = _a.direction, onClickSecondButton = _a.onClickSecondButton, typeIconSecondButton = _a.typeIconSecondButton, contentSecondButton = _a.contentSecondButton, variantSecondButton = _a.variantSecondButton, disableSecondButton = _a.disableSecondButton, disableFirstButton = _a.disableFirstButton, onClickFirstButton = _a.onClickFirstButton, contentFirstButton = _a.contentFirstButton, typeIconFirstButton = _a.typeIconFirstButton, variantFirstButton = _a.variantFirstButton, skeletonFirstButton = _a.skeletonFirstButton, skeletonSecondButton = _a.skeletonSecondButton;
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { className: "button-group ".concat(direction) },
-            React.createElement(Button, { size: "md", disabled: disableFirstButton, onClick: onClickFirstButton, label: contentFirstButton, typeIcon: typeIconFirstButton, variant: variantFirstButton, skeleton: skeletonFirstButton }),
-            React.createElement(Button, { size: "md", disabled: disableSecondButton, onClick: onClickSecondButton, label: contentSecondButton, typeIcon: typeIconSecondButton, variant: variantSecondButton, skeleton: skeletonSecondButton }))));
+            React.createElement(Button, { size: "md", disabled: disableFirstButton, onClick: onClickFirstButton, typeIcon: typeIconFirstButton, variant: variantFirstButton, skeleton: skeletonFirstButton }, contentFirstButton),
+            React.createElement(Button, { size: "md", disabled: disableSecondButton, onClick: onClickSecondButton, typeIcon: typeIconSecondButton, variant: variantSecondButton, skeleton: skeletonSecondButton }, contentSecondButton))));
 };
 
 function Card(props) {
@@ -511,8 +511,8 @@ function DataPickerCalendar(_a) {
                         (selectedDate === null || selectedDate === undefined ? undefined : selectedDate.getFullYear()) === year &&
                         day.type === "current" })); })))),
         React.createElement("div", { className: "data-picker-footer" },
-            React.createElement(Button, { label: "Resetar", size: "sm", variant: "secondary", onClick: onRevert }),
-            React.createElement(Button, { label: "Concluir", size: "sm", variant: "primary", onClick: onClose }))));
+            React.createElement(Button, { size: "sm", variant: "secondary", onClick: onRevert }, "Resetar"),
+            React.createElement(Button, { size: "sm", variant: "primary", onClick: onClose }, "Concluir"))));
 }
 function DataPicker(_a) {
     var value = _a.value, onChange = _a.onChange, label = _a.label, _b = _a.disabled, disabled = _b === undefined ? false : _b, _c = _a.skeleton, skeleton = _c === undefined ? false : _c;
@@ -714,8 +714,8 @@ var EmptyState = function (_a) {
             React.createElement("h3", null, title),
             React.createElement("p", null, description)),
         React.createElement("div", { className: "empty-state-footer" },
-            buttonContentPrimary && (React.createElement(Button, { size: "md", variant: "primary", label: buttonContentPrimary, onClick: onClickActionPrimary })),
-            buttonContentSecondary && (React.createElement(Button, { size: "md", variant: "secondary", label: buttonContentSecondary, onClick: onClickActionSecondary })))));
+            buttonContentPrimary && (React.createElement(Button, { size: "md", variant: "primary", onClick: onClickActionPrimary }, buttonContentPrimary)),
+            buttonContentSecondary && (React.createElement(Button, { size: "md", variant: "secondary", onClick: onClickActionSecondary }, buttonContentSecondary)))));
 };
 
 var InputCheckbox = function (_a) {
@@ -938,9 +938,7 @@ var DataTable = function (props) {
     var visibleData = processedData.slice(0, loadedPages * rowsPerPage);
     var currentRows = visibleData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
     var totalPages = Math.ceil(processedData.length / rowsPerPage);
-    var allSelected = visibleData.every(function (row) {
-        return selectedRows.includes(row.id);
-    });
+    var allSelected = visibleData.every(function (row) { return selectedRows.includes(row.id); });
     var someSelected = visibleData.some(function (row) { return selectedRows.includes(row.id); }) && !allSelected;
     var calculateColumnWidths = React.useCallback(function () {
         var tempWidths = columns.map(function (header, colIndex) {
@@ -1005,7 +1003,8 @@ var DataTable = function (props) {
                     if (currentPage < Math.min(totalPages, loadedPages)) {
                         setCurrentPage(currentPage + 1);
                     }
-                }, disabledLeft: currentPage === 1 || currentRows.length === 0, disabledRight: currentPage === Math.min(totalPages, loadedPages) || currentRows.length === 0, skeleton: skeleton }))));
+                }, disabledLeft: currentPage === 1 || currentRows.length === 0, disabledRight: currentPage === Math.min(totalPages, loadedPages) ||
+                    currentRows.length === 0, skeleton: skeleton }))));
 };
 
 var DescriptionList = function (_a) {
@@ -1161,7 +1160,7 @@ var FileUploader = function (_a) {
                 React.createElement("h1", null, title),
                 React.createElement("div", { className: "file-uploader-button" },
                     React.createElement("input", { disabled: disabled, type: "file", ref: fileInputRef, multiple: !!multiple, style: { display: "none" }, onChange: handleFileChange }),
-                    React.createElement(Button, { variant: "primary", disabled: disabled, onClick: handleButtonClick, label: buttonLabel, typeIcon: typeIconButton, size: "md" }))),
+                    React.createElement(Button, { variant: "primary", disabled: disabled, onClick: handleButtonClick, typeIcon: typeIconButton, size: "md" }, buttonLabel))),
             React.createElement("div", { className: "file-uploader-footer" },
                 React.createElement("p", null, description),
                 selectedFiles.length > 0 && (React.createElement("ul", { className: "file-uploader-items" }, selectedFiles.map(function (fileObj, index) { return (React.createElement("li", { className: "file-uploader-item ".concat(fileObj.hasError ? "file-uploader-item-error" : ""), key: index },
@@ -1707,7 +1706,7 @@ var Notification = function (_a) {
         showContent && (React.createElement("div", { className: "notification-content" },
             description && React.createElement("div", { className: "description" }, description),
             withAction && (React.createElement("div", { className: "notification-with-action" },
-                React.createElement(Button, { size: "md", variant: variant, disabled: disableButton, label: buttonLabel, onClick: onClickButton })))))))));
+                React.createElement(Button, { size: "md", variant: variant, disabled: disableButton, onClick: onClickButton }, buttonLabel)))))))));
 };
 
 var Page = function (_a) {
@@ -1731,12 +1730,12 @@ var Page = function (_a) {
                             React.createElement("div", { className: "button-icon-actions" },
                                 React.createElement(ButtonIcon, { buttonType: "default", size: "md", typeIcon: "".concat(iconButtonSecondary || "more_vert"), variant: "secondary", onClick: onClickActionSecondary, skeleton: skeletonButtonSecondary })),
                             React.createElement("div", { className: "button-actions" },
-                                React.createElement(Button, { size: "md", variant: "secondary", label: buttonContentSecondary, onClick: onClickActionSecondary, typeIcon: iconButtonSecondary, skeleton: skeletonButtonSecondary })))),
+                                React.createElement(Button, { size: "md", variant: "secondary", onClick: onClickActionSecondary, typeIcon: iconButtonSecondary, skeleton: skeletonButtonSecondary }, buttonContentSecondary)))),
                         withActionPrimary && (React.createElement(React.Fragment, null,
                             React.createElement("div", { className: "button-icon-actions" },
                                 React.createElement(ButtonIcon, { buttonType: "default", size: "md", typeIcon: "".concat(iconButtonPrimary || "add"), variant: "primary", onClick: onClickActionPrimary, skeleton: skeletonButtonPrimary })),
                             React.createElement("div", { className: "button-actions" },
-                                React.createElement(Button, { size: "md", variant: "primary", skeleton: skeletonButtonPrimary, typeIcon: iconButtonPrimary, label: buttonContentPrimary, onClick: onClickActionPrimary })))))),
+                                React.createElement(Button, { size: "md", variant: "primary", skeleton: skeletonButtonPrimary, typeIcon: iconButtonPrimary, onClick: onClickActionPrimary }, buttonContentPrimary)))))),
                 React.createElement("p", { className: "page-description ".concat(withBackButton ? "with-back-button" : "") }, description)),
             children)));
 };
@@ -20169,6 +20168,12 @@ function createIsCircular(areItemsEqual) {
     };
 }
 /**
+ * Get the `@@toStringTag` of the value, if it exists.
+ */
+function getShortTag(value) {
+    return value != null ? value[Symbol.toStringTag] : undefined;
+}
+/**
  * Get the properties to strictly examine, which include both own properties that are
  * not enumerable and symbol properties.
  */
@@ -20186,10 +20191,12 @@ var hasOwn = Object.hasOwn ||
  * Whether the values passed are strictly equal or both NaN.
  */
 function sameValueZeroEqual(a, b) {
-    return a || b ? a === b : a === b || (a !== a && b !== b);
+    return a === b || (!a && !b && a !== a && b !== b);
 }
 
-var OWNER = '_owner';
+var PREACT_VNODE = '__v';
+var PREACT_OWNER = '__o';
+var REACT_OWNER = '_owner';
 var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor, keys$1 = Object.keys;
 /**
  * Whether the arrays are equal in value.
@@ -20213,17 +20220,36 @@ function areDatesEqual(a, b) {
     return sameValueZeroEqual(a.getTime(), b.getTime());
 }
 /**
+ * Whether the errors passed are equal in value.
+ */
+function areErrorsEqual(a, b) {
+    return (a.name === b.name &&
+        a.message === b.message &&
+        a.cause === b.cause &&
+        a.stack === b.stack);
+}
+/**
+ * Whether the functions passed are equal in value.
+ */
+function areFunctionsEqual(a, b) {
+    return a === b;
+}
+/**
  * Whether the `Map`s are equal in value.
  */
 function areMapsEqual(a, b, state) {
-    if (a.size !== b.size) {
+    var size = a.size;
+    if (size !== b.size) {
         return false;
     }
-    var matchedIndices = {};
+    if (!size) {
+        return true;
+    }
+    var matchedIndices = new Array(size);
     var aIterable = a.entries();
-    var index = 0;
     var aResult;
     var bResult;
+    var index = 0;
     while ((aResult = aIterable.next())) {
         if (aResult.done) {
             break;
@@ -20235,14 +20261,16 @@ function areMapsEqual(a, b, state) {
             if (bResult.done) {
                 break;
             }
-            var _a = aResult.value, aKey = _a[0], aValue = _a[1];
-            var _b = bResult.value, bKey = _b[0], bValue = _b[1];
-            if (!hasMatch &&
-                !matchedIndices[matchIndex] &&
-                (hasMatch =
-                    state.equals(aKey, bKey, index, matchIndex, a, b, state) &&
-                        state.equals(aValue, bValue, aKey, bKey, a, b, state))) {
-                matchedIndices[matchIndex] = true;
+            if (matchedIndices[matchIndex]) {
+                matchIndex++;
+                continue;
+            }
+            var aEntry = aResult.value;
+            var bEntry = bResult.value;
+            if (state.equals(aEntry[0], bEntry[0], index, matchIndex, a, b, state) &&
+                state.equals(aEntry[1], bEntry[1], aEntry[0], bEntry[0], a, b, state)) {
+                hasMatch = matchedIndices[matchIndex] = true;
+                break;
             }
             matchIndex++;
         }
@@ -20254,6 +20282,10 @@ function areMapsEqual(a, b, state) {
     return true;
 }
 /**
+ * Whether the numbers are equal in value.
+ */
+var areNumbersEqual = sameValueZeroEqual;
+/**
  * Whether the objects are equal in value.
  */
 function areObjectsEqual(a, b, state) {
@@ -20262,20 +20294,12 @@ function areObjectsEqual(a, b, state) {
     if (keys$1(b).length !== index) {
         return false;
     }
-    var property;
     // Decrementing `while` showed faster results than either incrementing or
     // decrementing `for` loop and than an incrementing `while` loop. Declarative
     // methods like `some` / `every` were not used to avoid incurring the garbage
     // cost of anonymous callbacks.
     while (index-- > 0) {
-        property = properties[index];
-        if (property === OWNER &&
-            (a.$$typeof || b.$$typeof) &&
-            a.$$typeof !== b.$$typeof) {
-            return false;
-        }
-        if (!hasOwn(b, property) ||
-            !state.equals(a[property], b[property], property, property, a, b, state)) {
+        if (!isPropertyEqual(a, b, state, properties[index])) {
             return false;
         }
     }
@@ -20299,15 +20323,7 @@ function areObjectsEqualStrict(a, b, state) {
     // cost of anonymous callbacks.
     while (index-- > 0) {
         property = properties[index];
-        if (property === OWNER &&
-            (a.$$typeof || b.$$typeof) &&
-            a.$$typeof !== b.$$typeof) {
-            return false;
-        }
-        if (!hasOwn(b, property)) {
-            return false;
-        }
-        if (!state.equals(a[property], b[property], property, property, a, b, state)) {
+        if (!isPropertyEqual(a, b, state, property)) {
             return false;
         }
         descriptorA = getOwnPropertyDescriptor(a, property);
@@ -20339,10 +20355,14 @@ function areRegExpsEqual(a, b) {
  * Whether the `Set`s are equal in value.
  */
 function areSetsEqual(a, b, state) {
-    if (a.size !== b.size) {
+    var size = a.size;
+    if (size !== b.size) {
         return false;
     }
-    var matchedIndices = {};
+    if (!size) {
+        return true;
+    }
+    var matchedIndices = new Array(size);
     var aIterable = a.values();
     var aResult;
     var bResult;
@@ -20357,10 +20377,10 @@ function areSetsEqual(a, b, state) {
             if (bResult.done) {
                 break;
             }
-            if (!hasMatch &&
-                !matchedIndices[matchIndex] &&
-                (hasMatch = state.equals(aResult.value, bResult.value, aResult.value, bResult.value, a, b, state))) {
-                matchedIndices[matchIndex] = true;
+            if (!matchedIndices[matchIndex] &&
+                state.equals(aResult.value, bResult.value, aResult.value, bResult.value, a, b, state)) {
+                hasMatch = matchedIndices[matchIndex] = true;
+                break;
             }
             matchIndex++;
         }
@@ -20385,16 +20405,40 @@ function areTypedArraysEqual(a, b) {
     }
     return true;
 }
+/**
+ * Whether the URL instances are equal in value.
+ */
+function areUrlsEqual(a, b) {
+    return (a.hostname === b.hostname &&
+        a.pathname === b.pathname &&
+        a.protocol === b.protocol &&
+        a.port === b.port &&
+        a.hash === b.hash &&
+        a.username === b.username &&
+        a.password === b.password);
+}
+function isPropertyEqual(a, b, state, property) {
+    if ((property === REACT_OWNER ||
+        property === PREACT_OWNER ||
+        property === PREACT_VNODE) &&
+        (a.$$typeof || b.$$typeof)) {
+        return true;
+    }
+    return (hasOwn(b, property) &&
+        state.equals(a[property], b[property], property, property, a, b, state));
+}
 
 var ARGUMENTS_TAG = '[object Arguments]';
 var BOOLEAN_TAG = '[object Boolean]';
 var DATE_TAG = '[object Date]';
+var ERROR_TAG = '[object Error]';
 var MAP_TAG = '[object Map]';
 var NUMBER_TAG = '[object Number]';
 var OBJECT_TAG = '[object Object]';
 var REG_EXP_TAG = '[object RegExp]';
 var SET_TAG = '[object Set]';
 var STRING_TAG = '[object String]';
+var URL_TAG = '[object URL]';
 var isArray$2 = Array.isArray;
 var isTypedArray = typeof ArrayBuffer === 'function' && ArrayBuffer.isView
     ? ArrayBuffer.isView
@@ -20405,7 +20449,7 @@ var getTag = Object.prototype.toString.call.bind(Object.prototype.toString);
  * Create a comparator method based on the type-specific equality comparators passed.
  */
 function createEqualityComparator(_a) {
-    var areArraysEqual = _a.areArraysEqual, areDatesEqual = _a.areDatesEqual, areMapsEqual = _a.areMapsEqual, areObjectsEqual = _a.areObjectsEqual, arePrimitiveWrappersEqual = _a.arePrimitiveWrappersEqual, areRegExpsEqual = _a.areRegExpsEqual, areSetsEqual = _a.areSetsEqual, areTypedArraysEqual = _a.areTypedArraysEqual;
+    var areArraysEqual = _a.areArraysEqual, areDatesEqual = _a.areDatesEqual, areErrorsEqual = _a.areErrorsEqual, areFunctionsEqual = _a.areFunctionsEqual, areMapsEqual = _a.areMapsEqual, areNumbersEqual = _a.areNumbersEqual, areObjectsEqual = _a.areObjectsEqual, arePrimitiveWrappersEqual = _a.arePrimitiveWrappersEqual, areRegExpsEqual = _a.areRegExpsEqual, areSetsEqual = _a.areSetsEqual, areTypedArraysEqual = _a.areTypedArraysEqual, areUrlsEqual = _a.areUrlsEqual, unknownTagComparators = _a.unknownTagComparators;
     /**
      * compare the value of the two objects and return true if they are equivalent in values
      */
@@ -20414,15 +20458,24 @@ function createEqualityComparator(_a) {
         if (a === b) {
             return true;
         }
-        // If the items are not non-nullish objects, then the only possibility
-        // of them being equal but not strictly is if they are both `NaN`. Since
-        // `NaN` is uniquely not equal to itself, we can use self-comparison of
-        // both objects, which is faster than `isNaN()`.
-        if (a == null ||
-            b == null ||
-            typeof a !== 'object' ||
-            typeof b !== 'object') {
-            return a !== a && b !== b;
+        // If either of the items are nullish and fail the strictly equal check
+        // above, then they must be unequal.
+        if (a == null || b == null) {
+            return false;
+        }
+        var type = typeof a;
+        if (type !== typeof b) {
+            return false;
+        }
+        if (type !== 'object') {
+            if (type === 'number') {
+                return areNumbersEqual(a, b, state);
+            }
+            if (type === 'function') {
+                return areFunctionsEqual(a, b, state);
+            }
+            // If a primitive value that is not strictly equal, it must be unequal.
+            return false;
         }
         var constructor = a.constructor;
         // Checks are listed in order of commonality of use-case:
@@ -20477,6 +20530,8 @@ function createEqualityComparator(_a) {
         if (tag === DATE_TAG) {
             return areDatesEqual(a, b, state);
         }
+        // For RegExp, the properties are not enumerable, and therefore will give false positives if
+        // tested like a standard object.
         if (tag === REG_EXP_TAG) {
             return areRegExpsEqual(a, b, state);
         }
@@ -20494,6 +20549,16 @@ function createEqualityComparator(_a) {
                 typeof b.then !== 'function' &&
                 areObjectsEqual(a, b, state));
         }
+        // If a URL tag, it should be tested explicitly. Like RegExp, the properties are not
+        // enumerable, and therefore will give false positives if tested like a standard object.
+        if (tag === URL_TAG) {
+            return areUrlsEqual(a, b, state);
+        }
+        // If an error tag, it should be tested explicitly. Like RegExp, the properties are not
+        // enumerable, and therefore will give false positives if tested like a standard object.
+        if (tag === ERROR_TAG) {
+            return areErrorsEqual(a, b, state);
+        }
         // If an arguments tag, it should be treated as a standard object.
         if (tag === ARGUMENTS_TAG) {
             return areObjectsEqual(a, b, state);
@@ -20503,6 +20568,20 @@ function createEqualityComparator(_a) {
         // types.
         if (tag === BOOLEAN_TAG || tag === NUMBER_TAG || tag === STRING_TAG) {
             return arePrimitiveWrappersEqual(a, b, state);
+        }
+        if (unknownTagComparators) {
+            var unknownTagComparator = unknownTagComparators[tag];
+            if (!unknownTagComparator) {
+                var shortTag = getShortTag(a);
+                if (shortTag) {
+                    unknownTagComparator = unknownTagComparators[shortTag];
+                }
+            }
+            // If the custom config has an unknown tag comparator that matches the captured tag or the
+            // @@toStringTag, it is the source of truth for whether the values are equal.
+            if (unknownTagComparator) {
+                return unknownTagComparator(a, b, state);
+            }
         }
         // If not matching any tags that require a specific type of comparison, then we hard-code false because
         // the only thing remaining is strict equality, which has already been compared. This is for a few reasons:
@@ -20528,9 +20607,12 @@ function createEqualityComparatorConfig(_a) {
             ? areObjectsEqualStrict
             : areArraysEqual,
         areDatesEqual: areDatesEqual,
+        areErrorsEqual: areErrorsEqual,
+        areFunctionsEqual: areFunctionsEqual,
         areMapsEqual: strict
             ? combineComparators(areMapsEqual, areObjectsEqualStrict)
             : areMapsEqual,
+        areNumbersEqual: areNumbersEqual,
         areObjectsEqual: strict
             ? areObjectsEqualStrict
             : areObjectsEqual,
@@ -20542,6 +20624,8 @@ function createEqualityComparatorConfig(_a) {
         areTypedArraysEqual: strict
             ? areObjectsEqualStrict
             : areTypedArraysEqual,
+        areUrlsEqual: areUrlsEqual,
+        unknownTagComparators: undefined,
     };
     if (createCustomConfig) {
         config = assign({}, config, createCustomConfig(config));
@@ -21476,21 +21560,6 @@ Animate.propTypes = {
   onAnimationStart: PropTypes.func,
   onAnimationReStart: PropTypes.func
 };
-
-({
-  appearOptions: PropTypes.object,
-  enterOptions: PropTypes.object,
-  leaveOptions: PropTypes.object,
-  children: PropTypes.element
-});
-
-({
-  appear: PropTypes.object,
-  enter: PropTypes.object,
-  leave: PropTypes.object,
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.element]),
-  component: PropTypes.any
-});
 
 function _typeof$m(o) { "@babel/helpers - typeof"; return _typeof$m = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof$m(o); }
 function _extends$j() { _extends$j = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$j.apply(this, arguments); }
@@ -30047,7 +30116,9 @@ function CustomCaption(_a) {
         React.createElement("small", { style: {
                 color: "var(--s-color-content-default)",
                 whiteSpace: "nowrap",
-            } }, typeof entry.payload === "object" && entry.payload && "keyName" in entry.payload
+            } }, typeof entry.payload === "object" &&
+            entry.payload &&
+            "keyName" in entry.payload
             ? entry.payload.keyName
             : entry.value))); })));
 }

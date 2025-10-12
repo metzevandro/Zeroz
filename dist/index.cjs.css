@@ -19,7 +19,6 @@
     grid-template-areas: "header" "main";
   }
 }
-
 .material-symbols-outlined {
   font-weight: 300;
   display: flex;

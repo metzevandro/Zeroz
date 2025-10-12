@@ -201,16 +201,18 @@ withCheckbox.args = {
         typeIcon="edit"
         size="md"
         variant="secondary"
-        label="Edit"
         onClick={() => handleModal("Edit", "Edit the selected row(s)")}
-      ></Button>
+      >
+        Edit
+      </Button>
       <Button
         typeIcon="delete"
         size="md"
         variant="secondary"
-        label="Delete"
         onClick={() => handleModal("Delete", "Delete the selected row(s)")}
-      ></Button>
+      >
+        Delete
+      </Button>
     </>
   ),
   rowsPerPage: 5,

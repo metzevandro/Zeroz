@@ -1,9 +1,7 @@
 import React from "react";
 import { LegendProps } from "recharts";
 
-export default function CustomCaption({
-  payload = [],
-}: LegendProps) {
+export default function CustomCaption({ payload = [] }: LegendProps) {
   return (
     <div
       style={{
@@ -38,7 +36,9 @@ export default function CustomCaption({
               whiteSpace: "nowrap",
             }}
           >
-            {typeof entry.payload === "object" && entry.payload && "keyName" in entry.payload
+            {typeof entry.payload === "object" &&
+            entry.payload &&
+            "keyName" in entry.payload
               ? entry.payload.keyName
               : entry.value}
           </small>

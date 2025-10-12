@@ -35,20 +35,18 @@ const EmptyState: React.FC<EmptyStateProps> = ({
       </div>
       <div className="empty-state-footer">
         {buttonContentPrimary && (
-          <Button
-            size="md"
-            variant="primary"
-            label={buttonContentPrimary}
-            onClick={onClickActionPrimary}
-          />
+          <Button size="md" variant="primary" onClick={onClickActionPrimary}>
+            {buttonContentPrimary}
+          </Button>
         )}
         {buttonContentSecondary && (
           <Button
             size="md"
             variant="secondary"
-            label={buttonContentSecondary}
             onClick={onClickActionSecondary}
-          />
+          >
+            {buttonContentSecondary}
+          </Button>
         )}
       </div>
     </div>

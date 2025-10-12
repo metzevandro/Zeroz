@@ -451,9 +451,7 @@ export const DataTable = (props: DataTableProps) => {
 
   const totalPages = Math.ceil(processedData.length / rowsPerPage);
 
-  const allSelected = visibleData.every((row) =>
-    selectedRows.includes(row.id),
-  );
+  const allSelected = visibleData.every((row) => selectedRows.includes(row.id));
   const someSelected =
     visibleData.some((row) => selectedRows.includes(row.id)) && !allSelected;
 
@@ -588,7 +586,10 @@ export const DataTable = (props: DataTableProps) => {
             }
           }}
           disabledLeft={currentPage === 1 || currentRows.length === 0}
-          disabledRight={currentPage === Math.min(totalPages, loadedPages) || currentRows.length === 0}
+          disabledRight={
+            currentPage === Math.min(totalPages, loadedPages) ||
+            currentRows.length === 0
+          }
           skeleton={skeleton}
         />
       </div>

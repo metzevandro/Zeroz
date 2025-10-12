@@ -103,12 +103,9 @@ const Template: StoryFn<Args> = (args) => {
   return (
     <div style={{ height: "100vh", padding: "var(--s-spacing-small)" }}>
       <div style={{ width: "min-content" }}>
-        <Button
-          size="md"
-          variant="primary"
-          label="Click here!"
-          onClick={toggleModal}
-        />
+        <Button size="md" variant="primary" onClick={toggleModal}>
+          Click here!
+        </Button>
       </div>
 
       <Modal

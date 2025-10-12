@@ -66,12 +66,9 @@ const Template: StoryFn<DefaultProps> = (args) => {
   return (
     <>
       <div style={{ width: "100px", height: "200px" }}>
-        <Button
-          size="md"
-          variant="primary"
-          label="Click here!"
-          onClick={toggleDropDown}
-        />
+        <Button size="md" variant="primary" onClick={toggleDropDown}>
+          Click here!
+        </Button>
         <div>
           <Dropdown dropdown={isDropDownOpen || args.dropdown}>
             <DropdownTitle content="Title" />

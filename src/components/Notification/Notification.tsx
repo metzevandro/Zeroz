@@ -70,9 +70,10 @@ const Notification: React.FC<NotificationProps> = ({
                     size="md"
                     variant={variant}
                     disabled={disableButton}
-                    label={buttonLabel}
                     onClick={onClickButton}
-                  />
+                  >
+                    {buttonLabel}
+                  </Button>
                 </div>
               )}
             </div>

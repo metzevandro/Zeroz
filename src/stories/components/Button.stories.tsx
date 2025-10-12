@@ -7,6 +7,9 @@ import React from "react";
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
   component: Button,
+  args: {
+    children: "Button",
+  },
   parameters: {
     layout: "centered",
     docs: {
@@ -44,15 +47,6 @@ const meta: Meta<typeof Button> = {
       table: {
         category: "State",
         type: { summary: "boolean" },
-      },
-    },
-    label: {
-      description: "Text to be displayed inside the button.",
-      control: { type: "text" },
-      defaultValue: "Button",
-      table: {
-        category: "Content",
-        type: { summary: "string" },
       },
     },
     typeIcon: {

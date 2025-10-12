@@ -83,11 +83,12 @@ const Page: React.FC<PageProps> = ({
                     <Button
                       size="md"
                       variant="secondary"
-                      label={buttonContentSecondary}
                       onClick={onClickActionSecondary}
                       typeIcon={iconButtonSecondary}
                       skeleton={skeletonButtonSecondary}
-                    />
+                    >
+                      {buttonContentSecondary}
+                    </Button>
                   </div>
                 </>
               )}
@@ -109,9 +110,10 @@ const Page: React.FC<PageProps> = ({
                       variant="primary"
                       skeleton={skeletonButtonPrimary}
                       typeIcon={iconButtonPrimary}
-                      label={buttonContentPrimary}
                       onClick={onClickActionPrimary}
-                    />
+                    >
+                      {buttonContentPrimary}
+                    </Button>
                   </div>
                 </>
               )}

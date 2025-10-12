@@ -11,7 +11,6 @@ import Skeleton from "../Skeleton/Skeleton";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
-  label?: string;
   size: "sm" | "md";
   variant: "primary" | "secondary" | "success" | "warning" | "is-loading";
   typeIcon?: string;
@@ -20,11 +19,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: React.FC<ButtonProps> = ({
   disabled,
-  label,
   variant,
   typeIcon,
   size,
   skeleton,
+  children,
   ...rest
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -38,7 +37,7 @@ const Button: React.FC<ButtonProps> = ({
       const { offsetHeight: height, offsetWidth: width } = buttonRef.current;
       setDimensions({ height, width });
     }
-  }, [label, size, variant]);
+  }, [size, variant]);
 
   const buttonClass = `button ${variant} ${size}`;
 
@@ -50,18 +49,16 @@ const Button: React.FC<ButtonProps> = ({
           width={`${dimensions.width}`}
         />
       ) : (
-        label && (
-          <button
-            {...rest}
-            ref={buttonRef}
-            className={buttonClass}
-            disabled={disabled}
-          >
-            {variant === "is-loading" && <Loading variant="default" />}
-            {typeIcon && <Icon icon={typeIcon} size="sm" />}
-            {label}
-          </button>
-        )
+        <button
+          {...rest}
+          ref={buttonRef}
+          className={buttonClass}
+          disabled={disabled}
+        >
+          {children}
+          {variant === "is-loading" && <Loading variant="default" />}
+          {typeIcon && <Icon icon={typeIcon} size="sm" />}
+        </button>
       )}
     </>
   );

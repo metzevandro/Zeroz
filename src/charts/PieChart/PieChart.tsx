@@ -202,8 +202,8 @@ export default function PieChart({
                           }}
                         >
                           {tooltipFormatter
-                          ? tooltipFormatter(o.quantity)
-                          : o.quantity}
+                            ? tooltipFormatter(o.quantity)
+                            : o.quantity}
                         </small>
                       </div>
                     ))}

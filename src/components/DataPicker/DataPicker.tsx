@@ -272,18 +272,12 @@ function DataPickerCalendar({
         </div>
       </div>
       <div className="data-picker-footer">
-        <Button
-          label="Resetar"
-          size="sm"
-          variant="secondary"
-          onClick={onRevert}
-        />
-        <Button
-          label="Concluir"
-          size="sm"
-          variant="primary"
-          onClick={onClose}
-        />
+        <Button size="sm" variant="secondary" onClick={onRevert}>
+          Resetar
+        </Button>
+        <Button size="sm" variant="primary" onClick={onClose}>
+          Concluir
+        </Button>
       </div>
     </div>
   );

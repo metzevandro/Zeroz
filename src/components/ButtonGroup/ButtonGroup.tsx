@@ -47,20 +47,22 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
           size="md"
           disabled={disableFirstButton}
           onClick={onClickFirstButton}
-          label={contentFirstButton}
           typeIcon={typeIconFirstButton}
           variant={variantFirstButton}
           skeleton={skeletonFirstButton}
-        />
+        >
+          {contentFirstButton}
+        </Button>
         <Button
           size="md"
           disabled={disableSecondButton}
           onClick={onClickSecondButton}
-          label={contentSecondButton}
           typeIcon={typeIconSecondButton}
           variant={variantSecondButton}
           skeleton={skeletonSecondButton}
-        />
+        >
+          {contentSecondButton}
+        </Button>
       </div>
     </>
   );

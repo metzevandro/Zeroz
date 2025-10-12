@@ -18,8 +18,8 @@
   },
   "peerDependencies": {
     "next": "^14.2.5 || ^15.0.0",
-    "react": "^18",
-    "react-dom": "^18"
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.9",
@@ -50,8 +50,8 @@
     "eslint": "^9.1.1",
     "next": "^14.2.5 || ^15.0.0",
     "prettier": "^3.2.5",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "rollup": "^4.19.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
@@ -68,9 +68,9 @@
   "author": "evandrometz",
   "license": "MIT",
   "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
     "recharts": "^2.12.7",
-    "sass": "^1.77.8"
+    "sass": "^1.77.8",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   }
 }

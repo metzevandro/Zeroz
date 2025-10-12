@@ -118,12 +118,9 @@ const Template: StoryFn<Args> = (args: Args) => {
   return (
     <div style={{ height: "500px", padding: "var(--s-spacing-medium)" }}>
       <div style={{ width: "min-content" }}>
-        <Button
-          size="md"
-          variant="primary"
-          label={args.buttonLabel}
-          onClick={toggleAside}
-        />
+        <Button size="md" variant="primary" onClick={toggleAside}>
+          {args.buttonLabel}
+        </Button>
       </div>
       <Aside
         isOpen={isOpenAside || args.isOpen}
