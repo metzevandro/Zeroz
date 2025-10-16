@@ -1551,28 +1551,25 @@ var InputSelect = function (_a) {
 };
 
 var TextArea = function (_a) {
-    var placeholder = _a.placeholder, label = _a.label, disabled = _a.disabled, error = _a.error, errorText = _a.errorText, onChange = _a.onChange, _b = _a.value, value = _b === undefined ? "" : _b;
-    var _c = useState(value), internalValue = _c[0], setInternalValue = _c[1];
+    var placeholder = _a.placeholder, label = _a.label, _b = _a.disabled, disabled = _b === undefined ? false : _b, _c = _a.error, error = _c === undefined ? false : _c, _d = _a.errorText, errorText = _d === undefined ? "" : _d, onChange = _a.onChange, _e = _a.value, value = _e === undefined ? "" : _e;
+    var _f = useState(value), internalValue = _f[0], setInternalValue = _f[1];
     var textareaRef = useRef(null);
     useEffect(function () {
         setInternalValue(value);
     }, [value]);
-    var handleButtonClick = function () {
-        if (textareaRef.current) {
-            textareaRef.current.focus();
-        }
-    };
     var handleInputChange = function (event) {
         var newValue = event.target.value;
         setInternalValue(newValue);
-        if (onChange) {
-            onChange(newValue);
-        }
+        onChange === null || onChange === undefined ? undefined : onChange(event);
+    };
+    var handleFocusClick = function () {
+        var _a;
+        (_a = textareaRef.current) === null || _a === undefined ? undefined : _a.focus();
     };
     return (React.createElement("div", { className: "text-area-root" },
         React.createElement("label", { className: "text-area-label" }, label),
-        React.createElement("div", { tabIndex: 0, className: "text-area ".concat(disabled && "disabled", " ").concat(error && !disabled ? "error" : ""), onClick: handleButtonClick },
-            React.createElement("textarea", { ref: textareaRef, placeholder: placeholder, disabled: disabled, onChange: handleInputChange, value: internalValue })),
+        React.createElement("div", { tabIndex: 0, className: "text-area ".concat(disabled ? "disabled" : "", " ").concat(error && !disabled ? "error" : ""), onClick: handleFocusClick },
+            React.createElement("textarea", { ref: textareaRef, placeholder: placeholder, disabled: disabled, value: internalValue, onChange: handleInputChange })),
         error && React.createElement("p", { className: "description" }, errorText)));
 };
 

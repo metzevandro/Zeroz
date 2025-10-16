@@ -7,61 +7,56 @@ interface TextAreaProps {
   disabled?: boolean;
   error?: boolean;
   errorText?: string;
-  onChange?: (value: string) => void;
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
   value?: string;
 }
 
 const TextArea: React.FC<TextAreaProps> = ({
   placeholder,
   label,
-  disabled,
-  error,
-  errorText,
+  disabled = false,
+  error = false,
+  errorText = "",
   onChange,
   value = "",
 }) => {
-  const [internalValue, setInternalValue] = useState<string>(value);
-
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const [internalValue, setInternalValue] = useState(value);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     setInternalValue(value);
   }, [value]);
 
-  const handleButtonClick = () => {
-    if (textareaRef.current) {
-      textareaRef.current.focus();
-    }
-  };
-
-  const handleInputChange: React.ChangeEventHandler<HTMLTextAreaElement> = (
-    event,
-  ) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = event.target.value;
     setInternalValue(newValue);
-    if (onChange) {
-      onChange(newValue);
-    }
+    onChange?.(event); 
+  };
+
+  const handleFocusClick = () => {
+    textareaRef.current?.focus();
   };
 
   return (
     <div className="text-area-root">
       <label className="text-area-label">{label}</label>
+
       <div
         tabIndex={0}
-        className={`text-area ${disabled && "disabled"} ${
+        className={`text-area ${disabled ? "disabled" : ""} ${
           error && !disabled ? "error" : ""
         }`}
-        onClick={handleButtonClick}
+        onClick={handleFocusClick}
       >
         <textarea
           ref={textareaRef}
           placeholder={placeholder}
           disabled={disabled}
-          onChange={handleInputChange}
           value={internalValue}
+          onChange={handleInputChange}
         />
       </div>
+
       {error && <p className="description">{errorText}</p>}
     </div>
   );

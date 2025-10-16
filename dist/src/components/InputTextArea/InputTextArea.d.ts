@@ -6,7 +6,7 @@ interface TextAreaProps {
     disabled?: boolean;
     error?: boolean;
     errorText?: string;
-    onChange?: (value: string) => void;
+    onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
     value?: string;
 }
 declare const TextArea: React.FC<TextAreaProps>;

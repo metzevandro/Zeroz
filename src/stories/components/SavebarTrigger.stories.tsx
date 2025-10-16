@@ -402,7 +402,7 @@ const Template: StoryFn<DefaultProps> = (args) => {
                 label="Text Area"
                 placeholder="Placeholder"
                 value={String(formValues["Text Area"])}
-                onChange={(value) => handleInputChange("Text Area", value)}
+                onChange={(event) => handleInputChange("Text Area", event.target.value)}
               />
             </Layout>
           </SavebarTrigger>
