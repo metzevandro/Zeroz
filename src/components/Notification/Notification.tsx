@@ -17,6 +17,7 @@ interface NotificationProps {
   disableButton?: boolean;
   buttonLabel?: string;
   onClickButton?: () => void;
+  onClose?: () => void;
 }
 
 const Notification: React.FC<NotificationProps> = ({
@@ -31,11 +32,15 @@ const Notification: React.FC<NotificationProps> = ({
   disableButton,
   onClickButton,
   buttonLabel,
+  onClose,
 }) => {
   const [isClose, setIsClose] = useState(true);
 
   const handleClickClose = () => {
     setIsClose(false);
+    if (onClose) {
+      onClose();
+    }
   };
 
   const showContent = withAction || description;
