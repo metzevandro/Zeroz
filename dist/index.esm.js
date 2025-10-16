@@ -1687,10 +1687,13 @@ var FooterModal = function (_a) {
 };
 
 var Notification = function (_a) {
-    var icon = _a.icon, title = _a.title, description = _a.description, variant = _a.variant, type = _a.type, isOpen = _a.isOpen, dismissible = _a.dismissible, withAction = _a.withAction, disableButton = _a.disableButton, onClickButton = _a.onClickButton, buttonLabel = _a.buttonLabel;
+    var icon = _a.icon, title = _a.title, description = _a.description, variant = _a.variant, type = _a.type, isOpen = _a.isOpen, dismissible = _a.dismissible, withAction = _a.withAction, disableButton = _a.disableButton, onClickButton = _a.onClickButton, buttonLabel = _a.buttonLabel, onClose = _a.onClose;
     var _b = useState(true), isClose = _b[0], setIsClose = _b[1];
     var handleClickClose = function () {
         setIsClose(false);
+        if (onClose) {
+            onClose();
+        }
     };
     var showContent = withAction || description;
     return (React.createElement(React.Fragment, null, isClose && (React.createElement("div", { className: "notification ".concat(variant, " ").concat(type, " ").concat(dismissible && "dismissible", " ").concat(isOpen ? "open" : "") },

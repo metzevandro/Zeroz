@@ -12,6 +12,7 @@ interface NotificationProps {
     disableButton?: boolean;
     buttonLabel?: string;
     onClickButton?: () => void;
+    onClose?: () => void;
 }
 declare const Notification: React.FC<NotificationProps>;
 export default Notification;
