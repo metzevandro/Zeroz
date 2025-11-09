@@ -1,5 +1,5 @@
-import "./Notification.scss";
 import React from "react";
+import "./Notification.scss";
 interface NotificationProps {
     icon?: string;
     title: string;
