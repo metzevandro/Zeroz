@@ -104,7 +104,7 @@ export const primary: Story = {
   args: {
     size: "md",
     disabled: false,
-    label: "Button",
+    children: "Button",
     typeIcon: "",
     variant: "primary",
     skeleton: false,
@@ -115,7 +115,7 @@ export const secondary: Story = {
   args: {
     size: "md",
     disabled: false,
-    label: "Button",
+    children: "Button",
     typeIcon: "",
     variant: "secondary",
   },
@@ -125,7 +125,7 @@ export const success: Story = {
   args: {
     size: "md",
     disabled: false,
-    label: "Button",
+    children: "Button",
     typeIcon: "",
     variant: "success",
   },
@@ -135,7 +135,7 @@ export const warning: Story = {
   args: {
     size: "md",
     disabled: false,
-    label: "Button",
+    children: "Button",
     typeIcon: "",
     variant: "warning",
   },
@@ -145,7 +145,7 @@ export const withIcon: Story = {
   args: {
     size: "md",
     disabled: false,
-    label: "Button",
+    children: "Button",
     typeIcon: "ac_unit",
     variant: "primary",
   },
@@ -155,7 +155,7 @@ export const disabled: Story = {
   args: {
     size: "md",
     disabled: true,
-    label: "Button",
+    children: "Button",
     typeIcon: "ac_unit",
     variant: "primary",
   },
@@ -164,7 +164,7 @@ export const disabled: Story = {
 export const loading: Story = {
   args: {
     size: "md",
-    label: "Button",
+    children: "Button",
     variant: "is-loading",
   },
 };
@@ -172,7 +172,7 @@ export const loading: Story = {
 export const Skeleton: Story = {
   args: {
     size: "md",
-    label: "Button",
+    children: "Button",
     variant: "primary",
     skeleton: true,
   },
