@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/nextjs";
 import InputCheckbox from "../../components/InputCheckbox/InputCheckbox";
 import "../../styles.scss";
-import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/addon-docs/blocks";
 
 const meta: Meta = {
   title: "Components/Input Checkbox",

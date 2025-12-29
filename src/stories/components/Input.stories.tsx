@@ -1,7 +1,7 @@
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/nextjs";
 import "../../styles.scss";
 import Input from "../../components/Input/Input";
-import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/addon-docs/blocks";
 import React from "react";
 
 const meta: Meta<typeof Input> = {

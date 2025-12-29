@@ -1,10 +1,10 @@
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/nextjs";
 import Layout from "../../components/Layout/Layout";
 import "../../styles.scss";
 import Icon from "../../components/Icon/Icon";
 import React from "react";
 
-import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/addon-docs/blocks";
 const meta: Meta = {
   title: "Templates/Layout",
   component: Layout,

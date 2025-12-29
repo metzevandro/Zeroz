@@ -1,4 +1,3 @@
-import React from "react";
 import "./PieChart.scss";
 interface PieData {
     quantity: number;
@@ -21,5 +20,5 @@ interface PieChartProps {
     nameKey: string;
     skeleton?: boolean;
 }
-export default function PieChart({ data, label, caption, innerRadius, outerRadius, type, tooltipFormatter, labelFormatter, height, width, dataKey, nameKey, skeleton, }: PieChartProps): React.JSX.Element;
+export default function PieChart({ data, label, caption, innerRadius, outerRadius, type, tooltipFormatter, labelFormatter, height, width, dataKey, nameKey, skeleton, }: PieChartProps): import("react/jsx-runtime").JSX.Element;
 export {};

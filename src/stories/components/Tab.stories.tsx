@@ -1,9 +1,9 @@
 import React from "react";
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/nextjs";
 import Tabs, { TabsProps } from "../../components/Tab/Tab";
 import Icon from "../../components/Icon/Icon";
 import "../../styles.scss";
-import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/addon-docs/blocks";
 
 const meta: Meta<TabsProps> = {
   title: "Components/Tab",

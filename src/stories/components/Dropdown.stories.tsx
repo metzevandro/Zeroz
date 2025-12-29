@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/nextjs";
 import Dropdown, {
   DropdownItem,
   DropdownTitle,
 } from "../../components/Dropdown/Dropdown";
 import Button from "../../components/Button/Button";
 import "../../styles.scss";
-import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/addon-docs/blocks";
 
 const meta: Meta<typeof Dropdown> = {
   title: "Components/Dropdown",

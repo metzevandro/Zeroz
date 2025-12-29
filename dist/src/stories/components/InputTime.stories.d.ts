@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import "../../styles.scss";
 import InputTime from "../../components/InputTime/InputTime";
 declare const meta: Meta<typeof InputTime>;

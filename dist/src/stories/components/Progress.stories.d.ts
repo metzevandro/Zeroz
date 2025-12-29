@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import "../../styles.scss";
 import Progress from "../../components/Progress/Progress";
 declare const meta: Meta<typeof Progress>;

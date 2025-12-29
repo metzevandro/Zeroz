@@ -1,6 +1,6 @@
 import React from "react";
 
-export function BrandMode(story, context) {
+export function BrandMode(story: any, context: any) {
   document.documentElement.setAttribute("data-company", context.globals.brand);
 
   return (

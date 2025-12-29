@@ -1,7 +1,7 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/nextjs";
 import "../../styles.scss";
 import SaveBar from "../../components/SaveBar/SaveBar";
-import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/addon-docs/blocks";
 import React from "react";
 
 const meta: Meta<typeof SaveBar> = {

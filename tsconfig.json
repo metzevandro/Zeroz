@@ -2,15 +2,18 @@
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
-    "jsx": "react",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+
     "strict": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+
     "declaration": true,
     "declarationDir": "dist",
     "outDir": "dist",
+
     "resolveJsonModule": true
   },
   "include": ["src", "src/components", "index.ts"],

@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/react";
+import { Meta } from "@storybook/nextjs";
 import "../../styles.scss";
 declare const meta: Meta;
 export default meta;
@@ -12,6 +12,6 @@ type Args = {
     min: number;
     initialValue: number;
 };
-export declare const Default: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
-export declare const Disabled: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
-export declare const Error: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
+export declare const Default: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
+export declare const Disabled: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
+export declare const Error: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;

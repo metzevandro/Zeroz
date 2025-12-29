@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/nextjs";
 import Aside, { AsideContent, AsideFooter } from "../../components/Aside/Aside";
 import Icon from "../../components/Icon/Icon";
 import "../../components/Aside/Aside.scss";
 import ButtonGroup from "../../components/ButtonGroup/ButtonGroup";
 import Button from "../../components/Button/Button";
 import "../../styles.scss";
-import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/addon-docs/blocks";
 
 const meta: Meta = {
   title: "Components/Aside",

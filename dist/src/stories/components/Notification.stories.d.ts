@@ -1,4 +1,4 @@
-import type { Meta } from "@storybook/react";
+import type { Meta } from "@storybook/nextjs";
 import Notification from "../../components/Notification/Notification";
 import "../../styles.scss";
 declare const meta: Meta<typeof Notification>;
@@ -16,10 +16,10 @@ type NotificationProps = {
     isOpen?: boolean;
     height?: string;
 };
-export declare const Inline: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
-export declare const Float: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
-export declare const primary: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
-export declare const Secondary: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
-export declare const Success: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
-export declare const Warning: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
-export declare const Dismissible: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
+export declare const Inline: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
+export declare const Float: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
+export declare const primary: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
+export declare const Secondary: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
+export declare const Success: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
+export declare const Warning: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;
+export declare const Dismissible: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, NotificationProps>;

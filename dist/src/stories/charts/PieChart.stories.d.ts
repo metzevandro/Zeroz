@@ -1,4 +1,4 @@
-import type { Meta } from "@storybook/react";
+import type { Meta } from "@storybook/nextjs";
 import "../../styles.scss";
 declare const meta: Meta;
 export default meta;
@@ -17,7 +17,7 @@ type DefaultProps = {
     width: number;
     skeleton: boolean;
 };
-export declare const Pie: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
-export declare const Donut: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
-export declare const withCaption: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
-export declare const Skeleton: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
+export declare const Pie: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
+export declare const Donut: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
+export declare const withCaption: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
+export declare const Skeleton: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;

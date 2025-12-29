@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/nextjs";
 import "../../styles.scss";
 import InputNumber from "../../components/InputNumber/InputNumber";
-import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/addon-docs/blocks";
 
 const meta: Meta = {
   title: "Components/Input Number",

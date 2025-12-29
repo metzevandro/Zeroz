@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import "../../styles.scss";
 import Tooltip from "../../components/Tooltip/Tooltip";
 import Icon from "../../components/Icon/Icon";
-import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/addon-docs/blocks";
 import React from "react";
 
 const meta: Meta<typeof Tooltip> = {

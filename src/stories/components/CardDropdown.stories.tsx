@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import CardDropdown from "../../components/CardDropdown/CardDropdown";
 import Icon from "../../components/Icon/Icon";
 import ButtonGroup from "../../components/ButtonGroup/ButtonGroup";
 import "../../styles.scss";
-import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/addon-docs/blocks";
 import React from "react";
 
 const meta: Meta<typeof CardDropdown> = {

@@ -1,4 +1,4 @@
-import type { Meta } from "@storybook/react";
+import type { Meta } from "@storybook/nextjs";
 import "../../styles.scss";
 import Input from "../../components/Input/Input";
 declare const meta: Meta<typeof Input>;
@@ -14,8 +14,8 @@ type Args = {
     fillIcon: boolean;
     value: string;
 };
-export declare const Default: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
-export declare const WithIcon: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
-export declare const ReadOnly: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
-export declare const Disabled: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
-export declare const Error: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
+export declare const Default: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
+export declare const WithIcon: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
+export declare const ReadOnly: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
+export declare const Disabled: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
+export declare const Error: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;

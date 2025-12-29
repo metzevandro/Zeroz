@@ -1,7 +1,7 @@
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/nextjs";
 import ProgressIndicator from "../../components/ProgressIndicator/ProgressIndicator";
 import "../../styles.scss";
-import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/addon-docs/blocks";
 import React from "react";
 
 const meta: Meta<typeof ProgressIndicator> = {

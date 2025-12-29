@@ -1,4 +1,3 @@
-import React from "react";
 import "./BarChar.scss";
 interface BarChartProps {
     stacked?: boolean;
@@ -16,5 +15,5 @@ interface BarChartProps {
     width: number;
     skeleton?: boolean;
 }
-export default function BarChart(props: BarChartProps): React.JSX.Element | null;
+export default function BarChart(props: BarChartProps): import("react/jsx-runtime").JSX.Element | null;
 export {};

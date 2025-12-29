@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta } from "@storybook/react";
+import { Meta } from "@storybook/nextjs";
 import Modal from "../../components/Modal/Modal";
 import "../../styles.scss";
 declare const meta: Meta<typeof Modal>;
@@ -11,5 +11,5 @@ type Args = {
     content: React.ReactNode;
     footer: React.ReactNode;
 };
-export declare const Default: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
-export declare const Dismissible: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
+export declare const Default: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
+export declare const Dismissible: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;

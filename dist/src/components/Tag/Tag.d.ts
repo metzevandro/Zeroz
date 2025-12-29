@@ -1,4 +1,3 @@
-import React from "react";
 import "./Tag.scss";
 type typeVariant = "primary" | "secondary" | "success" | "warning";
 interface TagProps {
@@ -6,5 +5,5 @@ interface TagProps {
     variant: typeVariant;
     onClose?: () => void;
 }
-declare function Tag(props: TagProps): React.JSX.Element;
+declare function Tag(props: TagProps): import("react/jsx-runtime").JSX.Element;
 export default Tag;

@@ -1,4 +1,3 @@
-import React from "react";
 import "./DataPicker.scss";
 declare function DataPicker({ value, onChange, label, disabled, skeleton, }: {
     value?: string;
@@ -6,5 +5,5 @@ declare function DataPicker({ value, onChange, label, disabled, skeleton, }: {
     label: string;
     disabled?: boolean;
     skeleton?: boolean;
-}): React.JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;
 export default DataPicker;

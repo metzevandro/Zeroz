@@ -1,7 +1,7 @@
 import React from "react";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/nextjs";
 import "../../styles.scss";
-import { Title, Subtitle, Primary, Controls } from "@storybook/blocks";
+import { Title, Subtitle, Primary, Controls } from "@storybook/addon-docs/blocks";
 import "../colors/Colors.scss";
 
 import DataPicker from "../../components/DataPicker/DataPicker";

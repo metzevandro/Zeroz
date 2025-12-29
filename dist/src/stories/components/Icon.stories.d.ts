@@ -1,4 +1,4 @@
-import type { Meta } from "@storybook/react";
+import type { Meta } from "@storybook/nextjs";
 import Icon from "../../components/Icon/Icon";
 import "../../styles.scss";
 declare const meta: Meta<typeof Icon>;
@@ -8,4 +8,4 @@ type DefaultProps = {
     size: "sm" | "md" | "lg";
     fill: boolean;
 };
-export declare const Default: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;
+export declare const Default: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, DefaultProps>;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/nextjs";
 import "../../styles.scss";
-import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/addon-docs/blocks";
 
 import { DataTable } from "../../components/DataTable/DataTable";
 import Modal from "../../components/Modal/Modal";

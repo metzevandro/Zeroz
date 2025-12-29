@@ -12,5 +12,5 @@ interface DataTableProps {
     onUpdateSelectedRows?: (updateSelectedRows: (ids: string[]) => void) => void;
     minColumnWidths?: number[];
 }
-export declare const DataTable: (props: DataTableProps) => React.JSX.Element;
+export declare const DataTable: (props: DataTableProps) => import("react/jsx-runtime").JSX.Element;
 export default DataTable;

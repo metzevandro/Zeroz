@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import InputSearch from "../../components/InputSearch/InputSearch";
 import "../../styles.scss";
 declare const meta: Meta<typeof InputSearch>;

@@ -1,4 +1,3 @@
-import React from "react";
 interface LineChartProps {
     data: any;
     caption?: boolean;
@@ -16,5 +15,5 @@ interface LineChartProps {
     type?: "basis" | "basisClosed" | "basisOpen" | "bumpX" | "bumpY" | "bump" | "linear" | "linearClosed" | "natural" | "monotoneX" | "monotoneY" | "monotone" | "step" | "stepBefore" | "stepAfter";
     skeleton?: boolean;
 }
-export default function LineChart(props: LineChartProps): React.JSX.Element | null;
+export default function LineChart(props: LineChartProps): import("react/jsx-runtime").JSX.Element | null;
 export {};

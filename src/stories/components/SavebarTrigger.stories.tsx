@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import type { Meta, StoryFn } from "@storybook/react";
-import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import type { Meta, StoryFn } from "@storybook/nextjs";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/addon-docs/blocks";
 
 import "../../styles.scss";
 

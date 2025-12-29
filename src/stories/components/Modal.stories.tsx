@@ -1,12 +1,12 @@
 import React from "react";
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/nextjs";
 import Modal, { ContentModal, FooterModal } from "../../components/Modal/Modal";
 import Button from "../../components/Button/Button";
 import { useState } from "react";
 import Icon from "../../components/Icon/Icon";
 import ButtonGroup from "../../components/ButtonGroup/ButtonGroup";
 import "../../styles.scss";
-import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/blocks";
+import { Title, Subtitle, Primary, Controls, Stories } from "@storybook/addon-docs/blocks";
 
 const meta: Meta<typeof Modal> = {
   title: "Components/Modal",

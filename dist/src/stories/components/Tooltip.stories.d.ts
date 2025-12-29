@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import "../../styles.scss";
 import Tooltip from "../../components/Tooltip/Tooltip";
 declare const meta: Meta<typeof Tooltip>;

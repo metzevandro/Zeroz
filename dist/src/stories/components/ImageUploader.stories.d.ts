@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import "../../styles.scss";
 import ImageUploader from "../../components/ImageUploader/ImageUploader";
 declare const meta: Meta<typeof ImageUploader>;

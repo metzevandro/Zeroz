@@ -1,4 +1,4 @@
-import type { Meta } from "@storybook/react";
+import type { Meta } from "@storybook/nextjs";
 import "../../components/Aside/Aside.scss";
 import "../../styles.scss";
 declare const meta: Meta;
@@ -9,4 +9,4 @@ type Args = {
     description: string;
     buttonLabel: string;
 };
-export declare const Default: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
+export declare const Default: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;

@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/react";
+import { Meta } from "@storybook/nextjs";
 import ProgressIndicator from "../../components/ProgressIndicator/ProgressIndicator";
 import "../../styles.scss";
 declare const meta: Meta<typeof ProgressIndicator>;
@@ -10,5 +10,5 @@ type Args = {
     description: string;
     widthFull: boolean;
 };
-export declare const Default: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
-export declare const WidthFull: import("@storybook/core/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
+export declare const Default: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
+export declare const WidthFull: import("storybook/internal/csf").AnnotatedStoryFn<import("@storybook/react").ReactRenderer, Args>;
