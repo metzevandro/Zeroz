@@ -1,6 +1,6 @@
 {
   "name": "design-system-zeroz",
-  "version": "0.3.78",
+  "version": "0.3.79",
   "private": false,
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -52,7 +52,9 @@
     "typescript": "^5.5.4"
   },
   "description": "<div align=\"center\"><img src=\"https://zeroz.vercel.app/logo-sm.svg\" alt=\"Zeroz Design System Logo\"/></div>",
-  "keywords": ["Design System"],
+  "keywords": [
+    "Design System"
+  ],
   "author": "evandrometz",
   "license": "MIT"
 }
