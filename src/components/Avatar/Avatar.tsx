@@ -1,74 +1,64 @@
-import Icon from "../Icon/Icon";
-import "./Avatar.scss";
 import React from "react";
 import Skeleton from "../Skeleton/Skeleton";
+import AvatarImage from "./subcomponents/AvatarImage";
+import AvatarLetter from "./subcomponents/AvatarLetter";
+import AvatarIcon from "./subcomponents/AvatarIcon";
+import { AVATAR_SIZE_MAP } from "./Avatar.utils";
+import type { AvatarProps } from "./Avatar.types";
+import "./Avatar.scss";
 
-type IconSize = "sm" | "md" | "lg";
-
-interface AvatarProps {
-  size: IconSize;
-  src?: string;
-  skeleton?: boolean;
-  letter?: string;
-}
-
+/**
+ * ## Avatar
+ *
+ * User identity visual component. Displays an image, initials,
+ * or a default icon with loading state (skeleton) support.
+ *
+ * ### Rendering hierarchy
+ * `skeleton` → `src` (image) → `letter` (initials) → default icon (fallback)
+ *
+ * ### Recommended use cases
+ * - User identification in lists, tables, and comment sections
+ * - Profile headers and account pages
+ * - Avatar grouping (avatar stacks)
+ * - Async loading states with `skeleton`
+ *
+ * ### Best practices
+ * - Always provide `letter` as a fallback when `src` might fail or be slow to load
+ * - Use `skeleton` during API calls to prevent layout shift
+ * - Prefer `size="md"` for general use; reserve `lg` for profile pages
+ *
+ * @example
+ * // Image
+ * <Avatar size="md" src="https://cdn.example.com/user.jpg" />
+ *
+ * // Initials
+ * <Avatar size="md" letter="Maria Smith" />
+ *
+ * // Default icon (fallback)
+ * <Avatar size="sm" />
+ *
+ * // Loading state
+ * <Avatar size="md" skeleton />
+ */
 const Avatar: React.FC<AvatarProps> = ({ size, src, skeleton, letter }) => {
-  const getSize = (size: IconSize) => {
-    switch (size) {
-      case "sm":
-        return 24;
-      case "md":
-        return 40;
-      case "lg":
-        return 64;
-      default:
-        return 32;
-    }
-  };
-
-  const sizeInPixels = getSize(size);
-
-  const getLetter = (letter?: string) => {
-    if (letter && letter.includes(" ")) {
-      const [firstName, lastName] = letter.split(" ");
-      return `${firstName?.charAt(0)}${lastName?.charAt(0)}`;
-    } else if (letter && letter.length > 1) {
-      return letter.charAt(0);
-    }
-    return letter;
-  };
+  if (skeleton) {
+    const sizeInPixels = String(AVATAR_SIZE_MAP[size]);
+    return (
+      <div className="avatar">
+        <Skeleton height={sizeInPixels} width={sizeInPixels} circle />
+      </div>
+    );
+  }
 
   return (
     <div className="avatar">
-      {skeleton ? (
-        <Skeleton
-          height={`${sizeInPixels}`}
-          circle={true}
-          width={`${sizeInPixels}`}
-        />
-      ) : (
-        <>
-          {src ? (
-            <label className="avatar-image">
-              <img className={size} src={src} alt="Avatar" />
-            </label>
-          ) : (
-            <>
-              {letter ? (
-                <label className={`avatar-letter ${size}`}>
-                  {getLetter(letter)?.toLocaleUpperCase()}
-                </label>
-              ) : (
-                <label className={`avatar-icon ${size}`}>
-                  <Icon size={size} icon="person" />
-                </label>
-              )}
-            </>
-          )}
-        </>
-      )}
+      {src && <AvatarImage size={size} src={src} />}
+      {!src && letter && <AvatarLetter size={size} letter={letter} />}
+      {!src && !letter && <AvatarIcon size={size} />}
     </div>
   );
 };
+
+Avatar.displayName = "Avatar";
 
 export default Avatar;
