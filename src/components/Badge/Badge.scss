@@ -5,6 +5,7 @@
   width: min-content;
   height: min-content;
   color: var(--s-color-content-on-color);
+  display: flex;
 
   &.default {
     color: var(--s-color-content-default);
