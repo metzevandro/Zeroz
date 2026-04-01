@@ -1,14 +1,36 @@
-import React from "react";
 import "./AppShell.scss";
+import React from "react";
+import { AppShellProps } from "./AppShell.types";
 
-type AppShellProps = {
-  children: React.ReactNode;
-};
+/**
+ * `AppShell` is the outermost layout wrapper for the application.
+ *
+ * It provides the root `app-shell` class and acts as the composition
+ * boundary for the full page layout — typically containing a `<Header>`,
+ * a sidebar, and the main content area.
+ *
+ * Memoized to prevent unnecessary re-renders when parent state changes
+ * do not affect the shell's own props.
+ *
+ * @example
+ * ```tsx
+ * <AppShell>
+ *   <Sidebar>
+ *   </Sidebar>
+ *
+ *   <Header>
+ *   </Header>
+ *
+ *   <Page>
+ *   </Page>
+ * </AppShell>
+ * ```
+ */
 
-const AppShellContainer: React.FC<AppShellProps> = ({ children }) => (
+const AppShell: React.FC<AppShellProps> = React.memo(({ children }) => (
   <div className="app-shell">{children}</div>
-);
+));
 
-export const AppShell = React.memo(AppShellContainer);
+AppShell.displayName = "AppShell";
 
 export default AppShell;
