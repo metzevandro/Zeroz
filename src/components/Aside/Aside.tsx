@@ -1,67 +1,78 @@
+// Aside.tsx — keep AsideHeader co-located and unexported
+
 import React from "react";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
+import { AsideProps } from "./Aside.types";
 import "./Aside.scss";
 
-interface AsideProps {
-  isOpen: boolean;
+// ─── Internal sub-component ───────────────────────────────────────────────────
+
+interface AsideHeaderProps {
   title: string;
   description?: string;
-  content?: React.ReactNode;
-  footer?: React.ReactNode;
-  toggleAside: () => void;
+  onClose: () => void;
 }
 
-const Aside: React.FC<AsideProps> = ({
+const AsideHeader: React.FC<AsideHeaderProps> = ({
   title,
+  description,
+  onClose,
+}) => (
+  <div className="aside-header">
+    <div className="aside-title">
+      <span>{title}</span>
+      <ButtonIcon
+        buttonType="plain"
+        variant="primary"
+        typeIcon="close"
+        size="md"
+        onClick={onClose}
+        aria-label="Close panel"
+      />
+    </div>
+    {description && <p className="aside-description">{description}</p>}
+  </div>
+);
+
+AsideHeader.displayName = "Aside.Header";
+
+// ─── Main component ───────────────────────────────────────────────────────────
+
+const Aside: React.FC<AsideProps> = ({
   isOpen,
+  title,
   description,
   toggleAside,
-  footer,
   content,
+  footer,
 }) => {
   return (
     <>
       <div
         className={`aside-overlay ${isOpen ? "open" : "hidden"}`}
         onClick={toggleAside}
+        aria-hidden="true"
       />
-      <div className={`aside-root ${isOpen ? "open" : ""}`}>
+      <div
+        className={`aside-root ${isOpen ? "open" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label={title}
+      >
         <div className="aside">
-          <header className="aside-header">
-            <div className="aside-title">
-              <div>{title}</div>
-              <ButtonIcon
-                buttonType="plain"
-                variant="primary"
-                typeIcon="close"
-                size="md"
-                onClick={toggleAside}
-              />
-            </div>
-            <div className="aside-description">{description}</div>
-          </header>
-          <main className="aside-children">{content}</main>
-          <footer className="aside-footer">{footer}</footer>
+          <AsideHeader
+            title={title}
+            description={description}
+            onClose={toggleAside}
+          />
+          <div className="aside-children">{content}</div>
+          {footer && <div className="aside-footer">{footer}</div>}
         </div>
       </div>
     </>
   );
 };
 
+Aside.displayName = "Aside";
+
 export default Aside;
-
-interface AsideContentProps {
-  children: React.ReactNode;
-}
-
-export const AsideContent: React.FC<AsideContentProps> = ({ children }) => {
-  return <div className="aside-content">{children}</div>;
-};
-
-interface AsideFooterProps {
-  children: React.ReactNode;
-}
-
-export const AsideFooter: React.FC<AsideFooterProps> = ({ children }) => {
-  return <div>{children}</div>;
-};
