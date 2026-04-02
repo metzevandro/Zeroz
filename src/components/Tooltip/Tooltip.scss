@@ -1,16 +1,11 @@
-// ── Variables ──────────────────────────────────────────────────────────────────
 $arrow-size: 6px;
 $gap: calc(100% + $arrow-size + 4px);
-// Corner arrows are inset from the edge to align with the trigger's corner
-$corner-offset: 12px;
 
-// ── Root ───────────────────────────────────────────────────────────────────────
 .tooltip-root {
   position: relative;
   display: inline-flex;
 }
 
-// ── Bubble ─────────────────────────────────────────────────────────────────────
 .tooltip-container {
   position: absolute;
   padding: var(--s-spacing-xx-small) var(--s-spacing-x-small);
@@ -41,7 +36,6 @@ $corner-offset: 12px;
     text-align: center;
   }
 
-  // Base arrow
   &::before {
     content: "";
     position: absolute;
@@ -51,12 +45,13 @@ $corner-offset: 12px;
   }
 }
 
-// ── TOP (centered) ─────────────────────────────────────────────────────────────
 .tooltip-root.top .tooltip-container {
   bottom: $gap;
   left: 50%;
   transform: translateX(-50%) scale(0.92);
-  &.visible { transform: translateX(-50%) scale(1); }
+  &.visible {
+    transform: translateX(-50%) scale(1);
+  }
   &::before {
     top: 100%;
     left: 50%;
@@ -66,12 +61,13 @@ $corner-offset: 12px;
   }
 }
 
-// ── BOTTOM (centered) ──────────────────────────────────────────────────────────
 .tooltip-root.bottom .tooltip-container {
   top: $gap;
   left: 50%;
   transform: translateX(-50%) scale(0.92);
-  &.visible { transform: translateX(-50%) scale(1); }
+  &.visible {
+    transform: translateX(-50%) scale(1);
+  }
   &::before {
     bottom: 100%;
     left: 50%;
@@ -81,12 +77,13 @@ $corner-offset: 12px;
   }
 }
 
-// ── RIGHT ──────────────────────────────────────────────────────────────────────
 .tooltip-root.right .tooltip-container {
   top: 50%;
   left: $gap;
   transform: translateY(-50%) scale(0.92);
-  &.visible { transform: translateY(-50%) scale(1); }
+  &.visible {
+    transform: translateY(-50%) scale(1);
+  }
   &::before {
     top: 50%;
     right: 100%;
@@ -96,81 +93,18 @@ $corner-offset: 12px;
   }
 }
 
-// ── LEFT ───────────────────────────────────────────────────────────────────────
 .tooltip-root.left .tooltip-container {
   top: 50%;
   right: $gap;
   transform: translateY(-50%) scale(0.92);
-  &.visible { transform: translateY(-50%) scale(1); }
+  &.visible {
+    transform: translateY(-50%) scale(1);
+  }
   &::before {
     top: 50%;
     left: 100%;
     transform: translateY(-50%);
     border-left-color: var(--s-color-fill-highlight);
     border-right: none;
-  }
-}
-
-// ── TOP-LEFT ───────────────────────────────────────────────────────────────────
-// Bubble above, left-aligned to the trigger. Arrow at bottom-left corner.
-.tooltip-root.top-left .tooltip-container {
-  bottom: $gap;
-  left: 0;
-  transform: scale(0.92);
-  transform-origin: bottom left;
-  &.visible { transform: scale(1); }
-  &::before {
-    top: 100%;
-    left: $corner-offset;
-    border-top-color: var(--s-color-fill-highlight);
-    border-bottom: none;
-  }
-}
-
-// ── TOP-RIGHT ──────────────────────────────────────────────────────────────────
-// Bubble above, right-aligned to the trigger. Arrow at bottom-right corner.
-.tooltip-root.top-right .tooltip-container {
-  bottom: $gap;
-  right: 0;
-  transform: scale(0.92);
-  transform-origin: bottom right;
-  &.visible { transform: scale(1); }
-  &::before {
-    top: 100%;
-    right: $corner-offset;
-    border-top-color: var(--s-color-fill-highlight);
-    border-bottom: none;
-  }
-}
-
-// ── BOTTOM-LEFT ────────────────────────────────────────────────────────────────
-// Bubble below, left-aligned to the trigger. Arrow at top-left corner.
-.tooltip-root.bottom-left .tooltip-container {
-  top: $gap;
-  left: 0;
-  transform: scale(0.92);
-  transform-origin: top left;
-  &.visible { transform: scale(1); }
-  &::before {
-    bottom: 100%;
-    left: $corner-offset;
-    border-bottom-color: var(--s-color-fill-highlight);
-    border-top: none;
-  }
-}
-
-// ── BOTTOM-RIGHT ───────────────────────────────────────────────────────────────
-// Bubble below, right-aligned to the trigger. Arrow at top-right corner.
-.tooltip-root.bottom-right .tooltip-container {
-  top: $gap;
-  right: 0;
-  transform: scale(0.92);
-  transform-origin: top right;
-  &.visible { transform: scale(1); }
-  &::before {
-    bottom: 100%;
-    right: $corner-offset;
-    border-bottom-color: var(--s-color-fill-highlight);
-    border-top: none;
   }
 }
