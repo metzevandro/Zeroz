@@ -2,13 +2,20 @@
   display: flex;
   flex-direction: column;
   gap: var(--s-spacing-nano);
+  position: relative;
 
   .input-select-label {
     font: var(--s-typography-label-medium);
     color: var(--s-color-content-default);
   }
 
+  .input-select {
+    position: relative;
+  }
+
+
   .input-select-button {
+    width: 100%;
     cursor: pointer;
     padding: var(--s-spacing-xx-small) var(--s-spacing-x-small);
     display: flex;
@@ -19,38 +26,19 @@
     border-radius: var(--s-border-radius-medium);
     color: var(--s-color-content-placeholder);
     box-shadow: 0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+    font: var(--s-typography-paragraph-regular);
+    text-align: left;
 
     &:hover {
       background-color: var(--s-color-fill-default-hover);
-      border: 1px solid var(--s-color-border-default-hover);
+      border-color: var(--s-color-border-default-hover);
     }
 
-    select {
-      cursor: pointer;
-      width: 100%;
-      background-color: transparent;
-      color: var(--s-color-content-default);
-      font: var(--s-typography-paragraph-regular);
-      height: 22px;
-      &:focus {
-        outline: none;
-      }
-
-      &.select-error {
-        color: var(--s-color-content-warning);
-      }
-
-      option {
-        cursor: pointer;
-        display: flex;
-        background-color: var(--s-color-fill-default);
-        color: var(--s-color-content-default);
-        font: var(--s-typography-paragraph-regular);
-      }
-    }
-
-    select:disabled {
-      cursor: default;
+    &:focus-visible {
+      outline-width: var(--s-border-width-thin);
+      outline-color: var(--s-color-border-highlight);
+      outline-offset: var(--s-border-width-hairline);
+      outline-style: solid;
     }
 
     &.option {
@@ -62,10 +50,6 @@
       color: var(--s-color-content-warning);
       background-color: var(--s-color-fill-warning-light);
       cursor: auto;
-
-      select {
-        cursor: auto;
-      }
 
       &:hover {
         background-color: var(--s-color-fill-warning-light);
@@ -82,17 +66,89 @@
         border-color: var(--s-color-border-default);
       }
     }
+  }
 
-    &:focus-within {
+  .input-select-placeholder {
+    color: var(--s-color-content-placeholder);
+  }
+
+
+
+  .input-select-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background-color: var(--s-color-fill-default);
+    border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+    border-radius: var(--s-border-radius-medium);
+    box-shadow: var(--s-shadow-dropdown);
+    list-style: none;
+    padding: var(--s-spacing-nano);
+    margin: 0;
+    max-height: 240px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+
+  .input-select-option {
+    width: 100%;
+    text-align: left;
+    padding: var(--s-spacing-xx-small) var(--s-spacing-x-small);
+    border-radius: var(--s-border-radius-small);
+    background-color: transparent;
+    color: var(--s-color-content-default);
+    font: var(--s-typography-paragraph-regular);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--s-color-fill-default-hover);
+    }
+
+    &:focus-visible {
       outline-width: var(--s-border-width-thin);
       outline-color: var(--s-color-border-highlight);
-      outline-offset: var(--s-border-width-hairline);
+      outline-offset: -2px;
       outline-style: solid;
+    }
+
+    &.selected {
+      background-color: var(--s-color-fill-highlight);
+      color: var(--s-color-content-on-color);
+
+      &:hover {
+        background-color: var(--s-color-fill-highlight-hover);
+      }
     }
   }
 
+
   .input-select-error-message {
     color: var(--s-color-content-warning);
-    font: VAR(--s-typography-caption-regular);
+    font: var(--s-typography-caption-regular);
+  }
+
+  @media (max-width: 490px) {
+    .input-select-dropdown {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: auto;
+      border-radius: var(--s-border-radius-medium) var(--s-border-radius-medium) 0 0;
+      max-height: 50vh;
+      padding: var(--s-spacing-small);
+      box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .input-select-option {
+      padding: var(--s-spacing-x-small) var(--s-spacing-small);
+      font: var(--s-typography-paragraph-regular);
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+    }
   }
 }
