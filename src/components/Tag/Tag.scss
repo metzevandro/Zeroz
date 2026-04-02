@@ -7,6 +7,22 @@
   align-items: center;
   width: fit-content;
   white-space: nowrap;
+  height: fit-content;
+
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    max-width 0.2s ease;
+  max-width: 300px;
+  overflow: hidden;
+
+  &.tag-closing {
+    opacity: 0;
+    max-width: 0;
+    pointer-events: none;
+  }
 
   &.secondary {
     background-color: var(--s-color-fill-default-light);
@@ -27,6 +43,7 @@
     background-color: var(--s-color-fill-warning);
     color: var(--s-color-content-on-color);
   }
+
   .sm.plain {
     border-radius: var(--s-border-radius-pill);
   }

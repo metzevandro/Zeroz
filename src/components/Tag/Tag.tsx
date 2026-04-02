@@ -1,42 +1,58 @@
-import React, { useState } from "react";
-import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import "./Tag.scss";
+import React from "react";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
+import { TagProps } from "./Tag.types";
+import { useTagDismiss } from "./hooks/useTagDismiss";
 
-type typeVariant = "primary" | "secondary" | "success" | "warning";
+const ANIMATION_DURATION = 200;
 
-interface TagProps {
-  content: string;
-  variant: typeVariant;
-  onClose?: () => void;
-}
+/**
+ * `Tag` is a compact label with an optional dismiss button.
+ *
+ * When `onClose` is provided, a close button is rendered. Clicking it
+ * triggers a smooth exit animation (fade + scale) before removing the tag
+ * from the DOM and firing `onClose`.
+ *
+ * @example
+ * ```tsx
+ * // Static tag (no close button)
+ * <Tag content="Design" variant="primary" />
+ *
+ * // Dismissible tag
+ * <Tag content="React" variant="secondary" onClose={() => removeTag("React")} />
+ * ```
+ */
+function Tag({ content, variant, onClose }: TagProps) {
+  const { isDismissed, isClosing, handleClose } = useTagDismiss({
+    animationDuration: ANIMATION_DURATION,
+    onClose,
+  });
 
-function Tag(props: TagProps) {
-  const [closed, setClosed] = useState(false);
-
-  const handleCloseTag = () => {
-    setClosed(true);
-    if (props.onClose) {
-      props.onClose();
-    }
-  };
+  if (isDismissed) return null;
 
   return (
-    <>
-      {!closed && (
-        <div className={`tag-root ${props.variant}`}>
-          {props.content}
-          <span>
-            <ButtonIcon
-              buttonType="plain"
-              size="sm"
-              typeIcon="close"
-              variant={props.variant === "secondary" ? "primary" : "on-color"}
-              onClick={handleCloseTag}
-            />
-          </span>
-        </div>
+    <div
+      className={[
+        "tag-root",
+        variant,
+        isClosing && "tag-closing",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      {content}
+      {onClose && (
+        <span>
+          <ButtonIcon
+            appearance="plain"
+            size="sm"
+            icon="close"
+            variant={variant === "secondary" ? "primary" : "on-color"}
+            onClick={handleClose}
+          />
+        </span>
       )}
-    </>
+    </div>
   );
 }
 
