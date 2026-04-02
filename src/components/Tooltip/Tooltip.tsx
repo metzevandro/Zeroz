@@ -1,23 +1,26 @@
-// Tooltip.tsx
-import React, { useState } from "react";
 import "./Tooltip.scss";
+import React from "react";
+import { TooltipProps } from "./Tooltip.types";
+import { useTooltip } from "./hooks/useTooltip";
 
-interface TooltipProps {
-  text: string;
-  children: React.ReactNode;
-  direction: "top" | "bottom" | "right" | "left";
-}
-
+/**
+ * `Tooltip` displays a contextual text bubble when the user hovers over
+ * its child element. The bubble appears in the specified `direction` and
+ * includes a CSS-drawn arrow pointing back toward the trigger.
+ *
+ * @example
+ * ```tsx
+ * <Tooltip text="Copy to clipboard" direction="top">
+ *   <ButtonIcon icon="content_copy" />
+ * </Tooltip>
+ *
+ * <Tooltip text="More options" direction="right">
+ *   <ButtonIcon icon="more_vert" />
+ * </Tooltip>
+ * ```
+ */
 const Tooltip: React.FC<TooltipProps> = ({ text, children, direction }) => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsVisible(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsVisible(false);
-  };
+  const { isVisible, handleMouseEnter, handleMouseLeave } = useTooltip();
 
   return (
     <div
@@ -26,12 +29,9 @@ const Tooltip: React.FC<TooltipProps> = ({ text, children, direction }) => {
       onMouseLeave={handleMouseLeave}
     >
       {children}
-      {isVisible && (
-        <div className={`tooltip-container ${direction}`}>
-          <div className={`tooltip-icon ${direction}`}></div>
-          <p>{text}</p>
-        </div>
-      )}
+      <div className={`tooltip-container ${isVisible ? "visible" : ""}`}>
+        <p>{text}</p>
+      </div>
     </div>
   );
 };
