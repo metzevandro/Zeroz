@@ -1,22 +1,40 @@
-import React from "react";
 import "./Skeleton.scss";
+import React from "react";
+import { SkeletonProps } from "./Skeleton.types";
 
-interface SkeletonProps {
-  width: string;
-  height: string;
-  circle?: boolean;
-}
-
-export default function Skeleton(props: SkeletonProps) {
+/**
+ * `Skeleton` is a loading placeholder that mimics the shape of content
+ * before it has loaded, preventing layout shift.
+ *
+ * Use `width` and `height` to match the dimensions of the real content.
+ * Set `circle` to `true` for avatar or icon placeholders.
+ *
+ * @example
+ * ```tsx
+ * // Text line placeholder
+ * <Skeleton width="200px" height="16px" />
+ *
+ * // Avatar placeholder
+ * <Skeleton width="40px" height="40px" circle />
+ *
+ * // Full-width block
+ * <Skeleton width="100%" height="120px" />
+ * ```
+ */
+export default function Skeleton({
+  width,
+  height,
+  circle = false,
+}: SkeletonProps) {
   return (
     <div
-      className={`skeleton ${props.circle === true ? "circle" : "no-circle"}`}
+      className={`skeleton ${circle ? "circle" : "no-circle"}`}
       style={{
-        width: `${props.width}px`,
-        height: `${props.height}px`,
-        borderRadius: props.circle ? "var(--s-border-radius-pill)" : "",
-        backgroundSize: `${props.width}px`,
+        width,
+        height,
+        backgroundSize: width,
+        borderRadius: circle ? "var(--s-border-radius-pill)" : undefined,
       }}
-    ></div>
+    />
   );
 }

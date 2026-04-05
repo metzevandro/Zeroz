@@ -2,6 +2,7 @@ $skeleton-bg-color: var(--s-color-fill-default-light);
 $skeleton-gradient-color-start: var(--s-color-fill-disable);
 $skeleton-gradient-color-mid: var(--s-color-fill-disable);
 $skeleton-gradient-color-end: var(--s-color-fill-disable);
+
 $skeleton-gradient: linear-gradient(
   90deg,
   $skeleton-gradient-color-start 0,
