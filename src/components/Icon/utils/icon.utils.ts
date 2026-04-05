@@ -1,0 +1,13 @@
+/**
+ * Builds the `font-variation-settings` CSS value for a Material Symbol icon.
+ *
+ * Controls three variable font axes:
+ * - `FILL`  — `1` for filled variant, `0` for outlined (default)
+ * - `GRAD`  — grade, fixed at `0`
+ * - `opsz`  — optical size, fixed at `24`
+ *
+ * @see https://fonts.google.com/knowledge/glossary/variable_fonts
+ */
+export function buildIconVariationSettings(fill: boolean): string {
+  return `'FILL' ${fill ? 1 : 0}, 'GRAD' 0, 'opsz' 24`;
+}
