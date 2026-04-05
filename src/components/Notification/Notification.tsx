@@ -1,24 +1,49 @@
+import "./Notification.scss";
 import React from "react";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import Icon from "../Icon/Icon";
 import Button from "../Button/Button";
-import "./Notification.scss";
+import { NotificationProps } from "./Notification.types";
+import { getNotificationClass } from "./utils/notification.utils";
 
-interface NotificationProps {
-  icon?: string;
-  title: string;
-  description?: string;
-  variant: "primary" | "secondary" | "warning" | "success";
-  type: "float" | "inline";
-  isOpen?: boolean;
-  dismissible?: boolean;
-  withAction?: boolean;
-  disableButton?: boolean;
-  buttonLabel?: string;
-  onClickButton?: () => void;
-  onClose?: () => void;
-}
-
+/**
+ * `Notification` displays a contextual message with an optional action button
+ * and a dismissible close button.
+ *
+ * It supports two display modes (`"float"` for toast-style overlays and
+ * `"inline"` for in-flow banners) and four semantic variants.
+ *
+ * The component renders nothing when `isOpen` is `false`.
+ *
+ * @example
+ * ```tsx
+ * // Inline success notification
+ * <Notification
+ *   isOpen={saved}
+ *   type="inline"
+ *   variant="success"
+ *   icon="check_circle"
+ *   title="Changes saved"
+ *   description="Your profile has been updated."
+ *   dismissible
+ *   onClose={() => setSaved(false)}
+ * />
+ *
+ * // Float warning with action
+ * <Notification
+ *   isOpen={showWarning}
+ *   type="float"
+ *   variant="warning"
+ *   icon="warning"
+ *   title="Session expiring"
+ *   withAction
+ *   buttonLabel="Stay signed in"
+ *   onClickButton={renewSession}
+ *   dismissible
+ *   onClose={dismissWarning}
+ * />
+ * ```
+ */
 const Notification: React.FC<NotificationProps> = ({
   icon,
   title,
@@ -26,42 +51,45 @@ const Notification: React.FC<NotificationProps> = ({
   variant,
   type,
   isOpen = false,
-  dismissible,
-  withAction,
-  disableButton,
-  onClickButton,
+  isExiting = false,
+  dismissible = false,
+  withAction = false,
+  disableButton = false,
   buttonLabel,
+  onClickButton,
   onClose,
 }) => {
-  const showContent = withAction || description;
+  if (type === "inline" && !isOpen) return null;
 
-  if (!isOpen) return null;
+  if (type === "float" && !isOpen && !isExiting) {
+    return (
+      <div aria-hidden className="notification float notification-hidden" />
+    );
+  }
+
+  const hasContent = withAction || Boolean(description);
 
   return (
     <div
-      className={`notification ${variant} ${type} ${
-        dismissible ? "dismissible" : ""
-      } ${isOpen ? "open" : ""}`}
+      className={getNotificationClass(variant, type, dismissible, isExiting)}
     >
       <div className={`notification-title ${variant}`}>
         <Icon icon={icon} size="md" />
         <div className="title">{title}</div>
-
         {dismissible && (
           <ButtonIcon
             variant="on-color"
             size="sm"
-            typeIcon="close"
-            buttonType="plain"
+            icon="close"
+            appearance="plain"
             onClick={onClose}
           />
         )}
       </div>
 
-      {showContent && (
+      {hasContent && (
         <div className="notification-content">
           {description && <div className="description">{description}</div>}
-
           {withAction && (
             <div className="notification-with-action">
               <Button
