@@ -1,43 +1,49 @@
 import React from "react";
-
+import type { PageProps } from "./Page.types";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import "./Page.scss";
 
-import ButtonIcon from "../ButtonIcon/ButtonIcon";
-import Button from "../Button/Button";
-
-interface PageProps {
-  children?: React.ReactNode;
-  namePage: string;
-  withBackButton?: boolean;
-  withActionPrimary?: boolean;
-  withActionSecondary?: boolean;
-  buttonContentPrimary?: string;
-  buttonContentSecondary?: string;
-  onClickActionPrimary?: () => void;
-  onClickActionSecondary?: () => void;
-  onClickBackButton?: () => void;
-  iconButtonPrimary?: string;
-  iconButtonSecondary?: string;
-  skeletonButtonPrimary?: boolean;
-  skeletonButtonSecondary?: boolean;
-  description?: React.ReactNode;
-}
-
+/**
+ * ## Page
+ *
+ * Componente estrutural de layout que define a área principal de uma página.
+ * Fornece header padronizado com título, botão de voltar, ações customizáveis e descrição.
+ *
+ * ### Quando usar
+ * - Como wrapper de alto nível para cada rota/tela da aplicação
+ * - Quando precisar de consistência visual entre páginas do produto
+ *
+ * ### Quando não usar
+ * - Modais ou drawers — prefira um layout próprio para esses contextos
+ *
+ * @example
+ * // Uso básico
+ * <Page namePage="Usuários">
+ *   <UserList />
+ * </Page>
+ *
+ * @example
+ * // Com botão de voltar e ações customizadas
+ * <Page
+ *   namePage="Detalhes"
+ *   withBackButton
+ *   onClickBackButton={() => navigate(-1)}
+ *   actions={
+ *     <Button variant="primary" onClick={handleSave}>
+ *       Salvar
+ *     </Button>
+ *   }
+ *   description="Gerencie os detalhes do item selecionado."
+ * >
+ *   <DetailForm />
+ * </Page>
+ */
 const Page: React.FC<PageProps> = ({
   children,
   namePage,
-  withBackButton,
-  withActionPrimary,
-  withActionSecondary,
-  buttonContentPrimary,
-  buttonContentSecondary,
-  onClickActionPrimary,
-  onClickActionSecondary,
+  withBackButton = false,
   onClickBackButton,
-  iconButtonPrimary,
-  iconButtonSecondary,
-  skeletonButtonPrimary,
-  skeletonButtonSecondary,
+  actions,
   description,
 }) => {
   return (
@@ -58,78 +64,34 @@ const Page: React.FC<PageProps> = ({
               <ButtonIcon
                 onClick={onClickBackButton}
                 size="md"
-                buttonType="default"
-                typeIcon="arrow_back"
+                appearance="default"
+                icon="arrow_back"
                 variant="secondary"
               />
             )}
+
             <div className="page-header-title">
               <h1>{namePage}</h1>
             </div>
-            <div className="page-header-actions">
-              {withActionSecondary && (
-                <>
-                  <div className="button-icon-actions">
-                    <ButtonIcon
-                      buttonType="default"
-                      size="md"
-                      typeIcon={`${iconButtonSecondary || "more_vert"}`}
-                      variant="secondary"
-                      onClick={onClickActionSecondary}
-                      skeleton={skeletonButtonSecondary}
-                    />
-                  </div>
-                  <div className="button-actions">
-                    <Button
-                      size="md"
-                      variant="secondary"
-                      onClick={onClickActionSecondary}
-                      typeIcon={iconButtonSecondary}
-                      skeleton={skeletonButtonSecondary}
-                    >
-                      {buttonContentSecondary}
-                    </Button>
-                  </div>
-                </>
-              )}
-              {withActionPrimary && (
-                <>
-                  <div className="button-icon-actions">
-                    <ButtonIcon
-                      buttonType="default"
-                      size="md"
-                      typeIcon={`${iconButtonPrimary || "add"}`}
-                      variant="primary"
-                      onClick={onClickActionPrimary}
-                      skeleton={skeletonButtonPrimary}
-                    />
-                  </div>
-                  <div className="button-actions">
-                    <Button
-                      size="md"
-                      variant="primary"
-                      skeleton={skeletonButtonPrimary}
-                      typeIcon={iconButtonPrimary}
-                      onClick={onClickActionPrimary}
-                    >
-                      {buttonContentPrimary}
-                    </Button>
-                  </div>
-                </>
-              )}
-            </div>
+
+            {actions && <div className="page-header-actions">{actions}</div>}
           </div>
-          <p
-            className={`page-description ${withBackButton ? "with-back-button" : ""}`}
-          >
-            {description}
-          </p>
+
+          {description && (
+            <p
+              className={`page-description ${withBackButton ? "with-back-button" : ""}`}
+            >
+              {description}
+            </p>
+          )}
         </div>
+
         {children}
       </div>
     </div>
   );
 };
 
-// Exportação
+Page.displayName = "Page";
+
 export default Page;
