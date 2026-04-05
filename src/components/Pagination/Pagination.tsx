@@ -1,102 +1,84 @@
 import "./Pagination.scss";
-import Icon from "../Icon/Icon";
 import React from "react";
-import Skeleton from "../Skeleton/Skeleton";
+import { PaginationProps } from "./Pagination.types";
+import { PaginationArrowButton } from "./subcomponents/PaginationArrowButton";
+import { PaginationLabel } from "./subcomponents/PaginationLabel";
 
-interface PaginationItemProps {
-  arrow: "left" | "right";
-  disabled?: boolean;
-  click?: () => void;
-}
-
-const PaginationItem: React.FC<PaginationItemProps> = ({
-  arrow,
-  disabled,
-  click,
-}) => {
-  return (
-    <>
-      {arrow === "left" ? (
-        <button className="arrow_back" disabled={disabled} onClick={click}>
-          <Icon icon="arrow_back" size="sm" />
-        </button>
-      ) : arrow === "right" ? (
-        <button className="arrow_forward" disabled={disabled} onClick={click}>
-          <Icon icon="arrow_forward" size="sm" />
-        </button>
-      ) : (
-        "error"
-      )}
-    </>
-  );
-};
-
-interface PaginationProps {
-  variant: "noLabel" | "leftLabel" | "centerLabel";
-  disabledLeft?: boolean;
-  disabledRight?: boolean;
-  onClickLeft?: () => void;
-  onClickRight?: () => void;
-  label: string;
-  skeleton?: boolean;
-}
-
+/**
+ * `Pagination` is a navigation control for moving between pages.
+ *
+ * Three layout variants are available:
+ * - `"noLabel"`     — arrows only
+ * - `"leftLabel"`   — label on the left, arrows grouped on the right
+ * - `"centerLabel"` — left arrow, label in the center, right arrow
+ *
+ * When `skeleton` is `true`, both arrows are disabled and the label
+ * is replaced with a loading placeholder.
+ *
+ * @example
+ * ```tsx
+ * <Pagination
+ *   variant="centerLabel"
+ *   label="Page 3 of 10"
+ *   disabledLeft={page === 1}
+ *   disabledRight={page === totalPages}
+ *   onClickLeft={() => setPage(p => p - 1)}
+ *   onClickRight={() => setPage(p => p + 1)}
+ * />
+ * ```
+ */
 const Pagination: React.FC<PaginationProps> = ({
-  disabledRight,
-  disabledLeft,
   variant,
-  onClickRight,
-  onClickLeft,
   label,
-  skeleton,
+  disabledLeft = false,
+  disabledRight = false,
+  onClickLeft,
+  onClickRight,
+  skeleton = false,
 }) => {
+  const leftButton = (
+    <PaginationArrowButton
+      direction="left"
+      disabled={skeleton || disabledLeft}
+      onClick={onClickLeft}
+    />
+  );
+
+  const rightButton = (
+    <PaginationArrowButton
+      direction="right"
+      disabled={skeleton || disabledRight}
+      onClick={onClickRight}
+    />
+  );
+
+  const labelNode = <PaginationLabel label={label} skeleton={skeleton} />;
+
   return (
     <div className="Pagination">
-      {variant === "noLabel" ? (
+      {variant === "noLabel" && (
         <div className="noLabel">
-          <PaginationItem
-            arrow="left"
-            disabled={skeleton || disabledRight}
-            click={onClickLeft}
-          />
-          <PaginationItem
-            arrow="right"
-            disabled={skeleton || disabledRight}
-            click={onClickRight}
-          />
+          {leftButton}
+          {rightButton}
         </div>
-      ) : variant === "leftLabel" ? (
+      )}
+
+      {variant === "leftLabel" && (
         <div className="leftLabel">
-          {skeleton ? <Skeleton height="24" width="160" /> : <p>{label}</p>}
+          {labelNode}
           <div style={{ display: "flex" }}>
-            <PaginationItem
-              arrow="left"
-              disabled={skeleton || disabledLeft}
-              click={onClickLeft}
-            />
-            <PaginationItem
-              arrow="right"
-              disabled={skeleton || disabledRight}
-              click={onClickRight}
-            />
+            {leftButton}
+            {rightButton}
           </div>
         </div>
-      ) : variant === "centerLabel" ? (
+      )}
+
+      {variant === "centerLabel" && (
         <div className="centerLabel">
-          <PaginationItem
-            arrow="left"
-            disabled={skeleton || disabledLeft}
-            click={onClickLeft}
-          />
-          {skeleton ? <Skeleton height="24" width="160" /> : <p>{label}</p>}
-          <PaginationItem
-            arrow="right"
-            disabled={skeleton || disabledRight}
-            click={onClickRight}
-          />
+          {leftButton}
+          {labelNode}
+          {rightButton}
         </div>
-      ) : (
-        "error"
       )}
     </div>
   );
