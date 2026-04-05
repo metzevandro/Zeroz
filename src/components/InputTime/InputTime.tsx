@@ -1,129 +1,69 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
 import "./InputTime.scss";
+import React, { useRef } from "react";
 import Input from "../Input/Input";
+import { InputTimeProps } from "./InputTime.types";
+import { useInputTime } from "./hooks/useInputTime";
+import { useClickOutside } from "./hooks/useClickOutside";
+import { TimeColumn } from "./subcomponents/TimeColumn";
+import { buildRange } from "./utils/inputTime.utils";
 
-interface InputTimeProps {
-  label: string;
-  placeholder: string;
-  disabled?: boolean;
-  error?: boolean;
-  textError?: string;
-  onChange: (value: string) => void;
-  value?: string;
-}
+const HOURS = buildRange(23);
+const MINUTES = buildRange(59);
 
+/**
+ * `InputTime` is a time selection field with a drum-roll picker dropdown.
+ *
+ * The picker uses an infinite scroll column (iOS-style) for both hours and
+ * minutes — the list loops seamlessly so the user can scroll in either
+ * direction without hitting a boundary. Items snap to the center on scroll end.
+ *
+ * The input also supports direct typing with auto-masking (`HH:MM`).
+ *
+ * @example
+ * ```tsx
+ * // Uncontrolled
+ * <InputTime label="Start time" placeholder="HH:MM" onChange={console.log} />
+ *
+ * // Controlled
+ * <InputTime label="Meeting time" placeholder="HH:MM" value={time} onChange={setTime} />
+ * ```
+ */
 const InputTime: React.FC<InputTimeProps> = ({
   label,
   placeholder,
-  disabled,
-  error,
+  disabled = false,
+  error = false,
   textError,
   onChange,
-  value: controlledValue,
+  value,
   ...rest
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedHour, setSelectedHour] = useState("");
-  const [selectedMinute, setSelectedMinute] = useState("");
-
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const openModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
+  const {
+    isOpen,
+    selectedHour,
+    selectedMinute,
+    displayValue,
+    togglePicker,
+    closePicker,
+    handleHourSelect,
+    handleMinuteSelect,
+    handleInputChange,
+  } = useInputTime({ value, onChange });
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        setIsModalOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (controlledValue !== undefined) {
-      const [hour, minute] = controlledValue.split(":");
-      setSelectedHour(hour || "");
-      setSelectedMinute(minute || "");
-    } else {
-      setSelectedHour("");
-      setSelectedMinute("");
-    }
-  }, [controlledValue]);
-
-  const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (
-    event,
-  ) => {
-    let newValue = event.target.value;
-
-    newValue = newValue.replace(/[^\d:]/g, "");
-
-    if (newValue.length > 5) {
-      newValue = newValue.substring(0, 5);
-    }
-
-    if (newValue.length === 2 && newValue.charAt(2) !== ":") {
-      newValue = newValue.slice(0, 2) + ":" + newValue.slice(2);
-    }
-
-    event.target.value = newValue;
-
-    onChange(newValue);
-  };
-
-  const renderButtons = useCallback(
-    (maxValue: number, isHour: boolean) => {
-      const buttons = [];
-      for (let i = 0; i <= maxValue; i++) {
-        const formattedValue = i < 10 ? `0${i}` : `${i}`;
-        buttons.push(
-          <button
-            key={formattedValue}
-            className="input-time-buttons"
-            onClick={() => {
-              if (isHour) {
-                setSelectedHour(formattedValue);
-                onChange(`${formattedValue}:${selectedMinute}`);
-              } else {
-                setSelectedMinute(formattedValue);
-                onChange(`${selectedHour}:${formattedValue}`);
-              }
-            }}
-            aria-label={formattedValue}
-          >
-            {formattedValue}
-          </button>,
-        );
-      }
-      return buttons;
-    },
-    [onChange, selectedHour, selectedMinute],
-  );
+  useClickOutside(modalRef, closePicker);
 
   return (
-    <div className="input-time">
+    <div className="input-time" ref={modalRef}>
       <Input
         label={label}
         type="text"
-        value={
-          controlledValue !== undefined && controlledValue !== null
-            ? controlledValue
-            : selectedHour && selectedMinute
-              ? `${selectedHour}:${selectedMinute}`
-              : ""
-        }
+        value={displayValue}
         placeholder={placeholder}
-        typeIcon="schedule"
+        icon="schedule"
         disabled={disabled}
-        onClick={openModal}
+        onClick={togglePicker}
         onChange={handleInputChange}
         error={error}
         textError={textError}
@@ -131,10 +71,23 @@ const InputTime: React.FC<InputTimeProps> = ({
         pattern="[0-9]*"
         {...rest}
       />
-      {isModalOpen && (
-        <div className="input-time-modal" ref={modalRef}>
-          <div className="modal-section">{renderButtons(23, true)}</div>
-          <div className="modal-section">{renderButtons(59, false)}</div>
+
+      {isOpen && (
+        <div className="input-time-modal">
+          <div className="modal-section">
+            <TimeColumn
+              values={HOURS}
+              selected={selectedHour}
+              onSelect={handleHourSelect}
+            />
+          </div>
+          <div className="modal-section">
+            <TimeColumn
+              values={MINUTES}
+              selected={selectedMinute}
+              onSelect={handleMinuteSelect}
+            />
+          </div>
         </div>
       )}
     </div>

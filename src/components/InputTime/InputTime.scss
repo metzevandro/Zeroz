@@ -10,40 +10,95 @@
     background-color: var(--s-color-fill-default);
     position: absolute;
     display: flex;
-    height: 232px;
     box-shadow: var(--s-shadow-dropdown);
     border: var(--s-border-width-hairline) solid var(--s-color-border-default);
+    overflow: hidden;
 
     .modal-section {
-      overflow-y: scroll;
       display: flex;
       flex-direction: column;
-      gap: var(--s-spacing-xx-small);
-      scroll-behavior: smooth;
-
-      &::-webkit-scrollbar {
-        width: 0px;
-      }
-
-      .input-time-buttons {
-        background-color: transparent;
-        color: var(--s-color-content-default);
-        border-radius: var(--s-border-radius-small);
-        padding: var(--s-spacing-xx-small);
-        cursor: pointer;
-        z-index: 999;
-      }
-
-      .input-time-buttons:hover {
-        background-color: var(--s-color-fill-default-hover);
-      }
-
-      .input-time-buttons:focus-visible {
-        outline-width: var(--s-border-width-thin);
-        outline-color: var(--s-color-border-highlight);
-        outline-offset: -2px;
-        outline-style: solid;
-      }
     }
+  }
+}
+
+// ── Infinite scroll column ─────────────────────────────────────────────────────
+
+.time-column {
+  width: 64px;
+
+  .time-column-scroll {
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  // Frosted fade masks at the top and bottom
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 40%;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  &::before {
+    top: 0;
+    background: linear-gradient(
+      to bottom,
+      var(--s-color-fill-default) 0%,
+      transparent 100%
+    );
+  }
+
+  &::after {
+    bottom: 0;
+    background: linear-gradient(
+      to top,
+      var(--s-color-fill-default) 0%,
+      transparent 100%
+    );
+  }
+
+  // Center highlight band
+  .time-column-highlight {
+    border-radius: var(--s-border-radius-small);
+    border-top: var(--s-border-width-hairline) solid
+      var(--s-color-border-highlight);
+    border-bottom: var(--s-border-width-hairline) solid
+      var(--s-color-border-highlight);
+  }
+}
+
+// ── Item buttons ───────────────────────────────────────────────────────────────
+
+.input-time-buttons {
+  background-color: transparent;
+  color: var(--s-color-content-default);
+  border-radius: var(--s-border-radius-small);
+  padding: var(--s-spacing-xx-small);
+  cursor: pointer;
+  width: 100%;
+  font: var(--s-typography-paragraph-regular);
+  transition: background-color 0.15s ease;
+
+  &.selected {
+    color: var(--s-color-content-default);
+    font-weight: 600;
+  }
+
+  &:hover {
+    background-color: var(--s-color-fill-default-hover);
+  }
+
+  &:focus-visible {
+    outline-width: var(--s-border-width-thin);
+    outline-color: var(--s-color-border-highlight);
+    outline-offset: -2px;
+    outline-style: solid;
   }
 }
