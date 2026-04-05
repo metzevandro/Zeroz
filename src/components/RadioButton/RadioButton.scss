@@ -1,0 +1,147 @@
+.radio-button-root {
+  display: flex;
+  align-items: center;
+  gap: var(--s-spacing-xx-small);
+
+  &:not(.disable):hover {
+    .radio-button:not(.disable)::before {
+      box-shadow:
+        0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+        0px 0px 0px 2px var(--s-color-border-highlight) inset,
+        0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+        0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+        0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+    }
+  }
+
+  .radio-button {
+    width: 24px;
+    height: 24px;
+    border-radius: var(--s-border-radius-large);
+    position: relative;
+    cursor: pointer;
+    color: var(--s-color-content-default);
+    user-select: none;
+    transition: background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:focus-visible {
+      outline-width: var(--s-border-width-thin);
+      outline-color: var(--s-color-border-highlight);
+      outline-style: solid;
+      outline-offset: var(--s-border-width-thin);
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      width: 24px;
+      height: 24px;
+      background-color: transparent;
+      border-radius: var(--s-border-radius-pill);
+      transition: box-shadow 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow:
+        0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+        0px 0px 0px 2px var(--s-color-border-default) inset,
+        0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+        0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+        0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+    }
+
+    &:hover:not(.disable)::before {
+      box-shadow:
+        0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+        0px 0px 0px 2px var(--s-color-fill-highlight) inset,
+        0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+        0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+        0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+    }
+
+    &.checked {
+      background-color: var(--s-color-fill-highlight);
+      border-color: var(--s-color-fill-highlight);
+      color: var(--s-color-content-highlight);
+
+      &::before {
+        box-shadow:
+          0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+          0px 0px 0px 2px var(--s-color-fill-highlight) inset,
+          0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+          0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+          0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+      }
+
+      .radio-circle {
+        box-shadow: 0px 1px 2px rgb(14 21 36 / 6%);
+      }
+    }
+
+    &.disable {
+      background-color: var(--s-color-fill-disable);
+      border-color: var(--s-color-content-disable);
+      cursor: auto;
+    }
+  }
+
+  .radio-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background-color: transparent;
+    transition:
+      transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+      background-color 0.18s ease;
+  }
+
+  .checked-circle {
+    background-color: var(--s-color-fill-default);
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .radio-button-label {
+    font: var(--s-typography-paragraph-regular);
+    color: var(--s-color-content-default);
+    cursor: pointer;
+    user-select: none;
+
+    &.disabled {
+      color: var(--s-color-content-disable);
+      cursor: auto;
+    }
+  }
+
+  &.disable {
+    .radio-button {
+      background-color: var(--s-color-fill-disable);
+
+      &.checked::before {
+        box-shadow:
+          0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+          0px 0px 0px 2px var(--s-color-border-default) inset,
+          0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+          0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+          0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+      }
+    }
+
+    &:hover .radio-button {
+      cursor: auto;
+
+      &::before {
+        box-shadow:
+          0px -1px 0px 0px rgba(0, 0, 0, 0.2) inset,
+          0px 0px 0px 2px var(--s-color-border-disable) inset,
+          0px -1px 2px 0px rgba(0, 0, 0, 0.24) inset,
+          0px 1px 0.5px 0.5px rgba(255, 255, 255, 0.44) inset,
+          0px 1px 2px 0px rgba(14, 21, 36, 0.06);
+      }
+    }
+  }
+}
