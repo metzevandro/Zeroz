@@ -56,25 +56,31 @@
     gap: var(--s-spacing-xx-small);
     font: var(--s-typography-paragraph-regular);
 
+    div {
+      display: flex;
+      align-items: center;
+    }
+
     h1 {
       font: var(--s-typography-paragraph-regular);
       color: var(--s-color-content-default);
     }
 
-    .default {
+    &.default span {
       color: var(--s-color-content-default);
     }
 
-    .error {
+    &.error span {
       color: var(--s-color-content-warning);
     }
 
-    .disable {
-      color: var(--s-color-content-disable);
+    &.disable span,
+    &.disable h1 {
+      color: var(--s-color-content-light);
     }
 
-    .current,
-    .completed {
+    &.current,
+    &.completed span {
       color: var(--s-color-content-highlight);
     }
   }

@@ -1,65 +1,50 @@
+import "./ProgressIndicator.scss";
 import React from "react";
 import Icon from "../Icon/Icon";
-import "./ProgressIndicator.scss";
+import { ProgressIndicatorProps } from "./ProgressIndicator.types";
+import { STATE_ICON, getWidthStyle } from "./utils/progressIndicator.utils";
 
-interface ProgressIndicatorProps {
-  step: string;
-  description?: string;
-  state: "default" | "current" | "error" | "completed" | "disable";
-  direction: "row" | "column";
-  onClick?: () => void;
-  widthFull?: boolean;
-}
-
-const stateNames: Record<string, string> = {
-  default: "circle",
-  current: "trip_origin",
-  error: "error",
-  completed: "check_circle",
-  disable: "circle",
-};
-
+/**
+ * `ProgressIndicator` renders a single step in a multi-step flow.
+ *
+ * Each step has a state-driven icon, a label, and an optional description.
+ * Steps can be arranged horizontally (`"row"`) or vertically (`"column"`),
+ * and can expand to fill available width via `widthFull` for even distribution.
+ *
+ * @example
+ * ```tsx
+ * // Horizontal stepper
+ * <div style={{ display: "flex" }}>
+ *   <ProgressIndicator step="Details"  state="completed" direction="row" widthFull onClick={goTo(0)} />
+ *   <ProgressIndicator step="Payment"  state="current"   direction="row" widthFull onClick={goTo(1)} />
+ *   <ProgressIndicator step="Confirm"  state="default"   direction="row" widthFull />
+ * </div>
+ * ```
+ */
 const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
   step,
   description,
   state,
   direction,
   onClick,
-  widthFull,
+  widthFull = false,
 }) => {
-  const displayName = stateNames[state] || state;
+  const icon = STATE_ICON[state];
 
-  const customizeWidthFull = (widthFull: boolean = false) => {
-    if (widthFull) {
-      return {
-        width: "100%",
-      };
-    }
-  };
   return (
-    <>
-      <div
-        className={`progress-indicator  ${direction} ${state}`}
-        onClick={onClick}
-        style={customizeWidthFull(widthFull)}
-      >
-        <div className="header">
-          <div className={state}>
-            <Icon
-              icon={displayName}
-              size="sm"
-              fill={
-                displayName === "check_circle" || displayName === "error"
-                  ? true
-                  : false
-              }
-            />
-          </div>
-          <h1>{step}</h1>
+    <div
+      className={`progress-indicator ${direction} ${state}`}
+      onClick={onClick}
+      style={getWidthStyle(widthFull)}
+    >
+      <div className={`header ${state}`}>
+        <div>
+          <Icon icon={icon} size="sm" fill={false} />
         </div>
-        <p>{description}</p>
+        <h1>{step}</h1>
       </div>
-    </>
+      {description && <p>{description}</p>}
+    </div>
   );
 };
 
