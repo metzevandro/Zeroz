@@ -13,7 +13,6 @@
     position: relative;
   }
 
-
   .input-select-button {
     width: 100%;
     cursor: pointer;
@@ -72,8 +71,6 @@
     color: var(--s-color-content-placeholder);
   }
 
-
-
   .input-select-dropdown {
     position: absolute;
     top: calc(100% + 4px);
@@ -91,7 +88,6 @@
     overflow-y: auto;
     scrollbar-width: thin;
   }
-
 
   .input-select-option {
     width: 100%;
@@ -124,7 +120,6 @@
     }
   }
 
-
   .input-select-error-message {
     color: var(--s-color-content-warning);
     font: var(--s-typography-caption-regular);
@@ -137,7 +132,8 @@
       left: 0;
       right: 0;
       top: auto;
-      border-radius: var(--s-border-radius-medium) var(--s-border-radius-medium) 0 0;
+      border-radius: var(--s-border-radius-medium) var(--s-border-radius-medium)
+        0 0;
       max-height: 50vh;
       padding: var(--s-spacing-small);
       box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);

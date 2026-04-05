@@ -10,7 +10,11 @@ interface SelectDropdownProps {
  * The custom dropdown option list — rendered as an absolutely-positioned panel.
  * Each option is a `<button>` for full keyboard and pointer accessibility.
  */
-export function SelectDropdown({ options, selected, onSelect }: SelectDropdownProps) {
+export function SelectDropdown({
+  options,
+  selected,
+  onSelect,
+}: SelectDropdownProps) {
   return (
     <ul className="input-select-dropdown" role="listbox">
       {options.map((option) => (

@@ -74,10 +74,7 @@ const InputSelect: React.FC<InputSelectProps> = ({
           <span className={selectedOption ? "" : "input-select-placeholder"}>
             {selectedOption ?? label ?? "Select an option"}
           </span>
-          <Icon
-            icon="keyboard_arrow_down"
-            size="sm"
-          />
+          <Icon icon="keyboard_arrow_down" size="sm" />
         </button>
 
         {isOpen && (

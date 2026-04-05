@@ -37,7 +37,9 @@ export function useInputSelect({
   const uid = `input-select-${generatedId}`;
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string | undefined>(value);
+  const [selectedOption, setSelectedOption] = useState<string | undefined>(
+    value,
+  );
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -64,7 +66,10 @@ export function useInputSelect({
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         close();
       }
     };
