@@ -16,7 +16,7 @@
 }
 
 @function getOpacity($valor) {
-  @return map-get($opacity, $valor);
+  @return map.get($opacity, $valor);
 }
 
 @function getPrimitiveVar($primitiveVar, $type, $value: null, $opacity: null) {
