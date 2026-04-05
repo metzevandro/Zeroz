@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "bundler",
+
+    "lib": ["DOM", "ESNext"],
     "jsx": "react-jsx",
 
     "strict": true,
@@ -10,12 +12,19 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
 
-    "declaration": true,
-    "declarationDir": "dist",
-    "outDir": "dist",
+    "rootDir": "src",
 
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+
+    "types": ["node"]
   },
-  "include": ["src", "src/components", "index.ts"],
-  "exclude": ["node_modules"]
+  "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.stories.*",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "src/stories/**"
+  ]
 }
