@@ -1,50 +1,68 @@
 import React from "react";
+import type { CardComposition, CardProps } from "./Card.types";
+import CardImage from "./subcomponents/CardImage";
+import CardHeader from "./subcomponents/CardHeader";
+import CardContent from "./subcomponents/CardContent";
+import CardFooter from "./subcomponents/CardFooter";
 import "./Card.scss";
 
-interface CardProps {
-  content: React.ReactNode;
-  footer?: React.ReactNode;
-  image?: React.ReactNode;
-  header?: React.ReactNode;
-}
+/**
+ * ## Card
+ *
+ * A contained surface for grouping related content and actions.
+ * Built as a compound component — compose using the provided
+ * subcomponents as `children`.
+ *
+ * ### Subcomponents
+ * - `Card.Image` — full-width image at the top of the card
+ * - `Card.Header` — title and description
+ * - `Card.Content` — main body content
+ * - `Card.Footer` — actions or metadata with distinct background
+ *
+ * ### Composition rules
+ * - All subcomponents are optional — use only what the card needs
+ * - Order matters visually: Image → Header → Content → Footer
+ * - Do not pass slots as props — compose via `children` instead
+ *
+ * ### Recommended use cases
+ * - Product, pricing, or feature showcase cards
+ * - Dashboard summary widgets
+ * - User profile or entity cards
+ * - Settings or option selection panels
+ *
+ * ### Best practices
+ * - Always include at least `CardHeader` or `CardContent` — an empty card has no value
+ * - Use `CardFooter` for actions, not inside `CardContent`
+ * - Provide meaningful `alt` text on images inside `CardImage`
+ * - Cards stretch to fill their container width — control sizing via the parent layout
+ *
+ * @example
+ * // Full card
+ * <Card>
+ *   <Card.Image><img src="/hero.jpg" alt="Hero" /></Card.Image>
+ *   <Card.Header title="Getting started" description="Set up your workspace in minutes." />
+ *   <Card.Content><p>Step-by-step onboarding flow.</p></Card.Content>
+ *   <Card.Footer><Button variant="primary">Get started</Button></Card.Footer>
+ * </Card>
+ *
+ * // Minimal card
+ * <Card>
+ *   <Card.Header title="Notice" description="Your trial expires in 3 days." />
+ * </Card>
+ */
 
-export function Card(props: CardProps) {
-  return (
-    <div className="card-root">
-      <div>{props.image}</div>
-      <div>{props.header}</div>
-      <div>{props.content}</div>
-      <div>{props.footer}</div>
-    </div>
-  );
-}
+const Card: React.FC<CardProps> & CardComposition = ({ children, ...rest }) => (
+  <div className="card-root" {...rest}>
+    {children}
+  </div>
+);
 
-export function CardImage(props: { children: React.ReactNode }) {
-  return <div className="card-image">{props.children}</div>;
-}
+Card.displayName = "Card";
 
-interface CardHeaderProps {
-  title: string;
-  description: string;
-}
-
-export function CardHeader(
-  props: CardHeaderProps & { children?: React.ReactNode },
-) {
-  return (
-    <div className="card-header">
-      <h1>{props.title}</h1>
-      <p>{props.description}</p>
-    </div>
-  );
-}
-
-export function CardContent(props: { children: React.ReactNode }) {
-  return <div className="card-content">{props.children}</div>;
-}
-
-export function CardFooter(props: { children: React.ReactNode }) {
-  return <div className="card-footer">{props.children}</div>;
-}
+// Attach subcomponents as static properties for compound component pattern
+Card.Image = CardImage;
+Card.Header = CardHeader;
+Card.Content = CardContent;
+Card.Footer = CardFooter;
 
 export default Card;
