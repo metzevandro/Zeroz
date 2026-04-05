@@ -1,74 +1,45 @@
-import React, { useEffect, useRef, useState } from "react";
 import "./TableList.scss";
+import React from "react";
+import { TableListProps } from "./TableList.types";
+import { useOverflowDetection } from "./hooks/useOverflowDetection";
+import { transposeData } from "./utils/tableList.utils";
+import { TableHeader } from "./subcomponents/TableHeader";
+import { TableBody } from "./subcomponents/TableBody";
 
-interface TableListProps {
-  columns: string[];
-  data: any[][];
-  size: "sm" | "md";
-}
-
+/**
+ * `TableList` renders a column-oriented data table with header labels,
+ * configurable cell density, and automatic horizontal scroll detection.
+ *
+ * When the table content overflows its container width, the `overflow-ativo`
+ * class is applied — typically used in CSS to show a scroll shadow or indicator.
+ *
+ * Cell content accepts any `React.ReactNode`, so you can render icons, badges,
+ * or custom components alongside plain text.
+ *
+ * @example
+ * ```tsx
+ * <TableList
+ *   size="md"
+ *   columns={["Name", "Role", "Status"]}
+ *   data={[
+ *     ["Alice", "Engineer", <Tag content="Active" variant="success" />],
+ *     ["Bob",   "Designer", <Tag content="Away"   variant="warning" />],
+ *   ]}
+ * />
+ * ```
+ */
 const TableList: React.FC<TableListProps> = ({ columns, data, size }) => {
-  const [isOverflowed, setIsOverflowed] = useState(false);
-  const tableListRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const checkOverflow = () => {
-      const tableListElement = tableListRef.current;
-
-      if (tableListElement) {
-        setIsOverflowed(
-          tableListElement.scrollWidth > tableListElement.clientWidth,
-        );
-      }
-    };
-
-    const resizeObserver = new ResizeObserver(() => {
-      checkOverflow();
-    });
-
-    const tableListElement = tableListRef.current;
-
-    if (tableListElement) {
-      resizeObserver.observe(tableListElement);
-
-      checkOverflow();
-    }
-
-    return () => {
-      if (tableListElement) {
-        resizeObserver.unobserve(tableListElement);
-      }
-    };
-  }, []);
-
-  const transposedData = columns.map((_, columnIndex) =>
-    data.map((row) => row[columnIndex]),
-  );
+  const { containerRef, isOverflowed } = useOverflowDetection();
+  const transposedData = transposeData(columns, data);
 
   return (
     <div
       className={`table-list-root ${isOverflowed ? "overflow-ativo" : ""}`}
-      ref={tableListRef}
+      ref={containerRef}
     >
       <div className="table">
-        <div className="table-container">
-          {columns.map((column, columnIndex) => (
-            <div className="th" key={columnIndex}>
-              {column}
-            </div>
-          ))}
-        </div>
-        <div className="table-container">
-          {transposedData.map((column, columnIndex) => (
-            <div key={columnIndex} className="table-column">
-              {column.map((cell, cellIndex) => (
-                <div className={`td ${size} border`} key={cellIndex}>
-                  {cell}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
+        <TableHeader columns={columns} />
+        <TableBody columns={transposedData} size={size} />
       </div>
     </div>
   );

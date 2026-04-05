@@ -19,7 +19,6 @@
       font: var(--s-typography-caption-strong);
     }
 
-    // Define as linhas como grid
     .table-container {
       display: grid;
       grid-auto-flow: column;
@@ -36,18 +35,20 @@
 
       &.sm {
         padding: var(--s-spacing-xx-small) var(--s-spacing-small);
+        max-height: 40px;
       }
 
       &.md {
         padding: var(--s-spacing-small);
+        max-height: 56px;
       }
+
       &.border {
         border-top: var(--s-border-width-hairline) solid
           var(--s-color-border-default);
       }
     }
 
-    // Ajuste para o posicionamento fixo da primeira coluna
     .table-column:first-of-type,
     .th:first-of-type {
       position: sticky;
@@ -68,7 +69,6 @@
     border-radius: 12px;
   }
 
-  // Ajuste quando há overflow horizontal
   &.overflow-ativo {
     .table-column:first-of-type,
     .th:first-of-type {
