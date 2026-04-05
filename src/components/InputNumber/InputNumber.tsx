@@ -1,136 +1,92 @@
-import React, { useState, useEffect } from "react";
-import Icon from "../Icon/Icon";
 import "./InputNumber.scss";
+import React, { useState } from "react";
+import Icon from "../Icon/Icon";
+import { InputNumberProps } from "./InputNumber.types";
+import { useInputNumber } from "./hooks/useInputNumber";
 
-interface InputNumberProps {
-  max?: number;
-  min?: number;
-  placeholder?: string;
-  disabled?: boolean;
-  label?: string;
-  onChange?: (value: string) => void;
-  error?: boolean;
-  textError?: string;
-  value?: string;
-}
-
+/**
+ * `InputNumber` is a numeric stepper input with increment and decrement buttons.
+ *
+ * Values are clamped within the `[min, max]` range on every interaction.
+ * The component works in both controlled (`value` + `onChange`) and
+ * uncontrolled modes. In uncontrolled mode, `min` is used as the initial value.
+ *
+ * The label is associated with the input via `htmlFor` / `id` (WCAG 2.1 SC 1.3.1).
+ *
+ * @example
+ * ```tsx
+ * // Uncontrolled with bounds
+ * <InputNumber label="Quantity" min={1} max={10} onChange={console.log} />
+ *
+ * // Controlled
+ * <InputNumber label="Quantity" value={qty} min={0} onChange={(v) => setQty(v)} />
+ *
+ * // Error state
+ * <InputNumber label="Age" error textError="Value is required" />
+ * ```
+ */
 const InputNumber: React.FC<InputNumberProps> = ({
   max,
   min,
   placeholder,
-  disabled,
+  disabled = false,
   label,
   onChange,
-  error,
+  error = false,
   textError,
-  value: propValue,
+  value,
 }) => {
-  const [isHover, setIsHover] = useState(false);
-
-  const [numero, setNumero] = useState<number | undefined>(() => {
-    if (min !== undefined) {
-      return min;
-    }
-    return undefined;
-  });
-
-  useEffect(() => {
-    if (propValue !== undefined) {
-      const parsedValue = parseInt(propValue, 10);
-      if (!isNaN(parsedValue)) {
-        setNumero(parsedValue);
-      }
-    }
-  }, [propValue]);
-
-  const addNum = () => {
-    setNumero((prevNumero) => {
-      if (prevNumero === undefined) return min !== undefined ? min : 1;
-      const newNum = prevNumero + 1;
-      if (max !== undefined && newNum > max) {
-        return prevNumero;
-      }
-      if (onChange) {
-        onChange(newNum.toString());
-      }
-      return newNum;
+  const [isAddHover, setIsAddHover] = useState(false);
+  const { uid, numero, increment, decrement, handleInputChange } =
+    useInputNumber({
+      min,
+      max,
+      value,
+      onChange,
     });
-  };
-
-  const subtractNum = () => {
-    setNumero((prevNumero) => {
-      if (prevNumero === undefined) return min !== undefined ? min : -1;
-      const newNum = prevNumero - 1;
-      if (min !== undefined && newNum < min) {
-        return prevNumero;
-      }
-      if (onChange) {
-        onChange(newNum.toString());
-      }
-      return newNum;
-    });
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = event.target.value;
-    let newNum: number | undefined;
-
-    if (inputValue === "") {
-      // Se o input estiver vazio, defina como undefined
-      newNum = undefined;
-    } else {
-      newNum = parseInt(inputValue, 10);
-      if (!isNaN(newNum)) {
-        if (max !== undefined && newNum > max) {
-          newNum = max;
-        } else if (min !== undefined && newNum < min) {
-          newNum = min;
-        }
-      } else {
-        newNum = min !== undefined ? min : undefined;
-      }
-    }
-
-    setNumero(newNum);
-
-    if (onChange) {
-      onChange(newNum !== undefined ? newNum.toString() : "");
-    }
-  };
 
   return (
     <div className="input-number-root">
-      {label && <label className="input-number-label">{label}</label>}
+      {label && (
+        <label className="input-number-label" htmlFor={uid}>
+          {label}
+        </label>
+      )}
+
       <div className={`input-number ${disabled ? "disabled" : ""}`}>
-        <button disabled={disabled} className="subtract" onClick={subtractNum}>
+        <button disabled={disabled} className="subtract" onClick={decrement}>
           <Icon size="md" icon="remove" />
         </button>
+
         <input
-          style={{
-            borderRight: isHover
-              ? "var(--s-border-width-hairline) solid var(--s-color-border-default-hover)"
-              : "",
-          }}
+          id={uid}
           className={`input ${error ? "error" : ""}`}
           type="number"
+          inputMode="numeric"
           placeholder={placeholder}
-          onChange={handleInputChange}
           value={numero !== undefined ? numero : ""}
           max={max}
           min={min}
           disabled={disabled}
-          inputMode="numeric"
+          onChange={handleInputChange}
+          style={{
+            borderRight: isAddHover
+              ? "var(--s-border-width-hairline) solid var(--s-color-border-default-hover)"
+              : "",
+          }}
         />
+
         <button
           disabled={disabled}
-          onMouseEnter={() => setIsHover(true)}
-          onMouseLeave={() => setIsHover(false)}
           className="add"
-          onClick={addNum}
+          onClick={increment}
+          onMouseEnter={() => setIsAddHover(true)}
+          onMouseLeave={() => setIsAddHover(false)}
         >
           <Icon size="md" icon="add" />
         </button>
       </div>
+
       {error && <div className="textError">{textError}</div>}
     </div>
   );
