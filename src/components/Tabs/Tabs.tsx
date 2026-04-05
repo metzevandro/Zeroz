@@ -31,7 +31,9 @@ const Tabs: React.FC<TabsProps> = ({ tabs, widthFull = false }) => {
     count: tabs.length,
   });
 
-  const tabButtonStyle = widthFull ? { width: `${100 / tabs.length}%` } : undefined;
+  const tabButtonStyle = widthFull
+    ? { width: `${100 / tabs.length}%` }
+    : undefined;
 
   return (
     <div className="tab-root">

@@ -28,7 +28,10 @@ interface UseTabsReturn {
  */
 export function useTabs({ count }: UseTabsOptions): UseTabsReturn {
   const [activeTab, setActiveTabState] = useState(0);
-  const [indicatorStyle, setIndicatorStyle] = useState<IndicatorStyle>({ left: 0, width: 0 });
+  const [indicatorStyle, setIndicatorStyle] = useState<IndicatorStyle>({
+    left: 0,
+    width: 0,
+  });
   const tabItemGroupRef = useRef<HTMLDivElement>(null);
 
   const updateIndicator = useCallback((index: number) => {
@@ -59,7 +62,10 @@ export function useTabs({ count }: UseTabsOptions): UseTabsReturn {
     const centerScroll =
       tabRect.left - groupRect.left - (group.clientWidth - tabRect.width) / 2;
 
-    group.scrollTo({ left: group.scrollLeft + centerScroll, behavior: "smooth" });
+    group.scrollTo({
+      left: group.scrollLeft + centerScroll,
+      behavior: "smooth",
+    });
   }, []);
 
   const setActiveTab = useCallback(

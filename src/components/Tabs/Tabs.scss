@@ -3,7 +3,7 @@
 
   .tab-item-group {
     display: flex;
-    position: relative;       
+    position: relative;
     box-sizing: border-box;
     height: 40px;
     padding: 0 var(--s-spacing-xx-small);
@@ -23,13 +23,16 @@
       padding: var(--s-spacing-xx-small) var(--s-spacing-small);
       background-color: transparent;
       cursor: pointer;
-      border-bottom: var(--s-border-width-thin) var(--s-color-border-default) solid;
-      border-radius: var(--s-border-radius-medium) var(--s-border-radius-medium) 0 0;
+      border-bottom: var(--s-border-width-thin) var(--s-color-border-default)
+        solid;
+      border-radius: var(--s-border-radius-medium) var(--s-border-radius-medium)
+        0 0;
       position: relative;
       z-index: 0;
 
       &:hover {
-        border-bottom: var(--s-border-width-thin) var(--s-color-border-default-hover) solid;
+        border-bottom: var(--s-border-width-thin)
+          var(--s-color-border-default-hover) solid;
         color: var(--s-color-content-default);
         background-color: var(--s-color-fill-default-hover);
       }
@@ -83,7 +86,8 @@
   }
 
   .tab-item:hover {
-    border-bottom: var(--s-border-width-thin) var(--s-color-border-default-hover) solid;
+    border-bottom: var(--s-border-width-thin)
+      var(--s-color-border-default-hover) solid;
     color: var(--s-color-content-default);
     padding: var(--s-spacing-xx-small);
   }
