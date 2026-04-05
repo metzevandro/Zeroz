@@ -1,39 +1,43 @@
 import "./DescriptionList.scss";
 import React from "react";
+import { DescriptionListProps } from "./DescriptionList.types";
+import { DescriptionListItem } from "./subcomponents/DescriptionListItem";
 
-interface DescriptionItem {
-  title: string;
-  description?: string;
-}
-
-interface DescriptionListProps {
-  items: DescriptionItem[];
-  direction: "row" | "column";
-}
-
+/**
+ * `DescriptionList` renders a list of label/value pairs,
+ * similar to an HTML `<dl>` (definition list).
+ *
+ * Items are separated by a hairline divider, except after the last one.
+ * The layout of each row is controlled by the `direction` prop.
+ *
+ * @example
+ * ```tsx
+ * <DescriptionList
+ *   direction="row"
+ *   items={[
+ *     { title: "Status", description: "Active" },
+ *     { title: "Plan", description: "Pro" },
+ *     { title: "Renewal", description: "08/15/2025" },
+ *   ]}
+ * />
+ * ```
+ */
 const DescriptionList: React.FC<DescriptionListProps> = ({
   items,
   direction,
 }) => {
+  const lastIndex = items.length - 1;
+
   return (
     <>
       {items.map((item, index) => (
-        <React.Fragment key={index}>
-          <div
-            className={`description-list-root ${direction}`}
-            style={
-              index < items.length - 1
-                ? {
-                    borderBottom:
-                      "var(--s-border-width-hairline) solid var(--s-color-border-default)",
-                  }
-                : undefined
-            }
-          >
-            <div className="title">{item.title}</div>
-            <div className="description">{item.description}</div>
-          </div>
-        </React.Fragment>
+        <DescriptionListItem
+          key={`${item.title}-${index}`}
+          title={item.title}
+          description={item.description}
+          direction={direction}
+          hasDivider={index < lastIndex}
+        />
       ))}
     </>
   );
