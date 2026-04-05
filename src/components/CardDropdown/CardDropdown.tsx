@@ -1,73 +1,55 @@
-import "./CardDropdown.scss";
-import { useEffect, useRef, useState } from "react";
-import Icon from "../Icon/Icon";
+import "./Carddropdown.scss";
 import React from "react";
+import { CardDropdownProps } from "./Carddropdown.types";
+import { useCardDropdown } from "./hooks/useCardDropdown";
+import { getDropdownState } from "./utils/cardDropdown.utils";
+import {
+  CardDropdownBody,
+  CardDropdownHeader,
+} from "./subcomponents/CardDropdown.parts";
 
-interface CardDropdownProps {
-  title: string;
-  content?: React.ReactNode;
-  description?: string;
-  footer?: React.ReactNode;
-}
-
+/**
+ * `CardDropdown` is an expandable card that displays a persistent header
+ * and reveals additional content (body and footer) when clicked.
+ *
+ * Best suited for displaying grouped information in a compact form, such as
+ * summaries, collapsible settings, or lists with on-demand details.
+ *
+ * @example
+ * ```tsx
+ * <CardDropdown
+ *   title="Order details"
+ *   description="Click to expand"
+ *   content={<OrderDetails />}
+ *   footer={<Button>View more</Button>}
+ * />
+ * ```
+ */
 const CardDropdown: React.FC<CardDropdownProps> = ({
   title,
+  description,
   content,
   footer,
-  description,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleDropDown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const [contentHeight, setContentHeight] = useState(0);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (isOpen && contentRef.current) {
-      setContentHeight(contentRef.current.scrollHeight);
-    } else {
-      setContentHeight(0);
-    }
-  }, [isOpen]);
+  const { isOpen, contentHeight, contentRef, toggle } = useCardDropdown();
+  const state = getDropdownState(isOpen);
 
   return (
-    <>
-      <div className="card-dropdown">
-        <div className="card-dropdown-header" onClick={toggleDropDown}>
-          <div className="card-dropdown-title">
-            <div>{title}</div>
-            <div
-              className={`card-dropdown-button ${isOpen ? "open" : "close"}`}
-            >
-              <Icon size="md" icon="keyboard_arrow_down" />
-            </div>
-          </div>
-          <div>{description && <p>{description}</p>}</div>
-        </div>
-        <div
-          className={`card-dropdown-children ${isOpen ? "open" : "close"}`}
-          style={{ height: isOpen ? `${contentHeight}px` : "0" }}
-          ref={contentRef}
-        >
-          {content && (
-            <div
-              className={`card-dropdown-content ${isOpen ? "open" : "close"}`}
-            >
-              {content}
-            </div>
-          )}
-          {footer && (
-            <div
-              className={`card-dropdown-footer ${isOpen ? "open" : "close"}`}
-            >
-              {footer}
-            </div>
-          )}
-        </div>
-      </div>
-    </>
+    <div className="card-dropdown">
+      <CardDropdownHeader
+        title={title}
+        description={description}
+        state={state}
+        onClick={toggle}
+      />
+      <CardDropdownBody
+        content={content}
+        footer={footer}
+        state={state}
+        height={contentHeight}
+        contentRef={contentRef}
+      />
+    </div>
   );
 };
 
