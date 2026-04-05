@@ -32,11 +32,7 @@ function Tag({ content, variant, onClose }: TagProps) {
 
   return (
     <div
-      className={[
-        "tag-root",
-        variant,
-        isClosing && "tag-closing",
-      ]
+      className={["tag-root", variant, isClosing && "tag-closing"]
         .filter(Boolean)
         .join(" ")}
     >
