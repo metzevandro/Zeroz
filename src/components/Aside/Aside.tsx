@@ -1,11 +1,7 @@
-// Aside.tsx — keep AsideHeader co-located and unexported
-
 import React from "react";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import { AsideProps } from "./Aside.types";
 import "./Aside.scss";
-
-// ─── Internal sub-component ───────────────────────────────────────────────────
 
 interface AsideHeaderProps {
   title: string;
@@ -22,9 +18,9 @@ const AsideHeader: React.FC<AsideHeaderProps> = ({
     <div className="aside-title">
       <span>{title}</span>
       <ButtonIcon
-        buttonType="plain"
+        appearance="plain"
         variant="primary"
-        typeIcon="close"
+        icon="close"
         size="md"
         onClick={onClose}
         aria-label="Close panel"
@@ -35,8 +31,6 @@ const AsideHeader: React.FC<AsideHeaderProps> = ({
 );
 
 AsideHeader.displayName = "Aside.Header";
-
-// ─── Main component ───────────────────────────────────────────────────────────
 
 const Aside: React.FC<AsideProps> = ({
   isOpen,
