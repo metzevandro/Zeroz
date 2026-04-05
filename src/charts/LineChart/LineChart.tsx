@@ -1,120 +1,98 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   CartesianGrid,
   Line,
-  LineChart as Chart,
+  LineChart as RechartsLineChart,
   XAxis,
   Tooltip,
   Legend,
   LabelList,
 } from "recharts";
+
 import CustomTooltip from "../Tooltip/Tooltip";
 import CustomCaption from "../Caption/Caption";
+import { useSkeletonData } from "./LineChart.hooks";
+import { extractSeriesKeys } from "./LineChart.utils";
+import type { LineChartProps } from "./LineChart.types";
 
-interface LineChartProps {
-  data: any;
-  caption?: boolean;
-  lineStyles: { [key: string]: { color: string } };
-  dots?: boolean;
-  label?: boolean;
-  tooltipFormatter?: (value: any) => string;
-  XAxisFormatter?: (value: any) => string;
-  height: number;
-  width: number;
-  type?:
-    | "basis"
-    | "basisClosed"
-    | "basisOpen"
-    | "bumpX"
-    | "bumpY"
-    | "bump"
-    | "linear"
-    | "linearClosed"
-    | "natural"
-    | "monotoneX"
-    | "monotoneY"
-    | "monotone"
-    | "step"
-    | "stepBefore"
-    | "stepAfter";
-  skeleton?: boolean;
-}
+const SKELETON_LINE_COLOR = "var(--s-color-fill-disable)";
 
-export default function LineChart(props: LineChartProps) {
-  const {
-    caption,
-    dots,
-    label,
-    type,
-    data,
-    lineStyles,
-    tooltipFormatter,
-    XAxisFormatter,
-    height,
-    width,
-    skeleton,
-  } = props;
-  const [randomData, setRandomData] = useState<any[]>([]);
+/**
+ * ## LineChart
+ *
+ * Gráfico de linhas construído sobre Recharts.
+ * Suporta múltiplas séries, diferentes tipos de curva, tooltip,
+ * legenda, labels de valor e estado skeleton animado.
+ *
+ * ### Quando usar
+ * - Evolução de valores ao longo do tempo (ex: receita mensal)
+ * - Comparação de tendências entre séries
+ *
+ * @example
+ * // Uso básico com duas séries
+ * <LineChart
+ *   data={[{ month: "Jan", receita: 120, despesas: 80 }]}
+ *   seriesStyles={{
+ *     receita:  { color: "#4CAF50" },
+ *     despesas: { color: "#F44336" },
+ *   }}
+ *   width={600}
+ *   height={300}
+ * />
+ *
+ * @example
+ * // Com skeleton durante carregamento
+ * <LineChart
+ *   data={data}
+ *   seriesStyles={styles}
+ *   width={600}
+ *   height={300}
+ *   skeleton={isLoading}
+ * />
+ */
+const LineChart: React.FC<LineChartProps> = ({
+  data,
+  seriesStyles,
+  height,
+  width,
+  curveType = "natural",
+  caption = false,
+  dots = false,
+  label = false,
+  skeleton = false,
+  tooltipFormatter,
+  xAxisFormatter,
+}) => {
+  const skeletonData = useSkeletonData();
+  const displayData = skeleton ? skeletonData : data;
 
-  const displayData = skeleton ? randomData : data;
+  if (!displayData || displayData.length === 0) return null;
 
-  useEffect(() => {
-    const generateData = () =>
-      Array.from({ length: 10 }, (_, index) => ({
-        month: ``,
-        value1: Math.floor(Math.random() * 100),
-        value2: Math.floor(Math.random() * 100),
-      }));
-
-    const generatedData = generateData();
-    setRandomData(generatedData);
-
-    const interval = setInterval(() => {
-      setRandomData(generateData());
-    }, 1500);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (!skeleton) {
-      setRandomData(data);
-    }
-  }, [skeleton, data]);
-
-  if (!displayData || displayData.length === 0) {
-    return null;
-  }
-
-  const keys = Object.keys(displayData[0]).filter((key) => key !== "month");
-
-  if (keys.length === 0) {
-    return null;
-  }
+  const seriesKeys = extractSeriesKeys(displayData[0]);
+  if (seriesKeys.length === 0) return null;
 
   return (
-    <Chart
+    <RechartsLineChart
       height={height}
       width={width}
       accessibilityLayer
       data={displayData}
-      margin={{
-        top: 20,
-        left: 20,
-        right: 20,
-      }}
+      margin={{ top: 20, left: 20, right: 20 }}
     >
       <CartesianGrid vertical={false} stroke="var(--s-color-border-default)" />
+
       <XAxis
         dataKey="month"
         tickLine={false}
         tickMargin={10}
         axisLine={false}
-        tickFormatter={XAxisFormatter}
+        tickFormatter={xAxisFormatter}
         style={{ font: "var(--s-typography-caption-regular)" }}
         stroke="var(--s-color-content-light)"
       />
+
       {!skeleton && caption && <Legend content={<CustomCaption />} />}
+
       {!skeleton && (
         <Tooltip
           cursor={false}
@@ -123,20 +101,21 @@ export default function LineChart(props: LineChartProps) {
         />
       )}
 
-      {keys.map((key) => {
-        const lineStyle = skeleton
-          ? { color: "var(--s-color-fill-disable)" }
-          : lineStyles[key] || {};
+      {seriesKeys.map((key) => {
+        const color = skeleton
+          ? SKELETON_LINE_COLOR
+          : (seriesStyles[key]?.color ?? "black");
+
         return (
           <Line
             key={key}
             dataKey={key}
-            type={type || "natural"}
-            stroke={lineStyle.color || "black"}
+            type={curveType}
+            stroke={color}
             strokeWidth={2}
             dot={dots}
           >
-            {label && (
+            {!skeleton && label && (
               <LabelList
                 dataKey={key}
                 position="top"
@@ -148,6 +127,10 @@ export default function LineChart(props: LineChartProps) {
           </Line>
         );
       })}
-    </Chart>
+    </RechartsLineChart>
   );
-}
+};
+
+LineChart.displayName = "LineChart";
+
+export default LineChart;
