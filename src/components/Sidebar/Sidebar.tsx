@@ -1,17 +1,39 @@
 import "./Sidebar.scss";
+import React from "react";
 import Brand from "../Brand/Brand";
-import Icon from "../Icon/Icon";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
-import React, { useEffect, useRef, useState } from "react";
+import { SidebarProps } from "./Sidebar.types";
+import { SidebarItem } from "./subcomponents/SidebarItem";
+import { useSidebar } from "./subcomponents/hooks/useSidebar";
 
-type SidebarProps = {
-  brand: string;
-  children: React.ReactNode;
-  toggle: boolean;
-  setToggleSidebar: (toggle: boolean) => void;
-  brandSize: "sm" | "md" | "lg";
-};
-
+/**
+ * `Sidebar` is the main navigation drawer for the application.
+ *
+ * It renders a brand logo at the top and a list of navigation items below.
+ * Items with `children` behave as accordions — managed by the sidebar's
+ * internal `activeItem` state injected via `React.cloneElement`.
+ *
+ * The overlay behind the sidebar closes it when clicked on mobile.
+ *
+ * Compose with `<SidebarTitle>`, `<SidebarItem>`, and `<SidebarSubItem>`.
+ *
+ * @example
+ * ```tsx
+ * <Sidebar
+ *   brand={logo}
+ *   brandSize="md"
+ *   toggle={isOpen}
+ *   setToggleSidebar={setIsOpen}
+ * >
+ *   <SidebarTitle title="Main" />
+ *   <SidebarItem title="Dashboard" icon="home" fillIcon={false} />
+ *   <SidebarItem title="Settings" icon="settings" fillIcon={false}>
+ *     <SidebarSubItem title="Profile" active={false} onClick={goToProfile} />
+ *     <SidebarSubItem title="Account" active={true}  onClick={goToAccount} />
+ *   </SidebarItem>
+ * </Sidebar>
+ * ```
+ */
 const Sidebar: React.FC<SidebarProps> = ({
   brand,
   brandSize,
@@ -19,11 +41,9 @@ const Sidebar: React.FC<SidebarProps> = ({
   toggle,
   setToggleSidebar,
 }) => {
-  const [activeItem, setActiveItem] = useState<string | null>(null);
+  const { activeItem, toggleItem } = useSidebar();
 
-  const closeSidebar = () => {
-    setToggleSidebar(false);
-  };
+  const closeSidebar = () => setToggleSidebar(false);
 
   return (
     <>
@@ -31,141 +51,38 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div className="brand">
           <Brand alt="Logo-marca" src={brand} size={brandSize} />
         </div>
+
         <div className="Sidebar-list">
-          {React.Children.map(children, (child, index) =>
-            React.isValidElement(child) &&
-            child.type === SidebarItem &&
-            child.props.children
-              ? React.cloneElement(child, {
-                  isActive: activeItem === String(index),
-                  onClick: () =>
-                    setActiveItem(
-                      activeItem === String(index) ? null : String(index),
-                    ),
-                } as { isActive: boolean; onClick: () => void })
-              : child,
-          )}
+          {React.Children.map(children, (child, index) => {
+            if (
+              React.isValidElement(child) &&
+              child.type === SidebarItem &&
+              child.props.children
+            ) {
+              const key = String(index);
+              return React.cloneElement(child, {
+                isActive: activeItem === key,
+                onClick: () => toggleItem(key),
+              } as { isActive: boolean; onClick: () => void });
+            }
+            return child;
+          })}
         </div>
       </div>
+
       <div
-        onClick={closeSidebar}
         className={`Sidebar-overlay ${toggle ? "open" : "close"}`}
+        onClick={closeSidebar}
       >
         <ButtonIcon
           variant="secondary"
           onClick={closeSidebar}
-          buttonType="default"
+          appearance="default"
           size="md"
-          typeIcon="close"
+          icon="close"
         />
       </div>
     </>
-  );
-};
-
-interface SidebarTitleProps {
-  title: string;
-}
-
-export const SidebarTitle: React.FC<SidebarTitleProps> = ({ title }) => {
-  return <h1 className="Sidebar-list-title">{title}</h1>;
-};
-
-interface SidebarItemsProps {
-  title: string;
-  icon: string;
-  fillIcon: boolean;
-  children?: React.ReactNode;
-  onClick?: () => void;
-  isActive?: boolean;
-}
-
-export const SidebarItem: React.FC<SidebarItemsProps> = ({
-  title,
-  icon,
-  fillIcon,
-  children,
-  onClick,
-  isActive,
-}) => {
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter" && children) {
-      onClick?.();
-    }
-  };
-
-  const [height, setHeight] = useState(0);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (isActive && contentRef.current) {
-      setHeight(contentRef.current.scrollHeight);
-    } else {
-      setHeight(0);
-    }
-  }, [isActive]);
-
-  return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <div
-        className={`Sidebar-item ${children ? "with-sub-item" : ""} ${
-          children ? "" : isActive ? "active" : ""
-        }`}
-        onClick={onClick}
-        tabIndex={0}
-        onKeyDown={handleKeyPress}
-      >
-        <div className="Sidebar-item-header">
-          <Icon size="sm" icon={icon} fill={fillIcon} />
-          <div>{title}</div>
-        </div>
-        {children && (
-          <div
-            onKeyDown={handleKeyPress}
-            onClick={onClick}
-            className={`${
-              isActive
-                ? "Sidebar-item-with-action-open"
-                : "Sidebar-item-with-action-close"
-            }`}
-          >
-            <Icon size="sm" icon="keyboard_arrow_down" />
-          </div>
-        )}
-      </div>
-      <div
-        className={`Sidebar-item-children ${isActive ? "active" : ""}`}
-        style={{ maxHeight: isActive ? `${height}px` : "0px" }}
-        ref={contentRef}
-      >
-        {children}
-      </div>
-    </div>
-  );
-};
-
-interface SidebarSubItemProps {
-  title: string;
-  onClick?: () => void;
-  active: boolean;
-}
-
-export const SidebarSubItem: React.FC<SidebarSubItemProps> = ({
-  title,
-  onClick,
-  active,
-}) => {
-  return (
-    <div
-      className={`Sidebar-sub-item ${active ? "active animated" : ""}`}
-      tabIndex={0}
-      onClick={onClick}
-    >
-      <div>
-        <Icon size="sm" icon="subdirectory_arrow_right" fill={true} />
-      </div>
-      <div>{title}</div>
-    </div>
   );
 };
 
