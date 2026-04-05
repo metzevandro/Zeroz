@@ -8,13 +8,15 @@
   color: var(--s-color-content-default);
   gap: var(--s-spacing-xx-small);
 
-  &:focus-visible {
-    outline: none;
-
-    .ui-form-checkbox-checkmark {
+  input:focus-visible {
+    ~ .ui-form-checkbox-checkmark {
       outline: 2px solid var(--s-color-border-highlight);
       outline-offset: 2px;
     }
+  }
+
+  input:focus-visible {
+    outline: none;
   }
 
   &.-disabled {

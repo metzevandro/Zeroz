@@ -1,85 +1,59 @@
-import React, { useState, useEffect, useMemo } from "react";
 import "./Switch.scss";
+import React from "react";
+import { SwitchProps } from "./Switch.types";
+import { useSwitch } from "./hooks/useSwitch";
+import { getSwitchClassList } from "./utils/switch.utils";
 
-interface SwitchProps {
-  modelValue?: any;
-  value?: any;
-  label?: string;
-  id?: string;
-  name?: string;
-  required?: boolean;
-  noEvents?: boolean;
-  disabled?: boolean;
-  onUpdate?: (val: any) => void;
-}
-
+/**
+ * `Switch` is an accessible toggle control rendered as a styled checkbox.
+ *
+ * It supports controlled usage via `modelValue` + `onUpdate`, disabled and
+ * no-events modifiers, Enter key toggling, and auto-generated accessible ids.
+ *
+ * @example
+ * ```tsx
+ * // Uncontrolled
+ * <Switch label="Enable notifications" onUpdate={setEnabled} />
+ *
+ * // Controlled
+ * <Switch label="Dark mode" modelValue={isDark} onUpdate={setIsDark} />
+ *
+ * // Disabled
+ * <Switch label="Feature unavailable" disabled />
+ * ```
+ */
 const Switch: React.FC<SwitchProps> = ({
   modelValue,
   value,
   label,
   id,
   name,
-  required,
-  noEvents,
-  disabled,
+  required = false,
+  noEvents = false,
+  disabled = false,
   onUpdate,
 }) => {
-  const [checked, setChecked] = useState(modelValue ?? false);
-
-  const uid = useMemo(
-    () => id ?? `ui-form-switch-${Math.random().toString(36).substr(2, 9)}`,
-    [id],
-  );
-
-  useEffect(() => {
-    if (modelValue !== checked) {
-      setChecked(modelValue);
-    }
-  }, [modelValue]);
-
-  const classList = useMemo(
-    () =>
-      [
-        "ui-form-switch",
-        "-switch",
-        disabled ? "-disabled" : "",
-        noEvents ? "-no-events" : "",
-      ].join(" "),
-    [disabled, noEvents],
-  );
-
-  const handleChange = () => {
-    const newValue = !checked;
-    setChecked(newValue);
-    onUpdate?.(newValue);
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLLabelElement>) => {
-    if (event.key === "Enter") {
-      if (disabled === false) {
-        handleChange();
-      }
-    }
-  };
+  const { uid, checked, handleChange, handleKeyDown } = useSwitch({
+    modelValue,
+    id,
+    disabled,
+    onUpdate,
+  });
 
   return (
-    <label
-      className={classList}
-      htmlFor={uid}
-      onKeyDown={handleKeyDown}
-      tabIndex={0}
-    >
+    <label className={getSwitchClassList(disabled, noEvents)} htmlFor={uid}>
       <input
         type="checkbox"
         id={uid}
         value={value}
-        required={required}
         name={name}
+        required={required}
         disabled={disabled}
         checked={checked}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
       />
-      <span className="ui-form-checkbox-checkmark"></span>
+      <span className="ui-form-checkbox-checkmark" />
       {label && <div className="ui-form-checkbox-text">{label}</div>}
     </label>
   );
