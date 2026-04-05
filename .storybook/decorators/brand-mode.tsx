@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-export function BrandMode(story: any, context: any) {
-  document.documentElement.setAttribute("data-company", context.globals.brand);
+interface BrandModeProps {
+  children: React.ReactNode;
+  brand: string;
+}
+
+function BrandModeContent({ children, brand }: BrandModeProps) {
+  useEffect(() => {
+    document.documentElement.setAttribute("data-company", brand);
+  }, [brand]);
 
   return (
-    <div data-company={context.globals.brand}>
+    <div data-company={brand}>
       <style>{`
-        /* Sobrescreve qualquer cor rgb(2, 156, 253) para var(--s-color-content-highlight) */
         [style*="color: rgb(2, 156, 253)"] {
           color: var(--s-color-content-highlight) !important;
         }
@@ -14,10 +20,15 @@ export function BrandMode(story: any, context: any) {
         .css-1e3avu6 {
           color: var(--s-color-content-highlight) !important;
         }
-         
       `}</style>
-      {React.createElement(story)}
+      {children}
     </div>
+  );
+}
+
+export function BrandMode(story: any, context: any) {
+  return (
+    <BrandModeContent brand={context.globals.brand}>{story()}</BrandModeContent>
   );
 }
 
@@ -26,7 +37,7 @@ export const brand = {
   defaultValue: "zeroz",
   toolbar: {
     title: "Brand",
-    icon: "admin",
+    icon: "admin" as any,
     items: [
       { title: "Zeroz", value: "zeroz" },
       { title: "Whitelabel", value: "whitelabel" },

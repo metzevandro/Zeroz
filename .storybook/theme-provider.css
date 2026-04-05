@@ -1,0 +1,56 @@
+:root[data-theme="dark"],
+:root.dark-mode {
+  color-scheme: dark;
+}
+
+:root[data-theme="light"],
+:root.light-mode {
+  color-scheme: light;
+}
+
+body[data-theme="dark"],
+body.dark-mode,
+.dark-mode {
+  --sb-background-color: #111827;
+  --sb-text-color: #f3f4f6;
+  --sb-border-color: #374151;
+}
+
+body[data-theme="light"],
+body.light-mode,
+.light-mode {
+  --sb-background-color: #ffffff;
+  --sb-text-color: #1f2937;
+  --sb-border-color: #e5e7eb;
+}
+
+.sb-show-main {
+  transition: background-color 0.3s ease;
+}
+
+.docs-story {
+  transition: background-color 0.3s ease;
+}
+
+iframe[class*="dark-mode"],
+.dark-mode {
+  background-color: #111827;
+  color: #f3f4f6;
+}
+
+.light-mode {
+  background-color: #ffffff;
+  color: #1f2937;
+}
+
+.dark .sbdocs {
+  background-color: var(--s-color-background-default) !important;
+}
+
+.white .sbdocs {
+  background-color: var(--s-color-background-default) !important;
+}
+
+#storybook-root {
+  background-color: var(--s-color-background-default) !important;
+}
