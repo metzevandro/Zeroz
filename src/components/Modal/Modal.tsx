@@ -1,74 +1,67 @@
 import "./Modal.scss";
-import ButtonIcon from "../ButtonIcon/ButtonIcon";
-import React, { MouseEventHandler } from "react";
+import React from "react";
+import { ModalProps } from "./Modal.types";
+import { ModalHeader } from "./subcomponents/ModalHeader";
+import { getModalClass } from "./utils/modal.utils";
 
-export interface ModalProps {
-  title: string;
-  description: string;
-  content?: React.ReactNode;
-  dismissible?: boolean;
-  hideModal: () => void;
-  isOpen: boolean;
-  footer?: React.ReactNode;
-}
-
+/**
+ * `Modal` is a dialog overlay with a header, optional body content,
+ * and an optional footer.
+ *
+ * When `dismissible` is `true`, a close button appears in the header
+ * and clicking the backdrop overlay also fires `hideModal`.
+ *
+ * Compose with `<ContentModal>` and `<FooterModal>` for consistent
+ * internal layout.
+ *
+ * @example
+ * ```tsx
+ * <Modal
+ *   isOpen={isOpen}
+ *   hideModal={() => setIsOpen(false)}
+ *   title="Confirm deletion"
+ *   description="This action cannot be undone."
+ *   dismissible
+ *   content={
+ *     <ContentModal>
+ *       <p>Are you sure you want to delete this item?</p>
+ *     </ContentModal>
+ *   }
+ *   footer={
+ *     <FooterModal>
+ *       <Button variant="secondary" onClick={() => setIsOpen(false)}>Cancel</Button>
+ *       <Button variant="primary" onClick={handleDelete}>Delete</Button>
+ *     </FooterModal>
+ *   }
+ * />
+ * ```
+ */
 const Modal: React.FC<ModalProps> = ({
   title,
   description,
   content,
+  footer,
   hideModal,
   isOpen,
-  footer,
-  dismissible,
-}) => {
-  const modalClass = isOpen ? "modal-root visible" : "modal-root";
-  const ghostClass = isOpen ? "modal-ghost visible" : "modal-ghost";
-
-  return (
-    <>
-      <div className={modalClass}>
-        <div className="modal-header">
-          <div className="modal-title">
-            <div>{title}</div>
-            {dismissible && (
-              <ButtonIcon
-                variant="primary"
-                size="md"
-                typeIcon="close"
-                buttonType="plain"
-                onClick={hideModal}
-              />
-            )}
-          </div>
-          <div className="modal-description">{description}</div>
-        </div>
-        {content}
-        {footer}
-      </div>
-      <div
-        className={ghostClass}
-        onClick={
-          (dismissible
-            ? hideModal
-            : undefined) as MouseEventHandler<HTMLDivElement>
-        }
+  dismissible = false,
+}) => (
+  <>
+    <div className={getModalClass("modal-root", isOpen)}>
+      <ModalHeader
+        title={title}
+        description={description}
+        dismissible={dismissible}
+        onClose={hideModal}
       />
-    </>
-  );
-};
+      {content}
+      {footer}
+    </div>
 
-interface ContentModalProps {
-  children: React.ReactNode;
-}
-
-export const ContentModal: React.FC<ContentModalProps> = ({ children }) => {
-  return <div className="modal-content">{children}</div>;
-};
-
-export const FooterModal: React.FC<ContentModalProps> = ({ children }) => {
-  return <div className="modal-footer">{children}</div>;
-};
+    <div
+      className={getModalClass("modal-ghost", isOpen)}
+      onClick={dismissible ? hideModal : undefined}
+    />
+  </>
+);
 
 export default Modal;
-ContentModal;
-FooterModal;
