@@ -1,130 +1,115 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Bar,
-  BarChart as Chart,
+  BarChart as RechartsBarChart,
   CartesianGrid,
   Tooltip,
   XAxis,
   Legend,
   LabelList,
 } from "recharts";
+
 import CustomTooltip from "../Tooltip/Tooltip";
 import CustomCaption from "../Caption/Caption";
+import { extractSeriesKeys, resolveBarRadius } from "./BarChart.utils";
+import type { BarChartProps } from "./BarChart.types";
 
-import "./BarChar.scss";
+import "./BarChart.scss";
+import { useSkeletonData } from "./BarChart.hooks";
 
-interface BarChartProps {
-  stacked?: boolean;
-  data: any[];
-  lineStyles: { [key: string]: { color: string } };
-  caption?: boolean;
-  label?: boolean;
-  tooltipFormatter?: (value: any) => string;
-  XAxisFormatter?: (value: any) => string;
-  height: number;
-  width: number;
-  skeleton?: boolean;
-}
+const SKELETON_BAR_COLOR = "var(--s-color-fill-default-light)";
 
-export default function BarChart(props: BarChartProps) {
-  const {
-    data,
-    stacked,
-    lineStyles,
-    caption,
-    label,
-    tooltipFormatter,
-    XAxisFormatter,
-    width,
-    height,
-    skeleton,
-  } = props;
-  const [randomData, setRandomData] = useState<any[]>([]);
+/**
+ * ## BarChart
+ *
+ * Gráfico de barras construído sobre Recharts.
+ * Suporta barras agrupadas ou empilhadas, tooltip, legenda,
+ * labels de valor e estado skeleton animado.
+ *
+ * ### Quando usar
+ * - Comparação de valores entre categorias (ex: vendas por mês)
+ * - Visualização de composição proporcional (modo `stacked`)
+ *
+ * @example
+ * // Barras agrupadas com tooltip
+ * <BarChart
+ *   data={[{ month: "Jan", vendas: 120, devoluções: 30 }]}
+ *   seriesStyles={{ vendas: { color: "#4CAF50" }, devoluções: { color: "#F44336" } }}
+ *   width={600}
+ *   height={300}
+ * />
+ *
+ * @example
+ * // Empilhado com legenda e skeleton
+ * <BarChart
+ *   data={data}
+ *   seriesStyles={styles}
+ *   width={600}
+ *   height={300}
+ *   stacked
+ *   caption
+ *   skeleton={isLoading}
+ * />
+ */
+const BarChart: React.FC<BarChartProps> = ({
+  data,
+  seriesStyles,
+  height,
+  width,
+  stacked = false,
+  caption = false,
+  label = false,
+  skeleton = false,
+  tooltipFormatter,
+  xAxisFormatter,
+}) => {
+  const skeletonData = useSkeletonData();
+  const displayData = skeleton ? skeletonData : data;
 
-  const displayData = skeleton ? randomData : data;
+  if (!skeleton && displayData.length === 0) return null;
 
-  useEffect(() => {
-    const generateData = () =>
-      Array.from({ length: 10 }, (_, index) => ({
-        month: ``,
-        "": Math.floor(Math.random() * 100),
-        " ": Math.floor(Math.random() * 100),
-      }));
-
-    setRandomData(generateData());
-
-    const interval = setInterval(() => {
-      setRandomData(generateData());
-    }, 1500);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  if (!skeleton && (!displayData || displayData.length === 0)) {
-    return null;
-  }
-
-  const keys = Object.keys(displayData[0]).filter((key) => key !== "month");
-
-  if (keys.length === 0) {
-    return null;
-  }
+  const seriesKeys = extractSeriesKeys(displayData[0]);
+  if (seriesKeys.length === 0) return null;
 
   return (
-    <Chart
+    <RechartsBarChart
       accessibilityLayer
       data={displayData}
       height={height}
       width={width}
-      margin={{
-        top: 20,
-        left: 20,
-        right: 20,
-      }}
+      margin={{ top: 20, left: 20, right: 20 }}
     >
       <CartesianGrid vertical={false} stroke="var(--s-color-border-default)" />
+
       <XAxis
         dataKey="month"
         tickLine={false}
         tickMargin={10}
         axisLine={false}
-        tickFormatter={XAxisFormatter}
+        tickFormatter={xAxisFormatter}
         style={{ font: "var(--s-typography-caption-regular)" }}
         stroke="var(--s-color-content-light)"
       />
+
       {!skeleton && (
         <Tooltip formatter={tooltipFormatter} content={<CustomTooltip />} />
       )}
+
       {!skeleton && caption && <Legend content={<CustomCaption />} />}
-      {keys.map((key, index) => {
-        let radius: [number, number, number, number];
-        if (stacked) {
-          if (index === 0) {
-            radius = [0, 0, 4, 4];
-          } else if (index === keys.length - 1) {
-            radius = [4, 4, 0, 0];
-          } else {
-            radius = [0, 0, 0, 0];
-          }
-        } else {
-          radius = [4, 4, 4, 4];
-        }
+
+      {seriesKeys.map((key, index) => {
+        const radius = resolveBarRadius(index, seriesKeys.length, stacked);
+        const color = skeleton
+          ? SKELETON_BAR_COLOR
+          : (seriesStyles[key]?.color ?? "black");
 
         return (
           <Bar
             key={key}
             dataKey={key}
             stackId={stacked ? "a" : undefined}
-            fill={
-              skeleton
-                ? "var(--s-color-fill-default-light)"
-                : lineStyles[key]?.color || "black"
-            }
-            stroke={
-              skeleton
-                ? "var(--s-color-fill-default-light)"
-                : lineStyles[key]?.color || "black"
-            }
+            fill={color}
+            stroke={color}
             radius={radius}
           >
             {!skeleton && label && (
@@ -138,6 +123,10 @@ export default function BarChart(props: BarChartProps) {
           </Bar>
         );
       })}
-    </Chart>
+    </RechartsBarChart>
   );
-}
+};
+
+BarChart.displayName = "BarChart";
+
+export default BarChart;
