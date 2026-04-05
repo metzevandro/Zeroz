@@ -1,16 +1,33 @@
 import React from "react";
-import ButtonGroup from "../ButtonGroup/ButtonGroup";
-import "./SaveBar.scss";
+import "./Savebar.scss";
+import { Button } from "../Button";
+import type { SavebarProps } from "./Savebar.types";
 
-interface SaveBarProps {
-  onClickSave: (e: React.MouseEvent) => void;
-  onClickCancel: () => void;
-  labelSave: string;
-  labelCancel: string;
-  label: string;
-}
+// ─── Component ────────────────────────────────────────────────────────────────
 
-const SaveBar: React.FC<SaveBarProps> = ({
+/**
+ * `SaveBar` is a sticky action bar used to confirm or discard unsaved changes.
+ *
+ * It renders a full-width bar with a descriptive label on the left and
+ * Save / Cancel action buttons on the right.
+ *
+ * ### Usage
+ * ```tsx
+ * <SaveBar
+ *   label="You have unsaved changes"
+ *   labelSave="Save"
+ *   labelCancel="Discard"
+ *   onClickSave={(e) => handleSave(e)}
+ *   onClickCancel={handleCancel}
+ * />
+ * ```
+ *
+ * ### Best practices
+ * - Display only when there are pending changes to confirm.
+ * - Keep `label` short and informative (e.g. "Unsaved changes").
+ * - `onClickSave` receives the mouse event so callers can use it if needed.
+ */
+const Savebar: React.FC<SavebarProps> = ({
   onClickSave,
   onClickCancel,
   label,
@@ -24,22 +41,21 @@ const SaveBar: React.FC<SaveBarProps> = ({
 
   return (
     <div className="save-bar">
-      <div className="save-bar-content">
-        <p className="save-bar-label">{label}</p>
-        <div className="save-bar-buttons">
-          <ButtonGroup
-            variantFirstButton="secondary"
-            variantSecondButton="success"
-            direction="row"
-            contentFirstButton={labelCancel}
-            contentSecondButton={labelSave}
-            onClickFirstButton={onClickCancel}
-            onClickSecondButton={handleSaveClick}
-          />
+      <div className="save-bar__content">
+        <p className="save-bar__label">{label}</p>
+        <div className="save-bar__buttons">
+          <Button variant="success" onClick={handleSaveClick}>
+            {labelSave}
+          </Button>
+          <Button variant="secondary" onClick={onClickCancel}>
+            {labelCancel}
+          </Button>
         </div>
       </div>
     </div>
   );
 };
 
-export default SaveBar;
+Savebar.displayName = "Savebar";
+
+export default Savebar;

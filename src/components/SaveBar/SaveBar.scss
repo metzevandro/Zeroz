@@ -1,3 +1,5 @@
+$breakpoint-mobile: 768px;
+
 .save-bar {
   display: flex;
   justify-content: center;
@@ -5,31 +7,32 @@
   padding: var(--s-spacing-x-small) 0;
   border-bottom: 1px solid var(--s-color-border-default);
 
-  .save-bar-content {
+  &__content {
     width: 100%;
+    max-width: 1280px;
     display: flex;
-    padding: 0 var(--s-spacing-x-large);
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    max-width: 1280px;
+    padding: 0 var(--s-spacing-x-large);
+  }
 
-    .save-bar-label {
-      font: var(--s-typography-heading-small);
-      color: var(--s-color-content-default);
-    }
+  &__label {
+    font: var(--s-typography-heading-small);
+    color: var(--s-color-content-default);
+  }
 
-    .save-bar-buttons {
-      display: flex;
-    }
+  &__buttons {
+    display: flex;
+    gap: var(--s-spacing-xx-small);
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $breakpoint-mobile) {
   .save-bar {
     padding: var(--s-spacing-x-small) var(--s-spacing-small);
 
-    .save-bar-content {
+    &__content {
       padding: 0;
     }
   }
