@@ -1,110 +1,71 @@
-import React, { useState, useEffect, ReactNode, ReactElement } from "react";
-import SaveBar from "../SaveBar/SaveBar";
-import Progress from "../Progress/Progress";
 import "./SavebarTrigger.scss";
+import React from "react";
+import SaveBar from "../Savebar/Savebar";
+import Progress from "../Progress/Progress";
+import { SavebarTriggerProps } from "./SavebarTrigger.types";
+import { useHeaderWidth } from "./hooks/useHeaderWidth";
+import { useSaveProgress } from "./hooks/useSaveProgress";
+import { useFormTracker } from "./hooks/useFormTracker";
 
-interface FormData {
-  [key: string]: string;
-}
-
-interface SavebarTriggerProps {
-  children: ReactNode;
-  formChanged: boolean;
-  handleSubmit: () => void;
-  handleCancel: () => void;
-  label: string;
-  labelSave: string;
-  labelCancel: string;
-}
-
+/**
+ * `SavebarTrigger` is a form wrapper that automatically shows a fixed `SaveBar`
+ * when any named child input differs from `initialValues`.
+ *
+ * Pass `initialValues` with the last-saved field values. The component
+ * compares current input values against them on every keystroke — the SaveBar
+ * appears when anything changes and disappears when everything is reverted.
+ *
+ * @example
+ * ```tsx
+ * const [saved, setSaved] = useState({ name: "Jane", email: "jane@example.com" });
+ *
+ * <SavebarTrigger
+ *   initialValues={saved}
+ *   onSubmit={(values) => setSaved(values)}
+ *   label="You have unsaved changes"
+ *   labelSave="Save"
+ *   labelCancel="Cancel"
+ * >
+ *   <Input name="name"  label="Name"  />
+ *   <Input name="email" label="Email" />
+ * </SavebarTrigger>
+ * ```
+ */
 const SavebarTrigger: React.FC<SavebarTriggerProps> = ({
   children,
-  formChanged,
-  handleSubmit,
-  label,
-  handleCancel: handleCancelProp,
-  labelSave,
-  labelCancel,
+  initialValues,
+  onSubmit,
+  onCancel,
+  label = "You have unsaved changes",
+  labelSave = "Save",
+  labelCancel = "Cancel",
 }) => {
-  const [formData, setFormData] = useState<FormData>({});
-  const [tamanhoPai, setTamanhoPai] = useState<number | null>(null);
-  const [saving, setSaving] = useState<boolean>(false);
-  const [progressValue, setProgressValue] = useState<number>(0);
-  const [elapsedTime, setElapsedTime] = useState<number | null>(null);
+  const headerWidth = useHeaderWidth();
+  const { saving, progressValue, startSave, resetSave } = useSaveProgress();
+  const {
+    formData,
+    formChanged,
+    resetToInitial,
+    commitSaved,
+    injectControlledProps,
+  } = useFormTracker({ initialValues });
 
-  useEffect(() => {
-    const updateTamanhoPai = () => {
-      const paiElement = document.querySelector(
-        ".header-root",
-      ) as HTMLElement | null;
-      if (paiElement) {
-        setTamanhoPai(paiElement.offsetWidth);
-      }
-    };
+  const saveBarStyle = headerWidth ? { width: `${headerWidth}px` } : {};
 
-    updateTamanhoPai();
-
-    window.addEventListener("resize", updateTamanhoPai);
-
-    return () => {
-      window.removeEventListener("resize", updateTamanhoPai);
-    };
-  }, []);
-
-  const estiloFilha = tamanhoPai ? { width: `calc(${tamanhoPai}px)` } : {};
-
-  const handleInputChange = (name: string, value: string) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const handleSave = () => {
+    startSave(() => {
+      commitSaved();
+      onSubmit(formData);
+    });
   };
 
   const handleCancel = () => {
-    console.log("Alterações canceladas");
-    setSaving(false);
-    setProgressValue(0);
-    setElapsedTime(null);
-    handleCancelProp();
+    resetSave();
+    resetToInitial();
+    onCancel?.();
   };
 
-  const handleSave = () => {
-    setSaving(true);
-    const totalTime = 500;
-    const incrementInterval = 50;
-    const totalIncrements = totalTime / incrementInterval;
-    const incrementAmount = 100 / totalIncrements;
-    let currentProgress = 0;
-
-    const intervalId = setInterval(() => {
-      currentProgress += incrementAmount;
-      setProgressValue(currentProgress);
-      if (currentProgress >= 100) {
-        clearInterval(intervalId);
-        setTimeout(() => {
-          setSaving(false);
-          setProgressValue(0);
-        }, 500);
-      }
-      handleSubmit();
-    }, incrementInterval);
-  };
-
-  const modifyChild = (child: React.ReactNode, index: number) => {
-    if (React.isValidElement(child)) {
-      const { name } = child.props;
-      return React.cloneElement(child as ReactElement, {
-        onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-          handleInputChange(name, e.target.value);
-        },
-        value: formData[name] || "",
-        name,
-      });
-    }
-    return child;
-  };
-
-  const modifiedChildren = React.Children.map(children, modifyChild);
+  const modifiedChildren = React.Children.map(children, injectControlledProps);
 
   return (
     <div className="form-register-root">
@@ -113,20 +74,24 @@ const SavebarTrigger: React.FC<SavebarTriggerProps> = ({
           <Progress value={progressValue} />
         </div>
       )}
-      <div className="form-register-save-bar" style={estiloFilha}>
+
+      <div className="form-register-save-bar" style={saveBarStyle}>
         {formChanged && !saving && (
           <SaveBar
-            labelCancel={labelCancel}
-            labelSave={labelSave}
             label={label}
-            onClickCancel={handleCancel}
+            labelSave={labelSave}
+            labelCancel={labelCancel}
             onClickSave={handleSave}
+            onClickCancel={handleCancel}
           />
         )}
       </div>
+
       <div>{modifiedChildren}</div>
     </div>
   );
 };
+
+SavebarTrigger.displayName = "SavebarTrigger";
 
 export default SavebarTrigger;
