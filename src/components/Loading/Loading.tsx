@@ -1,45 +1,42 @@
-import Icon from "../Icon/Icon";
 import "./Loading.scss";
 import React from "react";
+import Icon from "../Icon/Icon";
+import { LoadingProps } from "./Loading.types";
+import { LOADING_CONFIG } from "./utils/loading.utils";
 
-interface LoadingProps {
-  variant: "default" | "success" | "warning" | "large";
-  message?: string;
-}
-
+/**
+ * `Loading` renders a status indicator with an optional message.
+ *
+ * Four variants are available:
+ * - `"default"` — animated spinner (sm) with optional message
+ * - `"large"`   — animated spinner (lg), no message
+ * - `"success"` — checkmark icon with optional message
+ * - `"warning"` — warning icon with optional message
+ *
+ * @example
+ * ```tsx
+ * <Loading variant="default" message="Saving changes..." />
+ * <Loading variant="large" />
+ * <Loading variant="success" message="Saved successfully!" />
+ * <Loading variant="warning" message="Something went wrong." />
+ * ```
+ */
 const Loading: React.FC<LoadingProps> = ({ variant, message }) => {
+  const { spanClass, icon, size, hasMessage } = LOADING_CONFIG[variant];
+
+  const indicator = (
+    <span className={spanClass}>
+      <Icon icon={icon} size={size} />
+    </span>
+  );
+
+  if (!hasMessage) return indicator;
+
   return (
-    <>
-      {variant === "default" && (
-        <div className="loading-with-message">
-          <span className="loading">
-            <Icon size="sm" icon="progress_activity" />
-          </span>
-          {message && <p className="loading-message">{message}</p>}
-        </div>
-      )}
-      {variant === "large" && (
-        <span className="loading">
-          <Icon size="lg" icon="progress_activity" />
-        </span>
-      )}
-      {variant === "success" && (
-        <div className="loading-with-message">
-          <span className="success">
-            <Icon size="sm" icon="check_circle" />
-          </span>
-          {message && <p className="loading-message">{message}</p>}{" "}
-        </div>
-      )}
-      {variant === "warning" && (
-        <div className="loading-with-message">
-          <span className="warning">
-            <Icon size="sm" icon="error_outline" />
-          </span>
-          {message && <p className="loading-message">{message}</p>}{" "}
-        </div>
-      )}
-    </>
+    <div className="loading-with-message">
+      {indicator}
+      {message && <p className="loading-message">{message}</p>}
+    </div>
   );
 };
 
