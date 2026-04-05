@@ -2,3 +2,40 @@
   font: var(--s-typography-label-medium);
   color: var(--s-color-content-default);
 }
+
+.pie-chart-tooltip {
+  .TooltipContent {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-spacing-nano);
+  }
+
+  .tooltip-others-header {
+    display: flex;
+    align-items: center;
+    gap: var(--s-spacing-xx-small);
+  }
+
+  .tooltip-color-dot {
+    border-radius: 2px;
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+  }
+
+  .tooltip-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-spacing-nano);
+    align-items: center;
+  }
+
+  .tooltip-label {
+    color: var(--s-color-content-light);
+  }
+
+  .tooltip-value {
+    color: var(--s-color-content-default);
+  }
+}

@@ -1,45 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
-  PieChart as Chart,
+  PieChart as RechartsPieChart,
   Pie,
   Legend,
   Tooltip as ChartTooltip,
   Label,
   Cell,
-  LabelList,
-  Sector,
 } from "recharts";
+
 import CustomTooltip from "../Tooltip/Tooltip";
-import "./PieChart.scss";
 import CustomCaption from "../Caption/Caption";
+import { usePieSkeletonData } from "./PieChart.hooks";
+import {
+  processChartData,
+  resolveCellColor,
+  OTHERS_COLOR,
+} from "./PieChart.utils";
+import type { PieChartProps, PieDataItem } from "./PieChart.types";
 
-interface PieData {
-  quantity: number;
-  keyName: string;
-  fill: string;
-  others?: PieData[];
-}
+import "./PieChart.scss";
 
-interface PieChartProps {
-  data: PieData[];
-  label: string;
-  caption: boolean;
-  innerRadius: number;
-  outerRadius: number;
-  type: "donut" | "pie";
-  tooltipFormatter?: (value: any) => string;
-  labelFormatter?: (value: any) => string;
-  height: number;
-  width: number;
-  dataKey: string;
-  nameKey: string;
-  skeleton?: boolean;
-}
-
-export default function PieChart({
+/**
+ * ## PieChart
+ *
+ * Gráfico de pizza ou rosca construído sobre Recharts.
+ * Quando há mais de 5 itens, os excedentes são agrupados
+ * automaticamente em uma fatia "Outros" com tooltip detalhado.
+ *
+ * ### Quando usar
+ * - Composição proporcional de um todo (ex: distribuição de categorias)
+ * - Modo `donut` quando se quer exibir um total central
+ *
+ * @example
+ * // Donut com total formatado
+ * <PieChart
+ *   type="donut"
+ *   data={[{ quantity: 60, keyName: "A", fill: "#4CAF50" }]}
+ *   label="transações"
+ *   labelFormatter={(v) => v.toLocaleString()}
+ *   dataKey="quantity"
+ *   nameKey="keyName"
+ *   innerRadius={60}
+ *   outerRadius={90}
+ *   width={300}
+ *   height={300}
+ * />
+ */
+const PieChart: React.FC<PieChartProps> = ({
   data,
   label,
-  caption,
+  caption = false,
   innerRadius,
   outerRadius,
   type,
@@ -50,49 +60,96 @@ export default function PieChart({
   dataKey,
   nameKey,
   skeleton = false,
-}: PieChartProps) {
-  const totalQuantity = React.useMemo(() => {
-    return data.reduce((acc, curr) => acc + curr.quantity, 0);
-  }, [data]);
+}) => {
+  const skeletonData = usePieSkeletonData();
+  const processedData = React.useMemo(() => processChartData(data), [data]);
 
-  const defaultColors = [
-    "var(--s-color-chart-1)",
-    "var(--s-color-chart-2)",
-    "var(--s-color-chart-3)",
-    "var(--s-color-chart-4)",
-    "var(--s-color-chart-5)",
-    "var(--s-color-chart-6)",
-    "var(--s-color-chart-7)",
-    "var(--s-color-chart-9)",
-    "var(--s-color-chart-10)",
-  ];
+  const displayData = skeleton ? skeletonData : processedData;
 
-  const GRAY_COLOR = "var(--s-color-chart-8)";
+  const totalQuantity = React.useMemo(
+    () => data.reduce((acc, curr) => acc + curr.quantity, 0),
+    [data],
+  );
 
-  const processedData = React.useMemo(() => {
-    if (skeleton) return data;
-    if (data.length <= 5) return data;
-    const sorted = [...data].sort((a, b) => b.quantity - a.quantity);
-    const mainItems = sorted.slice(0, 4);
-    const othersItems = sorted.slice(4).sort((a, b) => b.quantity - a.quantity);
-    const othersTotal = othersItems.reduce(
-      (acc, curr) => acc + curr.quantity,
-      0,
+  const formatTooltipValue = (
+    value: number,
+    name: string,
+    item?: any,
+    index?: number,
+    payload?: any[],
+  ) => {
+    if (!tooltipFormatter) return value;
+    return tooltipFormatter(
+      value,
+      name,
+      item as any,
+      index ?? 0,
+      payload ?? [],
     );
-    return [
-      ...mainItems,
-      {
-        quantity: othersTotal,
-        keyName: "Outros",
-        fill: GRAY_COLOR,
-        others: othersItems,
-      },
-    ];
-  }, [data, skeleton]);
+  };
 
-  const renderLegend = () => {
-    if (caption && !skeleton) {
-      return (
+  return (
+    <RechartsPieChart
+      height={height}
+      width={width}
+      margin={{ top: 20, left: 20, right: 20 }}
+    >
+      {!skeleton && (
+        <ChartTooltip
+          formatter={tooltipFormatter}
+          content={({ active, payload, label: ttLabel }) => {
+            if (!active || !payload?.length) return null;
+
+            const item = payload[0].payload as PieDataItem;
+
+            // Fatia "Outros" — exibe subitens detalhados
+            if (item.keyName === "Outros" && item.others?.length) {
+              return (
+                <div className="TooltipContent pie-chart-tooltip">
+                  <div className="tooltip-others-header">
+                    <div
+                      className="tooltip-color-dot"
+                      style={{ backgroundColor: item.fill }}
+                    />
+                    <div className="tooltip-row">
+                      <small className="tooltip-label">Outros:</small>
+                      <small className="tooltip-value">
+                        {tooltipFormatter
+                          ? formatTooltipValue(item.quantity, item.keyName)
+                          : item.quantity}
+                      </small>
+                    </div>
+                  </div>
+                  <div>
+                    {item.others.map((o, idx) => (
+                      <div key={idx} className="tooltip-row">
+                        <small className="tooltip-label">{o.keyName}:</small>
+                        <small className="tooltip-value">
+                          {tooltipFormatter
+                            ? formatTooltipValue(o.quantity, o.keyName)
+                            : o.quantity}
+                        </small>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <CustomTooltip
+                active={active}
+                payload={payload as never}
+                label={ttLabel}
+                formatter={tooltipFormatter}
+              />
+            );
+          }}
+        />
+      )}
+
+      {/* ── Legenda ─────────────────────────────────────────── */}
+      {!skeleton && caption && (
         <Legend
           content={(props) => (
             <CustomCaption
@@ -110,141 +167,47 @@ export default function PieChart({
             />
           )}
         />
-      );
-    }
-  };
+      )}
 
-  const renderTooltip = () => {
-    if (!skeleton) {
-      return (
-        <ChartTooltip
-          formatter={tooltipFormatter}
-          content={({
-            active,
-            payload,
-            label,
-          }: {
-            active?: boolean;
-            payload?: any[];
-            label?: any;
-          }) => {
-            if (!active || !payload || !payload.length) return null;
-            const item = payload[0].payload;
-            if (
-              item.keyName === "Outros" &&
-              item.others &&
-              item.others.length
-            ) {
-              return (
-                <div className="TooltipContent">
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 8,
-                    }}
-                  >
-                    <div
-                      style={{
-                        borderRadius: "2px",
-                        width: 10,
-                        height: 10,
-                        backgroundColor: item.fill,
-                      }}
-                    />
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <small
-                        style={{
-                          color: "var(--s-color-content-light)",
-                        }}
-                      >
-                        Outros:
-                      </small>
-                      <small
-                        style={{
-                          color: "var(--s-color-content-default)",
-                        }}
-                      >
-                        {tooltipFormatter
-                          ? tooltipFormatter(item.quantity)
-                          : item.quantity}
-                      </small>
-                    </div>
-                  </div>
-                  <div>
-                    {item.others.map((o: PieData, idx: number) => (
-                      <div
-                        key={idx}
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          width: "100%",
-                          gap: "var(--s-spacing-nano)",
-                          alignItems: "center",
-                        }}
-                      >
-                        <small
-                          style={{
-                            color: "var(--s-color-content-light)",
-                          }}
-                        >
-                          {o.keyName}:
-                        </small>
-                        <small
-                          style={{
-                            color: "var(--s-color-content-default)",
-                          }}
-                        >
-                          {tooltipFormatter
-                            ? tooltipFormatter(o.quantity)
-                            : o.quantity}
-                        </small>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            }
-            return (
-              <CustomTooltip
-                active={active}
-                payload={payload as any}
-                label={label}
-                formatter={tooltipFormatter}
-              />
-            );
-          }}
-        />
-      );
-    }
-  };
+      {/* ── Fatias ──────────────────────────────────────────── */}
+      <Pie
+        data={displayData}
+        dataKey={dataKey}
+        nameKey={nameKey}
+        innerRadius={skeleton ? 0 : type === "donut" ? innerRadius : 0}
+        outerRadius={outerRadius}
+        strokeWidth={1}
+        isAnimationActive={!skeleton}
+      >
+        {displayData.map((entry, index) => {
+          const color = resolveCellColor(entry, index);
+          return <Cell key={`cell-${index}`} fill={color} stroke={color} />;
+        })}
 
-  const renderLabel = (skeleton: boolean) => {
-    if (type === "donut") {
-      return (
-        <Label
-          content={({ viewBox }) => {
-            if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+        {type === "donut" && (
+          <Label
+            content={({ viewBox }) => {
+              if (!viewBox || !("cx" in viewBox) || !("cy" in viewBox)) {
+                return null;
+              }
+              const { cx, cy } = viewBox as { cx: number; cy: number };
+
               return (
                 <text
-                  x={viewBox.cx}
-                  y={viewBox.cy}
+                  x={cx}
+                  y={cy}
                   textAnchor="middle"
                   dominantBaseline="middle"
                 >
                   <tspan
                     style={{
                       font: "var(--s-typography-heading-medium)",
-                      fill: "var(--s-color-content-default)",
+                      fill: skeleton
+                        ? "transparent"
+                        : "var(--s-color-content-default)",
                     }}
-                    x={viewBox.cx}
-                    y={viewBox.cy}
+                    x={cx}
+                    y={cy}
                   >
                     {skeleton
                       ? ""
@@ -252,92 +215,28 @@ export default function PieChart({
                         ? labelFormatter(totalQuantity)
                         : totalQuantity}
                   </tspan>
-
                   <tspan
                     style={{
                       font: "var(--s-typography-caption-regular)",
-                      fill: "var(--s-color-content-light)",
+                      fill: skeleton
+                        ? "transparent"
+                        : "var(--s-color-content-light)",
                     }}
-                    x={viewBox.cx}
-                    y={(viewBox.cy || 0) + 24}
+                    x={cx}
+                    y={cy + 24}
                   >
                     {skeleton ? "" : label}
                   </tspan>
                 </text>
               );
-            }
-          }}
-        />
-      );
-    }
-  };
-
-  const [randomData, setRandomData] = useState<PieData[]>([]);
-
-  useEffect(() => {
-    let toggle = true;
-
-    const generateData = () =>
-      Array.from({ length: 2 }, (_, index) => ({
-        quantity: index === 0 ? (toggle ? 0 : 100) : toggle ? 100 : 0,
-        keyName: `Item ${index + 1}`,
-        fill:
-          index % 2 === 0
-            ? "var(--s-color-fill-default-light)"
-            : "var(--s-color-fill-disable)",
-        stroke:
-          index % 2 === 0
-            ? "var(--s-color-fill-default-light)"
-            : "var(--s-color-fill-disable)",
-      }));
-
-    setRandomData(generateData());
-
-    const interval = setInterval(() => {
-      toggle = !toggle;
-      setRandomData(generateData());
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <Chart
-      height={height}
-      width={width}
-      margin={{
-        top: 20,
-        left: 20,
-        right: 20,
-      }}
-    >
-      {renderTooltip()}
-      {renderLegend()}
-      <Pie
-        data={skeleton ? randomData : processedData}
-        dataKey={dataKey}
-        nameKey={nameKey}
-        innerRadius={skeleton ? 0 : type === "donut" ? innerRadius : 0}
-        outerRadius={outerRadius}
-        strokeWidth={1}
-      >
-        {(skeleton ? randomData : processedData).map((entry, index) => (
-          <Cell
-            key={`cell-${index}`}
-            fill={
-              entry.keyName === "Outros"
-                ? GRAY_COLOR
-                : entry.fill || defaultColors[index % defaultColors.length]
-            }
-            stroke={
-              entry.keyName === "Outros"
-                ? GRAY_COLOR
-                : entry.fill || defaultColors[index % defaultColors.length]
-            }
+            }}
           />
-        ))}
-        {renderLabel(skeleton)}
+        )}
       </Pie>
-    </Chart>
+    </RechartsPieChart>
   );
-}
+};
+
+PieChart.displayName = "PieChart";
+
+export default PieChart;
