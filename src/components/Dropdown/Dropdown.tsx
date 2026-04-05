@@ -1,54 +1,30 @@
-import Icon from "../Icon/Icon";
 import "./Dropdown.scss";
 import React from "react";
+import { DropdownProps } from "./Dropdown.types";
 
-interface DropdownProps {
-  children: React.ReactNode;
-  dropdown: boolean;
-}
+/**
+ * `Dropdown` is a conditional menu container that renders its children
+ * only when `visible` is `true`.
+ *
+ * Compose it with `<DropdownTitle>` for section headings and
+ * `<DropdownItem>` for interactive entries.
+ *
+ * @example
+ * ```tsx
+ * <Dropdown visible={isOpen}>
+ *   <DropdownTitle label="Settings" />
+ *   <DropdownItem icon="person" label="Profile" onClick={goToProfile} />
+ *   <DropdownItem icon="logout" label="Sign out" onClick={handleSignOut} />
+ * </Dropdown>
+ * ```
+ */
+const Dropdown: React.FC<DropdownProps> = ({ children, visible }) => {
+  if (!visible) return null;
 
-const Dropdown: React.FC<DropdownProps> = ({ children, dropdown }) => {
   return (
-    <>
-      {dropdown === true && (
-        <div className="dropdown-menu-root">
-          <div className="dropdown-menu">{children}</div>
-        </div>
-      )}
-    </>
-  );
-};
-
-interface DropdownTitleProps {
-  content: string;
-}
-
-export const DropdownTitle: React.FC<DropdownTitleProps> = ({ content }) => {
-  return (
-    <>
-      <div className="dropdown-menu-title">{content}</div>
-    </>
-  );
-};
-
-interface DropdownItemProps {
-  typeIcon?: string | undefined;
-  content: string;
-  onClick?: () => void;
-}
-
-export const DropdownItem: React.FC<DropdownItemProps> = ({
-  typeIcon,
-  content,
-  onClick,
-}) => {
-  return (
-    <>
-      <button className="dropdown-menu-item" onClick={onClick}>
-        {typeIcon && <Icon size="sm" icon={typeIcon} />}
-        {content}
-      </button>
-    </>
+    <div className="dropdown-menu-root">
+      <div className="dropdown-menu">{children}</div>
+    </div>
   );
 };
 
