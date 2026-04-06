@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-var jsxRuntime = require('react/jsx-runtime');
-var Icon = require('./Icon-BUoiqqF-.js');
-var ButtonIcon = require('./ButtonIcon-D_zBPQVl.js');
-var React = require('react');
+var jsxRuntime = require("react/jsx-runtime");
+var Icon = require("./Icon-BUoiqqF-.js");
+var ButtonIcon = require("./ButtonIcon-D_zBPQVl.js");
+var React = require("react");
 
 /**
  * Returns a debounced version of `fn` that delays invocation
@@ -14,11 +14,11 @@ var React = require('react');
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function debounce(fn, delay) {
-    let timer;
-    return (...args) => {
-        clearTimeout(timer);
-        timer = setTimeout(() => fn(...args), delay);
-    };
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
 }
 
 /**
@@ -32,48 +32,55 @@ function debounce(fn, delay) {
  * The debounced callback is recreated only when `debounceMs` or
  * `onDebouncedChange` change, preventing stale closures.
  */
-function useInputSearch({ value, debounceMs, onChange, onDebouncedChange, }) {
-    const [inputValue, setInputValue] = React.useState(value ?? "");
-    const [isActive, setIsActive] = React.useState(false);
-    const inputRef = React.useRef(null);
-    // Sync from controlled value (e.g. browser back/forward, URL init)
-    React.useEffect(() => {
-        if (value !== undefined)
-            setInputValue(value);
-    }, [value]);
-    // Stable debounced callback — recreated only when deps change
-    const debouncedEmit = React.useRef(debounce((val) => onDebouncedChange?.(val), debounceMs));
-    React.useEffect(() => {
-        debouncedEmit.current = debounce((val) => onDebouncedChange?.(val), debounceMs);
-    }, [onDebouncedChange, debounceMs]);
-    const emit = React.useCallback((val) => {
-        onChange?.(val);
-        debouncedEmit.current(val);
-    }, [onChange]);
-    const handleChange = (e) => {
-        const val = e.target.value;
-        setInputValue(val);
-        emit(val);
-    };
-    const handleFocus = () => {
-        setIsActive(true);
-        inputRef.current?.focus();
-    };
-    const handleBlur = () => setIsActive(false);
-    const handleClear = () => {
-        setInputValue("");
-        emit("");
-        inputRef.current?.focus();
-    };
-    return {
-        inputValue,
-        isActive,
-        inputRef,
-        handleChange,
-        handleFocus,
-        handleBlur,
-        handleClear,
-    };
+function useInputSearch({ value, debounceMs, onChange, onDebouncedChange }) {
+  const [inputValue, setInputValue] = React.useState(value ?? "");
+  const [isActive, setIsActive] = React.useState(false);
+  const inputRef = React.useRef(null);
+  // Sync from controlled value (e.g. browser back/forward, URL init)
+  React.useEffect(() => {
+    if (value !== undefined) setInputValue(value);
+  }, [value]);
+  // Stable debounced callback — recreated only when deps change
+  const debouncedEmit = React.useRef(
+    debounce((val) => onDebouncedChange?.(val), debounceMs),
+  );
+  React.useEffect(() => {
+    debouncedEmit.current = debounce(
+      (val) => onDebouncedChange?.(val),
+      debounceMs,
+    );
+  }, [onDebouncedChange, debounceMs]);
+  const emit = React.useCallback(
+    (val) => {
+      onChange?.(val);
+      debouncedEmit.current(val);
+    },
+    [onChange],
+  );
+  const handleChange = (e) => {
+    const val = e.target.value;
+    setInputValue(val);
+    emit(val);
+  };
+  const handleFocus = () => {
+    setIsActive(true);
+    inputRef.current?.focus();
+  };
+  const handleBlur = () => setIsActive(false);
+  const handleClear = () => {
+    setInputValue("");
+    emit("");
+    inputRef.current?.focus();
+  };
+  return {
+    inputValue,
+    isActive,
+    inputRef,
+    handleChange,
+    handleFocus,
+    handleBlur,
+    handleClear,
+  };
 }
 
 /**
@@ -110,9 +117,55 @@ function useInputSearch({ value, debounceMs, onChange, onDebouncedChange, }) {
  * />
  * ```
  */
-const InputSearch = ({ placeholder, disabled = false, onChange, onDebouncedChange, debounceMs = 300, value, ...rest }) => {
-    const { inputValue, inputRef, handleChange, handleFocus, handleBlur, handleClear, } = useInputSearch({ value, debounceMs, onChange, onDebouncedChange });
-    return (jsxRuntime.jsx("div", { className: `input-search-root ${disabled ? "disabled" : ""}`, onClick: handleFocus, children: jsxRuntime.jsxs("div", { className: "input-search", children: [jsxRuntime.jsx(Icon.Icon, { size: "md", icon: "search" }), jsxRuntime.jsx("input", { ...rest, ref: inputRef, type: "text", size: 1000, placeholder: placeholder, value: inputValue, disabled: disabled, onChange: handleChange, onBlur: handleBlur }), inputValue && (jsxRuntime.jsx("button", { className: "input-search-button-close visible", onClick: handleClear, children: jsxRuntime.jsx(ButtonIcon.ButtonIcon, { variant: "primary", icon: "close", appearance: "plain", size: "sm" }) }))] }) }));
+const InputSearch = ({
+  placeholder,
+  disabled = false,
+  onChange,
+  onDebouncedChange,
+  debounceMs = 300,
+  value,
+  ...rest
+}) => {
+  const {
+    inputValue,
+    inputRef,
+    handleChange,
+    handleFocus,
+    handleBlur,
+    handleClear,
+  } = useInputSearch({ value, debounceMs, onChange, onDebouncedChange });
+  return jsxRuntime.jsx("div", {
+    className: `input-search-root ${disabled ? "disabled" : ""}`,
+    onClick: handleFocus,
+    children: jsxRuntime.jsxs("div", {
+      className: "input-search",
+      children: [
+        jsxRuntime.jsx(Icon.Icon, { size: "md", icon: "search" }),
+        jsxRuntime.jsx("input", {
+          ...rest,
+          ref: inputRef,
+          type: "text",
+          size: 1000,
+          placeholder: placeholder,
+          value: inputValue,
+          disabled: disabled,
+          onChange: handleChange,
+          onBlur: handleBlur,
+        }),
+        inputValue &&
+          jsxRuntime.jsx("button", {
+            className: "input-search-button-close visible",
+            onClick: handleClear,
+            children: jsxRuntime.jsx(ButtonIcon.ButtonIcon, {
+              variant: "primary",
+              icon: "close",
+              appearance: "plain",
+              size: "sm",
+            }),
+          }),
+      ],
+    }),
+  });
 };
 
 exports.InputSearch = InputSearch;

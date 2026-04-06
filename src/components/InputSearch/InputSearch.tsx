@@ -42,7 +42,6 @@ import { useElementDimensions } from "./hooks/useInputSearchDimensions";
  * ```
  */
 
-
 const InputSearch: React.FC<InputSearchProps> = ({
   placeholder,
   disabled = false,
@@ -53,7 +52,8 @@ const InputSearch: React.FC<InputSearchProps> = ({
   isSkeleton,
   ...rest
 }) => {
-const { ref: containerRef, dimensions } = useElementDimensions<HTMLDivElement>();
+  const { ref: containerRef, dimensions } =
+    useElementDimensions<HTMLDivElement>();
 
   const {
     inputValue,
@@ -66,7 +66,10 @@ const { ref: containerRef, dimensions } = useElementDimensions<HTMLDivElement>()
 
   if (isSkeleton && dimensions.width > 0) {
     return (
-      <Skeleton width={`${dimensions.width}px`} height={`${dimensions.height}px`} />
+      <Skeleton
+        width={`${dimensions.width}px`}
+        height={`${dimensions.height}px`}
+      />
     );
   }
 

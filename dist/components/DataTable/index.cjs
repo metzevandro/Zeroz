@@ -1,6 +1,6 @@
 'use strict';
 
-var DataTable = require('../../DataTable-CG6t4DHK.js');
+var DataTable = require('../../DataTable-D_4XozPx.js');
 require('react/jsx-runtime');
 require('../../EmptyState-BwOewAIp.js');
 require('../../Icon-BUoiqqF-.js');

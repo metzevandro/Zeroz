@@ -42,16 +42,17 @@ export function useDataTable({
     new Array(columns.length).fill("default"),
   );
 
-  const rowIdMap = useRef(new Map<unknown, string>());
+  const rowIdMap = useRef(new Map<string, string>());
   const idCounter = useRef(0);
 
   const indexedData = data.map((row) => {
-    if (!rowIdMap.current.has(row)) {
-      rowIdMap.current.set(row, String(idCounter.current++));
+    const stableKey = String(row.id ?? JSON.stringify(row));
+    if (!rowIdMap.current.has(stableKey)) {
+      rowIdMap.current.set(stableKey, String(idCounter.current++));
     }
     return {
       ...row,
-      id: rowIdMap.current.get(row)!,
+      id: rowIdMap.current.get(stableKey)!,
     };
   });
 

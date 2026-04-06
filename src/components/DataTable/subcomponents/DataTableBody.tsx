@@ -36,9 +36,7 @@ export const DataTableBody: React.FC<DataTableBodyProps> = ({
       style={{ flexDirection: "column" }}
     >
       {rows.map((row, index) => {
-        const rowId = skeleton
-          ? `skeleton-${index}`
-          : (row.id as string);
+        const rowId = skeleton ? `skeleton-${index}` : (row.id as string);
 
         return (
           <div key={rowId} className="data-table-body-content-row">
