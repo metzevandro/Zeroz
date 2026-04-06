@@ -18,6 +18,7 @@ interface DataTableBodyProps {
  * Corpo da tabela com as linhas de dados.
  * Em modo skeleton, exibe linhas fictícias para manter o layout.
  */
+
 export const DataTableBody: React.FC<DataTableBodyProps> = ({
   currentRows,
   selectedRows,
@@ -34,8 +35,10 @@ export const DataTableBody: React.FC<DataTableBodyProps> = ({
       className="data-table-body-content"
       style={{ flexDirection: "column" }}
     >
-      {rows.map((row) => {
-        const rowId = row.id as string;
+      {rows.map((row, index) => {
+        const rowId = skeleton
+          ? `skeleton-${index}`
+          : (row.id as string);
 
         return (
           <div key={rowId} className="data-table-body-content-row">
@@ -43,7 +46,7 @@ export const DataTableBody: React.FC<DataTableBodyProps> = ({
               {withCheckbox && (
                 <div className="data-table-body-content-checkbox">
                   {skeleton ? (
-                    <Skeleton height="24" width="24" />
+                    <Skeleton height="24px" width="24px" />
                   ) : (
                     <Checkbox
                       disabled={skeleton}
@@ -54,11 +57,11 @@ export const DataTableBody: React.FC<DataTableBodyProps> = ({
                 </div>
               )}
 
-              {columnKeys.map((key, index) => (
+              {columnKeys.map((key, colIndex) => (
                 <div key={key} className="data-table-body-content-row">
                   <DataTableRowContent
                     skeleton={skeleton}
-                    style={{ minWidth: columnWidths[index] }}
+                    style={{ minWidth: columnWidths[colIndex] }}
                   >
                     {row[key] as React.ReactNode}
                   </DataTableRowContent>

@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
+// useDataTable.ts
+import { useState, useEffect, useCallback, useRef } from "react";
 import { DataTableProps, SortDirection } from "../DataTable.types";
 
 interface UseDataTableOptions {
@@ -24,6 +25,7 @@ interface UseDataTableOptions {
  * - Filtrar os dados com base em `onSearch`
  * - Ordenar os dados com base em `onSort`
  */
+
 export function useDataTable({
   data,
   rowsPerPage,
@@ -40,19 +42,24 @@ export function useDataTable({
     new Array(columns.length).fill("default"),
   );
 
-  // Enriquece os dados externos com IDs internos para seleção
-  const indexedData = data.map((row, index) => ({
-    ...row,
-    id: String(index),
-  }));
+  const rowIdMap = useRef(new Map<unknown, string>());
+  const idCounter = useRef(0);
 
-  // Reset de paginação quando os dados externos mudam
+  const indexedData = data.map((row) => {
+    if (!rowIdMap.current.has(row)) {
+      rowIdMap.current.set(row, String(idCounter.current++));
+    }
+    return {
+      ...row,
+      id: rowIdMap.current.get(row)!,
+    };
+  });
+
   useEffect(() => {
     setLoadedPages(4);
     setCurrentPage(1);
   }, [data]);
 
-  // Carregamento progressivo de páginas
   const totalPages = Math.ceil(indexedData.length / rowsPerPage);
 
   useEffect(() => {
@@ -61,12 +68,10 @@ export function useDataTable({
     }
   }, [currentPage, loadedPages, totalPages]);
 
-  // Notifica o consumidor quando a seleção muda
   useEffect(() => {
     onSelectedRowsChange?.(selectedRows);
   }, [selectedRows, onSelectedRowsChange]);
 
-  // Expõe o setter de seleção para controle externo
   useEffect(() => {
     onUpdateSelectedRows?.((ids) => setSelectedRows(ids));
   }, [onUpdateSelectedRows]);

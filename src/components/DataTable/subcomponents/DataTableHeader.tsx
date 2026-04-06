@@ -70,8 +70,8 @@ export const DataTableHeader: React.FC<DataTableHeaderProps> = ({
         }}
       >
         <InputSearch
+          isSkeleton={skeleton}
           placeholder="Procurar"
-          disabled={skeleton}
           onDebouncedChange={handleDebouncedChange}
           debounceMs={0}
           onKeyDown={handleKeyDown}

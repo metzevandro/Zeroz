@@ -1,11 +1,11 @@
 'use strict';
 
-var DataTable = require('../../DataTable-D6tWXID1.js');
+var DataTable = require('../../DataTable-CG6t4DHK.js');
 require('react/jsx-runtime');
 require('../../EmptyState-BwOewAIp.js');
 require('../../Icon-BUoiqqF-.js');
 require('react');
-require('../../InputSearch-Ko4GB1UA.js');
+require('../../InputSearch-D_yDg_jR.js');
 require('../../ButtonIcon-D_zBPQVl.js');
 require('../../Skeleton-CzoMYdQv.js');
 require('../../Checkbox-BRo1-vUi.js');

@@ -38,7 +38,7 @@ export const DataTableRowHeader: React.FC<DataTableRowHeaderProps> = ({
       {withCheckbox && (
         <div className="data-table-body-header-checkbox">
           {skeleton ? (
-            <Skeleton height="24" width="24" />
+            <Skeleton height="24px" width="24px" />
           ) : (
             <Checkbox
               indeterminate={someSelected}
@@ -57,7 +57,7 @@ export const DataTableRowHeader: React.FC<DataTableRowHeaderProps> = ({
           onClick={() => onSort(index)}
         >
           {skeleton ? (
-            <Skeleton height="24" width="80" />
+            <Skeleton height="24px" width="80px" />
           ) : (
             <>
               {header}

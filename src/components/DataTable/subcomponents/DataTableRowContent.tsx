@@ -18,7 +18,7 @@ export const DataTableRowContent: React.FC<DataTableRowContentProps> = ({
 }) => {
   return (
     <div className="data-table-row-content" style={style}>
-      {skeleton ? <Skeleton height="24" width="80" /> : children}
+      {skeleton ? <Skeleton height="24px" width="80px" /> : children}
     </div>
   );
 };
