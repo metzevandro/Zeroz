@@ -49,4 +49,10 @@ export interface InputSearchProps extends React.InputHTMLAttributes<HTMLInputEle
    * ```
    */
   value?: string;
+
+  /**
+   * Shows a skeleton placeholder instead of the input field.
+   * Useful when the search is part of a loading state.
+   */
+  isSkeleton?: boolean;
 }

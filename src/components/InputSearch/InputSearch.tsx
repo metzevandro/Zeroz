@@ -1,9 +1,11 @@
 import "./InputSearch.scss";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import Icon from "../Icon/Icon";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
+import Skeleton from "../Skeleton/Skeleton";
 import { InputSearchProps } from "./InputSearch.types";
 import { useInputSearch } from "./hooks/useInputSearch";
+import { useElementDimensions } from "./hooks/useInputSearchDimensions";
 
 /**
  * `InputSearch` is a search input with a clear button and built-in debounce support.
@@ -40,6 +42,7 @@ import { useInputSearch } from "./hooks/useInputSearch";
  * ```
  */
 
+
 const InputSearch: React.FC<InputSearchProps> = ({
   placeholder,
   disabled = false,
@@ -47,8 +50,11 @@ const InputSearch: React.FC<InputSearchProps> = ({
   onDebouncedChange,
   debounceMs = 300,
   value,
+  isSkeleton,
   ...rest
 }) => {
+const { ref: containerRef, dimensions } = useElementDimensions<HTMLDivElement>();
+
   const {
     inputValue,
     inputRef,
@@ -58,8 +64,15 @@ const InputSearch: React.FC<InputSearchProps> = ({
     handleClear,
   } = useInputSearch({ value, debounceMs, onChange, onDebouncedChange });
 
+  if (isSkeleton && dimensions.width > 0) {
+    return (
+      <Skeleton width={`${dimensions.width}px`} height={`${dimensions.height}px`} />
+    );
+  }
+
   return (
     <div
+      ref={containerRef}
       className={`input-search-root ${disabled ? "disabled" : ""}`}
       onClick={handleFocus}
     >
