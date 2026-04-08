@@ -27,6 +27,7 @@ import { useDataTable } from "./hooks/useDataTable";
  *   busca ou sort. Os dados anteriores permanecem visíveis com opacidade
  *   reduzida até a resposta chegar, evitando flicker.
  */
+
 const DataTable: React.FC<DataTableProps> = ({
   columns,
   data,
@@ -43,7 +44,6 @@ const DataTable: React.FC<DataTableProps> = ({
   const {
     currentPage,
     currentRows,
-    visibleData,
     totalPages,
     loadedPages,
     selectedRows,
@@ -69,14 +69,12 @@ const DataTable: React.FC<DataTableProps> = ({
   const columnKeys = columns.map((col) => col.key);
   const columnLabels = columns.map((col) => col.label);
 
-  const indexedData = data.map((row, i) => ({ ...row, id: String(i) }));
+  const indexedData = data.map((row, i) => ({ ...row, id: row.id ?? String(i) }));
   const columnWidths = useColumnWidths(columns, indexedData);
   const { ref, isOverflowed } = useOverflowDetection();
 
   const isInitialLoading = skeleton && data.length === 0;
-
   const isRefreshing = skeleton && data.length > 0;
-
   const isEmpty = currentRows.length === 0 && !skeleton;
 
   return (

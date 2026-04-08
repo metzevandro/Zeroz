@@ -1,4 +1,3 @@
-// useDataTable.ts
 import { useState, useEffect, useCallback, useRef } from "react";
 import { DataTableProps, SortDirection } from "../DataTable.types";
 
@@ -45,6 +44,16 @@ export function useDataTable({
   const rowIdMap = useRef(new Map<string, string>());
   const idCounter = useRef(0);
 
+  const onSelectedRowsChangeRef = useRef(onSelectedRowsChange);
+  useEffect(() => {
+    onSelectedRowsChangeRef.current = onSelectedRowsChange;
+  }, [onSelectedRowsChange]);
+
+  const onUpdateSelectedRowsRef = useRef(onUpdateSelectedRows);
+  useEffect(() => {
+    onUpdateSelectedRowsRef.current = onUpdateSelectedRows;
+  }, [onUpdateSelectedRows]);
+
   const indexedData = data.map((row) => {
     const stableKey = String(row.id ?? JSON.stringify(row));
     if (!rowIdMap.current.has(stableKey)) {
@@ -70,12 +79,12 @@ export function useDataTable({
   }, [currentPage, loadedPages, totalPages]);
 
   useEffect(() => {
-    onSelectedRowsChange?.(selectedRows);
-  }, [selectedRows, onSelectedRowsChange]);
+    onSelectedRowsChangeRef.current?.(selectedRows);
+  }, [selectedRows]);
 
   useEffect(() => {
-    onUpdateSelectedRows?.((ids) => setSelectedRows(ids));
-  }, [onUpdateSelectedRows]);
+    onUpdateSelectedRowsRef.current?.((ids) => setSelectedRows(ids));
+  }, []);
 
   const handleSearch = useCallback(
     (query: string) => {
@@ -94,7 +103,6 @@ export function useDataTable({
         const nextDirection =
           cycle[(cycle.indexOf(current) + 1) % cycle.length];
         next[columnIndex] = nextDirection;
-
         onSort?.({ columnIndex, direction: nextDirection });
         return next;
       });
