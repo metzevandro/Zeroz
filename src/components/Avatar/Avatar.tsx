@@ -45,7 +45,7 @@ const Avatar: React.FC<AvatarProps> = ({ size, src, skeleton, letter }) => {
     const sizeInPixels = String(AVATAR_SIZE_MAP[size]);
     return (
       <div className="avatar">
-        <Skeleton height={sizeInPixels} width={sizeInPixels} circle />
+        <Skeleton height={`${sizeInPixels}px`} width={`${sizeInPixels}px`} circle />
       </div>
     );
   }
