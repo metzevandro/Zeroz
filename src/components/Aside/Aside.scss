@@ -55,12 +55,14 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        align-items: start;
+        gap: var(--s-spacing-xx-small);
       }
 
       .aside-description {
         color: var(--s-color-content-light);
         font: var(--s-typography-paragraph-regular);
-        word-break: break-all;
+        word-break: normal;
       }
     }
     .aside-children {
