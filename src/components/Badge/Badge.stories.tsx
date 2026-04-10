@@ -10,25 +10,67 @@ const meta: Meta<typeof Badge> = {
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
-
     docs: {
       description: {
-        component:
-          "A compact inline label used to communicate status, category, or metadata. Supports semantic color variants and two visual styles.",
+        component: `
+O **Badge** é um rótulo inline compacto usado para comunicar status, categoria ou metadados.
+
+Renderiza como elemento inline — seguro para uso dentro de células de tabela,
+itens de lista, cards ou ao lado de qualquer conteúdo inline.
+
+> Mantenha o \`label\` curto — badges não são adequados para textos longos.
+> Use no máximo uma palavra ou uma expressão breve.
+
+### Combinação type × variant
+As props \`type\` e \`variant\` trabalham em conjunto para definir a aparência final:
+
+| variant   | type      | resultado                                  |
+|-----------|-----------|--------------------------------------------|
+| default   | default   | Sólido neutro                              |
+| default   | light     | Neutro com borda                           |
+| primary   | default   | Sólido na cor de destaque                  |
+| primary   | light     | Destaque claro com borda                   |
+| success   | default   | Sólido verde                               |
+| success   | light     | Verde claro com borda                      |
+| warning   | default   | Sólido vermelho                            |
+| warning   | light     | Vermelho claro com borda                   |
+
+### Quando usar
+- Indicadores de status em tabelas e listas: "Ativo", "Pendente", "Enviado"
+- Tags de categoria em cards ou itens de navegação
+- Sinalizadores de feature ou ambiente: "Beta", "Novo"
+- Contadores ou rótulos compactos em itens de menu
+
+### Quando não usar
+- Como único indicador de estado — sempre complemente com texto ou ícone para acessibilidade
+- Para ações clicáveis — prefira um \`Button\` com variante adequada
+        `,
       },
+    },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=435-10006",
     },
   },
   argTypes: {
     label: {
       control: "text",
-      description: "Text content displayed inside the badge",
-      table: { defaultValue: { summary: "Label" } },
+      description:
+        "Texto exibido dentro do badge. Mantenha curto — uma palavra ou expressão breve.",
+      table: {
+        defaultValue: { summary: "Label" },
+        type: { summary: "string" },
+      },
     },
     type: {
       control: "radio",
       options: ["default", "light"] satisfies BadgeType[],
-      description: "Visual style — solid fill or light bordered",
-      table: { defaultValue: { summary: "default" } },
+      description:
+        "Estilo visual. `default` = fundo sólido sem borda. `light` = fundo claro com borda colorida.",
+      table: {
+        defaultValue: { summary: "default" },
+        type: { summary: '"default" | "light"' },
+      },
     },
     variant: {
       control: "select",
@@ -38,8 +80,12 @@ const meta: Meta<typeof Badge> = {
         "success",
         "warning",
       ] satisfies BadgeVariant[],
-      description: "Semantic color intent of the badge",
-      table: { defaultValue: { summary: "default" } },
+      description:
+        "Intenção semântica de cor. Combina com `type` para definir a aparência final.",
+      table: {
+        defaultValue: { summary: "default" },
+        type: { summary: '"default" | "primary" | "success" | "warning"' },
+      },
     },
   },
 };
@@ -47,8 +93,12 @@ const meta: Meta<typeof Badge> = {
 export default meta;
 type Story = StoryObj<typeof Badge>;
 
-// --- Playground ---
+// ─── 1. Playground ────────────────────────────────────────────────────────────
 
+/**
+ * Story interativa para explorar todas as combinações de props via Controls.
+ * Ponto de entrada recomendado para inspecionar o componente.
+ */
 export const Playground: Story = {
   name: "Playground",
   args: {
@@ -58,51 +108,83 @@ export const Playground: Story = {
   },
 };
 
-// --- Individual variants (default type) ---
+// ─── 2. Variantes — tipo sólido (default) ────────────────────────────────────
 
+/**
+ * Variante neutra sem intenção semântica.
+ * Use para estados genéricos como "Rascunho" ou metadados sem significado de status.
+ */
 export const Default: Story = {
   name: "Default",
-  args: { label: "Default", type: "default", variant: "default" },
+  args: { label: "Padrão", type: "default", variant: "default" },
 };
 
+/**
+ * Variante de destaque — fundo sólido na cor primária.
+ * Use para conteúdo em evidência: "Novo", "Beta", "Em destaque".
+ */
 export const Primary: Story = {
   name: "Primary",
-  args: { label: "New", type: "default", variant: "primary" },
+  args: { label: "Novo", type: "default", variant: "primary" },
 };
 
+/**
+ * Variante de sucesso — fundo sólido verde.
+ * Use para estados positivos ou concluídos: "Ativo", "Aprovado", "Entregue".
+ */
 export const Success: Story = {
   name: "Success",
-  args: { label: "Active", type: "default", variant: "success" },
+  args: { label: "Ativo", type: "default", variant: "success" },
 };
 
+/**
+ * Variante de atenção — fundo sólido amarelo/laranja.
+ * Use para estados que requerem atenção: "Pendente", "Em análise", "Atrasado".
+ */
 export const Warning: Story = {
   name: "Warning",
-  args: { label: "Pending", type: "default", variant: "warning" },
+  args: { label: "Pendente", type: "default", variant: "warning" },
 };
 
-// --- Light type variants ---
+// ─── 3. Variantes — tipo claro com borda (light) ─────────────────────────────
 
+/**
+ * Variante neutra com borda — versão menos visualmente dominante do Default.
+ * Indicada para contextos com muito conteúdo onde o badge não deve chamar atenção.
+ */
 export const DefaultLight: Story = {
   name: "Default — Light",
-  args: { label: "Default", type: "light", variant: "default" },
+  args: { label: "Padrão", type: "light", variant: "default" },
 };
 
+/**
+ * Variante de destaque com fundo claro e borda.
+ * Use quando o contexto é denso e a versão sólida seria visualmente pesada.
+ */
 export const PrimaryLight: Story = {
   name: "Primary — Light",
-  args: { label: "New", type: "light", variant: "primary" },
+  args: { label: "Novo", type: "light", variant: "primary" },
 };
 
+/**
+ * Variante de sucesso com fundo claro e borda verde.
+ * Alternativa sutil ao Success sólido para tabelas e listagens densas.
+ */
 export const SuccessLight: Story = {
   name: "Success — Light",
-  args: { label: "Active", type: "light", variant: "success" },
+  args: { label: "Ativo", type: "light", variant: "success" },
 };
 
+/**
+ * Variante de atenção com fundo claro e borda amarelo/laranja.
+ * Alternativa sutil ao Warning sólido para contextos com menor hierarquia visual.
+ */
 export const WarningLight: Story = {
   name: "Warning — Light",
-  args: { label: "Pending", type: "light", variant: "warning" },
+  args: { label: "Pendente", type: "light", variant: "warning" },
 };
 
-// --- Full combination matrix ---
+// ─── 4. Matriz completa ───────────────────────────────────────────────────────
 
 const ALL_VARIANTS: BadgeVariant[] = [
   "default",
@@ -112,8 +194,12 @@ const ALL_VARIANTS: BadgeVariant[] = [
 ];
 const ALL_TYPES: BadgeType[] = ["default", "light"];
 
+/**
+ * Matriz completa de todas as combinações válidas de `type` × `variant`.
+ * Use para validação visual rápida após alterações de token ou tema.
+ */
 export const AllCombinations: Story = {
-  name: "All Combinations",
+  name: "Matriz completa — type × variant",
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
       {ALL_TYPES.map((type) => (
@@ -121,7 +207,7 @@ export const AllCombinations: Story = {
           key={type}
           style={{ display: "flex", alignItems: "center", gap: "8px" }}
         >
-          <h4>{type}</h4>
+          <small>{type}</small>
           {ALL_VARIANTS.map((variant) => (
             <Badge
               key={`${type}-${variant}`}
@@ -134,72 +220,57 @@ export const AllCombinations: Story = {
       ))}
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Full matrix of all valid type × variant combinations.",
-      },
-    },
-  },
 };
 
-// --- Real-world usage examples ---
+// ─── 5. Uso em contexto real ──────────────────────────────────────────────────
 
+/**
+ * Badge aplicado ao lado de conteúdo real — simulando tabelas, listas e cards.
+ * Demonstra como o componente se comporta em proporção com outros elementos.
+ */
 export const InContext: Story = {
-  name: "Real-world Examples",
+  name: "Exemplos em contexto real",
   render: () => (
     <div style={{ display: "grid", gap: "16px", width: "300px" }}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-          justifyContent: "space-between",
-        }}
-      >
-        <h4>Order #1042</h4>
-        <Badge label="Shipped" type="light" variant="success" />
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-          justifyContent: "space-between",
-        }}
-      >
-        <h4>Payment</h4>
-        <Badge label="Pending" type="light" variant="warning" />
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-          justifyContent: "space-between",
-        }}
-      >
-        <h4>Dashboard</h4>
-        <Badge label="Beta" type="default" variant="primary" />
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-          justifyContent: "space-between",
-        }}
-      >
-        <h4>Report Q3</h4>
-        <Badge label="Draft" type="default" variant="default" />
-      </div>
+      {[
+        {
+          label: "Pedido #1042",
+          badge: "Enviado",
+          type: "light" as BadgeType,
+          variant: "success" as BadgeVariant,
+        },
+        {
+          label: "Pagamento",
+          badge: "Pendente",
+          type: "light" as BadgeType,
+          variant: "warning" as BadgeVariant,
+        },
+        {
+          label: "Dashboard",
+          badge: "Beta",
+          type: "default" as BadgeType,
+          variant: "primary" as BadgeVariant,
+        },
+        {
+          label: "Relatório Q3",
+          badge: "Rascunho",
+          type: "default" as BadgeType,
+          variant: "default" as BadgeVariant,
+        },
+      ].map(({ label, badge, type, variant }) => (
+        <div
+          key={label}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "8px",
+          }}
+        >
+          <small>{label}</small>
+          <Badge label={badge} type={type} variant={variant} />
+        </div>
+      ))}
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Examples of Badge used alongside real content.",
-      },
-    },
-  },
 };
