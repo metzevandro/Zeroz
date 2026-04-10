@@ -36,11 +36,10 @@ A Sidebar se torna um overlay — controlada pelo mesmo estado de toggle.
         `,
       },
     },
-    // Descomente e ajuste quando o link do Figma estiver disponível:
-    // design: {
-    //   type: 'figma',
-    //   url: 'https://figma.com/file/SEU_FILE_KEY/AppShell?node-id=NODE_ID',
-    // },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=2416-4559",
+    },
   },
   argTypes: {
     children: {

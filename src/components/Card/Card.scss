@@ -30,6 +30,10 @@
     }
   }
 
+  &:not(:has(.card-header)) .card-content {
+    padding: var(--s-spacing-medium);
+  }
+
   .card-content {
     display: flex;
     flex-direction: column;
