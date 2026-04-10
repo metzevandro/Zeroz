@@ -14,10 +14,10 @@ const meta: Meta<typeof Avatar> = {
           "Componente de identidade visual do usuário. Exibe, em ordem de prioridade, uma imagem, as iniciais do nome ou um ícone padrão como fallback — com suporte a estado de carregamento via skeleton.\n\n**Hierarquia de renderização:** `skeleton` → `src` (imagem) → `letter` (iniciais) → ícone padrão (fallback)",
       },
     },
-     design: {
-       type: 'figma',
-       url: 'https://figma.com/file/SEU_FILE_KEY/Avatar?node-id=NODE_ID',
-     },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=435-9992",
+    },
   },
   argTypes: {
     size: {
@@ -157,17 +157,35 @@ export const SizeComparison: Story = {
   name: "Comparativo de Tamanhos",
   render: () => (
     <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-      <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
         <Avatar size="sm" letter="Anna Lee" />
-        <p style={{ fontSize: "10px", marginTop: "4px", color: "#888" }}>sm · 24px</p>
+        <small>sm · 24px</small>
       </div>
-      <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
         <Avatar size="md" letter="Anna Lee" />
-        <p style={{ fontSize: "10px", marginTop: "4px", color: "#888" }}>md · 40px</p>
+        <small>md · 40px</small>
       </div>
-      <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
         <Avatar size="lg" letter="Anna Lee" />
-        <p style={{ fontSize: "10px", marginTop: "4px", color: "#888" }}>lg · 64px</p>
+        <small>lg · 64px</small>
       </div>
     </div>
   ),
@@ -212,22 +230,29 @@ export const SkeletonAllSizes: Story = {
 export const AllVariants: Story = {
   name: "Todas as Variantes",
   render: () => (
-    <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "16px",
+      }}
+    >
       <div style={{ textAlign: "center" }}>
         <Avatar size="md" src="https://i.pravatar.cc/150?img=5" />
-        <p style={{ fontSize: "10px", marginTop: "4px", color: "#888" }}>Imagem</p>
+        <small>Imagem</small>
       </div>
       <div style={{ textAlign: "center" }}>
         <Avatar size="md" letter="João Silva" />
-        <p style={{ fontSize: "10px", marginTop: "4px", color: "#888" }}>Iniciais</p>
+        <small>Iniciais</small>
       </div>
       <div style={{ textAlign: "center" }}>
         <Avatar size="md" />
-        <p style={{ fontSize: "10px", marginTop: "4px", color: "#888" }}>Ícone</p>
+        <small>Ícone</small>
       </div>
       <div style={{ textAlign: "center" }}>
         <Avatar size="md" skeleton={true} />
-        <p style={{ fontSize: "10px", marginTop: "4px", color: "#888" }}>Skeleton</p>
+        <small>Skeleton</small>
       </div>
     </div>
   ),
@@ -251,7 +276,7 @@ export const AvatarStack: Story = {
             marginLeft: i === 0 ? 0 : "-6px",
             zIndex: 5 - i,
             position: "relative",
-            outline: "2px solid white",
+            outline: "1px solid white",
             borderRadius: "50%",
           }}
         >
