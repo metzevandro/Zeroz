@@ -43,7 +43,7 @@ Em viewports maiores, ocupa \`50%\`.
     },
     design: {
       type: "figma",
-      url: "https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=2044-19381&t=U0S8OtnquoAbHhT2-4",
+      url: "https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=435-10008",
     },
   },
   argTypes: {
