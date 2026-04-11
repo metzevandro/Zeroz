@@ -1,6 +1,6 @@
 import React from "react";
 import Icon from "../../Icon/Icon";
-import { CardDropdownState } from "../Carddropdown.types";
+import { CardDropdownState } from "../CardDropdown.types";
 
 // ─── Header ──────────────────────────────────────────────────────────────────
 
