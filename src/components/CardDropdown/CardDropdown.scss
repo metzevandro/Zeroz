@@ -53,6 +53,7 @@
 
   .card-dropdown-children {
     height: 0;
+
     &.close {
       opacity: 0;
       overflow: hidden;
@@ -61,6 +62,7 @@
 
     &.open {
       opacity: 1;
+      overflow: hidden;
       transition: all 0.5s ease-in-out;
     }
 
