@@ -1,6 +1,6 @@
 import "./Carddropdown.scss";
 import React from "react";
-import { CardDropdownProps } from "./Carddropdown.types";
+import { CardDropdownProps } from "./CardDropdown.types";
 import { useCardDropdown } from "./hooks/useCardDropdown";
 import { getDropdownState } from "./utils/cardDropdown.utils";
 import {
