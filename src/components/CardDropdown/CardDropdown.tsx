@@ -1,12 +1,10 @@
-import "./Carddropdown.scss";
+import "./CardDropdown.scss";
 import React from "react";
 import { CardDropdownProps } from "./CardDropdown.types";
-import { useCardDropdown } from "./hooks/useCardDropdown";
 import { getDropdownState } from "./utils/cardDropdown.utils";
-import {
-  CardDropdownBody,
-  CardDropdownHeader,
-} from "./subcomponents/CardDropdown.parts";
+import { useCardDropdown } from "./hooks/useCardDropdown";
+import { CardDropdownBody, CardDropdownHeader } from "./subcomponents/CardDropdown.parts";
+
 
 /**
  * `CardDropdown` is an expandable card that displays a persistent header

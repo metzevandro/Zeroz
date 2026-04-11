@@ -1,4 +1,4 @@
-import { CardDropdownState } from "../Carddropdown.types";
+import { CardDropdownState } from "../CardDropdown.types";
 
 /**
  * Returns the CSS state string corresponding to the boolean `isOpen` value.
