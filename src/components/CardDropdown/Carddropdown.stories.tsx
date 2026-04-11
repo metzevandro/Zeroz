@@ -1,7 +1,7 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { CardDropdown } from "./index";
-import type { CardDropdownProps } from "./Carddropdown.types";
+import type { CardDropdownProps } from "./CardDropdown.types";
 import { Button } from "../Button";
 import Badge from "../Badge/Badge";
 import "../../styles.scss";
