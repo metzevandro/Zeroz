@@ -12,16 +12,48 @@ const meta: Meta<typeof Breadcrumb> = {
     layout: "centered",
     docs: {
       description: {
-        component:
-          "Displays a horizontal navigation trail showing the user's current location within the application hierarchy. The last item always represents the current page and is never a link.",
+        component: `
+O **Breadcrumb** exibe uma trilha de navegação horizontal indicando a localização
+atual do usuário dentro da hierarquia da aplicação.
+
+> O componente é **ocultado em viewports ≤ 768px** via CSS.
+> Em mobile, considere expor apenas o item anterior como link de retorno.
+
+### Regras de renderização
+- Todos os itens exceto o último são renderizados como links navegáveis
+- O último item representa a página atual — renderizado como texto simples com \`aria-current="page"\` (sem link)
+- Um separador chevron (\`keyboard_arrow_right\`) é exibido entre os itens, nunca após o último
+
+### Acessibilidade
+- Envolvido em \`<nav aria-label="Breadcrumb">\` para landmark de navegação
+- Usa \`<ol>\` — elemento semântico correto para etapas sequenciais
+- Último item com \`aria-current="page"\` conforme WCAG 2.1 SC 2.4.8
+
+### Quando usar
+- Hierarquias de múltiplos níveis: e-commerce, dashboards, CMS, documentação
+- Fluxos de configuração com seções aninhadas
+- Qualquer contexto onde o usuário precisa entender onde está e poder voltar
+
+### Quando não usar
+- Navegação plana ou de único nível — o breadcrumb não agrega valor
+- Como único mecanismo de navegação em mobile — ele fica oculto abaixo de 768px
+- Com apenas um item — uma trilha de um nível não tem valor navegacional
+        `,
       },
+    },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=435-10020",
     },
   },
   argTypes: {
     items: {
       control: "object",
       description:
-        "Ordered array of breadcrumb steps. The last item is the current page (rendered as text, not a link).",
+        "Array ordenado de itens da trilha. O último item é a página atual (texto simples com `aria-current`, sem link).",
+      table: {
+        type: { summary: "BreadcrumbItem[]" },
+      },
     },
   },
 };
@@ -29,141 +61,104 @@ const meta: Meta<typeof Breadcrumb> = {
 export default meta;
 type Story = StoryObj<typeof Breadcrumb>;
 
-// --- Shared fixtures ---
+// ─── Fixtures compartilhadas ──────────────────────────────────────────────────
 
-const SHORT_TRAIL: BreadcrumbItem[] = [
-  { pageName: "Home", href: "/" },
-  { pageName: "Products", href: "/products" },
+const TRAIL_2: BreadcrumbItem[] = [
+  { pageName: "Início", href: "/" },
+  { pageName: "Produtos", href: "/produtos" },
 ];
 
-const MEDIUM_TRAIL: BreadcrumbItem[] = [
-  { pageName: "Home", href: "/" },
-  { pageName: "Products", href: "/products" },
-  { pageName: "Laptops", href: "/products/laptops" },
+const TRAIL_3: BreadcrumbItem[] = [
+  { pageName: "Início", href: "/" },
+  { pageName: "Produtos", href: "/produtos" },
+  { pageName: "Notebooks", href: "/produtos/notebooks" },
 ];
 
-const LONG_TRAIL: BreadcrumbItem[] = [
-  { pageName: "Home", href: "/" },
-  { pageName: "Store", href: "/store" },
-  { pageName: "Electronics", href: "/store/electronics" },
-  { pageName: "Laptops", href: "/store/electronics/laptops" },
-  { pageName: "MacBook Pro", href: "/store/electronics/laptops/macbook-pro" },
+const TRAIL_4: BreadcrumbItem[] = [
+  { pageName: "Início", href: "/" },
+  { pageName: "Loja", href: "/loja" },
+  { pageName: "Eletrônicos", href: "/loja/eletronicos" },
+  { pageName: "Notebooks", href: "/loja/eletronicos/notebooks" },
 ];
 
-// --- Playground ---
+const TRAIL_5: BreadcrumbItem[] = [
+  { pageName: "Início", href: "/" },
+  { pageName: "Loja", href: "/loja" },
+  { pageName: "Eletrônicos", href: "/loja/eletronicos" },
+  { pageName: "Notebooks", href: "/loja/eletronicos/notebooks" },
+  { pageName: "MacBook Pro", href: "/loja/eletronicos/notebooks/macbook-pro" },
+];
 
+// ─── 1. Playground ────────────────────────────────────────────────────────────
+
+/**
+ * Story interativa para explorar o componente via Controls.
+ * Edite o array `items` no painel para testar diferentes trilhas.
+ */
 export const Playground: Story = {
   name: "Playground",
   args: {
-    items: [
-      {
-        pageName: "Home",
-        href: "/",
-      },
-      {
-        pageName: "Products",
-        href: "/products",
-      },
-      {
-        pageName: "Laptops",
-        href: "/products/laptops",
-      },
-    ],
+    items: TRAIL_3,
   },
 };
 
-// --- Depth variations ---
+// ─── 2. Variações de profundidade ─────────────────────────────────────────────
 
+/**
+ * Dois níveis — profundidade mínima com valor navegacional.
+ * Representa raiz + página atual. Menos que isso não tem utilidade como breadcrumb.
+ */
 export const TwoLevels: Story = {
-  name: "Two levels",
-  args: { items: SHORT_TRAIL },
-  parameters: {
-    docs: {
-      description: {
-        story: "Minimum useful breadcrumb — root and current page.",
-      },
-    },
-  },
+  name: "Dois níveis",
+  args: { items: TRAIL_2 },
 };
 
+/**
+ * Três níveis — profundidade padrão para a maioria das hierarquias de aplicação.
+ * Cobre a combinação mais comum: raiz → seção → página atual.
+ */
 export const ThreeLevels: Story = {
-  name: "Three levels",
-  args: { items: MEDIUM_TRAIL },
-  parameters: {
-    docs: {
-      description: {
-        story: "Standard depth for most application hierarchies.",
-      },
-    },
-  },
+  name: "Três níveis",
+  args: { items: TRAIL_3 },
 };
 
+/**
+ * Quatro níveis — hierarquia intermediária.
+ * Comum em dashboards com subseções: raiz → módulo → seção → página atual.
+ */
+export const FourLevels: Story = {
+  name: "Quatro níveis",
+  args: { items: TRAIL_4 },
+};
+
+/**
+ * Cinco níveis — hierarquia profunda.
+ * Valida o comportamento com trilhas longas. Em produção, considere truncar
+ * os itens do meio para evitar sobrecarga visual.
+ */
 export const FiveLevels: Story = {
-  name: "Five levels (deep hierarchy)",
-  args: { items: LONG_TRAIL },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Deep hierarchy trail. Consider truncating middle items for very long paths.",
-      },
-    },
-  },
+  name: "Cinco níveis (hierarquia profunda)",
+  args: { items: TRAIL_5 },
 };
 
-// --- Edge cases ---
+// ─── 3. Contexto real ─────────────────────────────────────────────────────────
 
-export const SingleItem: Story = {
-  name: "Single item (edge case)",
-  args: {
-    items: [{ pageName: "Home", href: "/" }],
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'A single item renders as plain text with `aria-current="page"`. Avoid this in production — a one-item breadcrumb has no navigational value.',
-      },
-    },
-  },
-};
-
-export const LongLabels: Story = {
-  name: "Long page names",
-  args: {
-    items: [
-      { pageName: "Home", href: "/" },
-      { pageName: "Enterprise Solutions", href: "/enterprise" },
-      {
-        pageName: "Cloud Infrastructure Management",
-        href: "/enterprise/cloud",
-      },
-    ],
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Tests layout with longer page name labels. Keep names short in production for best UX.",
-      },
-    },
-  },
-};
-
-// --- Real-world context ---
-
+/**
+ * Trilha de e-commerce — categoria → subcategoria → produto.
+ * Demonstra o uso em páginas de produto com título de página abaixo.
+ */
 export const EcommerceTrail: Story = {
-  name: "Real-world — E-commerce",
+  name: "Contexto real — E-commerce",
   render: () => (
     <div style={{ padding: "16px" }}>
       <Breadcrumb
         items={[
-          { pageName: "Home", href: "/" },
-          { pageName: "Electronics", href: "/electronics" },
-          { pageName: "Laptops", href: "/electronics/laptops" },
+          { pageName: "Início", href: "/" },
+          { pageName: "Eletrônicos", href: "/eletronicos" },
+          { pageName: "Notebooks", href: "/eletronicos/notebooks" },
           {
             pageName: 'MacBook Pro 14"',
-            href: "/electronics/laptops/macbook-pro-14",
+            href: "/eletronicos/notebooks/macbook-pro-14",
           },
         ]}
       />
@@ -172,38 +167,104 @@ export const EcommerceTrail: Story = {
       </h1>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Breadcrumb in a typical e-commerce product page context, paired with a page heading.",
-      },
-    },
-  },
 };
 
+/**
+ * Trilha de dashboard — módulo de configurações com subseção.
+ * Padrão típico de painéis administrativos com navegação aninhada.
+ */
 export const DashboardTrail: Story = {
-  name: "Real-world — Dashboard",
+  name: "Contexto real — Dashboard",
   render: () => (
     <div style={{ padding: "16px" }}>
       <Breadcrumb
         items={[
           { pageName: "Dashboard", href: "/dashboard" },
-          { pageName: "Settings", href: "/dashboard/settings" },
+          { pageName: "Configurações", href: "/dashboard/configuracoes" },
           {
-            pageName: "Notifications",
-            href: "/dashboard/settings/notifications",
+            pageName: "Notificações",
+            href: "/dashboard/configuracoes/notificacoes",
           },
         ]}
       />
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Breadcrumb used within a settings or configuration section of a dashboard.",
+};
+
+/**
+ * Trilha integrada ao Header — uso real dentro do AppShell.
+ * Demonstra como o Breadcrumb se comporta quando compõe o Header da aplicação.
+ */
+export const InsideHeader: Story = {
+  name: "Contexto real — dentro do Header",
+  render: () => (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        padding: "12px 24px",
+        background: "var(--s-color-fill-default, #fff)",
+        borderBottom: "1px solid var(--s-color-border-default, #eee)",
+        width: "500px",
+      }}
+    >
+      <Breadcrumb
+        items={[
+          { pageName: "Dashboard", href: "/dashboard" },
+          { pageName: "Usuários", href: "/dashboard/usuarios" },
+          { pageName: "Perfil", href: "/dashboard/usuarios/perfil" },
+        ]}
+      />
+    </div>
+  ),
+};
+
+// ─── 4. Edge cases ────────────────────────────────────────────────────────────
+
+/**
+ * Item único — edge case sem valor navegacional.
+ * Renderiza como texto com `aria-current="page"` sem nenhum link.
+ * Evite em produção: uma trilha de um item não orienta o usuário.
+ */
+export const SingleItem: Story = {
+  name: "Edge case — item único",
+  args: {
+    items: [{ pageName: "Início", href: "/" }],
+  },
+};
+
+/**
+ * Labels longos — valida o comportamento de layout com nomes de página extensos.
+ * Mantenha os nomes curtos em produção para melhor legibilidade.
+ */
+export const LongLabels: Story = {
+  name: "Edge case — labels longos",
+  args: {
+    items: [
+      { pageName: "Início", href: "/" },
+      { pageName: "Soluções Empresariais", href: "/empresarial" },
+      {
+        pageName: "Gerenciamento de Infraestrutura em Nuvem",
+        href: "/empresarial/nuvem",
       },
-    },
+    ],
+  },
+};
+
+/**
+ * Caracteres especiais e acentuação — valida renderização com texto em PT-BR
+ * contendo acentos, cedilhas e outros caracteres Unicode comuns.
+ */
+export const SpecialChars: Story = {
+  name: "Edge case — caracteres especiais",
+  args: {
+    items: [
+      { pageName: "Início", href: "/" },
+      { pageName: "Configurações & Preferências", href: "/configuracoes" },
+      {
+        pageName: "Notificações por E-mail",
+        href: "/configuracoes/notificacoes",
+      },
+    ],
   },
 };
