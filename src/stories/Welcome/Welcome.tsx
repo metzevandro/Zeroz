@@ -18,14 +18,14 @@ export const Welcome = () => {
             href="https://github.com/metzevandro/Zeroz"
             style={{ display: "flex" }}
           >
-            <p>Github</p>
+            <p style={{color: 'white'}}>Github</p>
             <Icon icon="arrow_forward" size="sm" />
           </a>
           <a
             href="https://www.figma.com/file/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?type=design&node-id=21-4682&mode=design&t=a2ofpy8lnxJjcG1Z-0"
             style={{ display: "flex" }}
           >
-            <p>Figma</p>
+            <p style={{color: 'white'}}>Figma</p>
             <Icon icon="arrow_forward" size="sm" />
           </a>
         </div>
