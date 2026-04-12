@@ -12,11 +12,17 @@ import { useDropdownToggle } from "../hooks/useDropdownToggle";
  * that can contain any content — typically `<DropdownItem>` entries.
  * The dropdown closes automatically when the user clicks outside.
  *
+ * The `children` must be a `<Dropdown>` component — `visible` and `align="right"`
+ * are injected automatically via `React.cloneElement`, so the consumer does not
+ * need to manage the `visible` prop manually.
+ *
  * @example
  * ```tsx
  * <HeaderProfile name="Jane Doe" letter="J" avatar_src={avatarUrl}>
- *   <DropdownItem typeIcon="person" content="Profile" />
- *   <DropdownItem typeIcon="logout" content="Sign out" onClick={signOut} />
+ *   <Dropdown>
+ *     <DropdownItem icon="person" label="Profile" />
+ *     <DropdownItem icon="logout" label="Sign out" onClick={signOut} />
+ *   </Dropdown>
  * </HeaderProfile>
  * ```
  */
@@ -27,10 +33,16 @@ export const HeaderProfile: React.FC<HeaderProfileProps> = ({
   letter,
   skeleton,
 }) => {
-  const { isOpen, dropdownHeight, dropdownRef, contentRef, toggle } =
-    useDropdownToggle();
+  const { isOpen, dropdownRef, toggle } = useDropdownToggle();
 
   const state = isOpen ? "open" : "close";
+
+  const dropdown = React.isValidElement(children)
+    ? React.cloneElement(
+        children as React.ReactElement<{ visible: boolean; align: string }>,
+        { visible: isOpen, align: "right" }
+      )
+    : children;
 
   return (
     <div ref={dropdownRef} className="profile-root">
@@ -55,13 +67,7 @@ export const HeaderProfile: React.FC<HeaderProfileProps> = ({
         </div>
       </div>
 
-      <div
-        className={`dropdown ${state}`}
-        ref={contentRef}
-        style={{ maxHeight: isOpen ? `${dropdownHeight}px` : "0" }}
-      >
-        {children}
-      </div>
+      {dropdown}
     </div>
   );
 };
