@@ -1,5 +1,7 @@
 import React from "react";
 
+export type DropdownAlign = "left" | "right";
+
 export interface DropdownProps {
   /**
    * Content rendered inside the dropdown menu.
@@ -12,6 +14,18 @@ export interface DropdownProps {
    * When `false`, the menu is not rendered into the DOM.
    */
   visible: boolean;
+
+  /**
+   * Controls which edge of the trigger the menu panel is anchored to.
+   *
+   * - `"left"` *(default)* — panel expands to the right (left edges aligned).
+   * - `"right"` — panel expands to the left (right edges aligned).
+   *   Use this when the trigger is near the right edge of the viewport
+   *   to prevent the menu from overflowing off-screen.
+   *
+   * @default "left"
+   */
+  align?: DropdownAlign;
 }
 
 export interface DropdownTitleProps {

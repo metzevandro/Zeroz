@@ -21,3 +21,5 @@ export const DropdownItem: React.FC<DropdownItemProps> = ({
     {label}
   </button>
 );
+
+DropdownItem.displayName = "DropdownItem";

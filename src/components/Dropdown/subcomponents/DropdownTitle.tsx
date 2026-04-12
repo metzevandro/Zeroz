@@ -16,3 +16,5 @@ import { DropdownTitleProps } from "../Dropdown.types";
 export const DropdownTitle: React.FC<DropdownTitleProps> = ({ label }) => (
   <div className="dropdown-menu-title">{label}</div>
 );
+
+DropdownTitle.displayName = "DropdownTitle";
