@@ -45,7 +45,6 @@ $skeleton-gradient: linear-gradient(
   content: "";
   inline-size: 100%;
   @include skeleton;
-  transform: translate(-50%, 0);
 }
 
 @keyframes skeleton {
