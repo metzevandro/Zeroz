@@ -238,19 +238,47 @@ export const AllVariants: Story = {
         gap: "16px",
       }}
     >
-      <div style={{ textAlign: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
         <Avatar size="md" src="https://i.pravatar.cc/150?img=5" />
         <small>Imagem</small>
       </div>
-      <div style={{ textAlign: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
         <Avatar size="md" letter="João Silva" />
         <small>Iniciais</small>
       </div>
-      <div style={{ textAlign: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
         <Avatar size="md" />
         <small>Ícone</small>
       </div>
-      <div style={{ textAlign: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
         <Avatar size="md" skeleton={true} />
         <small>Skeleton</small>
       </div>
