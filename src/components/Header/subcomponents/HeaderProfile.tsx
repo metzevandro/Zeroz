@@ -40,13 +40,18 @@ export const HeaderProfile: React.FC<HeaderProfileProps> = ({
   const dropdown = React.isValidElement(children)
     ? React.cloneElement(
         children as React.ReactElement<{ visible: boolean; align: string }>,
-        { visible: isOpen, align: "right" }
+        { visible: isOpen, align: "right" },
       )
     : children;
 
   return (
     <div ref={dropdownRef} className="profile-root">
-      <div className="profile" tabIndex={0} onClick={toggle}>
+      <button
+        className="profile"
+        tabIndex={0}
+        onClick={toggle}
+        disabled={skeleton}
+      >
         <div className="avatar">
           <Avatar
             skeleton={skeleton}
@@ -57,7 +62,7 @@ export const HeaderProfile: React.FC<HeaderProfileProps> = ({
         </div>
 
         {skeleton ? (
-          <Skeleton height="24" width="70" />
+          <Skeleton height="24px" width="70px" />
         ) : (
           <h1 className="name">{name}</h1>
         )}
@@ -65,7 +70,7 @@ export const HeaderProfile: React.FC<HeaderProfileProps> = ({
         <div className={`icon ${state}`}>
           <Icon size="sm" icon="keyboard_arrow_down" />
         </div>
-      </div>
+      </button>
 
       {dropdown}
     </div>

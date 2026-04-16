@@ -24,7 +24,12 @@ import "../../styles.scss";
  * </Header>
  * ```
  */
-const Header: React.FC<HeaderProps> = ({ children, onClick, breadcrumb }) => (
+const Header: React.FC<HeaderProps> = ({
+  children,
+  onClick,
+  breadcrumb,
+  skeleton,
+}) => (
   <header className="header-root">
     <div>
       <div className="header-action">
@@ -34,6 +39,7 @@ const Header: React.FC<HeaderProps> = ({ children, onClick, breadcrumb }) => (
           size="md"
           icon="menu"
           onClick={onClick}
+          skeleton={skeleton}
         />
       </div>
       <div className="header-breadcrumb">{breadcrumb}</div>
