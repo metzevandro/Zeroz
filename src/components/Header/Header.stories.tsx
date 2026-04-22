@@ -1,12 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
-import Header from "./Header";
-import { HeaderProfile } from "./subcomponents/HeaderProfile";
-import Dropdown from "../Dropdown/Dropdown";
+import { Header, HeaderProfile } from "./index";
+import { Dropdown, DropdownItem, DropdownTitle } from "../Dropdown";
 import Breadcrumb from "../Breadcrumb";
-import { DropdownItem } from "../Dropdown/subcomponents/DropdownItem";
-
-// ─── Meta ─────────────────────────────────────────────────────────────────────
+import "../../styles.scss";
 
 const meta: Meta<typeof Header> = {
   title: "Components/Header",
@@ -17,77 +14,130 @@ const meta: Meta<typeof Header> = {
     docs: {
       description: {
         component: `
-**Header** is the top-level application bar composed of three zones:
+O **Header** é a barra superior persistente da aplicação, composta por três zonas:
 
-- **Left** — hamburger menu button (fires \`onClick\`)
-- **Center** — breadcrumb slot (any \`ReactNode\`)
-- **Right** — \`children\` slot, typically a \`<HeaderProfile>\`
+| Zona         | Conteúdo                                                        |
+|--------------|-----------------------------------------------------------------|
+| **Esquerda** | Botão hambúrguer — dispara \`onClick\` (toggle da sidebar)      |
+| **Centro**   | Slot de breadcrumb — aceita qualquer \`ReactNode\`              |
+| **Direita**  | Slot \`children\` — tipicamente um \`<HeaderProfile>\`          |
 
-Pair it with \`<HeaderProfile>\` for the standard user avatar + dropdown pattern.
+### HeaderProfile
+Subcomponente que exibe o avatar e o nome do usuário no lado direito.
+Ao ser clicado, abre o \`<Dropdown>\` passado como \`children\` —
+o \`HeaderProfile\` injeta \`visible\` e \`align="right"\` automaticamente
+via \`React.cloneElement\`, por isso **não é necessário passar \`visible\`** ao \`<Dropdown>\`.
 
-### When to use
-- As the persistent top bar in a dashboard or admin layout
-- Whenever you need a global navigation trigger (sidebar toggle) and breadcrumb context
+### Responsividade
+Em viewports \`≤ 768px\` o breadcrumb fica oculto, o botão hambúrguer aparece
+e o avatar perde o nome e o chevron — exibindo apenas o ícone circular.
 
-### Best practices
-- Keep the \`breadcrumb\` slot concise — it should reflect the current page context
-- Use \`<HeaderProfile>\` for user identity; avoid placing unrelated actions in the right slot
-- Pass \`skeleton\` to \`<HeaderProfile>\` while user data is loading to prevent layout shift
+### Quando usar
+- Como barra superior persistente em dashboards e painéis administrativos
+- Sempre que precisar de um gatilho de navegação global (toggle de sidebar) e contexto de breadcrumb
+
+### Boas práticas
+- Mantenha o slot \`breadcrumb\` conciso — deve refletir o contexto da página atual
+- Use \`<HeaderProfile>\` para identidade do usuário; evite colocar ações não relacionadas no slot direito
+- Passe \`skeleton\` ao \`<HeaderProfile>\` enquanto os dados do usuário estão carregando para evitar layout shift
         `,
       },
+    },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=435-10019",
     },
   },
   argTypes: {
     onClick: {
       action: "onClick",
-      description: "Fired when the hamburger menu button is clicked.",
+      description:
+        "Disparado quando o botão hambúrguer é clicado. Tipicamente usado para abrir/fechar a sidebar.",
+      table: { type: { summary: "() => void" } },
     },
     breadcrumb: {
       control: false,
-      description: "Breadcrumb content rendered in the center of the header.",
+      description:
+        "Conteúdo de breadcrumb renderizado no centro do header. Aceita qualquer `ReactNode`.",
+      table: { type: { summary: "React.ReactNode" } },
     },
     children: {
       control: false,
-      description: "Right-side slot — typically `<HeaderProfile>`.",
+      description:
+        "Slot direito — tipicamente `<HeaderProfile>`. Aceita qualquer `ReactNode`.",
+      table: { type: { summary: "React.ReactNode" } },
+    },
+    skeleton: {
+      control: "boolean",
+      description:
+        "Quando `true`, repassa o estado de skeleton ao `ButtonIcon` do hambúrguer.",
+      table: {
+        defaultValue: { summary: "false" },
+        type: { summary: "boolean" },
+      },
     },
   },
+  decorators: [
+    (Story) => (
+      <div style={{ minHeight: "300px" }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof Header>;
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+// ─── Fixture compartilhada ────────────────────────────────────────────────────
 
 const defaultBreadcrumb = (
   <Breadcrumb
     items={[
-      { pageName: "Home", href: "#" },
+      { pageName: "Início", href: "#" },
       { pageName: "Dashboard", href: "#" },
     ]}
   />
 );
 
-// ─── Stories ──────────────────────────────────────────────────────────────────
+const defaultDropdown = (
+  <Dropdown>
+    <DropdownTitle label="Conta" />
+    <DropdownItem icon="person" label="Meu perfil" onClick={() => {}} />
+    <DropdownItem icon="settings" label="Configurações" onClick={() => {}} />
+    <DropdownTitle label="Sessão" />
+    <DropdownItem icon="logout" label="Sair" onClick={() => {}} />
+  </Dropdown>
+);
 
-/** Full header with profile dropdown. */
+// ─── 1. Default ───────────────────────────────────────────────────────────────
+
+/**
+ * Header completo com perfil do usuário e dropdown.
+ * Clique no perfil para abrir o menu — `visible` é injetado automaticamente
+ * pelo `HeaderProfile` via `React.cloneElement`.
+ */
 export const Default: Story = {
+  name: "Default",
   args: {
     onClick: () => {},
     breadcrumb: defaultBreadcrumb,
     children: (
       <HeaderProfile name="Jane Doe" letter="J">
-        <Dropdown visible={true}>
-          <DropdownItem label="Profile" icon="person" />
-          <DropdownItem label="Sign out" icon="logout" />
-        </Dropdown>
+        {defaultDropdown}
       </HeaderProfile>
     ),
   },
 };
 
-/** Header with avatar image in the profile. */
+// ─── 2. Variações do HeaderProfile ────────────────────────────────────────────
+
+/**
+ * HeaderProfile com imagem de avatar via `avatar_src`.
+ * Quando fornecido, o avatar exibe a foto no lugar das iniciais.
+ */
 export const WithAvatar: Story = {
-  name: "With avatar image",
+  name: "HeaderProfile — com imagem de avatar",
   args: {
     onClick: () => {},
     breadcrumb: defaultBreadcrumb,
@@ -96,52 +146,89 @@ export const WithAvatar: Story = {
         name="Jane Doe"
         avatar_src="https://i.pravatar.cc/150?img=47"
       >
-        <Dropdown visible={true}>
-          <DropdownItem label="Profile" />
-          <DropdownItem label="Sign out" />
-        </Dropdown>
+        {defaultDropdown}
       </HeaderProfile>
     ),
   },
 };
 
-/** Skeleton loading state — user data not yet available. */
+/**
+ * HeaderProfile em estado skeleton — dados do usuário ainda não carregados.
+ * Nome e avatar são substituídos por placeholders. O botão de perfil fica
+ * desabilitado para bloquear interação durante o carregamento.
+ */
 export const Skeleton: Story = {
+  name: "HeaderProfile — skeleton (carregando)",
   args: {
     onClick: () => {},
     breadcrumb: defaultBreadcrumb,
     children: (
       <HeaderProfile name="" letter="" skeleton>
-        <Dropdown visible={true}>
-          <DropdownItem label="Profile" />
-        </Dropdown>
+        {defaultDropdown}
       </HeaderProfile>
     ),
   },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Pass `skeleton` to `HeaderProfile` while user data is fetching. The name and avatar are replaced with placeholders.",
-      },
-    },
-  },
 };
 
-/** Header without a profile — breadcrumb and menu only. */
+// ─── 3. Variações do Header ───────────────────────────────────────────────────
+
+/**
+ * Header sem perfil — apenas botão hambúrguer e breadcrumb.
+ * O slot `children` é opcional — omita-o para um header mínimo.
+ */
 export const NoProfile: Story = {
-  name: "No profile",
+  name: "Header — sem perfil",
   args: {
     onClick: () => {},
     breadcrumb: defaultBreadcrumb,
     children: null,
   },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "The right-side `children` slot is optional — omit it for a minimal header with only the menu button and breadcrumb.",
-      },
-    },
+};
+
+/**
+ * Header com breadcrumb aninhado de múltiplos níveis.
+ * Valida o comportamento com rotas mais profundas na hierarquia.
+ */
+export const DeepBreadcrumb: Story = {
+  name: "Header — breadcrumb aninhado",
+  args: {
+    onClick: () => {},
+    breadcrumb: (
+      <Breadcrumb
+        items={[
+          { pageName: "Início", href: "#" },
+          { pageName: "Configurações", href: "#" },
+          { pageName: "Conta", href: "#" },
+          { pageName: "Faturamento", href: "#" },
+        ]}
+      />
+    ),
+    children: (
+      <HeaderProfile name="Jane Doe" letter="J">
+        {defaultDropdown}
+      </HeaderProfile>
+    ),
+  },
+};
+
+// ─── 4. Mobile ────────────────────────────────────────────────────────────────
+
+/**
+ * Layout mobile (≤ 768px) — breadcrumb oculto, botão hambúrguer visível,
+ * avatar sem nome e sem chevron.
+ */
+export const MobileLayout: Story = {
+  name: "Layout mobile (≤ 768px)",
+  globals: {
+    viewport: { value: "mobile5", isRotated: false },
+  },
+  args: {
+    onClick: () => {},
+    breadcrumb: defaultBreadcrumb,
+    children: (
+      <HeaderProfile name="Jane Doe" letter="J">
+        {defaultDropdown}
+      </HeaderProfile>
+    ),
   },
 };
