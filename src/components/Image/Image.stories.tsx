@@ -1,58 +1,77 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Image from "./Image";
 import React from "react";
-
-// ─── Meta ─────────────────────────────────────────────────────────────────────
+import { Image } from "./index";
+import "../../styles.scss";
 
 const meta: Meta<typeof Image> = {
   title: "Components/Image",
   component: Image,
   tags: ["autodocs"],
   parameters: {
+    layout: "centered",
     docs: {
       description: {
         component: `
-**Image** is a thin wrapper around the native \`<img>\` element that adds
-a skeleton loading state matching the image dimensions.
+O **Image** é um wrapper fino ao redor do elemento nativo \`<img>\` que adiciona
+um estado de skeleton correspondente às dimensões da imagem.
 
-All standard \`<img>\` HTML attributes (e.g. \`loading\`, \`decoding\`, \`crossOrigin\`)
-are forwarded to the underlying element, so it can be used as a drop-in replacement.
+Todos os atributos HTML padrão de \`<img>\` (ex: \`loading\`, \`decoding\`, \`crossOrigin\`)
+são repassados ao elemento subjacente via rest spread — pode ser usado como
+substituto direto do \`<img>\` nativo.
 
-### When to use
-- Anywhere an image needs a skeleton placeholder during loading
-- When you want a consistent \`image-root\` class applied across all images in the system
+### Quando usar
+- Sempre que uma imagem precisar de um placeholder skeleton durante o carregamento
+- Para garantir a classe \`image-root\` consistente em todas as imagens do sistema
 
-### Best practices
-- Always provide a meaningful \`alt\` description for non-decorative images (WCAG 2.1 SC 1.1.1)
-- Pass an empty string \`alt=""\` only for purely decorative images
-- Provide both \`width\` and \`height\` to prevent layout shift (CLS)
-- Use \`skeleton\` while the image URL is being fetched, not while the browser loads the image itself
+### Quando não usar
+- Para ícones ou SVGs — use o componente \`Icon\`
+- Para avatares de usuário — use o componente \`Avatar\`, que já gerencia fallbacks
+
+### Boas práticas
+- Sempre forneça um \`alt\` descritivo para imagens não decorativas (WCAG 2.1 SC 1.1.1)
+- Use \`alt=""\` apenas para imagens puramente decorativas
+- Forneça \`width\` e \`height\` para evitar layout shift (CLS)
+- Use \`skeleton\` enquanto a URL da imagem está sendo buscada, não enquanto o browser carrega a imagem
         `,
       },
+    },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=1338-8872",
     },
   },
   argTypes: {
     src: {
       control: "text",
-      description: "URL of the image to display.",
+      description: "URL da imagem a exibir.",
+      table: { type: { summary: "string" } },
     },
     alt: {
       control: "text",
-      description: "Accessible description of the image.",
+      description:
+        "Descrição acessível da imagem. Obrigatória para imagens não decorativas.",
+      table: { type: { summary: "string" } },
     },
     width: {
       control: "text",
       description:
-        "Rendered width (passed to both the `<img>` and `<Skeleton>`).",
+        "Largura renderizada. Também usada para dimensionar o `<Skeleton>` quando `skeleton` é `true`.",
+      table: { type: { summary: "string" } },
     },
     height: {
       control: "text",
       description:
-        "Rendered height (passed to both the `<img>` and `<Skeleton>`).",
+        "Altura renderizada. Também usada para dimensionar o `<Skeleton>` quando `skeleton` é `true`.",
+      table: { type: { summary: "string" } },
     },
     skeleton: {
       control: "boolean",
-      description: "Renders a skeleton placeholder instead of the image.",
+      description:
+        "Renderiza um placeholder `<Skeleton>` no lugar da imagem. Use durante estados de carregamento.",
+      table: {
+        defaultValue: { summary: "false" },
+        type: { summary: "boolean" },
+      },
     },
   },
 };
@@ -60,64 +79,199 @@ are forwarded to the underlying element, so it can be used as a drop-in replacem
 export default meta;
 type Story = StoryObj<typeof Image>;
 
-// ─── Stories ──────────────────────────────────────────────────────────────────
+// ─── 1. Default ───────────────────────────────────────────────────────────────
 
-/** Standard image with explicit dimensions. */
+/**
+ * Imagem padrão com dimensões explícitas.
+ * Use os Controls para explorar as props disponíveis.
+ */
 export const Default: Story = {
+  name: "Default",
   args: {
     src: "https://picsum.photos/seed/ds/400/200",
-    alt: "Sample landscape photo",
+    alt: "Foto de paisagem de exemplo",
     width: "400",
     height: "200",
   },
 };
 
-/** Square image — common for avatars or thumbnails. */
+// ─── 2. Variações de proporção ────────────────────────────────────────────────
+
+/**
+ * Imagem quadrada — proporção comum em thumbnails e cards de produto.
+ */
 export const Square: Story = {
+  name: "Proporção — quadrada",
   args: {
-    src: "https://picsum.photos/seed/ds2/120/120",
-    alt: "Square thumbnail",
-    width: "120",
-    height: "120",
+    src: "https://picsum.photos/seed/ds2/240/240",
+    alt: "Thumbnail quadrado",
+    width: "240",
+    height: "240",
   },
 };
 
-/** Skeleton loading state matching the image dimensions. */
+/**
+ * Imagem em proporção 16:9 — padrão para banners, heroes e capas de artigo.
+ */
+export const Widescreen: Story = {
+  name: "Proporção — 16:9 (banner)",
+  args: {
+    src: "https://picsum.photos/seed/ds4/480/270",
+    alt: "Banner em proporção 16:9",
+    width: "480",
+    height: "270",
+  },
+};
+
+/**
+ * Imagem pequena — dimensões compactas para thumbnails em listas e tabelas.
+ */
+export const Thumbnail: Story = {
+  name: "Proporção — thumbnail compacto",
+  args: {
+    src: "https://picsum.photos/seed/ds5/80/80",
+    alt: "Thumbnail compacto",
+    width: "80",
+    height: "80",
+  },
+};
+
+// ─── 3. Estado skeleton ───────────────────────────────────────────────────────
+
+/**
+ * Estado de carregamento — skeleton com as mesmas dimensões da imagem.
+ * Evita layout shift quando a imagem real carrega.
+ */
 export const SkeletonState: Story = {
-  name: "Skeleton (loading)",
+  name: "Estado — skeleton (carregando)",
   args: {
     src: "https://picsum.photos/seed/ds/400/200",
-    alt: "Sample photo",
+    alt: "Foto de exemplo",
     width: "400",
     height: "200",
     skeleton: true,
   },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "The skeleton placeholder matches the same `width` and `height` as the image, preventing layout shift when the real image loads in.",
-      },
-    },
-  },
 };
 
-/** Lazy-loaded image using native browser attribute. */
+/**
+ * Comparativo entre a imagem carregada e o skeleton com as mesmas dimensões.
+ * Valida que não há layout shift entre os dois estados.
+ */
+export const SkeletonComparison: Story = {
+  name: "Estado — comparativo skeleton vs imagem",
+  render: () => (
+    <div
+      style={{
+        display: "flex",
+        gap: "var(--s-spacing-medium)",
+        alignItems: "flex-start",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--s-spacing-nano)",
+        }}
+      >
+        <Image
+          src="https://picsum.photos/seed/ds/200/120"
+          alt="Imagem carregada"
+          width="200"
+          height="120"
+          skeleton
+        />
+        <small>skeleton</small>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--s-spacing-nano)",
+        }}
+      >
+        <Image
+          src="https://picsum.photos/seed/ds/200/120"
+          alt="Imagem carregada"
+          width="200"
+          height="120"
+        />
+        <small>carregada</small>
+      </div>
+    </div>
+  ),
+};
+
+// ─── 4. Atributos nativos ─────────────────────────────────────────────────────
+
+/**
+ * Carregamento lazy via atributo nativo `loading="lazy"`.
+ * Todos os atributos HTML do `<img>` são repassados via rest spread.
+ */
 export const LazyLoaded: Story = {
-  name: "Lazy loaded",
+  name: "Atributo nativo — loading lazy",
   args: {
     src: "https://picsum.photos/seed/ds3/400/200",
-    alt: "Lazy loaded image",
+    alt: "Imagem com carregamento lazy",
     width: "400",
     height: "200",
     loading: "lazy",
   },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Native `<img>` attributes like `loading` are forwarded directly to the underlying element via the rest spread.",
-      },
-    },
-  },
+};
+
+// ─── 5. Contexto real ─────────────────────────────────────────────────────────
+
+/**
+ * Grade de imagens com skeleton — simula uma listagem de produtos
+ * em estado de carregamento inicial.
+ */
+export const LoadingGrid: Story = {
+  name: "Contexto real — grade em carregamento",
+  render: () => (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 1fr)",
+        gap: "var(--s-spacing-small)",
+      }}
+    >
+      {Array.from({ length: 6 }, (_, i) => (
+        <Image
+          key={i}
+          src={`https://picsum.photos/seed/${i}/160/120`}
+          alt={`Produto ${i + 1}`}
+          width="160"
+          height="120"
+          skeleton
+        />
+      ))}
+    </div>
+  ),
+};
+
+/**
+ * Grade de imagens carregadas — mesmo layout da story de carregamento,
+ * para comparar o estado final com o skeleton.
+ */
+export const LoadedGrid: Story = {
+  name: "Contexto real — grade carregada",
+  render: () => (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 1fr)",
+        gap: "var(--s-spacing-small)",
+      }}
+    >
+      {Array.from({ length: 6 }, (_, i) => (
+        <Image
+          key={i}
+          src={`https://picsum.photos/seed/${i}/160/120`}
+          alt={`Produto ${i + 1}`}
+          width="160"
+          height="120"
+        />
+      ))}
+    </div>
+  ),
 };
