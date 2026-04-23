@@ -31,7 +31,7 @@ const Image: React.FC<ImageProps> = ({
   ...props
 }) => {
   if (skeleton) {
-    return <Skeleton width={`${width}`} height={`${height}`} />;
+    return <Skeleton width={`${width}px`} height={`${height}px`} />;
   }
 
   return (
