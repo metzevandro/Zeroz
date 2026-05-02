@@ -1,58 +1,72 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
-import Link from "./Link";
-
-// ─── Meta ─────────────────────────────────────────────────────────────────────
+import { Link } from "./index";
+import "../../styles.scss";
 
 const meta: Meta<typeof Link> = {
   title: "Components/Link",
   component: Link,
   tags: ["autodocs"],
   parameters: {
+    layout: "centered",
     docs: {
       description: {
         component: `
-**Link** is a styled anchor element that extends the native \`<a>\` tag
-with a \`disabled\` visual state and a constrained \`target\` type.
+O **Link** é um elemento âncora estilizado que estende o \`<a>\` nativo com
+um estado visual de desabilitado e um tipo restrito para \`target\`.
 
-All standard anchor attributes (\`href\`, \`rel\`, \`aria-label\`, etc.)
-are forwarded to the underlying element via the rest spread.
+Todos os atributos HTML padrão do \`<a>\` (\`href\`, \`rel\`, \`aria-label\`, etc.)
+são repassados ao elemento subjacente via rest spread.
 
-> **Accessibility note:** native \`<a>\` elements do not support a \`disabled\` attribute.
-> The \`disabled\` prop applies visual styling via CSS but does **not** block navigation.
-> Prevent it explicitly with \`onClick={(e) => e.preventDefault()}\` when needed.
+> ⚠️ **Acessibilidade:** elementos \`<a>\` nativos não suportam o atributo \`disabled\`.
+> A prop \`disabled\` aplica apenas estilo visual via CSS — **não bloqueia a navegação**.
+> Para bloquear completamente, combine com \`onClick={(e) => e.preventDefault()}\`.
 
-### When to use
-- Navigation to internal or external URLs
-- Inline text links within paragraphs or descriptions
-- Action links that open content in a new tab
+### Quando usar
+- Navegação para URLs internas ou externas
+- Links inline dentro de parágrafos ou descrições
+- Links de ação que abrem conteúdo em nova aba
 
-### Best practices
-- Always provide a meaningful \`children\` label — avoid "click here" or "read more"
-- Use \`target="_blank"\` with \`rel="noreferrer"\` for external links (security)
-- Use \`disabled\` + \`onClick={(e) => e.preventDefault()}\` to fully block a disabled link
+### Boas práticas
+- Forneça um label descritivo em \`children\` — evite textos genéricos como "clique aqui"
+- Use \`target="_blank"\` com \`rel="noreferrer"\` em links externos (segurança)
+- Para desabilitar completamente: \`disabled\` + \`onClick={(e) => e.preventDefault()}\`
         `,
       },
+    },
+     design: {
+       type: 'figma',
+      url: 'https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=435-10077',
     },
   },
   argTypes: {
     href: {
       control: "text",
-      description: "Destination URL.",
+      description: "URL de destino. Repassado diretamente ao atributo `href` do `<a>` nativo.",
+      table: { type: { summary: "string" } },
     },
     target: {
       control: "select",
       options: ["_self", "_blank", "_parent", "_top"],
-      description: "Browsing context for the linked URL.",
+      description: "Contexto de navegação para a URL vinculada.",
+      table: {
+        defaultValue: { summary: '"_self"' },
+        type: { summary: '"_self" | "_blank" | "_parent" | "_top"' },
+      },
     },
     disabled: {
       control: "boolean",
       description:
-        "Applies disabled styling. Does not block navigation natively.",
+        "Aplica estilo visual de desabilitado. Não bloqueia a navegação nativamente — combine com `onClick={(e) => e.preventDefault()}` para bloquear por completo.",
+      table: {
+        defaultValue: { summary: "false" },
+        type: { summary: "boolean" },
+      },
     },
     children: {
       control: "text",
-      description: "Link label or content.",
+      description: "Label ou conteúdo do link. Aceita qualquer `ReactNode`.",
+      table: { type: { summary: "React.ReactNode" } },
     },
   },
 };
@@ -60,67 +74,110 @@ are forwarded to the underlying element via the rest spread.
 export default meta;
 type Story = StoryObj<typeof Link>;
 
-// ─── Stories ──────────────────────────────────────────────────────────────────
+// ─── 1. Default ───────────────────────────────────────────────────────────────
 
-/** Standard inline link. */
+/**
+ * Link padrão com href e label descritivo.
+ * Use os Controls para explorar todas as props disponíveis.
+ */
 export const Default: Story = {
+  name: "Default",
   args: {
     href: "https://example.com",
-    children: "Visit example.com",
+    children: "Visitar example.com",
   },
 };
 
-/** Opens in a new tab with recommended security attributes. */
+// ─── 2. Estados ───────────────────────────────────────────────────────────────
+
+/**
+ * Estado desabilitado — estilo visual inativo via prop `disabled`.
+ * A navegação é bloqueada aqui também via `onClick={(e) => e.preventDefault()}`.
+ * Em produção, sempre combine os dois para garantir o bloqueio completo.
+ */
+export const Disabled: Story = {
+  name: "Estado — desabilitado",
+  args: {
+    href: "/configuracoes",
+    disabled: true,
+    onClick: (e) => e.preventDefault(),
+    children: "Configurações (indisponível)",
+  },
+};
+
+// ─── 3. Variações ─────────────────────────────────────────────────────────────
+
+/**
+ * Abre em nova aba com `target="_blank"` e `rel="noreferrer"`.
+ * O atributo `rel="noreferrer"` impede que a nova página acesse `window.opener`
+ * — boa prática de segurança para links externos.
+ */
 export const NewTab: Story = {
-  name: "Opens in new tab",
+  name: "Nova aba (target _blank)",
   args: {
     href: "https://example.com",
     target: "_blank",
     rel: "noreferrer",
-    children: "Open in new tab",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Use `rel="noreferrer"` alongside `target="_blank"` to prevent the new page from accessing `window.opener` (security best practice).',
-      },
-    },
+    children: "Abrir em nova aba",
   },
 };
 
-/** Disabled visual state — navigation is not blocked by CSS alone. */
-export const Disabled: Story = {
-  args: {
-    href: "/settings",
-    disabled: true,
-    onClick: (e) => e.preventDefault(),
-    children: "Settings (unavailable)",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "The `disabled` prop applies visual styling only. Navigation is blocked here via `onClick={(e) => e.preventDefault()}` — include this in production when using `disabled`.",
-      },
-    },
-  },
-};
+// ─── 4. Contexto real ─────────────────────────────────────────────────────────
 
-/** Link used inline within a paragraph. */
-export const Inline: Story = {
+/**
+ * Links inline dentro de um parágrafo de texto.
+ * Demonstra o fluxo natural do link dentro do corpo de texto.
+ */
+export const InlineParagraph: Story = {
+  name: "Contexto real — inline em parágrafo",
   render: () => (
-    <p>
-      By continuing, you agree to our{" "}
-      <Link href="/terms">Terms of Service</Link> and{" "}
-      <Link href="/privacy">Privacy Policy</Link>.
+    <p style={{ font: "var(--s-typography-paragraph-regular)" }}>
+      Ao continuar, você concorda com os nossos{" "}
+      <Link href="/termos">Termos de Uso</Link> e com a nossa{" "}
+      <Link href="/privacidade">Política de Privacidade</Link>.
     </p>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Links flow naturally within paragraph text.",
-      },
-    },
+};
+
+/**
+ * Link externo inline numa descrição de configuração.
+ * Demonstra o uso com `target="_blank"` em contexto de documentação ou ajuda.
+ */
+export const InlineHelp: Story = {
+  name: "Contexto real — inline em texto de ajuda",
+  render: () => (
+    <p style={{ font: "var(--s-typography-paragraph-regular)" }}>
+      Não sabe como configurar sua integração?{" "}
+      <Link href="https://docs.example.com" target="_blank" rel="noreferrer">
+        Consulte a documentação
+      </Link>{" "}
+      para um guia passo a passo.
+    </p>
+  ),
+};
+
+// ─── 5. Edge cases ────────────────────────────────────────────────────────────
+
+/**
+ * Link sem `href` — renderiza como âncora sem destino.
+ * Útil para links acionados programaticamente via `onClick`.
+ */
+export const NoHref: Story = {
+  name: "Edge case — sem href",
+  args: {
+    onClick: (e) => e.preventDefault(),
+    children: "Ação via onClick",
+  },
+};
+
+/**
+ * Label longo — valida o comportamento de quebra de linha e
+ * o padding horizontal em textos que excedem uma linha.
+ */
+export const LongLabel: Story = {
+  name: "Edge case — label longo",
+  args: {
+    href: "/relatorio",
+    children: "Baixar relatório completo de vendas do terceiro trimestre de 2025",
   },
 };
