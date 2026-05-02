@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
-import InputSearch from "./InputSearch";
+import { InputSearch } from "./index";
 import "../../styles.scss";
 
 const meta: Meta<typeof InputSearch> = {
@@ -8,187 +8,282 @@ const meta: Meta<typeof InputSearch> = {
   component: InputSearch,
   tags: ["autodocs"],
   parameters: {
+    layout: "centered",
     docs: {
       description: {
         component: `
-**InputSearch** is a search input with a clear button and built-in debounce support.
+O **InputSearch** é um campo de busca com botão de limpar integrado.
 
-It exposes two complementary callbacks designed for different use cases:
+Os callbacks só disparam em ações explícitas do usuário — não a cada tecla:
 
-| Callback | Fires | Use for |
-|---|---|---|
-| \`onChange\` | Every keystroke | Local list filtering |
-| \`onDebouncedChange\` | After user stops typing | API calls, URL sync |
+| Ação                    | Comportamento                              |
+|-------------------------|--------------------------------------------|
+| Pressionar **Enter**    | Dispara \`onChange\` com o valor atual      |
+| Clicar no botão limpar  | Dispara \`onChange\` com \`""\` imediatamente |
 
-The \`value\` prop initializes the field from an external source (e.g. a URL query param)
-and keeps it in sync when that source changes — such as browser back/forward navigation.
+O valor interno é atualizado a cada tecla para manter o campo responsivo,
+mas o callback só é chamado quando o usuário confirma a busca.
 
-### URL + API integration pattern
+### Padrão URL + API
 \`\`\`tsx
 const [params, setParams] = useSearchParams();
 const q = params.get("q") ?? "";
 
 <InputSearch
-  placeholder="Search users..."
+  placeholder="Buscar usuários..."
   value={q}
-  debounceMs={400}
-  onDebouncedChange={(val) => {
-    setParams({ q: val });  // sync URL
-    fetchUsers(val);         // call API
+  onChange={(val) => {
+    setParams({ q: val }); // sincroniza URL
+    fetchUsers(val);        // chama API
   }}
 />
 \`\`\`
 
-### Best practices
-- Use \`onChange\` alone for purely client-side filtering (no debounce needed)
-- Use \`onDebouncedChange\` (with \`debounceMs\` ≥ 300) for any network call
-- Initialize \`value\` from the URL so the search survives page refresh and sharing
-- Always handle the empty string \`""\` in your fetch — it typically means "no filter"
+### Quando usar
+- Busca em tabelas e listas com chamada à API no Enter
+- Campos de pesquisa com sincronização de URL
+
+### Boas práticas
+- Inicialize \`value\` a partir da URL para que a busca sobreviva ao refresh e ao compartilhamento
+- Sempre trate a string vazia \`""\` no seu fetch — ela normalmente significa "sem filtro"
+- O botão de limpar já chama \`onChange("")\` — não é necessário tratar isso separadamente
         `,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=435-10074',
+     },
   },
   argTypes: {
     placeholder: {
       control: "text",
-      description: "Placeholder shown when empty.",
+      description: "Texto exibido dentro do campo quando está vazio.",
+      table: { type: { summary: "string" } },
     },
-    disabled: { control: "boolean", description: "Disables the input." },
-    debounceMs: {
-      control: "number",
-      description: "Debounce delay in ms for `onDebouncedChange`.",
+    disabled: {
+      control: "boolean",
+      description: "Desativa o campo de busca e bloqueia toda interação.",
+      table: {
+        defaultValue: { summary: "false" },
+        type: { summary: "boolean" },
+      },
     },
     value: {
       control: "text",
-      description: "Controlled value (e.g. from URL param).",
+      description:
+        "Valor controlado externamente (ex: parâmetro de URL). Mantém o campo sincronizado quando a fonte muda.",
+      table: { type: { summary: "string" } },
     },
-    onChange: { action: "onChange", description: "Fires on every keystroke." },
-    onDebouncedChange: {
-      action: "onDebouncedChange",
-      description: "Fires after user stops typing.",
+    isSkeleton: {
+      control: "boolean",
+      description:
+        "Exibe um placeholder skeleton no lugar do campo. Use durante estados de carregamento.",
+      table: {
+        defaultValue: { summary: "false" },
+        type: { summary: "boolean" },
+      },
+    },
+    onChange: {
+      action: "onChange",
+      description:
+        "Disparado ao pressionar Enter ou ao limpar o campo. Recebe o valor atual como argumento.",
+      table: { type: { summary: "(value: string) => void" } },
     },
   },
+  decorators: [
+    (Story) => (
+      <div style={{ minWidth: "320px" }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof InputSearch>;
 
-// ─── Stories ──────────────────────────────────────────────────────────────────
+// ─── 1. Default ───────────────────────────────────────────────────────────────
 
-/** Default uncontrolled search field. */
+/**
+ * Campo de busca padrão.
+ * Digite e pressione Enter para disparar o callback.
+ * Clique no × para limpar e disparar `onChange("")`.
+ */
 export const Default: Story = {
+  name: "Default",
   args: {
-    placeholder: "Search...",
+    placeholder: "Buscar...",
+    disabled: false,
   },
 };
 
-/** Disabled. */
+// ─── 2. Estados ───────────────────────────────────────────────────────────────
+
+/**
+ * Estado desabilitado — campo inativo com cursor bloqueado.
+ * Use quando a busca não está disponível no contexto atual.
+ */
 export const Disabled: Story = {
+  name: "Estado — desabilitado",
   args: {
-    placeholder: "Search unavailable",
+    placeholder: "Busca indisponível",
     disabled: true,
   },
 };
 
-/** Local filter — onChange fires on every keystroke. */
+/**
+ * Estado skeleton — exibe placeholder com as mesmas dimensões do campo.
+ * Use enquanto a página ou o contexto de busca ainda está carregando.
+ */
+export const Skeleton: Story = {
+  name: "Estado — skeleton",
+  args: {
+    placeholder: "Buscar...",
+    isSkeleton: true,
+  },
+};
+
+// ─── 3. Comportamento no Enter ────────────────────────────────────────────────
+
+/**
+ * Demonstra que o callback só dispara ao pressionar Enter.
+ * O contador só incrementa quando a busca é confirmada — não a cada tecla.
+ */
+export const EnterTrigger: Story = {
+  name: "Comportamento — disparo no Enter",
+  render: () => {
+    const [lastSearch, setLastSearch] = useState("");
+    const [count, setCount] = useState(0);
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-x-small)" }}>
+        <InputSearch
+          placeholder="Digite e pressione Enter..."
+          onChange={(val) => {
+            setLastSearch(val);
+            setCount((c) => c + 1);
+          }}
+        />
+        <small>Buscas realizadas: <strong>{count}</strong></small>
+        <small>Último termo: <strong>{lastSearch || "—"}</strong></small>
+      </div>
+    );
+  },
+};
+
+// ─── 4. Filtragem local ───────────────────────────────────────────────────────
+
+/**
+ * Filtragem local — a lista filtra ao pressionar Enter.
+ * Digite um termo e pressione Enter para filtrar a lista de frutas.
+ * Clique no × para limpar e exibir todos os itens novamente.
+ */
 export const LocalFilter: Story = {
-  name: "Local filter (onChange)",
+  name: "Padrão — filtragem local (Enter)",
   render: () => {
     const items = [
-      "Apple",
-      "Banana",
-      "Cherry",
-      "Date",
-      "Elderberry",
-      "Fig",
-      "Grape",
+      "Abacaxi", "Banana", "Cereja", "Damasco",
+      "Framboesa", "Goiaba", "Laranja", "Manga",
+      "Pêssego", "Uva",
     ];
     const [filter, setFilter] = useState("");
     const filtered = items.filter((i) =>
       i.toLowerCase().includes(filter.toLowerCase()),
     );
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-        <InputSearch placeholder="Filter fruits..." onChange={setFilter} />
-        <ul style={{ margin: 0, paddingLeft: "16px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-x-small)" }}>
+        <InputSearch
+          placeholder="Buscar frutas... (Enter)"
+          onChange={setFilter}
+        />
+        <ul style={{ paddingLeft: "var(--s-spacing-medium)" }}>
           {filtered.length > 0 ? (
-            filtered.map((item) => <li key={item}>{item}</li>)
+            filtered.map((item) => <li key={item}><small>{item}</small></li>)
           ) : (
-            <li style={{ color: "gray" }}>No results</li>
+            <li><small>Nenhum resultado</small></li>
           )}
         </ul>
       </div>
     );
   },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Uses `onChange` for instant client-side filtering. No debounce needed since no network call is made.",
-      },
-    },
-  },
 };
 
-/** Debounced — onDebouncedChange fires after the user stops typing. */
-export const Debounced: Story = {
-  name: "Debounced (onDebouncedChange)",
-  render: () => {
-    const [committed, setCommitted] = useState("");
-    const [live, setLive] = useState("");
-    return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-        <InputSearch
-          placeholder="Search with debounce..."
-          debounceMs={500}
-          onChange={setLive}
-          onDebouncedChange={setCommitted}
-        />
-        <small style={{ color: "gray" }}>
-          Live (every keystroke): <strong>{live || "—"}</strong>
-        </small>
-        <small style={{ color: "gray" }}>
-          Debounced (500ms, would call API): <strong>{committed || "—"}</strong>
-        </small>
-      </div>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "The debounced value only updates after the user pauses for 500ms. In production this is where you'd call the API or push to the URL.",
-      },
-    },
-  },
-};
+// ─── 5. Valor inicializado externamente ───────────────────────────────────────
 
-/** Initialized from an external value (simulates URL param). */
+/**
+ * Campo inicializado a partir de um valor externo via prop `value`.
+ * Simula a inicialização a partir de um parâmetro de URL (`?q=react`).
+ * Edite e pressione Enter para atualizar o valor.
+ */
 export const InitializedFromUrl: Story = {
-  name: "Initialized from URL param",
+  name: "Padrão — inicializado de URL (?q=...)",
   render: () => {
-    // Simulates: const q = new URLSearchParams(location.search).get("q") ?? ""
     const [query, setQuery] = useState("react");
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-x-small)" }}>
         <InputSearch
-          placeholder="Search..."
+          placeholder="Buscar..."
           value={query}
-          debounceMs={400}
-          onDebouncedChange={setQuery}
+          onChange={setQuery}
         />
-        <small style={{ color: "gray" }}>
-          URL would be: <code>?q={query || ""}</code>
-        </small>
+        <small>URL seria: <code>?q={query || ""}</code></small>
       </div>
     );
   },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'The field is pre-filled with `"react"` — simulating initialization from `?q=react` in the URL. Editing the field updates the query string.',
-      },
-    },
+};
+
+// ─── 6. Contexto real ─────────────────────────────────────────────────────────
+
+/**
+ * Campo de busca em tabela de usuários.
+ * Digite um nome e pressione Enter para filtrar. Clique em × para limpar.
+ */
+export const UserTableFilter: Story = {
+  name: "Contexto real — filtro de tabela",
+  parameters: { layout: "padded" },
+  render: () => {
+    const users = [
+      { name: "Ana Souza", role: "Admin" },
+      { name: "Carlos Lima", role: "Editor" },
+      { name: "Jane Doe", role: "Viewer" },
+      { name: "Maria Clara", role: "Editor" },
+      { name: "Pedro Alves", role: "Viewer" },
+    ];
+    const [filter, setFilter] = useState("");
+    const filtered = users.filter((u) =>
+      u.name.toLowerCase().includes(filter.toLowerCase()),
+    );
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-x-small)", width: "400px" }}>
+        <InputSearch
+          placeholder="Buscar usuário... (Enter)"
+          onChange={setFilter}
+        />
+        <div style={{ border: "var(--s-border-width-hairline) solid var(--s-color-border-default)", borderRadius: "var(--s-border-radius-medium)" }}>
+          {filtered.length > 0 ? (
+            filtered.map(({ name, role }, i) => (
+              <div
+                key={name}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  padding: "var(--s-spacing-x-small) var(--s-spacing-small)",
+                  borderBottom: i < filtered.length - 1
+                    ? "var(--s-border-width-hairline) solid var(--s-color-border-default)"
+                    : "none",
+                }}
+              >
+                <small>{name}</small>
+                <small>{role}</small>
+              </div>
+            ))
+          ) : (
+            <div style={{ padding: "var(--s-spacing-small)", textAlign: "center" }}>
+              <small>Nenhum usuário encontrado</small>
+            </div>
+          )}
+        </div>
+      </div>
+    );
   },
 };

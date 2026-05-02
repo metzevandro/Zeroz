@@ -1,157 +1,271 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
-import Pagination from "./Pagination";
-
-// ─── Meta ─────────────────────────────────────────────────────────────────────
+import { Pagination } from "./index";
+import "../../styles.scss";
 
 const meta: Meta<typeof Pagination> = {
   title: "Components/Pagination",
   component: Pagination,
   tags: ["autodocs"],
   parameters: {
+    layout: "padded",
     docs: {
       description: {
         component: `
-**Pagination** is a navigation control for moving between pages or steps.
+O **Pagination** é um controle de navegação entre páginas ou etapas.
 
-Three layout variants are available:
+Três variantes de layout estão disponíveis:
 
-| Variant | Layout |
-|---|---|
-| \`noLabel\` | Arrows only |
-| \`leftLabel\` | Label on the left, arrows grouped on the right |
-| \`centerLabel\` | Left arrow · label · right arrow |
+| variant        | layout                                              |
+|----------------|-----------------------------------------------------|
+| \`noLabel\`     | Somente setas                                       |
+| \`leftLabel\`   | Label à esquerda, setas agrupadas à direita         |
+| \`centerLabel\` | Seta esquerda · label centralizado · seta direita   |
 
-### When to use
-- Tables or lists with server-side pagination
-- Step-by-step flows (wizards, carousels)
-- Any content split across multiple pages
+### Quando usar
+- Tabelas ou listas com paginação server-side
+- Fluxos passo a passo (wizards, carrosséis)
+- Qualquer conteúdo dividido em múltiplas páginas
 
-### Best practices
-- Set \`disabledLeft\` on the first page and \`disabledRight\` on the last
-- Use \`skeleton\` while the page count is still loading
-- Provide a meaningful \`label\` like \`"Page 3 of 10"\` or \`"3 / 10"\`
+### Boas práticas
+- Defina \`disabledLeft\` na primeira página e \`disabledRight\` na última
+- Use \`skeleton\` enquanto o total de páginas ainda está carregando
+- Forneça um \`label\` descritivo como \`"Página 3 de 10"\` ou \`"3 / 10"\`
         `,
       },
+    },
+     design: {
+       type: 'figma',
+      url: 'https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=1557-5788',
     },
   },
   argTypes: {
     variant: {
       control: "select",
       options: ["noLabel", "leftLabel", "centerLabel"],
-      description: "Layout variant.",
+      description:
+        "Variante de layout. Define a posição do label em relação às setas.",
+      table: {
+        type: { summary: '"noLabel" | "leftLabel" | "centerLabel"' },
+      },
     },
     label: {
       control: "text",
-      description: 'Label text (e.g. `"Page 1 of 10"`).',
+      description:
+        'Texto do label (ex: `"Página 1 de 10"`). Ignorado quando `variant` é `"noLabel"`.',
+      table: { type: { summary: "string" } },
     },
     disabledLeft: {
       control: "boolean",
-      description: "Disables the left arrow.",
+      description: "Desativa a seta esquerda (anterior). Use na primeira página.",
+      table: {
+        defaultValue: { summary: "false" },
+        type: { summary: "boolean" },
+      },
     },
     disabledRight: {
       control: "boolean",
-      description: "Disables the right arrow.",
+      description: "Desativa a seta direita (próxima). Use na última página.",
+      table: {
+        defaultValue: { summary: "false" },
+        type: { summary: "boolean" },
+      },
     },
     skeleton: {
       control: "boolean",
-      description: "Shows skeleton placeholder.",
+      description:
+        "Exibe skeleton no lugar do label e desativa ambas as setas. Use enquanto o total de páginas está carregando.",
+      table: {
+        defaultValue: { summary: "false" },
+        type: { summary: "boolean" },
+      },
     },
-    onClickLeft: { action: "onClickLeft" },
-    onClickRight: { action: "onClickRight" },
+    onClickLeft: {
+      action: "onClickLeft",
+      description: "Callback disparado ao clicar na seta esquerda.",
+      table: { type: { summary: "() => void" } },
+    },
+    onClickRight: {
+      action: "onClickRight",
+      description: "Callback disparado ao clicar na seta direita.",
+      table: { type: { summary: "() => void" } },
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Pagination>;
 
-// ─── Stories ──────────────────────────────────────────────────────────────────
+// ─── 1. Variantes de layout ───────────────────────────────────────────────────
 
-/** Arrows only — no label. */
+/**
+ * Somente setas, sem label.
+ * Use em espaços compactos onde o contexto de página já é visível na UI.
+ */
 export const NoLabel: Story = {
-  args: { variant: "noLabel", label: "" },
+  name: "Variante — noLabel",
+  args: {
+    variant: "noLabel",
+    label: "",
+  },
 };
 
-/** Label on the left, arrows on the right. */
+/**
+ * Label à esquerda com as setas agrupadas à direita.
+ * Indicado para footers de tabela onde o texto de paginação precisa
+ * estar alinhado à margem esquerda do conteúdo.
+ */
 export const LeftLabel: Story = {
-  args: { variant: "leftLabel", label: "Page 1 of 10" },
+  name: "Variante — leftLabel",
+  args: {
+    variant: "leftLabel",
+    label: "Página 1 de 10",
+  },
 };
 
-/** Left arrow, label in the center, right arrow. */
+/**
+ * Seta esquerda, label centralizado, seta direita.
+ * Variante mais comum — indicada para a maioria dos contextos.
+ */
 export const CenterLabel: Story = {
-  args: { variant: "centerLabel", label: "Page 1 of 10" },
-};
-
-/** First page — left arrow disabled. */
-export const FirstPage: Story = {
-  name: "First page (left disabled)",
+  name: "Variante — centerLabel",
   args: {
     variant: "centerLabel",
-    label: "Page 1 of 10",
+    label: "Página 1 de 10",
+  },
+};
+
+/**
+ * Comparativo das três variantes de layout com o mesmo label.
+ * Use para validar tokens e espaçamentos após alterações de tema.
+ */
+export const AllVariants: Story = {
+  name: "Comparativo — todas as variantes",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-medium)" }}>
+      <Pagination variant="noLabel" label="" />
+      <Pagination variant="leftLabel" label="Página 3 de 10" />
+      <Pagination variant="centerLabel" label="Página 3 de 10" />
+    </div>
+  ),
+};
+
+// ─── 2. Estados de navegação ──────────────────────────────────────────────────
+
+/**
+ * Primeira página — seta esquerda desativada via `disabledLeft`.
+ * O usuário não pode navegar para uma página anterior à primeira.
+ */
+export const FirstPage: Story = {
+  name: "Estado — primeira página (esquerda desativada)",
+  args: {
+    variant: "centerLabel",
+    label: "Página 1 de 10",
     disabledLeft: true,
   },
 };
 
-/** Last page — right arrow disabled. */
+/**
+ * Última página — seta direita desativada via `disabledRight`.
+ * O usuário não pode navegar para uma página além da última.
+ */
 export const LastPage: Story = {
-  name: "Last page (right disabled)",
+  name: "Estado — última página (direita desativada)",
   args: {
     variant: "centerLabel",
-    label: "Page 10 of 10",
+    label: "Página 10 de 10",
     disabledRight: true,
   },
 };
 
-/** Skeleton loading state. */
-export const Skeleton: Story = {
-  args: { variant: "centerLabel", label: "", skeleton: true },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Both arrows are disabled and the label is replaced with a skeleton placeholder while page data is loading.",
-      },
-    },
+/**
+ * Skeleton — ambas as setas desativadas e label substituído por placeholder.
+ * Use enquanto o total de páginas ainda está sendo carregado da API.
+ */
+export const SkeletonState: Story = {
+  name: "Estado — skeleton (carregando)",
+  args: {
+    variant: "centerLabel",
+    label: "Carregando",
+    skeleton: true,
   },
 };
 
-/** Fully interactive controlled example. */
+// ─── 3. Controlado ────────────────────────────────────────────────────────────
+
+/**
+ * Exemplo totalmente interativo com estado externo.
+ * Demonstra o padrão correto: `disabledLeft` na primeira página,
+ * `disabledRight` na última, e label atualizado a cada navegação.
+ */
 export const Controlled: Story = {
-  name: "Controlled (with state)",
+  name: "Controlado — com estado",
   render: () => {
     const total = 10;
     const [page, setPage] = useState(1);
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-        <Pagination
-          variant="centerLabel"
-          label={`Page ${page} of ${total}`}
-          disabledLeft={page === 1}
-          disabledRight={page === total}
-          onClickLeft={() => setPage((p) => p - 1)}
-          onClickRight={() => setPage((p) => p + 1)}
-        />
-      </div>
+      <Pagination
+        variant="centerLabel"
+        label={`Página ${page} de ${total}`}
+        disabledLeft={page === 1}
+        disabledRight={page === total}
+        onClickLeft={() => setPage((p) => p - 1)}
+        onClickRight={() => setPage((p) => p + 1)}
+      />
     );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Demonstrates correct wiring: `disabledLeft` on the first page, `disabledRight` on the last, and the label updating on every navigation.",
-      },
-    },
   },
 };
 
-/** All three variants stacked for visual comparison. */
-export const AllVariants: Story = {
-  name: "All variants",
-  render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-      <Pagination variant="noLabel" label="" />
-      <Pagination variant="leftLabel" label="Page 3 of 10" />
-      <Pagination variant="centerLabel" label="Page 3 of 10" />
-    </div>
-  ),
+// ─── 4. Contexto real ─────────────────────────────────────────────────────────
+
+/**
+ * Paginação no footer de uma tabela com variante `leftLabel`.
+ * Demonstra o padrão mais comum em dashboards com listagens server-side.
+ */
+export const TableFooter: Story = {
+  name: "Contexto real — footer de tabela",
+  render: () => {
+    const total = 5;
+    const [page, setPage] = useState(1);
+    const rows = [
+      { id: "#1042", name: "Notebook Pro X", status: "Enviado" },
+      { id: "#1043", name: "Mouse Ergonômico", status: "Pendente" },
+      { id: "#1044", name: "Teclado Mecânico", status: "Enviado" },
+    ];
+    return (
+      <div
+        style={{
+          width: "480px",
+          border: "var(--s-border-width-hairline) solid var(--s-color-border-default)",
+          borderRadius: "var(--s-border-radius-medium)",
+          overflow: "hidden",
+        }}
+      >
+        {rows.map(({ id, name, status }, i) => (
+          <div
+            key={id}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              padding: "var(--s-spacing-x-small) var(--s-spacing-small)",
+              borderBottom: "var(--s-border-width-hairline) solid var(--s-color-border-default)",
+            }}
+          >
+            <small>{id} — {name}</small>
+            <small>{status}</small>
+          </div>
+        ))}
+        <div style={{ background: "var(--s-color-fill-default)" }}>
+          <Pagination
+            variant="leftLabel"
+            label={`Página ${page} de ${total}`}
+            disabledLeft={page === 1}
+            disabledRight={page === total}
+            onClickLeft={() => setPage((p) => p - 1)}
+            onClickRight={() => setPage((p) => p + 1)}
+          />
+        </div>
+      </div>
+    );
+  },
 };
