@@ -2,80 +2,151 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
 import Notification from "./Notification";
 import { NotificationContainer } from "./subcomponents/NotificationContainer";
-import { NotificationEntry } from "./Notification.types";
+import type { NotificationEntry, NotificationVariant } from "./Notification.types";
 import { Button } from "../Button";
-
-// ─── Meta ─────────────────────────────────────────────────────────────────────
+import "../../styles.scss";
 
 const meta: Meta<typeof Notification> = {
   title: "Components/Notification",
   component: Notification,
   tags: ["autodocs"],
   parameters: {
+    layout: "padded",
     docs: {
       description: {
         component: `
-**Notification** displays a contextual message with an optional action and close button.
+O **Notification** exibe uma mensagem contextual com ícone, título, descrição opcional,
+ação opcional e botão de fechar.
 
-### Float notifications — always use \`NotificationContainer\`
+Suporta dois modos de exibição:
 
-\`type="float"\` notifications must be wrapped in \`<NotificationContainer>\`.
-It owns positioning, stacking, and all enter/exit/reorder animations.
+| type       | comportamento                                                                     |
+|------------|-----------------------------------------------------------------------------------|
+| \`"inline"\` | Renderiza no fluxo do documento — sem container necessário                        |
+| \`"float"\`  | Toast sobreposto — **sempre use dentro de \`<NotificationContainer>\`**            |
+
+### Float — sempre use NotificationContainer
+O \`NotificationContainer\` é um portal fixo que gerencia empilhamento,
+animações de entrada/saída e reordenação suave quando um toast é dispensado.
 
 \`\`\`tsx
-import { NotificationContainer, NotificationEntry } from "@your/ui";
+const [toasts, setToasts] = useState<NotificationEntry[]>([]);
 
-function App() {
-  const [toasts, setToasts] = useState<NotificationEntry[]>([]);
+const adicionar = () =>
+  setToasts((prev) => [...prev, { id: crypto.randomUUID(), variant: "success", ... }]);
 
-  const add = (entry: Omit<NotificationEntry, "id">) =>
-    setToasts(prev => [...prev, { ...entry, id: crypto.randomUUID() }]);
+const remover = (id: string) =>
+  setToasts((prev) => prev.filter((t) => t.id !== id));
 
-  const remove = (id: string) =>
-    setToasts(prev => prev.filter(t => t.id !== id));
+<Button onClick={adicionar}>Notificar</Button>
 
-  return (
-    <>
-      {/* your app */}
-      <NotificationContainer
-        notifications={toasts.map(t => ({ ...t, onClose: () => remove(t.id) }))}
-      />
-    </>
-  );
-}
+<NotificationContainer
+  notifications={toasts.map((t) => ({ ...t, onClose: () => remover(t.id) }))}
+/>
 \`\`\`
 
-### Inline notifications
+### Variantes
+| variant      | ícone sugerido    | uso                                       |
+|--------------|-------------------|-------------------------------------------|
+| \`primary\`   | \`info\`           | Informações neutras, atualizações         |
+| \`secondary\` | \`campaign\`       | Avisos de sistema, manutenção             |
+| \`success\`   | \`check_circle\`   | Operação concluída com êxito              |
+| \`warning\`   | \`warning\`        | Erros, expiração de sessão, atenção       |
 
-\`type="inline"\` renders in the document flow — no container needed.
+### Dismissible vs auto-dismiss
+- **\`dismissible: true\`** — exibe botão X; o toast permanece até ser fechado manualmente
+- **\`dismissible: false\`** — sem botão X; o toast desaparece automaticamente após ~5s
         `,
       },
     },
+     design: {
+      type: 'figma',
+     url: 'https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=942-8970',
+    },
   },
   argTypes: {
-    title: { control: "text" },
-    description: { control: "text" },
-    icon: { control: "text" },
+    title: {
+      control: "text",
+      description: "Texto do título exibido no cabeçalho colorido.",
+      table: { type: { summary: "string" } },
+    },
+    description: {
+      control: "text",
+      description: "Texto descritivo exibido abaixo do cabeçalho. Opcional.",
+      table: { type: { summary: "string" } },
+    },
+    icon: {
+      control: "text",
+      description: "Nome do ícone Material Symbol exibido no cabeçalho.",
+      table: { type: { summary: "string" } },
+    },
     variant: {
       control: "select",
-      options: ["primary", "secondary", "warning", "success"],
+      options: ["primary", "secondary", "warning", "success"] satisfies NotificationVariant[],
+      description: "Intenção semântica de cor do cabeçalho.",
+      table: { type: { summary: '"primary" | "secondary" | "warning" | "success"' } },
     },
-    type: { control: "radio", options: ["float", "inline"] },
-    isOpen: { control: "boolean" },
-    dismissible: { control: "boolean" },
-    withAction: { control: "boolean" },
-    disableButton: { control: "boolean" },
-    buttonLabel: { control: "text" },
-    onClose: { action: "onClose" },
-    onClickButton: { action: "onClickButton" },
+    type: {
+      control: "radio",
+      options: ["float", "inline"],
+      description:
+        "`inline` = fluxo do documento. `float` = toast sobreposto (requer `NotificationContainer`).",
+      table: { type: { summary: '"float" | "inline"' } },
+    },
+    isOpen: {
+      control: "boolean",
+      description: "Controla a visibilidade da notificação.",
+      table: { defaultValue: { summary: "false" }, type: { summary: "boolean" } },
+    },
+    dismissible: {
+      control: "boolean",
+      description:
+        "Exibe o botão de fechar. Quando `false`, o float desaparece automaticamente após ~5s.",
+      table: { defaultValue: { summary: "false" }, type: { summary: "boolean" } },
+    },
+    withAction: {
+      control: "boolean",
+      description: "Exibe um botão de ação dentro do corpo da notificação.",
+      table: { defaultValue: { summary: "false" }, type: { summary: "boolean" } },
+    },
+    buttonLabel: {
+      control: "text",
+      description: "Label do botão de ação. Requer `withAction: true`.",
+      table: { type: { summary: "string" } },
+    },
+    disableButton: {
+      control: "boolean",
+      description: "Desativa o botão de ação.",
+      table: { defaultValue: { summary: "false" }, type: { summary: "boolean" } },
+    },
+    onClose: {
+      action: "onClose",
+      description: "Callback disparado ao clicar no botão de fechar.",
+      table: { type: { summary: "() => void" } },
+    },
+    onClickButton: {
+      action: "onClickButton",
+      description: "Callback disparado ao clicar no botão de ação.",
+      table: { type: { summary: "() => void" } },
+    },
   },
+  decorators: [
+    (Story) => (
+      <div style={{ maxWidth: "400px" }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof Notification>;
 
-// ─── Inline stories ───────────────────────────────────────────────────────────
+// ─── 1. Variantes inline ──────────────────────────────────────────────────────
 
+/**
+ * Notificação inline de sucesso — operação concluída com êxito.
+ */
 export const InlineSuccess: Story = {
   name: "Inline — success",
   args: {
@@ -83,12 +154,16 @@ export const InlineSuccess: Story = {
     type: "inline",
     variant: "success",
     icon: "check_circle",
-    title: "Changes saved",
-    description: "Your profile has been updated.",
+    title: "Alterações salvas",
+    description: "Seu perfil foi atualizado com sucesso.",
     dismissible: true,
   },
 };
 
+/**
+ * Notificação inline de atenção — com botão de ação.
+ * Use para alertas que requerem resposta do usuário, como sessão expirando.
+ */
 export const InlineWarning: Story = {
   name: "Inline — warning",
   args: {
@@ -96,14 +171,17 @@ export const InlineWarning: Story = {
     type: "inline",
     variant: "warning",
     icon: "warning",
-    title: "Session expiring",
-    description: "You will be signed out in 5 minutes.",
+    title: "Sessão expirando",
+    description: "Você será desconectado em 5 minutos.",
     withAction: true,
-    buttonLabel: "Stay signed in",
+    buttonLabel: "Manter sessão",
     dismissible: true,
   },
 };
 
+/**
+ * Notificação inline primária — informações neutras ou atualizações disponíveis.
+ */
 export const InlinePrimary: Story = {
   name: "Inline — primary",
   args: {
@@ -111,12 +189,15 @@ export const InlinePrimary: Story = {
     type: "inline",
     variant: "primary",
     icon: "info",
-    title: "Update available",
-    description: "A new version is ready.",
+    title: "Atualização disponível",
+    description: "Uma nova versão está pronta para instalação.",
     dismissible: true,
   },
 };
 
+/**
+ * Notificação inline secundária — avisos de sistema como manutenção programada.
+ */
 export const InlineSecondary: Story = {
   name: "Inline — secondary",
   args: {
@@ -124,120 +205,81 @@ export const InlineSecondary: Story = {
     type: "inline",
     variant: "secondary",
     icon: "campaign",
-    title: "Scheduled maintenance",
-    description: "Sunday 02:00–04:00 UTC.",
+    title: "Manutenção programada",
+    description: "Sistema indisponível domingo das 02:00 às 04:00 UTC.",
     dismissible: true,
   },
 };
 
+// ─── 2. Matriz inline ─────────────────────────────────────────────────────────
+
+const inlineVariants: { variant: NotificationVariant; icon: string; title: string; description: string }[] = [
+  { variant: "primary", icon: "info", title: "Informação", description: "Texto de suporte informativo." },
+  { variant: "secondary", icon: "campaign", title: "Aviso de sistema", description: "Texto de suporte secundário." },
+  { variant: "warning", icon: "warning", title: "Atenção necessária", description: "Texto de suporte de alerta." },
+  { variant: "success", icon: "check_circle", title: "Operação concluída", description: "Texto de suporte de sucesso." },
+];
+
+const InlineVariantItem = ({ variant, icon, title, description }: typeof inlineVariants[0]) => (
+  <Notification
+    isOpen
+    type="inline"
+    variant={variant}
+    icon={icon}
+    title={title}
+    description={description}
+    dismissible
+  />
+);
+
+/**
+ * Todas as variantes inline empilhadas para validação visual rápida de tokens e tema.
+ */
 export const AllInlineVariants: Story = {
-  name: "All inline variants",
+  name: "Inline — todas as variantes",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-      {(["primary", "secondary", "warning", "success"] as const).map((v) => (
-        <Notification
-          key={v}
-          isOpen
-          type="inline"
-          variant={v}
-          icon={
-            v === "success"
-              ? "check_circle"
-              : v === "warning"
-                ? "warning"
-                : "info"
-          }
-          title={`${v.charAt(0).toUpperCase() + v.slice(1)} notification`}
-          description="Supporting detail text goes here."
-          dismissible
-        />
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-x-small)" }}>
+      {inlineVariants.map((v) => (
+        <InlineVariantItem key={v.variant} {...v} />
       ))}
     </div>
   ),
 };
 
-// ─── Float stories ────────────────────────────────────────────────────────────
+// ─── 3. Float — toast ─────────────────────────────────────────────────────────
 
 const TEMPLATES: Omit<NotificationEntry, "id">[] = [
-  {
-    variant: "success",
-    icon: "check_circle",
-    title: "File uploaded",
-    description: "report_q3.pdf was uploaded.",
-    dismissible: true,
-  },
-  {
-    variant: "warning",
-    icon: "warning",
-    title: "Validation error",
-    description: "Review the highlighted fields.",
-    dismissible: true,
-  },
-  {
-    variant: "primary",
-    icon: "info",
-    title: "Update available",
-    description: "New version ready to install.",
-    dismissible: true,
-  },
-  {
-    variant: "secondary",
-    icon: "campaign",
-    title: "Maintenance tonight",
-    description: "System down 02:00–04:00 UTC.",
-    dismissible: true,
-  },
-  {
-    variant: "success",
-    icon: "cloud_done",
-    title: "Sync complete",
-    description: "All changes are saved to the cloud.",
-    dismissible: true,
-  },
-  {
-    variant: "warning",
-    icon: "schedule",
-    title: "Deadline approaching",
-    description: "Task due in 30 minutes.",
-    dismissible: true,
-  },
-  {
-    variant: "primary",
-    icon: "person_add",
-    title: "New team member",
-    description: "Alice joined your workspace.",
-    dismissible: true,
-  },
-  {
-    variant: "success",
-    icon: "payment",
-    title: "Payment received",
-    description: "Invoice #1042 has been paid.",
-    dismissible: true,
-  },
+  { variant: "success", icon: "check_circle", title: "Arquivo enviado", description: "relatorio_q3.pdf foi salvo.", dismissible: true },
+  { variant: "warning", icon: "warning", title: "Erro de validação", description: "Revise os campos destacados.", dismissible: true },
+  { variant: "primary", icon: "info", title: "Atualização disponível", description: "Nova versão pronta para instalar.", dismissible: true },
+  { variant: "secondary", icon: "campaign", title: "Manutenção hoje", description: "Sistema indisponível 02:00–04:00 UTC.", dismissible: true },
+  { variant: "success", icon: "cloud_done", title: "Sincronização completa", description: "Todas as alterações foram salvas.", dismissible: true },
+  { variant: "warning", icon: "schedule", title: "Prazo se aproximando", description: "Tarefa vence em 30 minutos.", dismissible: true },
+  { variant: "primary", icon: "person_add", title: "Novo membro", description: "Ana entrou no seu workspace.", dismissible: true },
+  { variant: "success", icon: "payment", title: "Pagamento recebido", description: "Fatura #1042 foi paga.", dismissible: true },
 ];
 
-/** Single dismissible float toast. */
+/**
+ * Toast único dispensável — entra com animação de mola e permanece até ser fechado.
+ * Use o botão para disparar o toast.
+ */
 export const FloatSingle: Story = {
-  name: "Float — single",
+  name: "Float — toast único (dismissível)",
   render: () => {
     const [toasts, setToasts] = useState<NotificationEntry[]>([]);
-    const remove = (id: string) =>
-      setToasts((p) => p.filter((t) => t.id !== id));
-    const add = () => {
-      const t = TEMPLATES[0];
-      setToasts((p) => [...p, { ...t, id: crypto.randomUUID() }]);
-    };
+    const remover = (id: string) => setToasts((p) => p.filter((t) => t.id !== id));
     return (
       <>
-        <Button style={{ width: "fit-content" }} onClick={add}>
-          Show toast
-        </Button>
+        <div style={{ width: "fit-content" }}>
+          <Button
+            variant="primary"
+            onClick={() => setToasts((p) => [...p, { ...TEMPLATES[0], id: crypto.randomUUID() }])}
+          >
+            Exibir toast
+          </Button>
+        </div>
         <NotificationContainer
-          notifications={toasts.map((t) => ({
-            ...t,
-            onClose: () => remove(t.id),
-          }))}
+          notifications={toasts.map((t) => ({ ...t, onClose: () => remover(t.id) }))}
         />
       </>
     );
@@ -245,96 +287,85 @@ export const FloatSingle: Story = {
 };
 
 /**
- * The main story: add multiple toasts, dismiss any one of them,
- * and watch the remaining ones collapse smoothly into the freed space.
+ * Auto-dismiss — `dismissible: false`.
+ * O toast aparece sem botão de fechar e desaparece automaticamente após ~5s.
  */
-export const FloatStacked: Story = {
-  name: "Float — stacked + reorder (main demo)",
+export const FloatAutoDismiss: Story = {
+  name: "Float — auto-dismiss (5s)",
   render: () => {
     const [toasts, setToasts] = useState<NotificationEntry[]>([]);
-    const remove = (id: string) =>
-      setToasts((p) => p.filter((t) => t.id !== id));
-
-    const addRandom = () => {
-      const t = TEMPLATES[Math.floor(Math.random() * TEMPLATES.length)];
-      setToasts((p) => [...p, { ...t, id: crypto.randomUUID() }]);
-    };
-
-    const addAll = () => {
-      setToasts(TEMPLATES.map((t) => ({ ...t, id: crypto.randomUUID() })));
-    };
-
+    const remover = (id: string) => setToasts((p) => p.filter((t) => t.id !== id));
     return (
       <>
-        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          <Button style={{ width: "fit-content" }} onClick={addRandom}>
-            Add random toast
-          </Button>
-          <Button style={{ width: "fit-content" }} onClick={addAll}>
-            Add all 8 toasts
-          </Button>
+        <div style={{ width: "fit-content" }}>
           <Button
-            style={{ width: "fit-content" }}
-            variant="secondary"
-            onClick={() => setToasts([])}
+            variant="primary"
+            onClick={() =>
+              setToasts((p) => [
+                ...p,
+                {
+                  id: crypto.randomUUID(),
+                  variant: "primary",
+                  icon: "sync",
+                  title: "Sincronizando dados",
+                  description: "Este toast desaparece automaticamente.",
+                  dismissible: false,
+                },
+              ])
+            }
           >
-            Clear all
+            Disparar auto-dismiss
           </Button>
         </div>
-        <p style={{ fontSize: "12px", color: "gray", marginTop: "8px" }}>
-          Add multiple toasts then dismiss any one — watch the others collapse
-          into the freed space.
-        </p>
         <NotificationContainer
-          notifications={toasts.map((t) => ({
-            ...t,
-            onClose: () => remove(t.id),
-          }))}
+          notifications={toasts.map((t) => ({ ...t, onClose: () => remover(t.id) }))}
         />
       </>
     );
   },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Click **Add all 8 toasts** then dismiss the 5th one. The remaining toasts animate smoothly into the freed space via `max-height` collapse + `transform` transition.",
-      },
-    },
-  },
 };
 
-export const FloatAutoDismiss: Story = {
-  name: "Float — auto-dismiss",
+/**
+ * Stack de toasts com reordenação suave.
+ * Adicione múltiplos toasts e dispense qualquer um — os restantes colapsam
+ * suavemente para preencher o espaço liberado via animação `max-height` + `transform`.
+ */
+export const FloatStacked: Story = {
+  name: "Float — stack com reordenação",
   render: () => {
     const [toasts, setToasts] = useState<NotificationEntry[]>([]);
-    const remove = (id: string) =>
-      setToasts((p) => p.filter((t) => t.id !== id));
+    const remover = (id: string) => setToasts((p) => p.filter((t) => t.id !== id));
+    const adicionarAleatorio = () => {
+      const t = TEMPLATES[Math.floor(Math.random() * TEMPLATES.length)];
+      setToasts((p) => [...p, { ...t, id: crypto.randomUUID() }]);
+    };
+    const adicionarTodos = () =>
+      setToasts(TEMPLATES.map((t) => ({ ...t, id: crypto.randomUUID() })));
+
     return (
       <>
-        <Button
-          style={{ width: "fit-content" }}
-          onClick={() => {
-            setToasts((p) => [
-              ...p,
-              {
-                id: crypto.randomUUID(),
-                variant: "primary",
-                icon: "sync",
-                title: "Syncing data",
-                description: "This will disappear automatically.",
-                dismissible: false,
-              },
-            ]);
-          }}
-        >
-          Trigger auto-dismiss toast
-        </Button>
+        <div style={{ display: "flex", gap: "var(--s-spacing-xx-small)", flexWrap: "wrap" }}>
+          <div style={{ width: "fit-content" }}>
+            <Button variant="primary" onClick={adicionarAleatorio}>
+              Adicionar aleatório
+            </Button>
+          </div>
+          <div style={{ width: "fit-content" }}>
+            <Button variant="secondary" onClick={adicionarTodos}>
+              Adicionar todos (8)
+            </Button>
+          </div>
+          <div style={{ width: "fit-content" }}>
+            <Button variant="secondary" onClick={() => setToasts([])}>
+              Limpar todos
+            </Button>
+          </div>
+        </div>
+        <small style={{ display: "block", paddingTop: "var(--s-spacing-nano)" }}>
+          Adicione todos e dispense o 5º — os demais colapsam suavemente.
+        </small>
         <NotificationContainer
-          notifications={toasts.map((t) => ({
-            ...t,
-            onClose: () => remove(t.id),
-          }))}
+          notifications={toasts.map((t) => ({ ...t, onClose: () => remover(t.id) }))}
         />
       </>
     );
