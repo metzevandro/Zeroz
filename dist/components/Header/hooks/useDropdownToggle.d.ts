@@ -1,15 +1,15 @@
 interface UseDropdownToggleReturn {
     isOpen: boolean;
-    dropdownHeight: number;
     dropdownRef: React.RefObject<HTMLDivElement>;
-    contentRef: React.RefObject<HTMLDivElement>;
     toggle: () => void;
 }
 /**
- * Manages the open/close state of a dropdown panel, including:
+ * Manages the open/close state of the HeaderProfile dropdown:
  * - Toggle on trigger click
  * - Click-outside detection to auto-close
- * - Dynamic max-height calculation for the expand/collapse animation
+ *
+ * Height animation is now delegated to the `Dropdown` component
+ * via the `visible` prop injected by `HeaderProfile`.
  */
 export declare function useDropdownToggle(): UseDropdownToggleReturn;
 export {};

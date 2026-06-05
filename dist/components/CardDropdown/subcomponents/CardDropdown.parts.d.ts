@@ -1,5 +1,5 @@
 import React from "react";
-import { CardDropdownState } from "../Carddropdown.types";
+import { CardDropdownState } from "../CardDropdown.types";
 interface CardDropdownHeaderProps {
     title: string;
     description?: string;

@@ -7,11 +7,17 @@ import { HeaderProfileProps } from "../Header.types";
  * that can contain any content — typically `<DropdownItem>` entries.
  * The dropdown closes automatically when the user clicks outside.
  *
+ * The `children` must be a `<Dropdown>` component — `visible` and `align="right"`
+ * are injected automatically via `React.cloneElement`, so the consumer does not
+ * need to manage the `visible` prop manually.
+ *
  * @example
  * ```tsx
  * <HeaderProfile name="Jane Doe" letter="J" avatar_src={avatarUrl}>
- *   <DropdownItem typeIcon="person" content="Profile" />
- *   <DropdownItem typeIcon="logout" content="Sign out" onClick={signOut} />
+ *   <Dropdown>
+ *     <DropdownItem icon="person" label="Profile" />
+ *     <DropdownItem icon="logout" label="Sign out" onClick={signOut} />
+ *   </Dropdown>
  * </HeaderProfile>
  * ```
  */

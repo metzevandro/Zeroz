@@ -1,6 +1,6 @@
 'use strict';
 
-var Image = require('../../Image-zhgx1kv3.js');
+var Image = require('../../Image-Dy1RKLhe.js');
 require('react/jsx-runtime');
 require('../../Skeleton-CzoMYdQv.js');
 

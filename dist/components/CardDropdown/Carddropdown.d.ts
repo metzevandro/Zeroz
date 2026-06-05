@@ -1,6 +1,6 @@
-import "./Carddropdown.scss";
+import "./CardDropdown.scss";
 import React from "react";
-import { CardDropdownProps } from "./Carddropdown.types";
+import { CardDropdownProps } from "./CardDropdown.types";
 /**
  * `CardDropdown` is an expandable card that displays a persistent header
  * and reveals additional content (body and footer) when clicked.

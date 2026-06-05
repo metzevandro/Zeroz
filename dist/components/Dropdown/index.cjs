@@ -1,6 +1,6 @@
 'use strict';
 
-var Dropdown = require('../../Dropdown-Df2CnmB1.js');
+var Dropdown = require('../../Dropdown-BFvqcpSR.js');
 require('react/jsx-runtime');
 require('../../Icon-BUoiqqF-.js');
 

@@ -1,12 +1,12 @@
 'use strict';
 
-var HeaderProfile = require('../../HeaderProfile-BXM5cXOv.js');
+var HeaderProfile = require('../../HeaderProfile-De6Iisx2.js');
 require('react/jsx-runtime');
 require('../../ButtonIcon-D_zBPQVl.js');
 require('../../Icon-BUoiqqF-.js');
 require('../../Skeleton-CzoMYdQv.js');
 require('react');
-require('../../Avatar-DXpNIyf-.js');
+require('../../Avatar-Bf_sKaks.js');
 
 
 
