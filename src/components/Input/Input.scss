@@ -134,6 +134,8 @@
   transition:
     transform 0.3s ease,
     opacity 0.3s ease;
+  display: flex;
+  align-items: center;
 }
 
 .toggle-password {
