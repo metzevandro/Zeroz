@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { useState, useEffect } from "react";
-import { Loading } from "./index";
+import { Loading, Button } from "../../index";
 import "../../styles.scss";
 
 const meta: Meta<typeof Loading> = {
@@ -161,20 +161,12 @@ export const TransitionToSuccess: Story = {
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-x-small)", minWidth: "260px" }}>
         {state === "idle" && (
           <div style={{ width: "fit-content" }}>
-            <button
+            <Button
               onClick={handleSave}
-              style={{
-                padding: "var(--s-spacing-xx-small) var(--s-spacing-x-small)",
-                background: "var(--s-color-fill-highlight)",
-                color: "var(--s-color-content-on-color)",
-                border: "none",
-                borderRadius: "var(--s-border-radius-medium)",
-                cursor: "pointer",
-                font: "var(--s-typography-label-medium)",
-              }}
+              
             >
               Salvar alterações
-            </button>
+            </Button>
           </div>
         )}
         {state === "loading" && <Loading variant="default" message="Salvando alterações..." />}
@@ -203,20 +195,12 @@ export const TransitionToWarning: Story = {
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-x-small)", minWidth: "260px", alignItems: 'left' }}>
         {state === "idle" && (
           <div style={{ width: "fit-content" }}>
-            <button
+            <Button
               onClick={handleSubmit}
-              style={{
-                padding: "var(--s-spacing-xx-small) var(--s-spacing-x-small)",
-                background: "var(--s-color-fill-highlight)",
-                color: "var(--s-color-content-on-color)",
-                border: "none",
-                borderRadius: "var(--s-border-radius-medium)",
-                cursor: "pointer",
-                font: "var(--s-typography-label-medium)",
-              }}
+              
             >
               Enviar formulário
-            </button>
+            </Button>
           </div>
         )}
         {state === "loading" && <Loading variant="default" message="Enviando formulário..." />}
