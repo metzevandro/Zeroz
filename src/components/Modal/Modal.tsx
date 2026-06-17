@@ -1,5 +1,6 @@
 import "./Modal.scss";
 import React from "react";
+import ReactDOM from "react-dom";
 import { ModalProps } from "./Modal.types";
 import { ModalHeader } from "./subcomponents/ModalHeader";
 import { getModalClass } from "./utils/modal.utils";
@@ -7,6 +8,11 @@ import { getModalClass } from "./utils/modal.utils";
 /**
  * `Modal` is a dialog overlay with a header, optional body content,
  * and an optional footer.
+ *
+ * Rendered via `ReactDOM.createPortal` into `document.body` so that
+ * `position: fixed` is relative to the viewport — not a parent element.
+ * This ensures the modal works correctly inside Storybook's Docs iframe
+ * and in any app context regardless of CSS stacking contexts.
  *
  * When `dismissible` is `true`, a close button appears in the header
  * and clicking the backdrop overlay also fires `hideModal`.
@@ -44,24 +50,28 @@ const Modal: React.FC<ModalProps> = ({
   hideModal,
   isOpen,
   dismissible = false,
-}) => (
-  <>
-    <div className={getModalClass("modal-root", isOpen)}>
-      <ModalHeader
-        title={title}
-        description={description}
-        dismissible={dismissible}
-        onClose={hideModal}
-      />
-      {content}
-      {footer}
-    </div>
+}) => {
+  const node = (
+    <>
+      <div className={getModalClass("modal-root", isOpen)}>
+        <ModalHeader
+          title={title}
+          description={description}
+          dismissible={dismissible}
+          onClose={hideModal}
+        />
+        {content}
+        {footer}
+      </div>
 
-    <div
-      className={getModalClass("modal-ghost", isOpen)}
-      onClick={dismissible ? hideModal : undefined}
-    />
-  </>
-);
+      <div
+        className={getModalClass("modal-ghost", isOpen)}
+        onClick={dismissible ? hideModal : undefined}
+      />
+    </>
+  );
+
+  return ReactDOM.createPortal(node, document.body);
+};
 
 export default Modal;
