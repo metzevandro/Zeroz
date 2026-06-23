@@ -85,6 +85,16 @@
     display: flex;
   }
 
+  .noLabel {
+    .skeleton:first-child {
+      width: 66px !important;
+    }
+
+    .skeleton:last-child {
+      display: none;
+    }
+  }
+
   .leftLabel {
     padding: var(--s-spacing-small);
     align-items: center;
@@ -97,6 +107,13 @@
 
     div {
       display: flex;
+    }
+    .skeleton:first-child {
+      width: 66px !important;
+    }
+
+    .skeleton:last-child {
+      display: none;
     }
   }
 
