@@ -36,10 +36,10 @@ automaticamente o toggle de visibilidade — o ícone de olho substitui o \`icon
         `,
       },
     },
-  design: {
-       type: 'figma',
-    url: 'https://figma.com/file/SEU_FILE_KEY/Input?node-id=NODE_ID',
-   },
+    design: {
+      type: "figma",
+      url: "https://figma.com/file/SEU_FILE_KEY/Input?node-id=NODE_ID",
+    },
   },
   argTypes: {
     label: {
@@ -58,12 +58,16 @@ automaticamente o toggle de visibilidade — o ícone de olho substitui o \`icon
       options: ["text", "password", "email", "number", "tel", "url"],
       description:
         "Tipo nativo do `<input>`. O tipo `password` ativa o toggle de visibilidade automaticamente.",
-      table: { type: { summary: '"text" | "password" | "email" | "number" | "tel" | "url"' } },
+      table: {
+        type: {
+          summary: '"text" | "password" | "email" | "number" | "tel" | "url"',
+        },
+      },
     },
     icon: {
       control: "text",
       description:
-        "Nome do ícone Material Symbol renderizado à direita do campo. Ignorado quando `type=\"password\"`.",
+        'Nome do ícone Material Symbol renderizado à direita do campo. Ignorado quando `type="password"`.',
       table: { type: { summary: "string" } },
     },
     fillIcon: {
@@ -84,7 +88,8 @@ automaticamente o toggle de visibilidade — o ícone de olho substitui o \`icon
     },
     textError: {
       control: "text",
-      description: "Mensagem de validação exibida abaixo do campo quando `error` é `true`.",
+      description:
+        "Mensagem de validação exibida abaixo do campo quando `error` é `true`.",
       table: { type: { summary: "string" } },
     },
     disabled: {
@@ -248,14 +253,22 @@ export const Controlled: Story = {
   render: () => {
     const [valor, setValor] = useState("");
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-x-small)" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--s-spacing-x-small)",
+        }}
+      >
         <Input
           label="Nome"
           placeholder="Digite seu nome"
           value={valor}
           onChange={(e) => setValor(e.target.value)}
         />
-        <small>Valor atual: <strong>{valor || "vazio"}</strong></small>
+        <small>
+          Valor atual: <strong>{valor || "vazio"}</strong>
+        </small>
       </div>
     );
   },
@@ -298,8 +311,20 @@ export const WithBlurValidation: Story = {
 export const LoginForm: Story = {
   name: "Contexto real — formulário de login",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-x-small)", width: "300px" }}>
-      <Input label="E-mail" icon="mail" type="email" placeholder="voce@exemplo.com" />
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "var(--s-spacing-x-small)",
+        width: "300px",
+      }}
+    >
+      <Input
+        label="E-mail"
+        icon="mail"
+        type="email"
+        placeholder="voce@exemplo.com"
+      />
       <Input label="Senha" type="password" placeholder="••••••••" />
     </div>
   ),
@@ -313,10 +338,22 @@ export const LoginForm: Story = {
 export const RegisterForm: Story = {
   name: "Contexto real — formulário de cadastro",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-x-small)", width: "300px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "var(--s-spacing-x-small)",
+        width: "300px",
+      }}
+    >
       <Input label="Nome" icon="person" placeholder="Jane" />
       <Input label="Sobrenome" icon="person" placeholder="Doe" />
-      <Input label="E-mail" icon="mail" type="email" placeholder="jane@exemplo.com" />
+      <Input
+        label="E-mail"
+        icon="mail"
+        type="email"
+        placeholder="jane@exemplo.com"
+      />
       <Input label="Senha" type="password" />
     </div>
   ),
@@ -329,7 +366,14 @@ export const RegisterForm: Story = {
 export const SkeletonForm: Story = {
   name: "Contexto real — formulário em carregamento",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-x-small)", width: "300px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "var(--s-spacing-x-small)",
+        width: "300px",
+      }}
+    >
       <Input label="Nome" skeleton />
       <Input label="E-mail" skeleton />
       <Input label="Cargo" skeleton />
