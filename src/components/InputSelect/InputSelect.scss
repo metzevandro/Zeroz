@@ -84,16 +84,33 @@
     list-style: none;
     padding: var(--s-spacing-nano);
     margin: 0;
-    max-height: 240px;
     overflow-y: auto;
     scrollbar-width: thin;
+
+    max-height: 0;
+    visibility: hidden;
+    transition:
+      max-height 0.3s ease-in-out,
+      opacity 0.3s ease-in-out,
+      visibility 0.3s ease-in-out;
+
+    &.open {
+      max-height: 240px;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &.close {
+      max-height: 0;
+      visibility: hidden;
+    }
   }
 
   .input-select-option {
     width: 100%;
     text-align: left;
     padding: var(--s-spacing-xx-small) var(--s-spacing-x-small);
-    border-radius: var(--s-border-radius-small);
+    border-radius: var(--s-border-radius-medium);
     background-color: transparent;
     color: var(--s-color-content-default);
     font: var(--s-typography-paragraph-regular);
@@ -132,16 +149,17 @@
       left: 0;
       right: 0;
       top: auto;
-      border-radius: var(--s-border-radius-medium) var(--s-border-radius-medium)
-        0 0;
+      border-radius: var(--s-border-radius-large) var(--s-border-radius-large) 0
+        0;
       max-height: 50vh;
-      padding: var(--s-spacing-small);
+      padding: var(--s-spacing-small) var(--s-spacing-x-small);
       box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
     }
 
     .input-select-option {
       padding: var(--s-spacing-x-small) var(--s-spacing-small);
       font: var(--s-typography-paragraph-regular);
+      border-radius: var(--s-border-radius-medium);
       min-height: 48px;
       display: flex;
       align-items: center;
