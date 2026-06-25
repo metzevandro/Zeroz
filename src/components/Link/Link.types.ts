@@ -27,4 +27,10 @@ export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>
    * Link label or content. Accepts any `ReactNode`.
    */
   children: React.ReactNode;
+  
+  /**
+   * When `true`, replaces the component Link with skeleton placeholders.
+   * @default false
+   */
+  skeleton?: boolean;
 }

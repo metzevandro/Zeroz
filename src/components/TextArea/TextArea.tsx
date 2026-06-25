@@ -76,7 +76,6 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         <label className="text-area-label">{label}</label>
 
         <div
-          tabIndex={0}
           role="group"
           className={containerClass}
           onClick={handleContainerClick}

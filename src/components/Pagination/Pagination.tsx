@@ -39,16 +39,18 @@ const Pagination: React.FC<PaginationProps> = ({
   const leftButton = (
     <PaginationArrowButton
       direction="left"
-      disabled={skeleton || disabledLeft}
+      disabled={disabledLeft}
       onClick={onClickLeft}
+      skeleton={skeleton}
     />
   );
 
   const rightButton = (
     <PaginationArrowButton
       direction="right"
-      disabled={skeleton || disabledRight}
+      disabled={disabledRight}
       onClick={onClickRight}
+      skeleton={skeleton}
     />
   );
 

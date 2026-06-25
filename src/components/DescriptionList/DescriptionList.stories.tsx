@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
-import DescriptionList from "./DescriptionList";
+import { DescriptionList, Progress } from '../../index'
+import Badge from "../Badge/index"
+import "../../styles.scss";
 
 // ─── Meta ─────────────────────────────────────────────────────────────────────
 
@@ -55,7 +57,7 @@ O layout de cada linha é controlado pela prop \`direction\`.
     items: {
       control: "object",
       description:
-        "Array de pares `{ title, description }`. `description` é opcional — renderiza célula vazia se omitido.",
+        "Array de pares `{ title, description }`. `description` é opcional — renderiza célula com travessão se omitido. Aceita qualquer tipo de valor",
       table: {
         type: { summary: "DescriptionItem[]" },
       },
@@ -72,7 +74,7 @@ const accountItems = [
   { title: "Nome completo", description: "Jane Doe" },
   { title: "E-mail", description: "jane@example.com" },
   { title: "Plano", description: "Pro" },
-  { title: "Status", description: "Ativo" },
+  { title: "Status", description: <Badge label="Active" type="light" variant="success" /> },
   { title: "Renovação", description: "15/08/2025" },
 ];
 
@@ -225,7 +227,7 @@ export const LongList: Story = {
 };
 
 /**
- * Uso recomendado de placeholder `"—"` para valores ausentes.
+ * Quando não houver valor no campo description é passado "—" como valor default.
  */
 export const PlaceholderDash: Story = {
   name: "With placeholder \"—\" for missing values",
@@ -233,8 +235,8 @@ export const PlaceholderDash: Story = {
     direction: "row",
     items: [
       { title: "Nome completo", description: "Jane Doe" },
-      { title: "Telefone", description: "—" },
-      { title: "Empresa", description: "—" },
+      { title: "Telefone",  },
+      { title: "Empresa",  },
       { title: "E-mail", description: "jane@example.com" },
     ],
   },
@@ -242,7 +244,7 @@ export const PlaceholderDash: Story = {
     docs: {
       description: {
         story:
-          "Passando `\"—\"` quando o valor não está disponível, o alinhamento das colunas é preservado e a leitura fica mais clara.",
+          "Quando não há valor no description o `\"—\"` é passado, assim o alinhamento das colunas é preservado e a leitura fica mais clara.",
       },
     },
   },
@@ -377,5 +379,24 @@ export const MultipleSections: Story = {
           "Múltiplas instâncias de `DescriptionList` usadas como seções separadas dentro de um painel. Cada instância é independente e mantém seus próprios divisores.",
       },
     },
+  },
+};
+
+export const ComplexReactNode: Story = {
+  name: "With complex React components",
+  args: {
+    direction: "row",
+    items: [
+      { 
+        title: "Status", 
+        description: <Badge label="Active" type="light" variant="success" /> 
+      },
+      { 
+        title: "Progress", 
+        description: (
+          <Progress value={64}/>
+        )
+      },
+    ],
   },
 };

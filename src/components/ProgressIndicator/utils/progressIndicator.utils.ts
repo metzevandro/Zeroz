@@ -8,7 +8,7 @@ export const STATE_ICON: Record<ProgressIndicatorState, string> = {
   current: "trip_origin",
   error: "error",
   completed: "check_circle",
-  disable: "circle",
+  disable: "block",
 };
 
 /**

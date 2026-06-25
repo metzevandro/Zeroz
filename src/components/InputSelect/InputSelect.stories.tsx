@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
 import { InputSelect } from "./index";
-import {Button} from '../Button/index'
+import { Button } from "../Button/index";
 import "../../styles.scss";
 
 const meta: Meta<typeof InputSelect> = {
@@ -41,14 +41,15 @@ e \`aria-labelledby\` para associação acessível com o label.
       },
     },
     design: {
-       type: 'figma',
-      url: 'https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=435-10073',
-     },
+      type: "figma",
+      url: "https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=435-10073",
+    },
   },
   argTypes: {
     label: {
       control: "text",
-      description: "Label exibido acima do campo. Associado ao trigger via `aria-labelledby`.",
+      description:
+        "Label exibido acima do campo. Associado ao trigger via `aria-labelledby`.",
       table: { type: { summary: "string" } },
     },
     options: {
@@ -81,7 +82,8 @@ e \`aria-labelledby\` para associação acessível com o label.
     },
     errorMessage: {
       control: "text",
-      description: "Mensagem de validação exibida abaixo do campo quando `error` é `true`.",
+      description:
+        "Mensagem de validação exibida abaixo do campo quando `error` é `true`.",
       table: { type: { summary: "string" } },
     },
     onChange: {
@@ -202,7 +204,13 @@ export const Controlled: Story = {
   render: () => {
     const [valor, setValor] = useState("");
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-x-small)" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--s-spacing-x-small)",
+        }}
+      >
         <InputSelect
           label="Cargo"
           options={cargos}
@@ -228,9 +236,20 @@ export const LongList: Story = {
   args: {
     label: "Framework",
     options: [
-      "React", "Vue", "Angular", "Svelte", "SolidJS",
-      "Qwik", "Astro", "Remix", "Next.js", "Nuxt",
-      "SvelteKit", "Ember", "Backbone", "Preact",
+      "React",
+      "Vue",
+      "Angular",
+      "Svelte",
+      "SolidJS",
+      "Qwik",
+      "Astro",
+      "Remix",
+      "Next.js",
+      "Nuxt",
+      "SvelteKit",
+      "Ember",
+      "Backbone",
+      "Preact",
     ],
     onChange: () => {},
   },
@@ -277,24 +296,59 @@ export const InAddressForm: Story = {
     };
 
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-x-small)", minWidth: "280px" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--s-spacing-x-small)",
+          minWidth: "280px",
+        }}
+      >
         <InputSelect
           label="Estado"
-          options={["AC", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO"]}
+          options={[
+            "AC",
+            "AM",
+            "BA",
+            "CE",
+            "DF",
+            "ES",
+            "GO",
+            "MA",
+            "MG",
+            "MS",
+            "MT",
+            "PA",
+            "PB",
+            "PE",
+            "PI",
+            "PR",
+            "RJ",
+            "RN",
+            "RO",
+            "RR",
+            "RS",
+            "SC",
+            "SE",
+            "SP",
+            "TO",
+          ]}
           value={estado}
           error={erro}
           errorMessage="Selecione um estado."
-          onChange={(v) => { setEstado(v); setErro(false); setSubmitted(false); }}
+          onChange={(v) => {
+            setEstado(v);
+            setErro(false);
+            setSubmitted(false);
+          }}
         />
         <div style={{ width: "fit-content" }}>
-          <Button
-            onClick={handleSubmit}
-          >
-            Continuar
-          </Button>
+          <Button onClick={handleSubmit}>Continuar</Button>
         </div>
         {submitted && (
-          <small>Estado selecionado: <strong>{estado}</strong></small>
+          <small>
+            Estado selecionado: <strong>{estado}</strong>
+          </small>
         )}
       </div>
     );

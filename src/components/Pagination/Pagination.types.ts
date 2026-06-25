@@ -40,8 +40,8 @@ export interface PaginationProps {
   onClickRight?: () => void;
 
   /**
-   * When `true`, replaces the label with a skeleton placeholder
-   * and disables both arrow buttons.
+   * When `true`, replaces the label and both arrow buttons
+   * with a skeleton placeholder.
    * @default false
    */
   skeleton?: boolean;
@@ -56,4 +56,10 @@ export interface PaginationArrowButtonProps {
 
   /** Callback fired on click. */
   onClick?: () => void;
+
+  /**
+   * When `true`, replaces the button with a skeleton placeholder
+   * @default false
+   */
+  skeleton?: boolean;
 }

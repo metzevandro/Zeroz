@@ -22,6 +22,7 @@
     &.error,
     &.disable {
       border-top-color: var(--s-color-border-default);
+      cursor: auto;
     }
   }
 
@@ -42,6 +43,7 @@
     &.disable {
       border-left: var(--s-border-width-thin) solid
         var(--s-color-border-default);
+      cursor: auto;
     }
   }
 
@@ -67,7 +69,7 @@
     }
 
     &.default span {
-      color: var(--s-color-content-default);
+      color: var(--s-color-border-default);
     }
 
     &.error span {

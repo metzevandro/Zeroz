@@ -77,13 +77,12 @@ const InputSelect: React.FC<InputSelectProps> = ({
           <Icon icon="keyboard_arrow_down" size="sm" />
         </button>
 
-        {isOpen && (
-          <SelectDropdown
-            options={options}
-            selected={selectedOption}
-            onSelect={selectOption}
-          />
-        )}
+        <SelectDropdown
+          isOpen={isOpen}
+          options={options}
+          selected={selectedOption}
+          onSelect={selectOption}
+        />
       </div>
 
       {error && errorMessage && (

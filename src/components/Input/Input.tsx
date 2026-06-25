@@ -58,16 +58,22 @@ const Input: React.FC<InputProps> = ({
     <div className="input-root">
       {label && (
         <div className="input-header">
-          {/* htmlFor links this label to the input with the matching id,
+          {skeleton ? (
+            <Skeleton height="16px" width="100px"></Skeleton>
+          ) : (
+            <>
+              {/* htmlFor links this label to the input with the matching id,
               enabling click-to-focus and screen reader association. */}
-          <label htmlFor={generatedId}>{label}</label>
+              <label htmlFor={generatedId}>{label}</label>
+            </>
+          )}
         </div>
       )}
 
-      {skeleton ? (
+      {skeleton && dimensions.height > 0 ? (
         <Skeleton
-          height={`${dimensions.height}`}
-          width={`${dimensions.width}`}
+          height={`${dimensions.height}px`}
+          width={`${dimensions.width}px`}
         />
       ) : (
         <div ref={containerRef}>

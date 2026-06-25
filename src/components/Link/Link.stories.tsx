@@ -102,6 +102,25 @@ export const Disabled: Story = {
     disabled: true,
     onClick: (e) => e.preventDefault(),
     children: "Configurações (indisponível)",
+    skeleton: false,
+  },
+};
+
+/**
+ * Estado skeleton — renderiza um placeholder de carregamento.
+ * Mede automaticamente o tamanho real do Link e aplica ao Skeleton.
+ * Use `disabled={true}` para bloquear interações enquanto carrega.
+ * Em produção, sempre combine com `onClick={(e) => e.preventDefault()}` 
+ * para garantir o bloqueio completo da navegação.
+ */
+export const Skeleton: Story = {
+  name: "Estado — skeleton",
+  args: {
+    href: "/configuracoes",
+    disabled: true,
+    onClick: (e) => e.preventDefault(),
+    children: "Configurações (carregando)",
+    skeleton: true,
   },
 };
 

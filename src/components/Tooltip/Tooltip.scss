@@ -32,6 +32,7 @@ $gap: calc(100% + $arrow-size + 4px);
 
   p {
     font: var(--s-typography-caption-regular);
+    color: var(--s-color-content-on-color);
     line-height: var(--s-line-height-16);
     text-align: center;
   }

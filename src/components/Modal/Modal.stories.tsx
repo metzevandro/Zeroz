@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
 import { Modal, ContentModal, FooterModal } from "./index";
-import { Button } from "../Button";
+import { Button, Input } from "../../index";
 import "../../styles.scss";
 
 const meta: Meta<typeof Modal> = {
@@ -45,10 +45,10 @@ e clicar no overlay também dispara \`hideModal\`.
         `,
       },
     },
-     design: {
-     type: 'figma',
-     url: 'https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=435-10081',
-     },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=435-10081",
+    },
   },
   argTypes: {
     title: {
@@ -82,18 +82,27 @@ e clicar no overlay também dispara \`hideModal\`.
     },
     content: {
       control: false,
-      description: "Corpo do modal — use `<ContentModal>` para padding consistente.",
+      description:
+        "Corpo do modal — use `<ContentModal>` para padding consistente.",
       table: { type: { summary: "React.ReactNode" } },
     },
     footer: {
       control: false,
-      description: "Rodapé do modal — use `<FooterModal>` para layout consistente.",
+      description:
+        "Rodapé do modal — use `<FooterModal>` para layout consistente.",
       table: { type: { summary: "React.ReactNode" } },
     },
   },
   decorators: [
     (Story) => (
-      <div style={{ minHeight: "160px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div
+        style={{
+          minHeight: "160px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <Story />
       </div>
     ),
@@ -146,14 +155,18 @@ export const Default: Story = {
       }
       footer={
         <FooterModal>
-          <div style={{ width: "fit-content" }}>
-            <Button variant="secondary" size="md">
-              Cancelar
-            </Button>
-          </div>
-          <div style={{ width: "fit-content" }}>
+          <div
+            style={{
+              display: "flex",
+              width: "fit-content",
+              gap: "var(--s-spacing-xx-small)",
+            }}
+          >
             <Button variant="warning" size="md">
               Excluir
+            </Button>
+            <Button variant="secondary" size="md">
+              Cancelar
             </Button>
           </div>
         </FooterModal>
@@ -179,10 +192,29 @@ export const Dismissible: Story = {
       dismissible
       content={
         <ContentModal>
-          <ul style={{ paddingLeft: "var(--s-spacing-medium)", display: "flex", flexDirection: "column", gap: "var(--s-spacing-nano)" }}>
-            <li><small><kbd>⌘ K</kbd> — Abrir paleta de comandos</small></li>
-            <li><small><kbd>⌘ /</kbd> — Alternar sidebar</small></li>
-            <li><small><kbd>Esc</kbd> — Fechar modal</small></li>
+          <ul
+            style={{
+              paddingLeft: "var(--s-spacing-medium)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--s-spacing-nano)",
+            }}
+          >
+            <li>
+              <small>
+                <kbd>⌘ K</kbd> — Abrir paleta de comandos
+              </small>
+            </li>
+            <li>
+              <small>
+                <kbd>⌘ /</kbd> — Alternar sidebar
+              </small>
+            </li>
+            <li>
+              <small>
+                <kbd>Esc</kbd> — Fechar modal
+              </small>
+            </li>
           </ul>
         </ContentModal>
       }
@@ -254,10 +286,29 @@ export const NoFooter: Story = {
       dismissible
       content={
         <ContentModal>
-          <ul style={{ paddingLeft: "var(--s-spacing-medium)", display: "flex", flexDirection: "column", gap: "var(--s-spacing-nano)" }}>
-            <li><small><kbd>⌘ K</kbd> — Abrir paleta de comandos</small></li>
-            <li><small><kbd>⌘ /</kbd> — Alternar sidebar</small></li>
-            <li><small><kbd>Esc</kbd> — Fechar modal</small></li>
+          <ul
+            style={{
+              paddingLeft: "var(--s-spacing-medium)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--s-spacing-nano)",
+            }}
+          >
+            <li>
+              <small>
+                <kbd>⌘ K</kbd> — Abrir paleta de comandos
+              </small>
+            </li>
+            <li>
+              <small>
+                <kbd>⌘ /</kbd> — Alternar sidebar
+              </small>
+            </li>
+            <li>
+              <small>
+                <kbd>Esc</kbd> — Fechar modal
+              </small>
+            </li>
           </ul>
         </ContentModal>
       }
@@ -305,21 +356,25 @@ export const DeleteConfirmation: Story = {
       content={
         <ContentModal>
           <p>
-            Tem certeza que deseja excluir <strong>Jane Doe</strong>?
-            Todos os dados associados também serão removidos.
+            Tem certeza que deseja excluir <strong>Jane Doe</strong>? Todos os
+            dados associados também serão removidos.
           </p>
         </ContentModal>
       }
       footer={
         <FooterModal>
-          <div style={{ width: "fit-content" }}>
-            <Button variant="secondary" size="md">
-              Cancelar
-            </Button>
-          </div>
-          <div style={{ width: "fit-content" }}>
+          <div
+            style={{
+              display: "flex",
+              width: "fit-content",
+              gap: "var(--s-spacing-xx-small)",
+            }}
+          >
             <Button variant="warning" size="md">
               Excluir permanentemente
+            </Button>
+            <Button variant="secondary" size="md">
+              Cancelar
             </Button>
           </div>
         </FooterModal>
@@ -342,27 +397,27 @@ export const FormModal: Story = {
       dismissible
       content={
         <ContentModal>
-          <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-x-small)" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--s-spacing-x-small)",
+            }}
+          >
             {[
               { label: "Nome completo", placeholder: "Ex: Jane Doe" },
               { label: "E-mail", placeholder: "Ex: jane@exemplo.com" },
               { label: "Cargo", placeholder: "Ex: Product Designer" },
             ].map(({ label, placeholder }) => (
-              <div key={label} style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-nano)" }}>
-                <small><strong>{label}</strong></small>
-                <input
-                  placeholder={placeholder}
-                  style={{
-                    padding: "var(--s-spacing-xx-small) var(--s-spacing-x-small)",
-                    border: "var(--s-border-width-hairline) solid var(--s-color-border-default)",
-                    borderRadius: "var(--s-border-radius-medium)",
-                    background: "var(--s-color-fill-default)",
-                    font: "var(--s-typography-paragraph-regular)",
-                    color: "var(--s-color-content-default)",
-                    width: "100%",
-                    boxSizing: "border-box",
-                  }}
-                />
+              <div
+                key={label}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "var(--s-spacing-nano)",
+                }}
+              >
+                <Input label={label} placeholder={placeholder} />
               </div>
             ))}
           </div>
@@ -370,14 +425,18 @@ export const FormModal: Story = {
       }
       footer={
         <FooterModal>
-          <div style={{ width: "fit-content" }}>
-            <Button variant="secondary" size="md">
-              Cancelar
-            </Button>
-          </div>
-          <div style={{ width: "fit-content" }}>
+          <div
+            style={{
+              display: "flex",
+              width: "fit-content",
+              gap: "var(--s-spacing-xx-small)",
+            }}
+          >
             <Button variant="primary" size="md">
               Criar usuário
+            </Button>
+            <Button variant="secondary" size="md">
+              Cancelar
             </Button>
           </div>
         </FooterModal>

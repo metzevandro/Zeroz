@@ -34,9 +34,9 @@ Três variantes de layout estão disponíveis:
         `,
       },
     },
-     design: {
-       type: 'figma',
-      url: 'https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=1557-5788',
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/oxLCV1zqGHyB88OG91z86s/ZeroZ-Design-System?node-id=1557-5788",
     },
   },
   argTypes: {
@@ -57,7 +57,8 @@ Três variantes de layout estão disponíveis:
     },
     disabledLeft: {
       control: "boolean",
-      description: "Desativa a seta esquerda (anterior). Use na primeira página.",
+      description:
+        "Desativa a seta esquerda (anterior). Use na primeira página.",
       table: {
         defaultValue: { summary: "false" },
         type: { summary: "boolean" },
@@ -142,7 +143,13 @@ export const CenterLabel: Story = {
 export const AllVariants: Story = {
   name: "Comparativo — todas as variantes",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-medium)" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "var(--s-spacing-medium)",
+      }}
+    >
       <Pagination variant="noLabel" label="" />
       <Pagination variant="leftLabel" label="Página 3 de 10" />
       <Pagination variant="centerLabel" label="Página 3 de 10" />
@@ -236,7 +243,8 @@ export const TableFooter: Story = {
       <div
         style={{
           width: "480px",
-          border: "var(--s-border-width-hairline) solid var(--s-color-border-default)",
+          border:
+            "var(--s-border-width-hairline) solid var(--s-color-border-default)",
           borderRadius: "var(--s-border-radius-medium)",
           overflow: "hidden",
         }}
@@ -248,10 +256,13 @@ export const TableFooter: Story = {
               display: "flex",
               justifyContent: "space-between",
               padding: "var(--s-spacing-x-small) var(--s-spacing-small)",
-              borderBottom: "var(--s-border-width-hairline) solid var(--s-color-border-default)",
+              borderBottom:
+                "var(--s-border-width-hairline) solid var(--s-color-border-default)",
             }}
           >
-            <small>{id} — {name}</small>
+            <small>
+              {id} — {name}
+            </small>
             <small>{status}</small>
           </div>
         ))}

@@ -4,6 +4,7 @@ interface SelectDropdownProps {
   options: string[];
   selected: string | undefined;
   onSelect: (option: string) => void;
+  isOpen: boolean;
 }
 
 /**
@@ -14,9 +15,14 @@ export function SelectDropdown({
   options,
   selected,
   onSelect,
+  isOpen,
 }: SelectDropdownProps) {
   return (
-    <ul className="input-select-dropdown" role="listbox">
+    <ul
+      className={`input-select-dropdown ${isOpen ? "open" : "close"}`}
+      aria-hidden={isOpen ? 'true' : 'false'}
+      role="listbox"
+    >
       {options.map((option) => (
         <li key={option} role="option" aria-selected={option === selected}>
           <button
