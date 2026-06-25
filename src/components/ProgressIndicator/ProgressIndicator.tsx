@@ -39,7 +39,11 @@ const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
     >
       <div className={`header ${state}`}>
         <div>
-          <Icon icon={icon} size="sm" fill={false} />
+          <Icon
+            icon={icon}
+            size="sm"
+            fill={!["circle", "block", "error"].includes(icon)}
+          />
         </div>
         <h1>{step}</h1>
       </div>

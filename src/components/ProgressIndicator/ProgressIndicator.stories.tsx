@@ -48,9 +48,9 @@ e expandir para preencher a largura disponível via \`widthFull\` para distribui
       },
     },
     design: {
-       type: 'figma',
-       url: 'https://figma.com/file/SEU_FILE_KEY/ProgressIndicator?node-id=NODE_ID',
-     },
+      type: "figma",
+      url: "https://figma.com/file/SEU_FILE_KEY/ProgressIndicator?node-id=NODE_ID",
+    },
   },
   argTypes: {
     step: {
@@ -372,7 +372,13 @@ export const Interactive: Story = {
     const [current, setCurrent] = useState(1);
 
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-spacing-medium)" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--s-spacing-medium)",
+        }}
+      >
         <div style={{ display: "flex", width: "100%" }}>
           {steps.map((s, i) => {
             const state: ProgressIndicatorState =
@@ -393,7 +399,8 @@ export const Interactive: Story = {
         <div
           style={{
             padding: "var(--s-spacing-medium)",
-            border: "var(--s-border-width-hairline) solid var(--s-color-border-default)",
+            border:
+              "var(--s-border-width-hairline) solid var(--s-color-border-default)",
             borderRadius: "var(--s-border-radius-medium)",
             background: "var(--s-color-fill-default)",
           }}
@@ -402,7 +409,13 @@ export const Interactive: Story = {
             Etapa atual: <strong>{steps[current].label}</strong>
           </small>
         </div>
-        <div style={{ display: "flex", gap: "var(--s-spacing-xx-small)", width: 'fit-content' }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "var(--s-spacing-xx-small)",
+            width: "fit-content",
+          }}
+        >
           <Button
             disabled={current === 0}
             onClick={() => setCurrent((p) => p - 1)}
@@ -413,7 +426,6 @@ export const Interactive: Story = {
           <Button
             disabled={current === steps.length - 1}
             onClick={() => setCurrent((p) => p + 1)}
-
           >
             Avançar
           </Button>
