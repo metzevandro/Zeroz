@@ -1,0 +1,1 @@
+.breadcrumb{display:flex;gap:var(--s-spacing-xx-small);align-items:center;color:var(--s-color-content-light);list-style:none;margin:0;padding:0}.breadcrumb li{display:flex;align-items:center;gap:var(--s-spacing-xx-small)}@media screen and (max-width:768px){.breadcrumb{display:none}}
