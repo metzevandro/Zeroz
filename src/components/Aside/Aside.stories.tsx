@@ -4,7 +4,7 @@ import type { AsideProps } from "./Aside.types";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import "../../styles.scss";
-import { DatePicker } from "../DataPicker";
+import { DatePicker } from "../DatePicker";
 
 const meta: Meta<typeof Aside> = {
   title: "Components/Aside",
