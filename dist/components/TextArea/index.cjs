@@ -1,6 +1,6 @@
 'use strict';
 
-var TextArea = require('../../TextArea-DnQFCMs_.js');
+var TextArea = require('../../TextArea-DtsNfsVq.js');
 require('react/jsx-runtime');
 require('react');
 

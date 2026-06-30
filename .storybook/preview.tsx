@@ -1,4 +1,4 @@
-import { Preview } from "@storybook/nextjs";
+import { Preview } from "@storybook/nextjs-vite";
 import { themes } from "storybook/theming";
 import { brand, BrandMode } from "./decorators/brand-mode";
 import { ThemeProvider } from "./providers/ThemeProvider";

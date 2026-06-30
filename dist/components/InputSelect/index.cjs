@@ -1,6 +1,6 @@
 'use strict';
 
-var InputSelect = require('../../InputSelect-CuCkpDc3.js');
+var InputSelect = require('../../InputSelect-Bybu2_NA.js');
 require('react/jsx-runtime');
 require('../../Icon-BUoiqqF-.js');
 require('react');

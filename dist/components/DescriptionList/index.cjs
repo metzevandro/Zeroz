@@ -1,6 +1,6 @@
 'use strict';
 
-var DescriptionList = require('../../DescriptionList-cIn-0Ubo.js');
+var DescriptionList = require('../../DescriptionList-CUfW-6_u.js');
 require('react/jsx-runtime');
 
 

@@ -9,7 +9,7 @@ export * from "./components/ButtonIcon";
 export * from "./components/Card";
 export * from "./components/CardDropdown";
 export * from "./components/Checkbox";
-export * from "./components/DataPicker";
+export * from "./components/DatePicker";
 export * from "./components/DataTable";
 export * from "./components/DescriptionList";
 export * from "./components/Dropdown";

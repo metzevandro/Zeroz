@@ -1,6 +1,6 @@
 'use strict';
 
-var ProgressIndicator = require('../../ProgressIndicator-Czu3DaY1.js');
+var ProgressIndicator = require('../../ProgressIndicator-MBn3RYAd.js');
 require('react/jsx-runtime');
 require('../../Icon-BUoiqqF-.js');
 

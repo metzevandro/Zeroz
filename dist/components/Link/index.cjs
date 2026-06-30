@@ -1,7 +1,9 @@
 'use strict';
 
-var Link = require('../../Link-vV25O-FN.js');
+var Link = require('../../Link-CNk32kM6.js');
 require('react/jsx-runtime');
+require('react');
+require('../../Skeleton-CzoMYdQv.js');
 
 
 

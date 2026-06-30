@@ -6,8 +6,9 @@ export interface DescriptionItem {
     /**
      * The value or content displayed on the trailing side of the row.
      * Optional — renders an empty cell if omitted.
+     * @default "—"
      */
-    description?: string;
+    description?: React.ReactNode;
 }
 export interface DescriptionListProps {
     /**

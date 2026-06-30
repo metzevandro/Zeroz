@@ -1,6 +1,6 @@
 'use strict';
 
-var NotificationContainer = require('../../NotificationContainer-BATGFbgB.js');
+var NotificationContainer = require('../../NotificationContainer-MGF7XnFs.js');
 require('react/jsx-runtime');
 require('react');
 require('react-dom');

@@ -13,7 +13,7 @@ import { DescriptionListProps } from "./DescriptionList.types";
  * <DescriptionList
  *   direction="row"
  *   items={[
- *     { title: "Status", description: "Active" },
+ *     { title: "Status", description: <Badge label="Active" type="light" variant="success" />  },
  *     { title: "Plan", description: "Pro" },
  *     { title: "Renewal", description: "08/15/2025" },
  *   ]}

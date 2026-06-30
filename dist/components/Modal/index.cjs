@@ -1,7 +1,8 @@
 'use strict';
 
-var ModalSlots = require('../../ModalSlots-DpHYv87M.js');
+var ModalSlots = require('../../ModalSlots-CfRSoe5U.js');
 require('react/jsx-runtime');
+require('react-dom');
 require('../../ButtonIcon-D_zBPQVl.js');
 require('../../Icon-BUoiqqF-.js');
 require('../../Skeleton-CzoMYdQv.js');

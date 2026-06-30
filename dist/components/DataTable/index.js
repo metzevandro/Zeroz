@@ -1,4 +1,4 @@
-export { D as DataTable } from '../../DataTable-Ceo3X04H.js';
+export { D as DataTable } from '../../DataTable-B-MPsSSC.js';
 import 'react/jsx-runtime';
 import '../../EmptyState-DM0C-SUZ.js';
 import '../../Icon-93G3RH-i.js';
@@ -7,4 +7,4 @@ import '../../InputSearch-Cp_POJCm.js';
 import '../../ButtonIcon-DWB2zXvl.js';
 import '../../Skeleton-CvObjom8.js';
 import '../../Checkbox-CYLfDHHd.js';
-import '../../Pagination-Iif0t6it.js';
+import '../../Pagination-CoW_TpLg.js';
