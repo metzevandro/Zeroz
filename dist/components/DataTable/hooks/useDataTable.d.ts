@@ -3,6 +3,7 @@ interface UseDataTableOptions {
     data: DataTableProps["data"];
     rowsPerPage: number;
     columns: DataTableProps["columns"];
+    skeleton?: boolean;
     onSelectedRowsChange: DataTableProps["onSelectedRowsChange"];
     onUpdateSelectedRows: DataTableProps["onUpdateSelectedRows"];
     onSort: DataTableProps["onSort"];
@@ -21,7 +22,7 @@ interface UseDataTableOptions {
  * - Filtrar os dados com base em `onSearch`
  * - Ordenar os dados com base em `onSort`
  */
-export declare function useDataTable({ data, rowsPerPage, columns, onSelectedRowsChange, onUpdateSelectedRows, onSort, onSearch, }: UseDataTableOptions): {
+export declare function useDataTable({ data, rowsPerPage, columns, skeleton, onSelectedRowsChange, onUpdateSelectedRows, onSort, onSearch, }: UseDataTableOptions): {
     currentPage: number;
     currentRows: {
         id: string;
