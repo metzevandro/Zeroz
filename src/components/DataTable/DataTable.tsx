@@ -60,6 +60,7 @@ const DataTable: React.FC<DataTableProps> = ({
     data,
     rowsPerPage,
     columns,
+    skeleton,
     onSelectedRowsChange,
     onUpdateSelectedRows,
     onSort,

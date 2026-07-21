@@ -5,6 +5,7 @@ interface UseDataTableOptions {
   data: DataTableProps["data"];
   rowsPerPage: number;
   columns: DataTableProps["columns"];
+  skeleton?: boolean;
   onSelectedRowsChange: DataTableProps["onSelectedRowsChange"];
   onUpdateSelectedRows: DataTableProps["onUpdateSelectedRows"];
   onSort: DataTableProps["onSort"];
@@ -29,6 +30,7 @@ export function useDataTable({
   data,
   rowsPerPage,
   columns,
+  skeleton,
   onSelectedRowsChange,
   onUpdateSelectedRows,
   onSort,
@@ -73,12 +75,14 @@ export function useDataTable({
     setLoadedPages(4);
     setCurrentPage(1);
 
+    if (skeleton) return;
+
     setSelectedRows((prev) => {
       const currentIds = new Set(indexedData.map((row) => row.id as string));
       const filtered = prev.filter((id) => currentIds.has(id));
       return filtered.length === prev.length ? prev : filtered;
     });
-  }, [data]);
+  }, [data, skeleton]);
 
   const totalPages = Math.ceil(indexedData.length / rowsPerPage);
 
