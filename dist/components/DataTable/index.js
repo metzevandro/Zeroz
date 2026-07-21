@@ -1,4 +1,4 @@
-export { D as DataTable } from '../../DataTable-B-MPsSSC.js';
+export { D as DataTable } from '../../DataTable-Bi488JNQ.js';
 import 'react/jsx-runtime';
 import '../../EmptyState-DM0C-SUZ.js';
 import '../../Icon-93G3RH-i.js';

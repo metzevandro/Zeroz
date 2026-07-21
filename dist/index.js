@@ -10,7 +10,7 @@ export { c as CardContent, d as CardFooter, b as CardHeader, a as CardImage } fr
 export { C as CardDropdown } from './CardDropdown-DdoZaZ-C.js';
 export { C as Checkbox } from './Checkbox-CYLfDHHd.js';
 export { D as DatePicker } from './DatePicker-D-HfdMIW.js';
-export { D as DataTable } from './DataTable-B-MPsSSC.js';
+export { D as DataTable } from './DataTable-Bi488JNQ.js';
 export { D as DescriptionList } from './DescriptionList-BZOvc_A8.js';
 export { b as Dropdown, a as DropdownItem, D as DropdownTitle } from './Dropdown-CMFEI9BT.js';
 export { E as EmptyState } from './EmptyState-DM0C-SUZ.js';
