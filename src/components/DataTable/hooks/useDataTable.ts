@@ -54,10 +54,14 @@ export function useDataTable({
     onUpdateSelectedRowsRef.current = onUpdateSelectedRows;
   }, [onUpdateSelectedRows]);
 
-  const indexedData = data.map((row) => {
-    const stableKey = String(row.id ?? JSON.stringify(row));
+  const indexedData = data.map((row, i) => {
+    if (row.id !== undefined && row.id !== null) {
+      return { ...row, id: String(row.id) };
+    }
+
+    const stableKey = JSON.stringify(row);
     if (!rowIdMap.current.has(stableKey)) {
-      rowIdMap.current.set(stableKey, String(idCounter.current++));
+      rowIdMap.current.set(stableKey, `__synthetic-${idCounter.current++}`);
     }
     return {
       ...row,
@@ -68,6 +72,12 @@ export function useDataTable({
   useEffect(() => {
     setLoadedPages(4);
     setCurrentPage(1);
+
+    setSelectedRows((prev) => {
+      const currentIds = new Set(indexedData.map((row) => row.id as string));
+      const filtered = prev.filter((id) => currentIds.has(id));
+      return filtered.length === prev.length ? prev : filtered;
+    });
   }, [data]);
 
   const totalPages = Math.ceil(indexedData.length / rowsPerPage);
