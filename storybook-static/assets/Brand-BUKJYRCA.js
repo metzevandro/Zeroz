@@ -1,0 +1,1 @@
+import{j as s}from"./iframe-C_0AXUlQ.js";const i=({src:a,alt:r="",size:o,...d})=>s.jsx("div",{className:`brand-root ${o}`,children:s.jsx("img",{src:a,alt:r,...d})});i.displayName="Brand";export{i as B};
