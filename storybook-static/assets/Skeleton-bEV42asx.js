@@ -1,0 +1,1 @@
+import{j as o}from"./iframe-DFdk80Qn.js";function i({width:e,height:s,circle:r=!1}){return o.jsx("div",{className:`skeleton ${r?"circle":"no-circle"}`,style:{width:e,height:s,backgroundSize:e,borderRadius:r?"var(--s-border-radius-pill)":void 0}})}export{i as S};

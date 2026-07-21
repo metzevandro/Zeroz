@@ -1,1 +1,0 @@
-import{j as o}from"./iframe-C_0AXUlQ.js";function a(t){return`'FILL' ${t?1:0}, 'GRAD' 0, 'opsz' 24`}const e=({icon:t,size:n,fill:s=!1})=>o.jsx("span",{className:`material-symbols-outlined ${n}`,style:{fontVariationSettings:a(s)},translate:"no",children:t});export{e as I};
