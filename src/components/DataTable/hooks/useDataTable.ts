@@ -10,6 +10,9 @@ interface UseDataTableOptions {
   onUpdateSelectedRows: DataTableProps["onUpdateSelectedRows"];
   onSort: DataTableProps["onSort"];
   onSearch: DataTableProps["onSearch"];
+  page?: DataTableProps["page"];
+  totalItems?: DataTableProps["totalItems"];
+  onPageChange?: DataTableProps["onPageChange"];
 }
 
 /**
@@ -35,8 +38,16 @@ export function useDataTable({
   onUpdateSelectedRows,
   onSort,
   onSearch,
+  page: controlledPage,
+  totalItems,
+  onPageChange,
 }: UseDataTableOptions) {
-  const [currentPage, setCurrentPage] = useState(1);
+  const isControlled =
+    controlledPage !== undefined &&
+    totalItems !== undefined &&
+    onPageChange !== undefined;
+
+  const [internalPage, setInternalPage] = useState(1);
   const [loadedPages, setLoadedPages] = useState(4);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [sortStates, setSortStates] = useState<SortDirection[]>(() =>
@@ -56,6 +67,8 @@ export function useDataTable({
     onUpdateSelectedRowsRef.current = onUpdateSelectedRows;
   }, [onUpdateSelectedRows]);
 
+  const currentPage = isControlled ? controlledPage! : internalPage;
+
   const indexedData = data.map((row, i) => {
     if (row.id !== undefined && row.id !== null) {
       return { ...row, id: String(row.id) };
@@ -72,8 +85,10 @@ export function useDataTable({
   });
 
   useEffect(() => {
-    setLoadedPages(4);
-    setCurrentPage(1);
+    if (!isControlled) {
+      setLoadedPages(4);
+      setInternalPage(1);
+    }
 
     if (skeleton) return;
 
@@ -82,15 +97,19 @@ export function useDataTable({
       const filtered = prev.filter((id) => currentIds.has(id));
       return filtered.length === prev.length ? prev : filtered;
     });
-  }, [data, skeleton]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, skeleton, isControlled]);
 
-  const totalPages = Math.ceil(indexedData.length / rowsPerPage);
+  const totalPages = isControlled
+    ? Math.max(1, Math.ceil((totalItems ?? 0) / rowsPerPage))
+    : Math.ceil(indexedData.length / rowsPerPage);
 
   useEffect(() => {
+    if (isControlled) return;
     if (currentPage === loadedPages && loadedPages < totalPages) {
       setLoadedPages((prev) => Math.min(prev + 4, totalPages));
     }
-  }, [currentPage, loadedPages, totalPages]);
+  }, [currentPage, loadedPages, totalPages, isControlled]);
 
   useEffect(() => {
     onSelectedRowsChangeRef.current?.(selectedRows);
@@ -102,10 +121,14 @@ export function useDataTable({
 
   const handleSearch = useCallback(
     (query: string) => {
-      setCurrentPage(1);
+      if (isControlled) {
+        onPageChange?.(1);
+      } else {
+        setInternalPage(1);
+      }
       onSearch?.(query);
     },
-    [onSearch],
+    [onSearch, isControlled, onPageChange],
   );
 
   const handleSort = useCallback(
@@ -120,15 +143,24 @@ export function useDataTable({
         onSort?.({ columnIndex, direction: nextDirection });
         return next;
       });
+      if (isControlled) {
+        onPageChange?.(1);
+      } else {
+        setInternalPage(1);
+      }
     },
-    [onSort],
+    [onSort, isControlled, onPageChange],
   );
 
-  const visibleData = indexedData.slice(0, loadedPages * rowsPerPage);
-  const currentRows = visibleData.slice(
-    (currentPage - 1) * rowsPerPage,
-    currentPage * rowsPerPage,
-  );
+  const visibleData = isControlled
+    ? indexedData
+    : indexedData.slice(0, loadedPages * rowsPerPage);
+  const currentRows = isControlled
+    ? visibleData
+    : visibleData.slice(
+        (currentPage - 1) * rowsPerPage,
+        currentPage * rowsPerPage,
+      );
 
   const allSelected =
     visibleData.length > 0 &&
@@ -154,12 +186,22 @@ export function useDataTable({
   }, []);
 
   const handlePageLeft = useCallback(() => {
-    setCurrentPage((p) => Math.max(p - 1, 1));
-  }, []);
+    if (isControlled) {
+      onPageChange?.(Math.max(currentPage - 1, 1));
+    } else {
+      setInternalPage((p) => Math.max(p - 1, 1));
+    }
+  }, [isControlled, onPageChange, currentPage]);
 
   const handlePageRight = useCallback(() => {
-    setCurrentPage((p) => Math.min(p + 1, Math.min(totalPages, loadedPages)));
-  }, [totalPages, loadedPages]);
+    if (isControlled) {
+      onPageChange?.(Math.min(currentPage + 1, totalPages));
+    } else {
+      setInternalPage((p) =>
+        Math.min(p + 1, Math.min(totalPages, loadedPages)),
+      );
+    }
+  }, [isControlled, onPageChange, currentPage, totalPages, loadedPages]);
 
   return {
     currentPage,
@@ -167,6 +209,7 @@ export function useDataTable({
     visibleData,
     totalPages,
     loadedPages,
+    isControlled,
     selectedRows,
     sortStates,
     allSelected,
