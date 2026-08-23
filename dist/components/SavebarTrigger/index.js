@@ -1,4 +1,4 @@
-export { S as default } from '../../SavebarTrigger-BIHZ-H12.js';
+export { S as SavebarTrigger } from '../../SavebarTrigger-BIHZ-H12.js';
 import 'react/jsx-runtime';
 import 'react';
 import '../../Savebar-jjGzvADE.js';

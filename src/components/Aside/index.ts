@@ -1,4 +1,3 @@
-// index.ts
 export { default as Aside } from "./Aside";
 export { default as AsideContent } from "./AsideContent";
 export { default as AsideFooter } from "./AsideFooter";

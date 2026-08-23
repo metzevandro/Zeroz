@@ -1,2 +1,2 @@
-export { B as default } from '../../Brand-B8BMxunc.js';
+export { B as Brand } from '../../Brand-B8BMxunc.js';
 import 'react/jsx-runtime';
