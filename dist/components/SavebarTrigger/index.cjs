@@ -1,7 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', { value: true });
-
 var SavebarTrigger = require('../../SavebarTrigger-BjNx0sJo.js');
 require('react/jsx-runtime');
 require('react');
@@ -14,4 +12,4 @@ require('../../Progress-CvhAE7Cu.js');
 
 
 
-exports.default = SavebarTrigger.SavebarTrigger;
+exports.SavebarTrigger = SavebarTrigger.SavebarTrigger;

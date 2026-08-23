@@ -16,6 +16,15 @@ import { useDataTable } from "./hooks/useDataTable";
  * Tabela de dados com paginação, seleção de linhas e suporte a busca
  * e ordenação **server-side**.
  *
+ * ### Paginação
+ *
+ * - **Client-side (padrão)** — `data` contém o dataset completo já
+ *   filtrado/ordenado; o componente pagina localmente (com carregamento
+ *   progressivo). Não passe `page`/`totalItems`/`onPageChange`.
+ * - **Controlada / via API** — passe `page`, `totalItems` e
+ *   `onPageChange` juntos. Nesse modo `data` deve conter **apenas os
+ *   itens da página atual**, e a navegação delega para `onPageChange`.
+ *
  * ### Estados de carregamento
  *
  * O componente distingue dois estados:
@@ -40,12 +49,16 @@ const DataTable: React.FC<DataTableProps> = ({
   onUpdateSelectedRows,
   onSort,
   onSearch,
+  page,
+  totalItems,
+  onPageChange,
 }) => {
   const {
     currentPage,
     currentRows,
     totalPages,
     loadedPages,
+    isControlled,
     selectedRows,
     sortStates,
     allSelected,
@@ -65,6 +78,9 @@ const DataTable: React.FC<DataTableProps> = ({
     onUpdateSelectedRows,
     onSort,
     onSearch,
+    page,
+    totalItems,
+    onPageChange,
   });
 
   const columnKeys = columns.map((col) => col.key);
@@ -142,8 +158,10 @@ const DataTable: React.FC<DataTableProps> = ({
         onClickRight={handlePageRight}
         disabledLeft={currentPage === 1 || currentRows.length === 0}
         disabledRight={
-          currentPage === Math.min(totalPages, loadedPages) ||
-          currentRows.length === 0
+          isControlled
+            ? currentPage === totalPages || currentRows.length === 0
+            : currentPage === Math.min(totalPages, loadedPages) ||
+              currentRows.length === 0
         }
       />
     </div>

@@ -1,4 +1,4 @@
-export { B as default } from '../../Breadcrumb-ojIDNlWf.js';
+export { B as Breadcrumb } from '../../Breadcrumb-ojIDNlWf.js';
 import 'react/jsx-runtime';
 import '../../Link-Bg6F21nq.js';
 import 'react';

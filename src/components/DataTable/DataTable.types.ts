@@ -37,6 +37,25 @@ export interface DataTableProps {
   /** Número de linhas exibidas por página. @default 4 */
   rowsPerPage?: number;
 
+  /**
+   * Ativa paginação controlada externamente (via API).
+   *
+   * Quando `page`, `totalItems` e `onPageChange` são fornecidos juntos,
+   * o DataTable entende que `data` contém **apenas os itens da página
+   * atual** (não o dataset completo) e delega a navegação entre páginas
+   * para o consumidor via `onPageChange`, em vez de paginar localmente.
+   *
+   * Se qualquer um dos três não for passado, o componente volta ao
+   * comportamento padrão (paginação client-side sobre `data` completo).
+   */
+  page?: number;
+
+  /** Total de itens no dataset filtrado (necessário para paginação controlada). */
+  totalItems?: number;
+
+  /** Disparado quando o usuário navega de página em modo controlado. */
+  onPageChange?: (page: number) => void;
+
   /** Exibe checkboxes para seleção de linhas. @default false */
   withCheckbox?: boolean;
 

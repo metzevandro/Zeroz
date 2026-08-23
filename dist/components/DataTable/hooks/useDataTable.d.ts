@@ -8,6 +8,9 @@ interface UseDataTableOptions {
     onUpdateSelectedRows: DataTableProps["onUpdateSelectedRows"];
     onSort: DataTableProps["onSort"];
     onSearch: DataTableProps["onSearch"];
+    page?: DataTableProps["page"];
+    totalItems?: DataTableProps["totalItems"];
+    onPageChange?: DataTableProps["onPageChange"];
 }
 /**
  * Hook principal do DataTable.
@@ -22,7 +25,7 @@ interface UseDataTableOptions {
  * - Filtrar os dados com base em `onSearch`
  * - Ordenar os dados com base em `onSort`
  */
-export declare function useDataTable({ data, rowsPerPage, columns, skeleton, onSelectedRowsChange, onUpdateSelectedRows, onSort, onSearch, }: UseDataTableOptions): {
+export declare function useDataTable({ data, rowsPerPage, columns, skeleton, onSelectedRowsChange, onUpdateSelectedRows, onSort, onSearch, page: controlledPage, totalItems, onPageChange, }: UseDataTableOptions): {
     currentPage: number;
     currentRows: {
         id: string;
@@ -32,6 +35,7 @@ export declare function useDataTable({ data, rowsPerPage, columns, skeleton, onS
     }[];
     totalPages: number;
     loadedPages: number;
+    isControlled: boolean;
     selectedRows: string[];
     sortStates: SortDirection[];
     allSelected: boolean;
