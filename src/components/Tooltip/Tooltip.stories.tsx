@@ -3,7 +3,7 @@ import React from "react";
 import { Tooltip } from "./index";
 import type { TooltipDirection } from "./Tooltip.types";
 import { Button } from "../Button";
-import ButtonIcon from "../ButtonIcon";
+import {ButtonIcon} from "../ButtonIcon";
 import "../../styles.scss";
 
 const meta: Meta<typeof Tooltip> = {

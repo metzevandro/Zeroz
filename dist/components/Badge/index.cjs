@@ -5,4 +5,4 @@ require('react/jsx-runtime');
 
 
 
-exports.Bagde = Badge.Badge;
+exports.Badge = Badge.Badge;

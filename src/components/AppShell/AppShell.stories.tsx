@@ -3,7 +3,7 @@ import { useState } from "react";
 import AppShell from "./AppShell";
 import Page from "../Page/Page";
 import { Sidebar, SidebarItem, SidebarSubItem, SidebarTitle } from "../Sidebar";
-import Breadcrumb from "../Breadcrumb";
+import { Breadcrumb } from "../Breadcrumb";
 import { Header, HeaderProfile } from "../Header";
 import { Dropdown, DropdownItem } from "../Dropdown";
 import "../../styles.scss";

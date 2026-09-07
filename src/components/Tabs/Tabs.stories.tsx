@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { Tabs } from "./index";
-import  Badge from '../Badge/index'
+import  {Badge} from '../Badge/index'
 import "../../styles.scss";
 
 const meta: Meta<typeof Tabs> = {

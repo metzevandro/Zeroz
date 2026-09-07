@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import SavebarTrigger from "./SavebarTrigger";
 import { Header, HeaderProfile } from "../Header";
-import Breadcrumb from "../Breadcrumb";
+import {Breadcrumb} from "../Breadcrumb";
 import Dropdown from "../Dropdown/Dropdown";
 import { Input } from "../Input";
 import { AppShell } from "../AppShell";

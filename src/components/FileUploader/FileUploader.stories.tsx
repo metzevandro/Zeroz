@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
 
-import { TextArea, Input, EmptyState, Page, Button, FileUploader } from '../../index'
+import { Button, FileUploader } from '../../index'
 import "../../styles.scss";
-import Card from "../Card";
-import ButtonIcon from "../ButtonIcon";
+import { Card } from "../Card";
 
 // ─── Meta ─────────────────────────────────────────────────────────────────────
 

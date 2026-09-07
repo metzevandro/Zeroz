@@ -1,4 +1,4 @@
-export { default } from "./Card";
+export { default as Card } from "./Card";
 
 export { default as CardImage } from "./subcomponents/CardImage";
 export { default as CardHeader } from "./subcomponents/CardHeader";

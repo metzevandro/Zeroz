@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import Badge from "./Badge";
+import { Badge } from "./index";
 import type { BadgeType, BadgeVariant } from "./Badge.types";
 import "../../styles.scss";
 

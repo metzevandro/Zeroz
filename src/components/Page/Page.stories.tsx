@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { Page } from "./index";
 import { Button } from "../Button";
-import ButtonIcon from "../ButtonIcon";
-import Badge from "../Badge/Badge";
+import {ButtonIcon} from "../ButtonIcon";
 import "../../styles.scss";
+import { Badge } from "../Badge";
 
 const meta: Meta<typeof Page> = {
   title: "Templates/Page",

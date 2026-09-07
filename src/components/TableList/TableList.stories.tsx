@@ -3,7 +3,7 @@ import React from "react";
 import { TableList } from "./index";
 import type { TableListSize } from "./TableList.types";
 import Badge from "../Badge/Badge";
-import ButtonIcon from "../ButtonIcon";
+import {ButtonIcon} from "../ButtonIcon";
 import { Tooltip } from "../Tooltip";
 import { Pagination } from "../Pagination";
 import "../../styles.scss";

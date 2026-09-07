@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { Header, HeaderProfile } from "./index";
 import { Dropdown, DropdownItem, DropdownTitle } from "../Dropdown";
-import Breadcrumb from "../Breadcrumb";
+import {Breadcrumb} from "../Breadcrumb";
 import "../../styles.scss";
 
 const meta: Meta<typeof Header> = {

@@ -20,7 +20,7 @@ export function SelectDropdown({
   return (
     <ul
       className={`input-select-dropdown ${isOpen ? "open" : "close"}`}
-      aria-hidden={isOpen ? 'true' : 'false'}
+      aria-hidden={isOpen ? "true" : "false"}
       role="listbox"
     >
       {options.map((option) => (

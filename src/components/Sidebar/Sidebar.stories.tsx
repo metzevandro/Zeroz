@@ -4,7 +4,7 @@ import { Sidebar, SidebarItem, SidebarSubItem, SidebarTitle } from "./index";
 import { AppShell } from "../AppShell";
 import { Header, HeaderProfile } from "../Header";
 import { Dropdown, DropdownItem } from "../Dropdown";
-import Breadcrumb from "../Breadcrumb";
+import {Breadcrumb} from "../Breadcrumb";
 import { Page } from "../Page";
 import { Button } from "../Button";
 import "../../styles.scss";
