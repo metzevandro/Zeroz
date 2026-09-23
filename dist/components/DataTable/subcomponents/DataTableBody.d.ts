@@ -7,6 +7,8 @@ interface DataTableBodyProps {
     selectedRows: string[];
     skeleton: boolean;
     onRowSelection: (id: string, checked: boolean) => void;
+    rowHeight: number;
+    onRowHeightChange: (height: number) => void;
 }
 /**
  * Corpo da tabela com as linhas de dados.

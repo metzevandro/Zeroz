@@ -10,6 +10,7 @@ interface DataTableRowHeaderProps {
     someSelected: boolean;
     onSort: (index: number) => void;
     onSelectAll: (checked: boolean) => void;
+    sortable?: boolean;
 }
 /**
  * Linha de cabeçalho das colunas.

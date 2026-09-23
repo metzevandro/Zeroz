@@ -46,5 +46,6 @@ export declare function useDataTable({ data, rowsPerPage, columns, skeleton, onS
     handleRowSelection: (id: string, checked: boolean) => void;
     handlePageLeft: () => void;
     handlePageRight: () => void;
+    sortable: boolean;
 };
 export {};

@@ -1,8 +1,8 @@
-export { D as DataTable } from '../../DataTable-BmQ6WtmO.js';
+export { D as DataTable } from '../../DataTable-BOmvMOCj.js';
 import 'react/jsx-runtime';
+import 'react';
 import '../../EmptyState-DM0C-SUZ.js';
 import '../../Icon-93G3RH-i.js';
-import 'react';
 import '../../InputSearch-Cp_POJCm.js';
 import '../../ButtonIcon-DWB2zXvl.js';
 import '../../Skeleton-CvObjom8.js';
