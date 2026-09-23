@@ -43,7 +43,7 @@ export const DataTableBody: React.FC<DataTableBodyProps> = ({
         onRowHeightChange(measured);
       }
     }
-  }, [rows.length, skeleton]);
+  }, [rows, skeleton]);
 
   return (
     <div
