@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import EmptyState from "../EmptyState/EmptyState";
 import { DataTableHeader } from "./subcomponents/DataTableHeader";
 import { DataTableRowHeader } from "./subcomponents/DataTableRowHeader";
@@ -69,6 +69,7 @@ const DataTable: React.FC<DataTableProps> = ({
     handleRowSelection,
     handlePageLeft,
     handlePageRight,
+    sortable,
   } = useDataTable({
     data,
     rowsPerPage,
@@ -86,7 +87,10 @@ const DataTable: React.FC<DataTableProps> = ({
   const columnKeys = columns.map((col) => col.key);
   const columnLabels = columns.map((col) => col.label);
 
-  const indexedData = data.map((row, i) => ({ ...row, id: row.id ?? String(i) }));
+  const indexedData = data.map((row, i) => ({
+    ...row,
+    id: row.id ?? String(i),
+  }));
   const columnWidths = useColumnWidths(columns, indexedData);
   const { ref, isOverflowed } = useOverflowDetection();
 
@@ -94,22 +98,26 @@ const DataTable: React.FC<DataTableProps> = ({
   const isRefreshing = skeleton && data.length > 0;
   const isEmpty = currentRows.length === 0 && !skeleton;
 
+  const [rowHeight, setRowHeight] = useState(0);
+
   return (
     <div className="data-table">
-      <DataTableHeader
-        skeleton={isInitialLoading}
-        onSearch={handleSearch}
-        rowsSelected={selectedRows.length}
-        textRowsSelected={textRowsSelected}
-      >
-        {headerSelectedChildren}
-      </DataTableHeader>
+      {onSearch ? (
+        <DataTableHeader
+          skeleton={isInitialLoading}
+          onSearch={handleSearch}
+          rowsSelected={selectedRows.length}
+          textRowsSelected={textRowsSelected}
+        >
+          {headerSelectedChildren}
+        </DataTableHeader>
+      ) : null}
 
       <div
         ref={ref}
         className={`data-table-body ${isOverflowed ? "overflowed" : ""}`}
         style={{
-          height: rowsPerPage * 56.8 + 41.6,
+          height: rowsPerPage * rowHeight + 41.6,
           opacity: isRefreshing ? 0.5 : 1,
           pointerEvents: isRefreshing ? "none" : undefined,
           transition: "opacity 0.15s ease",
@@ -126,6 +134,7 @@ const DataTable: React.FC<DataTableProps> = ({
             someSelected={someSelected}
             onSort={handleSort}
             onSelectAll={handleSelectAll}
+            sortable={sortable}
           />
         </div>
 
@@ -146,6 +155,8 @@ const DataTable: React.FC<DataTableProps> = ({
             selectedRows={selectedRows}
             skeleton={isInitialLoading}
             onRowSelection={handleRowSelection}
+            rowHeight={rowHeight}
+            onRowHeightChange={setRowHeight}
           />
         )}
       </div>

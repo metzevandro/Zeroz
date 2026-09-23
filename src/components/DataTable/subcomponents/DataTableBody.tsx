@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Checkbox } from "../../Checkbox";
 import Skeleton from "../../Skeleton/Skeleton";
 import { DataTableRowContent } from "./DataTableRowContent";
@@ -12,6 +12,8 @@ interface DataTableBodyProps {
   selectedRows: string[];
   skeleton: boolean;
   onRowSelection: (id: string, checked: boolean) => void;
+  rowHeight: number;
+  onRowHeightChange: (height: number) => void;
 }
 
 /**
@@ -27,8 +29,21 @@ export const DataTableBody: React.FC<DataTableBodyProps> = ({
   columnWidths,
   withCheckbox,
   columnKeys,
+  rowHeight,
+  onRowHeightChange,
 }) => {
   const rows = skeleton ? generateSkeletonRows(5, columnKeys) : currentRows;
+
+  const firstRowRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (firstRowRef.current) {
+      const measured = firstRowRef.current.clientHeight;
+      if (measured > 0 && measured !== rowHeight) {
+        onRowHeightChange(measured);
+      }
+    }
+  }, [rows.length, skeleton]);
 
   return (
     <div
@@ -39,7 +54,11 @@ export const DataTableBody: React.FC<DataTableBodyProps> = ({
         const rowId = skeleton ? `skeleton-${index}` : (row.id as string);
 
         return (
-          <div key={rowId} className="data-table-body-content-row">
+          <div
+            key={rowId}
+            className="data-table-body-content-row"
+            ref={index === 0 ? firstRowRef : undefined}
+          >
             <div style={{ display: "flex", flex: "1" }}>
               {withCheckbox && (
                 <div className="data-table-body-content-checkbox">

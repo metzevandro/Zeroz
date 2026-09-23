@@ -54,6 +54,8 @@ export function useDataTable({
     new Array(columns.length).fill("default"),
   );
 
+  const sortable = Boolean(onSort);
+
   const rowIdMap = useRef(new Map<string, string>());
   const idCounter = useRef(0);
 
@@ -220,5 +222,6 @@ export function useDataTable({
     handleRowSelection,
     handlePageLeft,
     handlePageRight,
+    sortable,
   };
 }
