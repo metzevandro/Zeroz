@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { useState, useRef } from "react";
 import { DataTable } from "./index";
 import type { SortState, DataTableColumn } from "./index";
-import Button from "../Button/Button";
+import { Button, Badge } from "../../index";
 import "../../styles.scss";
 
 const DEFAULT_COLUMNS: DataTableColumn[] = [
@@ -13,90 +13,98 @@ const DEFAULT_COLUMNS: DataTableColumn[] = [
   { key: "status", label: "Status", minWidth: 100 },
 ];
 
+const getStatusBadge = (status: "Ativo" | "Inativo") => (
+  <Badge
+    label={status}
+    type="light"
+    variant={status === "Ativo" ? "primary" : "default"}
+  />
+);
+
 const ALL_ROWS = [
   {
     name: "Ana Souza",
     email: "ana@empresa.com",
     role: "Engenheira",
     department: "Produto",
-    status: "Ativo",
+    status: getStatusBadge("Ativo"),
   },
   {
     name: "Bruno Lima",
     email: "bruno@empresa.com",
     role: "Designer",
     department: "Design",
-    status: "Ativo",
+    status: getStatusBadge("Ativo"),
   },
   {
     name: "Carla Mendes",
     email: "carla@empresa.com",
     role: "PO",
     department: "Produto",
-    status: "Inativo",
+    status: getStatusBadge("Inativo"),
   },
   {
     name: "Diego Faria",
     email: "diego@empresa.com",
     role: "Engenheiro",
     department: "Plataforma",
-    status: "Ativo",
+    status: getStatusBadge("Ativo"),
   },
   {
     name: "Elena Castro",
     email: "elena@empresa.com",
     role: "Data Scientist",
     department: "Dados",
-    status: "Ativo",
+    status: getStatusBadge("Ativo"),
   },
   {
     name: "Felipe Rocha",
     email: "felipe@empresa.com",
     role: "SRE",
     department: "Plataforma",
-    status: "Inativo",
+    status: getStatusBadge("Inativo"),
   },
   {
     name: "Gabi Torres",
     email: "gabi@empresa.com",
     role: "UX Writer",
     department: "Design",
-    status: "Ativo",
+    status: getStatusBadge("Ativo"),
   },
   {
     name: "Hugo Martins",
     email: "hugo@empresa.com",
     role: "Engenheiro",
     department: "Backend",
-    status: "Ativo",
+    status: getStatusBadge("Ativo"),
   },
   {
     name: "Íris Nunes",
     email: "iris@empresa.com",
     role: "QA",
     department: "Qualidade",
-    status: "Ativo",
+    status: getStatusBadge("Ativo"),
   },
   {
     name: "João Pires",
     email: "joao@empresa.com",
     role: "DevOps",
     department: "Plataforma",
-    status: "Inativo",
+    status: getStatusBadge("Inativo"),
   },
   {
     name: "Karen Alves",
     email: "karen@empresa.com",
     role: "Engenheira",
     department: "Frontend",
-    status: "Ativo",
+    status: getStatusBadge("Ativo"),
   },
   {
     name: "Lucas Barros",
     email: "lucas@empresa.com",
     role: "Product Analyst",
     department: "Produto",
-    status: "Ativo",
+    status: getStatusBadge("Ativo"),
   },
 ];
 
@@ -191,7 +199,7 @@ const { data, isLoading } = useMyApi({ query, sort });
     columns: DEFAULT_COLUMNS,
     data: ALL_ROWS,
     skeleton: false,
-    rowsPerPage: 4,
+    rowsPerPage: 5,
     withCheckbox: false,
     textRowsSelected: "itens selecionados",
   },
@@ -417,47 +425,6 @@ export const WithCheckboxAndBulkActions: Story = {
 };
 
 /**
- * Controle externo da seleção via `onUpdateSelectedRows`.
- * Útil para selecionar linhas programaticamente (ex: após uma ação de API).
- */
-export const WithExternalSelectionControl: Story = {
-  args: {
-    withCheckbox: true,
-    textRowsSelected: "itens selecionados",
-  },
-  render: (args) => {
-    const updaterRef = useRef<((ids: string[]) => void) | null>(null);
-
-    return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        <div style={{ display: "flex", gap: 8 }}>
-          <Button
-            size="md"
-            variant="secondary"
-            onClick={() => updaterRef.current?.(["0", "1", "2"])}
-          >
-            Selecionar primeiros 3
-          </Button>
-          <Button
-            size="md"
-            variant="secondary"
-            onClick={() => updaterRef.current?.([])}
-          >
-            Limpar seleção
-          </Button>
-        </div>
-        <DataTable
-          {...args}
-          onUpdateSelectedRows={(updater) => {
-            updaterRef.current = updater;
-          }}
-        />
-      </div>
-    );
-  },
-};
-
-/**
  * Tabela com maior número de linhas por página para visualização densa.
  */
 export const DenseTable: Story = {
@@ -508,30 +475,7 @@ export const FullExample: Story = {
     };
 
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        <div style={{ display: "flex", gap: 8 }}>
-          <Button
-            size="md"
-            variant="secondary"
-            onClick={() => updaterRef.current?.([])}
-          >
-            Limpar seleção
-          </Button>
-          <Button
-            size="md"
-            variant="secondary"
-            onClick={() => updaterRef.current?.(["0", "1", "2", "3"])}
-          >
-            Selecionar primeiros 4
-          </Button>
-        </div>
-
-        {selectedIds.length > 0 && (
-          <p style={{ fontSize: 12, color: "#666" }}>
-            Selecionados: <strong>[{selectedIds.join(", ")}]</strong>
-          </p>
-        )}
-
+      <>
         <DataTable
           columns={DEFAULT_COLUMNS}
           data={processedData}
@@ -564,7 +508,13 @@ export const FullExample: Story = {
             </>
           }
         />
-      </div>
+
+        {selectedIds.length > 0 && (
+          <p style={{ fontSize: 12, color: "#666" }}>
+            Selecionados: <strong>[{selectedIds.join(", ")}]</strong>
+          </p>
+        )}
+      </>
     );
   },
 };

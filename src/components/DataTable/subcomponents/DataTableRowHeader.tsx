@@ -15,6 +15,7 @@ interface DataTableRowHeaderProps {
   someSelected: boolean;
   onSort: (index: number) => void;
   onSelectAll: (checked: boolean) => void;
+  sortable?: boolean;
 }
 
 /**
@@ -32,6 +33,7 @@ export const DataTableRowHeader: React.FC<DataTableRowHeaderProps> = ({
   someSelected,
   onSort,
   onSelectAll,
+  sortable,
 }) => {
   return (
     <div style={{ display: "flex", flex: "1" }}>
@@ -49,23 +51,35 @@ export const DataTableRowHeader: React.FC<DataTableRowHeaderProps> = ({
         </div>
       )}
 
-      {headers.map((header, index) => (
-        <div
-          key={header}
-          className={`data-table-row-header ${skeleton ? "loading-skeleton" : ""} ${index === 0 ? "first" : ""}`}
-          style={{ minWidth: columnWidths[index] }}
-          onClick={() => onSort(index)}
-        >
-          {skeleton ? (
-            <Skeleton height="24px" width="80px" />
-          ) : (
-            <>
-              {header}
-              <Icon icon={getSortIcon(sortStates[index])} size="sm" />
-            </>
-          )}
-        </div>
-      ))}
+      {headers.map((header, index) => {
+        const rowClasses = [
+          "data-table-row-header",
+          skeleton && "loading-skeleton",
+          index === 0 && "first",
+          index === headers.length - 1 && "last",
+          !sortable && "no-sort",
+        ]
+          .filter(Boolean)
+          .join(" ");
+
+        return (
+          <div
+            key={header}
+            className={rowClasses}
+            style={{ minWidth: columnWidths[index] }}
+            onClick={() => onSort(index)}
+          >
+            {skeleton ? (
+              <Skeleton height="24px" width="80px" />
+            ) : (
+              <>
+                {header}
+                <Icon icon={getSortIcon(sortStates[index])} size="sm" />
+              </>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };
