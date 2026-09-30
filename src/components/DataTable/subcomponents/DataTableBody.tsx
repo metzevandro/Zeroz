@@ -36,14 +36,41 @@ export const DataTableBody: React.FC<DataTableBodyProps> = ({
 
   const firstRowRef = useRef<HTMLDivElement>(null);
 
+  const measuredRef = useRef(false);
+
   useEffect(() => {
-    if (firstRowRef.current) {
-      const measured = firstRowRef.current.clientHeight;
-      if (measured > 0 && measured !== rowHeight) {
-        onRowHeightChange(measured);
+    if (skeleton || measuredRef.current) return;
+    const el = firstRowRef.current;
+    if (!el) return;
+
+    let raf1 = 0;
+    let raf2 = 0;
+    let cancelled = false;
+
+    const measure = () => {
+      if (cancelled) return;
+      const h = el.getBoundingClientRect().height;
+      if (h > 0) {
+        measuredRef.current = true;
+        onRowHeightChange(h);
       }
-    }
-  }, [rows, skeleton]);
+    };
+
+    const run = () => {
+      raf1 = requestAnimationFrame(() => {
+        raf2 = requestAnimationFrame(measure);
+      });
+    };
+
+    if (document.fonts?.ready) document.fonts.ready.then(run);
+    else run();
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+    };
+  }, [skeleton, rows]);
 
   return (
     <div

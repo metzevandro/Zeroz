@@ -13,6 +13,7 @@ interface UseInputSelectReturn {
   selectedOption: string | undefined;
   dropdownRef: React.RefObject<HTMLDivElement>;
   triggerRef: React.RefObject<HTMLButtonElement>;
+  panelRef: React.RefObject<HTMLUListElement>;
   open: () => void;
   close: () => void;
   selectOption: (option: string) => void;
@@ -42,6 +43,7 @@ export function useInputSelect({
   );
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     setSelectedOption(value || undefined);
@@ -65,17 +67,23 @@ export function useInputSelect({
   );
 
   useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        close();
-      }
+    if (!isOpen) return;
+
+    const handler = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node;
+      const insideRoot = dropdownRef.current?.contains(target);
+      const insidePanel = panelRef.current?.contains(target);
+
+      if (!insideRoot && !insidePanel) close();
     };
+
     document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [close]);
+    document.addEventListener("touchstart", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("touchstart", handler);
+    };
+  }, [isOpen, close]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
@@ -94,6 +102,7 @@ export function useInputSelect({
     selectedOption,
     dropdownRef,
     triggerRef,
+    panelRef,
     open,
     close,
     selectOption,

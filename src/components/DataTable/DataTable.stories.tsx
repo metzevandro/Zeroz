@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { DataTable } from "./index";
-import type { SortState, DataTableColumn } from "./index";
-import { Button, Badge } from "../../index";
+import type { SortState, DataTableColumn, DataTableProps } from "./index";
+import { Button, Badge, InputSelect } from "../../index";
 import "../../styles.scss";
 
 const DEFAULT_COLUMNS: DataTableColumn[] = [
@@ -515,6 +515,53 @@ export const FullExample: Story = {
           </p>
         )}
       </>
+    );
+  },
+};
+
+export const ComSelectsEmModal: Story = {
+  render: (args) => {
+    const [show, setShow] = useState(false);
+    useEffect(() => {
+      const t = setTimeout(() => setShow(true), 300); // monta depois
+      return () => clearTimeout(t);
+    }, []);
+
+    const columns: DataTableProps["columns"] = [
+      { key: "date", label: "Data", minWidth: 100 },
+      { key: "title", label: "Descrição", minWidth: 100 },
+      { key: "amount", label: "Valor", minWidth: 100 },
+      { key: "status", label: "Status", minWidth: 100 },
+      { key: "categoria", label: "Categoria", minWidth: 220 },
+      { key: "subcategoria", label: "Subcategoria", minWidth: 220 },
+    ];
+
+    const data = Array.from({ length: 23 }, (_, i) => ({
+      id: String(i),
+      date: "01/01/2026",
+      title: `Compra ${i}`,
+      amount: "R$ 10,00",
+      status: <Badge label="Pendente" type="light" variant="default" />,
+      categoria: (
+        <div style={{ width: "100%" }}>
+          <InputSelect value="" onChange={() => {}} options={["A"]} />
+        </div>
+      ),
+      subcategoria: <InputSelect value="" onChange={() => {}} options={[""]} />,
+    }));
+
+    return (
+      <div style={{ maxWidth: 720, transform: "translateY(0)" }}>
+        {show && (
+          <DataTable
+            {...args}
+            data={data}
+            skeleton={false}
+            rowsPerPage={5}
+            columns={columns}
+          />
+        )}
+      </div>
     );
   },
 };

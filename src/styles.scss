@@ -45,16 +45,15 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.slot {
-  display: flex;
-  align-items: center;
-  gap: var(--s-spacing-xx-small);
-  color: var(--s-color-content-highlight);
-  border: var(--s-border-width-thin) solid var(--s-color-border-highlight);
-  font: var(--s-typography-heading-small);
-  padding: var(--s-spacing-small);
-  border-radius: var(--s-border-radius-small);
-  background-color: var(--s-color-fill-highlight-light);
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 999px;
+  background-color: var(--s-color-fill-default-hover);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--s-color-fill-disable);
+  border-radius: 999px;
 }
 
 .aleatory {
