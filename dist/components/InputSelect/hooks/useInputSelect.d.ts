@@ -10,6 +10,7 @@ interface UseInputSelectReturn {
     selectedOption: string | undefined;
     dropdownRef: React.RefObject<HTMLDivElement>;
     triggerRef: React.RefObject<HTMLButtonElement>;
+    panelRef: React.RefObject<HTMLUListElement>;
     open: () => void;
     close: () => void;
     selectOption: (option: string) => void;
