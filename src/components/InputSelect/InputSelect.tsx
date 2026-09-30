@@ -42,6 +42,7 @@ const InputSelect: React.FC<InputSelectProps> = ({
     selectedOption,
     dropdownRef,
     triggerRef,
+    panelRef,
     open,
     close,
     selectOption,
@@ -78,10 +79,12 @@ const InputSelect: React.FC<InputSelectProps> = ({
         </button>
 
         <SelectDropdown
+          ref={panelRef}
           isOpen={isOpen}
           options={options}
           selected={selectedOption}
           onSelect={selectOption}
+          triggerRef={triggerRef}
         />
       </div>
 
