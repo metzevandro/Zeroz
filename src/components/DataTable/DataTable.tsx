@@ -98,7 +98,8 @@ const DataTable: React.FC<DataTableProps> = ({
   const isRefreshing = skeleton && data.length > 0;
   const isEmpty = currentRows.length === 0 && !skeleton;
 
-  const [rowHeight, setRowHeight] = useState(0);
+  const DEFAULT_ROW_HEIGHT = 56.6;
+  const [rowHeight, setRowHeight] = useState(DEFAULT_ROW_HEIGHT);
 
   return (
     <div className="data-table">
@@ -117,7 +118,7 @@ const DataTable: React.FC<DataTableProps> = ({
         ref={ref}
         className={`data-table-body ${isOverflowed ? "overflowed" : ""}`}
         style={{
-          height: rowsPerPage * rowHeight + 41.6,
+          height: rowsPerPage * rowHeight +  42,
           opacity: isRefreshing ? 0.5 : 1,
           pointerEvents: isRefreshing ? "none" : undefined,
           transition: "opacity 0.15s ease",
