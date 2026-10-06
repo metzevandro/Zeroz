@@ -4,8 +4,8 @@ const config: StorybookConfig = {
   stories: [
     "../src/stories/welcome/Welcome.mdx",
     "../src/stories/**/*.mdx",
-    "../src/components/**/*.stories.@(js|jsx|mjs|ts|tsx)",
     "../src/charts/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+    "../src/components/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
 
   staticDirs: ["../public"],
